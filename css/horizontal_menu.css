@@ -1,0 +1,108 @@
+/* */
+.horizontal-menu {
+	display: flex;
+	font-family: 'Roboto';
+	font-size: 20px;
+	padding-top: 6px;
+	white-space: nowrap;
+	height: 2.25em;
+	position: relative;
+	font-weight: 100;
+}
+
+.horizontal-menu-container {
+	position: relative;
+}
+
+
+.horizontal-menu.small {
+	color: var(--color-white);
+	font-size: 12px;
+	text-transform: uppercase;
+	margin: 0;
+	padding: 0;
+	height: 2.25em;
+}
+
+.horizontal-menu LI {
+	color: var(--color-white-dim);
+	position: relative;
+	margin: 0 40px 0 0;
+}
+
+.horizontal-menu LI.selected {
+	color: var(--color-white);
+}
+
+.horizontal-menu .menu-title {
+	position: relative;
+}
+
+.horizontal-menu LI.selected A .menu-title:after {
+	position: absolute;
+	bottom: -10px;
+	left: calc(50% - 2.5px);
+	content: "";
+	transform: translate3d(-50%, -50%, 0);
+	font-size: 0;
+	background: var(--color-theme-color2);
+	box-shadow: 0 0 5px 0 var(--color-theme-color2);
+	width: 5px;
+	height: 5px;
+	border-radius: 5px;
+	animation: zoomIn 300ms ease-in-out;
+	transform: scale(1);
+	display: block;
+}
+
+.horizontal-menu LI A {
+	position: relative;
+	transition: color 300ms ease-in-out;
+}
+
+.horizontal-menu LI:last-of-type A {
+	margin: 0;
+}
+
+.horizontal-menu.small LI:first-of-type {
+	margin: 0;
+}
+
+.horizontal-menu.small LI A {
+	position: relative;
+	margin: 0 20px 0 0;
+}
+
+.horizontal-menu.small LI {
+	margin: 0;
+}
+
+
+.horizontal-menu LI:last-of-type A {
+	margin: 0;
+}
+
+.test .horizontal-menu-container {
+	margin: 20px 0;
+}
+
+
+.horizontal-menu.full-width {
+	justify-content: space-between;
+	overflow-x: visible;
+}
+
+.horizontal-menu.full-width li {
+	margin: 0;
+	flex: auto;
+	text-align: center;
+}
+
+.horizontal-menu.full-width li:first-child {
+	 text-align: left;
+}
+
+.horizontal-menu.full-width li:last-child {
+	 text-align: right; 
+	/* margin-right: 15px; */
+}
