@@ -2,9 +2,9 @@ import { globals } from '/js/shared/globals.js';
 
 // Create DOM element
 let dce = ( params ) => {
-    let element = document.createElement(params.el);
+      let element = document.createElement(params.el);
 
-    if(params.cssClass) {
+      if(params.cssClass) {
       element.className = params.cssClass;
     }
 
@@ -26,6 +26,32 @@ let dce = ( params ) => {
       }
     }
   return element;
+}
+
+
+// Create SVG element
+let svg = ( params ) => {
+  let xlmns = 'http://www.w3.org/2000/svg';
+  let element = document.createElementNS(xlmns, params.el);
+
+  if(params.cssClass) {
+    element.className = params.cssClass;
+  }
+
+  if(params.cssStyle) {
+    element.setAttribute('style', params.cssStyle);
+  }
+
+  if(params.id) {
+    element.setAttribute('id', params.id);
+  }
+
+  if(params.attrbs) {
+    for(let i=0, j=params.attrbs.length; i<j; i++) {
+      element.setAttributeNS(null, params.attrbs[i][0], params.attrbs[i][1]);
+    }
+  }
+return element;
 }
 
 
@@ -117,4 +143,4 @@ let countAscents = () => {
 }
 
 
-export { dce, triggerCustomEvent , countTopFive, averageGrade, countTotalScore, countAscents}
+export { dce, svg, triggerCustomEvent , countTopFive, averageGrade, countTotalScore, countAscents}

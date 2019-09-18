@@ -8,16 +8,16 @@ class gradeWheel {
 
     let gradePicker =  new wheel();
     let ascentTypeSelector = new picker({
-          cssClass  : 'horizontal-menu full-width',
-          id        : 'ascent-type-selector',
-          targetObj : 'currentAscentType',
-          options   : [
-            {title: 'Flash', value:'flash', legend: globals.totalAscents.flash},
-            {title: 'Redpoint', value:'redpoint', selected: true, legend: globals.totalAscents.redpoint},
-            {title: 'Onsight', value:'onsight', legend: globals.totalAscents.flash}],
-          bindEvents: true,
-          bindEventsPrefix : 'tick-'
-          });
+      cssClass  : 'horizontal-menu full-width',
+      id        : 'ascent-type-selector',
+      targetObj : 'currentAscentType',
+      options   : [
+        {title: 'Flash', value:'flash', legend: globals.totalAscents.flash},
+        {title: 'Redpoint', value:'redpoint', selected: true, legend: globals.totalAscents.redpoint},
+        {title: 'Onsight', value:'onsight', legend: globals.totalAscents.onsight}],
+      bindEvents: true,
+      bindEventsPrefix : 'tick-'
+      });
 
   	let container = dce({el:'SECTION', cssClass: 'grade bgr-gradient'});
     let pickerElement = dce({el: 'DIV', cssClass: 'grade-selector'});

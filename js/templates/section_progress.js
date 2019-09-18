@@ -1,9 +1,19 @@
 import picker from '/js/components/picker.js';
 import { globals } from '/js/shared/globals.js';
-import { dce } from '/js/shared/helpers.js';
+import { dce, countTotalScore, countTopFive, countAscents, averageGrade } from '/js/shared/helpers.js';
 
 class sectionProgress {
   constructor() {
+
+    // Count total score
+    globals.currentScore = countTotalScore();
+    // Count top 5 score
+    globals.totalScore = countTopFive();
+    // Count average grade
+    globals.averageGrade = averageGrade(globals.currentScore.reduce((a, b) => Number(a) + Number(b), 0), 5);
+    // get ascents
+    globals.totalAscentCount = countAscents().total;
+    globals.totalAscents = countAscents();
 
     let periodPicker =  new picker({
       cssClass : 'horizontal-menu full-width',
@@ -27,7 +37,7 @@ class sectionProgress {
 // Points
     let points = dce({el: 'DIV', cssClass: 'important-points'});
     let pointsTitle = dce({el: 'H3', content: 'Points'})
-    let pointsCount = dce({el: 'H2', content: globals.totalScore})
+    let pointsCount = dce({el: 'H2', content: globals.totalScore.toString()})
 
     points.append(pointsTitle, pointsCount);
 
@@ -38,7 +48,7 @@ class sectionProgress {
 // Ascents
     let ascents = dce({el: 'DIV', cssClass: 'important-ascents'});
     let ascentsTitle = dce({el: 'H3', content: 'Ascents'})
-    let ascentsCount = dce({el: 'H2', content: globals.totalAscentCount});
+    let ascentsCount = dce({el: 'H2', content: globals.totalAscentCount.toString()});
 
     ascents.append(ascentsTitle, ascentsCount);
 

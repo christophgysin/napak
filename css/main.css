@@ -466,6 +466,15 @@ SECTION.grade:not(.grade-dial-container) * {
 	margin: 1em 0;
 }
 
+.in-out-selector {
+}
+
+.in-out-selector .in-out-menu {
+	display: none;
+}
+.in-out-selector.open .in-out-menu{
+	display: block
+}
 
 .in-out-selector .current {
 	background: var(--color-theme-color1-accent);
