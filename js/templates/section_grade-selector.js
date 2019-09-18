@@ -38,6 +38,7 @@ class gradeWheel {
       let currentGrade = globals.currentAscentGrade; //Grade selected with the wheel
       let count = 0;
 
+
       if(document.querySelector('.select-dialog').childNodes[currentGrade].querySelector(`.legends-holder .type-${globals.currentAscentType}`)) {
         count = parseInt(document.querySelector('.select-dialog').childNodes[currentGrade].querySelector(`.legends-holder .type-${globals.currentAscentType}`).innerHTML);
         if(isNaN(count)) {count = 0;}
@@ -45,7 +46,7 @@ class gradeWheel {
         document.querySelector('.select-dialog').childNodes[currentGrade].querySelector(`.legends-holder .type-${globals.currentAscentType}`).innerHTML = (count > 0) ? count : '' ;
       }
       else {
-        let holder = dce({el: 'SPAN', cssClass: `legend type-${globals.currentAscentType}`, content: 1});
+        let holder = dce({el: 'SPAN', cssClass: `legend type-${globals.currentAscentType}`, content: ''});
         document.querySelector('.select-dialog').childNodes[currentGrade].querySelector('.legends-holder').appendChild(holder);
       }
 

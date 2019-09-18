@@ -33,7 +33,7 @@ class viewHome {
     contentContainer.appendChild(gradeSelector.render());
     templateContainer.appendChild(contentContainer);
     appContainer.appendChild(templateContainer);
-    appContainer.appendChild(footer);
+//    appContainer.appendChild(footer);
 
     this.render = () => {
       return appContainer;

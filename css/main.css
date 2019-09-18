@@ -161,9 +161,10 @@ SECTION.grade::after {
 	content: "";
 	background: url('/images/ileksi.jpg');
 	pointer-events: none;
-/*	background-size: cover;
-*/
+/*	
 	background-size:  100vh auto;
+*/
+	background-size: cover;
 	background-position: bottom right;
 	background-repeat: no-repeat;
 	mix-blend-mode: screen;
@@ -279,10 +280,11 @@ SECTION.grade:not(.grade-dial-container) * {
 
 /* Charts */
 .graph-pulldown {
-	width: 100%;
 	text-align: center;
 	display: block;
-	height: 0;
+	width: 20px;
+	height: 10px;
+	margin: 0 auto -10px;
 	position: relative;
 	z-index: 996;
 }
@@ -295,7 +297,7 @@ SECTION.grade:not(.grade-dial-container) * {
 	right: 0;
 	padding: var(--padding-base);
 */
-	margin-top: 20px;
+	margin-top: 10px;
 	padding-top: 10px;
 }
 

@@ -13,6 +13,7 @@ class wheel {
       return true;
     }, false);
 
+
     dialViewport.addEventListener('scroll', (y) => {
       // 200px is 2x100padding
       // let test = window.getComputedStyle(selectDialog);
@@ -34,9 +35,6 @@ class wheel {
           legendHolder.appendChild(legendTag);
         });
       }
-      globals.storeObservers.push({key: 'ticks', callback: () => {
-        console.log('mhe')
-      }});
 
       grade.appendChild(legendHolder);
       gradeContainer.appendChild(grade);
