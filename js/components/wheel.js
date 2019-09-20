@@ -1,4 +1,4 @@
-import { dce } from '/js/shared/helpers.js';
+import { dce, countAscentsByDifficulty } from '/js/shared/helpers.js';
 import { globals } from '/js/shared/globals.js';
 
 class wheel {
@@ -40,6 +40,27 @@ class wheel {
       gradeContainer.appendChild(grade);
       gradeFragment.appendChild(gradeContainer);
     }
+
+    
+    globals.storeObservers.push({key: 'ticks', callback: () => {
+  
+      // Get ascents by grade and type and update legends accordingly
+      let ascentsByGrade = countAscentsByDifficulty();      
+      let ascentCountPerType =  Object.keys(ascentsByGrade);
+      ascentCountPerType.forEach((type) => {
+        for(let i in ascentsByGrade[type]) {
+          if(selectDialog.childNodes[i].querySelector(`.legends-holder .type-${type}`)) {
+            selectDialog.childNodes[i].querySelector(`.legends-holder .type-${type}`).innerHTML = (!isNaN(ascentsByGrade[type][i].count)) ? ascentsByGrade[type][i].count : '';
+          }
+          else {
+            let holder = dce({el: 'SPAN', cssClass: `legend type-${type}`, content: ascentsByGrade[type][i].count});
+            selectDialog.childNodes[i].querySelector('.legends-holder').appendChild(holder);
+            
+          }
+        }
+      });
+      
+      }});
     selectDialog.appendChild(gradeFragment);
 
 //

@@ -1,4 +1,4 @@
-import { dce, triggerCustomEvent } from '/js/shared/helpers.js';
+import { dce, triggerCustomEvent, countAscentsByDifficulty } from '/js/shared/helpers.js';
 import wheel from '/js/components/wheel.js';
 import picker from '/js/components/picker.js';
 import { globals } from '/js/shared/globals.js';
@@ -35,21 +35,6 @@ class gradeWheel {
 // .... refactor
 
     let handleTick = ( add ) => {
-      let currentGrade = globals.currentAscentGrade; //Grade selected with the wheel
-      let count = 0;
-
-
-      if(document.querySelector('.select-dialog').childNodes[currentGrade].querySelector(`.legends-holder .type-${globals.currentAscentType}`)) {
-        count = parseInt(document.querySelector('.select-dialog').childNodes[currentGrade].querySelector(`.legends-holder .type-${globals.currentAscentType}`).innerHTML);
-        if(isNaN(count)) {count = 0;}
-        count+= ( add ) ? 1 : -1
-        document.querySelector('.select-dialog').childNodes[currentGrade].querySelector(`.legends-holder .type-${globals.currentAscentType}`).innerHTML = (count > 0) ? count : '' ;
-      }
-      else {
-        let holder = dce({el: 'SPAN', cssClass: `legend type-${globals.currentAscentType}`, content: ''});
-        document.querySelector('.select-dialog').childNodes[currentGrade].querySelector('.legends-holder').appendChild(holder);
-      }
-
       triggerCustomEvent({
         vent: `tick-${globals.currentAscentType}`,
         data: {

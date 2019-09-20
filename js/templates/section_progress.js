@@ -116,8 +116,7 @@ class sectionProgress {
     chartLegendContainer.appendChild(chartLegendFragment);
     gradeDistributionContainer.appendChild(chartLegendContainer);
 
-    let nakki = globals.storeObservers;
-    nakki.push({key: 'ticks', callback: () => {
+    globals.storeObservers.push({key: 'ticks', callback: () => {
       for (let keys in globals.ticks.boulder.today) {
         let barContainer = globals.ticks.boulder.today[keys].order;
         let container = chartBarContainer.querySelectorAll('.bar')[globals.ticks.boulder.today[keys].order];
@@ -130,7 +129,6 @@ class sectionProgress {
         container.style.height = `${count}px`;
       }
       }});
-      globals.storeObservers = nakki;
 
     container.appendChild(gradeDistributionContainer);
 

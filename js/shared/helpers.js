@@ -142,5 +142,35 @@ let countAscents = () => {
   return ascents;
 }
 
+// Get ascents by difficulty
+let countAscentsByDifficulty = () => {
+  let ascents = {
+    redpoint : {},
+    onsight: {},
+    flash: {}
+  };
 
-export { dce, svg, triggerCustomEvent , countTopFive, averageGrade, countTotalScore, countAscents}
+  if(globals.ticks && globals.ticks.boulder.today) {
+
+    for (let i in globals.ticks.boulder.today) {
+      let val = globals.ticks.boulder.today[i].order;
+      let ascentTypes = Object.keys(globals.ticks.boulder.today[i].ticks);
+
+      ascentTypes.forEach((type) => {
+        let count;
+        if(globals.ticks.boulder.today[i].ticks[type]['count']) {
+          if(ascents.hasOwnProperty(type)) {
+            count = globals.ticks.boulder.today[i].ticks[type]['count'];
+          }
+        }
+        
+        ascents[type][val] = {count: count};
+
+      });
+    }
+  }
+  return ascents;
+}
+
+
+export { dce, svg, triggerCustomEvent , countTopFive, averageGrade, countTotalScore, countAscents, countAscentsByDifficulty}
