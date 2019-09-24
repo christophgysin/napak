@@ -99,7 +99,6 @@ class sectionProgress {
 // Toggle graphview
     graphPullDown.addEventListener('click', () => {
       gradeDistributionContainer.classList.toggle('hidden');
-      globals.ticks.update = true;
     }, false);
 
 
@@ -117,13 +116,17 @@ class sectionProgress {
     gradeDistributionContainer.appendChild(chartLegendContainer);
 
     globals.storeObservers.push({key: 'ticks', callback: () => {
-      for (let keys in globals.ticks.boulder.today) {
-        let barContainer = globals.ticks.boulder.today[keys].order;
-        let container = chartBarContainer.querySelectorAll('.bar')[globals.ticks.boulder.today[keys].order];
+      console.log(globals.ticks);
+      console.log(globals.currentClimbingType);
+      
+      
+      for (let keys in globals.ticks[globals.currentClimbingType].today) {
+        let barContainer = globals.ticks[globals.currentClimbingType].today[keys].order;
+        let container = chartBarContainer.querySelectorAll('.bar')[globals.ticks[globals.currentClimbingType].today[keys].order];
         let count = 0;
-        for(let test in globals.ticks.boulder.today[keys].ticks) {
-          if(globals.ticks.boulder.today[keys].ticks[test].hasOwnProperty('count')){
-            count+= parseInt(globals.ticks.boulder.today[keys].ticks[test]['count']);
+        for(let test in globals.ticks[globals.currentClimbingType].today[keys].ticks) {
+          if(globals.ticks[globals.currentClimbingType].today[keys].ticks[test].hasOwnProperty('count')){
+            count+= parseInt(globals.ticks[globals.currentClimbingType].today[keys].ticks[test]['count']);
           }
         }
         container.style.height = `${count}px`;

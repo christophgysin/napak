@@ -21,20 +21,6 @@ const handler = {
 
 let globalObjects = {
   storeObservers : [],
-  // Ascent
-  currentAscentType : '',
-  // ticks
-  currentAscentGrade: 0,
-  currentScore: [0,0,0,0,0],
-  totalScore: 0,
-  totalAscentCount: 0,
-  totalAscents : {
-    redpoint: 0,
-    flash: 0,
-    onsight: 0
-    },
-  averageGrade: 'N/A',
-
 
   grades : {
     font: ["3", "4", "4+", "5", "5+", "6A", "6A+", "6B", "6B+", "6C", "6C+", "7A", "7A+", "7B", "7B+", "7C", "7C+", "8A", "8A+", "8B", "8B+", "8C", "8C+", "9A"],
@@ -46,8 +32,35 @@ let globalObjects = {
     font: [100, 150, 200, 250, 300, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1050, 1100, 1150, 1200, 1250, 1300],
   },
 
+
+  currentAscentType : '',
+  currentAscentGrade: 0,
+  indoorsOutdoors : 'indoors',
+  currentClimbingType : 'boulder',
+
+  currentScore: [0,0,0,0,0],
+  totalScore: 0,
+  averageGrade: 'N/A',
+  totalAscentCount: 0,
+  totalAscents : {
+    redpoint: 0,
+    flash: 0,
+    onsight: 0
+    },
+ 
+
+  // Ticks
   ticks: {
     boulder : {
+      today: {}
+    },
+    sport : {
+      today: {}
+    },
+    trad : {
+      today: {}
+    },
+    toprope : {
       today: {}
     }
   }

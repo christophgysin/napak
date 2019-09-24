@@ -2,8 +2,9 @@ import progress from '/js/templates/section_progress.js';
 import gradeWheel from '/js/templates/section_grade-selector.js';
 import picker from '/js/components/picker.js';
 import toggleSwitch from '/js/components/toggleSwitch.js';
+import { globals } from '/js/shared/globals.js';
 
-import { dce, svg } from '/js/shared/helpers.js';
+import { dce, svg, updateScopeTicks } from '/js/shared/helpers.js';
 
 class viewHome {
   constructor() {
@@ -17,8 +18,13 @@ class viewHome {
     let inOutSelector = dce({el: 'DIV', cssClass: 'in-out-selector'});
 
     let current = dce({el: 'DIV', cssClass: 'current'});
-    let currentTitle = dce({el: 'H3', content: 'Climbing indoors'});
+    let currentTitle = dce({el: 'H3', content: `Climbing ${globals.indoorsOutdoors}`});
     current.appendChild(currentTitle);
+
+    globals.storeObservers.push({key: 'indoorsOutdoors', callback: () => {
+      currentTitle.innerHTML = `Climbing ${globals.indoorsOutdoors}`
+    }}); 
+
 
     let toggleViewContainer = dce({el: 'DIV', cssClass: 'toggle'});
 
@@ -58,7 +64,8 @@ class viewHome {
         {title: 'Top rope', value:'toprope'},
         {title: 'Trad', value:'trad'}
       ],
-      bindEventsPrefix : 'climbing-'
+      bindEventsPrefix : 'climbing-',
+      callback: updateScopeTicks
       });
 
     
@@ -66,8 +73,8 @@ class viewHome {
       cssClass  : 'horizontal-menu full-width',
       targetObj : 'indoorsOutdoors',
       options   : [
-        {title: 'Outdoors', value:'outdoors', selected: true},
-        {title: 'Indoors', value:'indoors'}]
+        {title: 'Outdoors', value:'outdoors', selected: globals.indoorsOutdoors === 'outdoors' },
+        {title: 'Indoors', value:'indoors', selected: globals.indoorsOutdoors === 'indoors'}]
     });
 
     inOutMenu.append(climbingTypeSelector.render(), indoorsOutdoorsSelector.render());

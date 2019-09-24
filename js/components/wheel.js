@@ -28,10 +28,10 @@ class wheel {
       let grade = dce({el: 'SPAN', content:globals.grades.font[i]});
       let legendHolder = dce({el: 'SPAN', cssClass: 'legends-holder'});
 
-      if(globals.ticks.boulder.today[i] && globals.ticks.boulder.today[i].ticks) {
-        let ascentCountPerType =  Object.keys(globals.ticks.boulder.today[i].ticks);
+      if(globals.ticks[globals.currentClimbingType].today[i] && globals.ticks[globals.currentClimbingType].today[i].ticks) {
+        let ascentCountPerType =  Object.keys(globals.ticks[globals.currentClimbingType].today[i].ticks);
         ascentCountPerType.forEach((type) => {
-          let legendTag = dce({el: 'SPAN', cssClass: `legend type-${type}`, content: globals.ticks.boulder.today[i].ticks[type].count});
+          let legendTag = dce({el: 'SPAN', cssClass: `legend type-${type}`, content: globals.ticks[globals.currentClimbingType].today[i].ticks[type].count});
           legendHolder.appendChild(legendTag);
         });
       }
@@ -41,21 +41,20 @@ class wheel {
       gradeFragment.appendChild(gradeContainer);
     }
 
-    
-    globals.storeObservers.push({key: 'ticks', callback: () => {
-  
+
+    // Listen for ticks object to update 
+    globals.storeObservers.push({key: 'ticks', callback: () => {      
       // Get ascents by grade and type and update legends accordingly
       let ascentsByGrade = countAscentsByDifficulty();      
       let ascentCountPerType =  Object.keys(ascentsByGrade);
-      ascentCountPerType.forEach((type) => {
-        for(let i in ascentsByGrade[type]) {
+      ascentCountPerType.forEach((type) => {        
+        for(let i in ascentsByGrade[type]) {          
           if(selectDialog.childNodes[i].querySelector(`.legends-holder .type-${type}`)) {
             selectDialog.childNodes[i].querySelector(`.legends-holder .type-${type}`).innerHTML = (!isNaN(ascentsByGrade[type][i].count)) ? ascentsByGrade[type][i].count : '';
           }
           else {
             let holder = dce({el: 'SPAN', cssClass: `legend type-${type}`, content: ascentsByGrade[type][i].count});
-            selectDialog.childNodes[i].querySelector('.legends-holder').appendChild(holder);
-            
+            selectDialog.childNodes[i].querySelector('.legends-holder').appendChild(holder);            
           }
         }
       });
@@ -63,7 +62,6 @@ class wheel {
       }});
     selectDialog.appendChild(gradeFragment);
 
-//
     dialViewport.appendChild(selectDialog);
 
     let bullet = dce({el: 'DIV', cssClass: 'bullet'});
@@ -78,24 +76,6 @@ class wheel {
     this.get = () => {
       return this.selectd;
     }
-
-    this.changeGrading = () => {
-      selectDialog.innerHTML = '';
-      let grades = ["V0", "V1", "V2", "V3","V4", "V5", "V6", "V7","V8", "V9", "V10", "V11","V12", "V13", "V14", "V15","V16", "V17"];
-
-      let gradeFragment = document.createDocumentFragment();
-      for(let i=0, j=grades.length; i<j;i++) {
-        let gradeContainer = dce({el: 'DIV'});
-        let grade = dce({el: 'SPAN', content:grades[i], attrbs: [['data-enablescroll', 'true']]});
-        let legendHolder = dce({el: 'SPAN', cssClass: 'legends-holder'});
-
-        grade.appendChild(legendHolder);
-        gradeContainer.appendChild(grade);
-        gradeFragment.appendChild(gradeContainer);
-      }
-      selectDialog.appendChild(gradeFragment);
-    }
-//    setTimeout(this.changeGrading, 3000);
   }
 }
 

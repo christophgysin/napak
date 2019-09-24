@@ -1,4 +1,5 @@
 import { dce } from '/js/shared/helpers.js';
+import { globals } from '/js/shared/globals.js';
 
 class toggleSwitch {
   constructor(params) {
@@ -17,9 +18,8 @@ class toggleSwitch {
     switchEl.addEventListener('click', function() {
         switchStatus = !switchStatus;
         this.classList.toggle('switched-off');
-        console.log(switchStatus);
-        
-    }, false);
+        globals[params.targetObj] = ( switchStatus ) ? params.options[1].value : params.options[0].value
+      }, false);
 
     switchElement.append(firstOption, switchEl, secondOption);
 

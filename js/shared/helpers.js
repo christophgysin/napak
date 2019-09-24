@@ -88,13 +88,13 @@ let averageGrade = ( grades, amount ) => {
 // this is retarded
 let countTotalScore = () => {
   let score = [];
-  if(globals.ticks && globals.ticks.boulder.today) {
-    for (let i in globals.ticks.boulder.today) {
-      let val = globals.ticks.boulder.today[i].order;
-      let ascentTypes = Object.keys(globals.ticks.boulder.today[i].ticks);
+  if(globals.ticks && globals.ticks[globals.currentClimbingType].today) {
+    for (let i in globals.ticks[globals.currentClimbingType].today) {
+      let val = globals.ticks[globals.currentClimbingType].today[i].order;
+      let ascentTypes = Object.keys(globals.ticks[globals.currentClimbingType].today[i].ticks);
       ascentTypes.forEach((type) => {
-        if(globals.ticks.boulder.today[i].ticks[type]['count']) {
-          let count = Number(globals.ticks.boulder.today[i].ticks[type]['count']);
+        if(globals.ticks[globals.currentClimbingType].today[i].ticks[type]['count']) {
+          let count = Number(globals.ticks[globals.currentClimbingType].today[i].ticks[type]['count']);
           let temp = Array(count).fill(Number(val));
           score.push(temp.flat(Infinity));
         }
@@ -121,19 +121,19 @@ let countAscents = () => {
     total: 0
   };
 
-  if(globals.ticks && globals.ticks.boulder.today) {
+  if(globals.ticks && globals.ticks[globals.currentClimbingType].today) {
 
-    for (let i in globals.ticks.boulder.today) {
-      let val = globals.ticks.boulder.today[i].order;
-      let ascentTypes = Object.keys(globals.ticks.boulder.today[i].ticks);
+    for (let i in globals.ticks[globals.currentClimbingType].today) {
+      let val = globals.ticks[globals.currentClimbingType].today[i].order;
+      let ascentTypes = Object.keys(globals.ticks[globals.currentClimbingType].today[i].ticks);
 
       ascentTypes.forEach((type) => {
-        if(globals.ticks.boulder.today[i].ticks[type]['count']) {
+        if(globals.ticks[globals.currentClimbingType].today[i].ticks[type]['count']) {
           if(ascents.hasOwnProperty(type)) {
-            ascents[type]+=Number(globals.ticks.boulder.today[i].ticks[type]['count']);
+            ascents[type]+=Number(globals.ticks[globals.currentClimbingType].today[i].ticks[type]['count']);
           }
-          if(globals.ticks.boulder.today[i].ticks[type]['count'] > 0) {
-            ascents.total+=Number(globals.ticks.boulder.today[i].ticks[type]['count']);
+          if(globals.ticks[globals.currentClimbingType].today[i].ticks[type]['count'] > 0) {
+            ascents.total+=Number(globals.ticks[globals.currentClimbingType].today[i].ticks[type]['count']);
           }
         }
       });
@@ -150,27 +150,54 @@ let countAscentsByDifficulty = () => {
     flash: {}
   };
 
-  if(globals.ticks && globals.ticks.boulder.today) {
+  if(globals.ticks && globals.ticks[globals.currentClimbingType].today) {
 
-    for (let i in globals.ticks.boulder.today) {
-      let val = globals.ticks.boulder.today[i].order;
-      let ascentTypes = Object.keys(globals.ticks.boulder.today[i].ticks);
+    for (let i in globals.ticks[globals.currentClimbingType].today) {
+      let val = globals.ticks[globals.currentClimbingType].today[i].order;
+      let ascentTypes = Object.keys(globals.ticks[globals.currentClimbingType].today[i].ticks);
 
       ascentTypes.forEach((type) => {
         let count;
-        if(globals.ticks.boulder.today[i].ticks[type]['count']) {
+        if(globals.ticks[globals.currentClimbingType].today[i].ticks[type]['count']) {
           if(ascents.hasOwnProperty(type)) {
-            count = globals.ticks.boulder.today[i].ticks[type]['count'];
+            count = globals.ticks[globals.currentClimbingType].today[i].ticks[type]['count'];
+          }
+          else {
+            count = 0;            
           }
         }
-        
         ascents[type][val] = {count: count};
-
       });
     }
   }
   return ascents;
 }
+let updateScopeTicks = () => {
+    // Clear legends
+    let legends = document.querySelector('.select-dialog').querySelectorAll('.legends-holder');    
+    legends.forEach((nodes) => {
+      while (nodes.childNodes.length > 0) {
+        nodes.removeChild(nodes.lastChild);
+      }        
+    })
+        
+    globals.currentScore = countTotalScore();
+    globals.totalScore = countTopFive();
+    globals.averageGrade = averageGrade(globals.currentScore.reduce((a, b) => Number(a) + Number(b), 0), 5);
+    globals.totalAscentCount = countAscents().total;
+    globals.totalAscents = countAscents();
+    let getTicks = globals.ticks;
+    globals.ticks = getTicks;
+}
 
-
-export { dce, svg, triggerCustomEvent , countTopFive, averageGrade, countTotalScore, countAscents, countAscentsByDifficulty}
+export {
+  dce, 
+  svg, 
+  triggerCustomEvent, 
+  countTopFive, 
+  averageGrade, 
+  countTotalScore, 
+  countAscents, 
+  countAscentsByDifficulty,
+  updateScopeTicks
+}

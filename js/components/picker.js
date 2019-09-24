@@ -33,14 +33,15 @@ class picker {
 
 
       if(params.bindEvents) {
-        let perse = globals.ticks;
+        let globaTicks = globals.ticks;
+        
         document.addEventListener(`${params.bindEventsPrefix}${params.options[i].value}`, function(data){
           let grade = data.detail.grade;
           let ascentType = params.options[i].value
-          let count = (perse.boulder.today[grade] && perse.boulder.today[grade].ticks[ascentType] && perse.boulder.today[grade].ticks[ascentType].count) ? perse.boulder.today[grade].ticks[ascentType].count : 0;
+          let count = (globaTicks[globals.currentClimbingType].today[grade] && globaTicks[globals.currentClimbingType].today[grade].ticks[ascentType] && globaTicks[globals.currentClimbingType].today[grade].ticks[ascentType].count) ? globaTicks[globals.currentClimbingType].today[grade].ticks[ascentType].count : 0;
 
-          if(!perse.boulder.today[grade]) {
-            perse.boulder.today[grade] = {
+          if(!globaTicks[globals.currentClimbingType].today[grade]) {
+            globaTicks[globals.currentClimbingType].today[grade] = {
               order: grade,
               ticks : {}
             };
@@ -51,40 +52,40 @@ class picker {
           if( !data.detail.add ) {
             if(count > 0) {
               count--;
-              perse.boulder.today[grade].ticks[ascentType] = {
+              globaTicks[globals.currentClimbingType].today[grade].ticks[ascentType] = {
                   count: count
               }
             }
             else{
-              delete perse.boulder.today[grade].ticks[ascentType];
+              delete globaTicks[globals.currentClimbingType].today[grade].ticks[ascentType];
             }
           }
 
           // Add tick
           else {
-            let count = (perse.boulder.today[grade] && perse.boulder.today[grade].ticks && perse.boulder.today[grade].ticks[ascentType] && perse.boulder.today[grade].ticks[ascentType].count) ? perse.boulder.today[grade].ticks[ascentType].count : 0;
+            let count = (globaTicks[globals.currentClimbingType].today[grade] && globaTicks[globals.currentClimbingType].today[grade].ticks && globaTicks[globals.currentClimbingType].today[grade].ticks[ascentType] && globaTicks[globals.currentClimbingType].today[grade].ticks[ascentType].count) ? globaTicks[globals.currentClimbingType].today[grade].ticks[ascentType].count : 0;
             count++;
-            perse.boulder.today[grade].ticks[ascentType] = {
+            globaTicks[globals.currentClimbingType].today[grade].ticks[ascentType] = {
                 count: count
               }
             }
 
   // Update type totals
           let typeTotal = 0;
-          for (let keys in perse.boulder.today) {
-            typeTotal+= (perse.boulder.today[keys].ticks[ascentType]) ? perse.boulder.today[keys].ticks[ascentType].count : 0;
+          for (let keys in globaTicks[globals.currentClimbingType].today) {
+            typeTotal+= (globaTicks[globals.currentClimbingType].today[keys].ticks[ascentType]) ? globaTicks[globals.currentClimbingType].today[keys].ticks[ascentType].count : 0;
           }
 
           legendTag.innerHTML = ( typeTotal > 0 ) ? typeTotal : "";
 
   // Update today total
           let total = 0;
-          for (let keys in perse.boulder.today) {
-            for(let test in perse.boulder.today[keys]) {
-              total+= (perse.boulder.today[keys][test].count) ? perse.boulder.today[keys][test].count : 0;
+          for (let keys in globaTicks[globals.currentClimbingType].today) {
+            for(let test in globaTicks[globals.currentClimbingType].today[keys]) {
+              total+= (globaTicks[globals.currentClimbingType].today[keys][test].count) ? globaTicks[globals.currentClimbingType].today[keys][test].count : 0;
             }
           }
-          globals.ticks = perse;
+          globals.ticks = globaTicks;
           globals.totalAscentCount = countAscents().total;
 
           // Count score
@@ -110,14 +111,17 @@ class picker {
       return pickerElement;
     }
 
-    this.set = (el, data) => {
+    this.set = (el, data) => {      
       globals[params.targetObj] = el.value;
       let container = el.parentNode.parentNode;
-      let nakki = container.querySelector('.selected');
-      nakki.classList.remove('selected');
+      let selectedItem = container.querySelector('.selected');
+      selectedItem.classList.remove('selected');
       el.parentNode.classList.add('selected');
 
       this.selected = data;
+      if(params.callback) {
+        params.callback();
+      }
     }
   }
 }
