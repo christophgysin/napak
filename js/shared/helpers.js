@@ -8,6 +8,10 @@ let dce = ( params ) => {
       element.className = params.cssClass;
     }
 
+    if(params.source) {
+      element.setAttribute('src', params.source);
+    }
+
     if(params.cssStyle) {
       element.setAttribute('style', params.cssStyle);
     }

@@ -1,0 +1,19 @@
+<svg id="Stroke_-_In" data-name="Stroke - In" xmlns="http://www.w3.org/2000/svg" width="1592" height="576" viewBox="0 0 1592 576">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        fill-opacity: 100;
+        stroke: rgba(0,0,0,0);
+        stroke-linejoin: round;
+        stroke-width: 4px;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="K" class="cls-1" d="M1592,576L1400,384,1272,576V0l128,192L1592,0,1464,288Z"/>
+  <path id="A" class="cls-1" d="M1274,576L1114,384,954,576V192L1114,0l160,192V576Z"/>
+  <path id="P" class="cls-1" d="M956,288L764,384,636,576V192L796,0,956,192v96Z"/>
+  <path id="A-2" data-name="A" class="cls-1" d="M638,576L478,384,318,576V192L478,0,638,192V576Z"/>
+  <path id="N" class="cls-1" d="M320,576L128,384,0,576V0L320,192V576Z"/>
+</svg>

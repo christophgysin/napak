@@ -1,7 +1,9 @@
 import progress from '/js/templates/section_progress.js';
 import gradeWheel from '/js/templates/section_grade-selector.js';
+import otc from '/js/templates/section_otc.js';
 import picker from '/js/components/picker.js';
 import toggleSwitch from '/js/components/toggleSwitch.js';
+
 import { globals } from '/js/shared/globals.js';
 
 import { dce, svg, updateScopeTicks, countAscentsByType } from '/js/shared/helpers.js';
@@ -10,6 +12,7 @@ class viewHome {
   constructor() {
     let progressSection = new progress();
     let gradeSelector = new gradeWheel();
+    let otcMenu = new otc();
 
 
     let appContainer = dce({el: 'DIV', cssClass : 'app'});
@@ -49,7 +52,7 @@ class viewHome {
 
     inOutSelector.appendChild(current);
 
-    toggleViewContainer.addEventListener('click', function() {
+    current.addEventListener('click', function() {
       inOutSelector.classList.toggle('open');
     }, false);
   // In / out menu 
@@ -83,10 +86,10 @@ class viewHome {
     let footer = dce({el: 'FOOTER'});
     let footerNav = dce({el: 'NAV'});
 
-    let tickPage = dce({el:'A'})
+/*    let tickPage = dce({el:'A'})
     tickPage.append(dce({el:'SPAN', content: 'tick'}));
     footerNav.append(dce({el:'SPAN'}), tickPage);
-
+*/
     footer.appendChild(footerNav);
 
     contentContainer.appendChild(inOutSelector);
@@ -94,7 +97,10 @@ class viewHome {
     contentContainer.appendChild(gradeSelector.render());
     templateContainer.appendChild(contentContainer);
     appContainer.appendChild(templateContainer);
-//    appContainer.appendChild(footer);
+    appContainer.appendChild(footer);
+
+    let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
+    appContainer.append(naviShadow, otcMenu.render());
 
     this.render = () => {
       return appContainer;

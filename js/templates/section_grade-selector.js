@@ -1,4 +1,4 @@
-import { dce, triggerCustomEvent, countAscents, countTotalScore, countTopFive, averageGrade, countAscentsByType } from '/js/shared/helpers.js';
+import { dce } from '/js/shared/helpers.js';
 import wheel from '/js/components/wheel.js';
 import picker from '/js/components/picker.js';
 import { globals } from '/js/shared/globals.js';
