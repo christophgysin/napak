@@ -6,7 +6,7 @@ class sectionProgress {
   constructor() {
 
     let periodPicker =  new picker({
-      cssClass : 'horizontal-menu full-width',
+      cssClass : 'horizontal-menu full-width small-legends',
       targetObj : 'scope',
       options : [
         {title: `Today`, value: 'today', selected: true, legend: globals.totalAscentCount, val: 'totalAscentCount'},

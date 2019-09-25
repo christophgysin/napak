@@ -56,7 +56,7 @@ class viewHome {
     let inOutMenu = dce({el: 'DIV', cssClass: 'in-out-menu'})
     
     let climbingTypeSelector = new picker({
-      cssClass  : 'horizontal-menu full-width',
+      cssClass  : 'horizontal-menu full-width small-legends',
       targetObj : 'currentClimbingType',
       options   : [
         {title: 'Boulder', value:'boulder', selected: true, legend: globals.totalAscentsByType.boulder, val: 'totalAscentsByType.boulder'},

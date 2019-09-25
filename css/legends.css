@@ -17,6 +17,13 @@
 	top: -6px;
 }
 
+.small-legends .legend:not(:empty) {
+	font-size: 10px;
+	height: 12px;
+	line-height: 12px;
+	padding: 0 1px;
+}
+
 .legends-holder .legend,
 .legends-holder .type-common {
 	background: #efefef;
