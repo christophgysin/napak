@@ -241,12 +241,14 @@ BODY.otc .navi-shadow {
 		.otc-navigation {
 			background: var(--color-black-alpha);
 			transition: transform 300ms ease-in-out;
-			backdrop-filter: blur(5px);
+			-webkit-backdrop-filter: blur(5px);
 		}
 
 		.navi-shadow {
 			transition: background 300ms ease-in-out;
-			backdrop-filter: blur(5px);
+		}
+		BODY.otc .navi-shadow {
+			-webkit-backdrop-filter: blur(5px);
 		}
 
 		.otc .page-content {
