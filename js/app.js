@@ -10,6 +10,7 @@ let napak = {
       globals.ticks = getTicks;
     }
 
+    // Update all globals 
     let updateAll = () => {
       globals.currentScore = countTotalScore(); // Array of top scores
       globals.totalScore = countTopFive();  // Top score counted together
@@ -27,7 +28,6 @@ let napak = {
     document.body.innerHTML = "";
     let home = new viewHome();
     document.body.appendChild(home.render());
-
   }
 }
 
