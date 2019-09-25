@@ -172,8 +172,32 @@ let countAscentsByDifficulty = () => {
   }
   return ascents;
 }
+
+// Get ascents by difficulty
+let countAscentsByType = () => {
+  let types = {
+    boulder : 0,
+    sport : 0,
+    toprope: 0,
+    trad:0
+  };
+
+
+  let temp = Object.keys(types);
+  temp.forEach((type) => {
+    for( let i in globals.ticks[type].today ) {
+      for( let j in globals.ticks[type].today[i].ticks) {
+        types[type]+= globals.ticks[type].today[i].ticks[j].count;
+      }
+    }
+  });
+  return types;
+}
+
+
 let updateScopeTicks = () => {
     // Clear legends
+    // do this somewhere else
     let legends = document.querySelector('.select-dialog').querySelectorAll('.legends-holder');    
     legends.forEach((nodes) => {
       while (nodes.childNodes.length > 0) {
@@ -188,6 +212,7 @@ let updateScopeTicks = () => {
     globals.totalAscents = countAscents();
     let getTicks = globals.ticks;
     globals.ticks = getTicks;
+    globals.totalAscentsByType = countAscentsByType();
 }
 
 export {
@@ -199,5 +224,6 @@ export {
   countTotalScore, 
   countAscents, 
   countAscentsByDifficulty,
+  countAscentsByType,
   updateScopeTicks
 }

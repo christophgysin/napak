@@ -4,7 +4,7 @@ import picker from '/js/components/picker.js';
 import toggleSwitch from '/js/components/toggleSwitch.js';
 import { globals } from '/js/shared/globals.js';
 
-import { dce, svg, updateScopeTicks } from '/js/shared/helpers.js';
+import { dce, svg, updateScopeTicks, countAscentsByType } from '/js/shared/helpers.js';
 
 class viewHome {
   constructor() {
@@ -54,17 +54,16 @@ class viewHome {
     }, false);
   // In / out menu 
     let inOutMenu = dce({el: 'DIV', cssClass: 'in-out-menu'})
-
+    
     let climbingTypeSelector = new picker({
       cssClass  : 'horizontal-menu full-width',
       targetObj : 'currentClimbingType',
       options   : [
-        {title: 'Boulder', value:'boulder', selected: true},
-        {title: 'Sport', value:'sport'},
-        {title: 'Top rope', value:'toprope'},
-        {title: 'Trad', value:'trad'}
+        {title: 'Boulder', value:'boulder', selected: true, legend: globals.totalAscentsByType.boulder, val: 'totalAscentsByType.boulder'},
+        {title: 'Sport', value:'sport', legend: globals.totalAscentsByType.sport, val: 'totalAscentsByType.sport'},
+        {title: 'Top rope', value:'toprope', legend: globals.totalAscentsByType.toprope, val: 'totalAscentsByType.toprope'},
+        {title: 'Trad', value:'trad', legend: globals.totalAscentsByType.trad, val: 'totalAscentsByType.trad'}
       ],
-      bindEventsPrefix : 'climbing-',
       callback: updateScopeTicks
       });
 

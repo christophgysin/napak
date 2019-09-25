@@ -45,9 +45,15 @@ let globalObjects = {
   totalAscents : {
     redpoint: 0,
     flash: 0,
-    onsight: 0
+    onsight: 0,
     },
  
+  totalAscentsByType : {
+    boulder: '',
+    toprope: '',
+    sport: '',
+    trad: ''
+  },
 
   // Ticks
   ticks: {

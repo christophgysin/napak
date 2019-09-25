@@ -17,6 +17,7 @@
 	top: -6px;
 }
 
+.legends-holder .legend,
 .legends-holder .type-common {
 	background: #efefef;
 	color: var(--color-theme-color1);

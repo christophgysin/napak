@@ -5,26 +5,14 @@ import { dce, countTotalScore, countTopFive, countAscents, averageGrade } from '
 class sectionProgress {
   constructor() {
 
-    // Count total score
-    globals.currentScore = countTotalScore();
-    // Count top 5 score
-    globals.totalScore = countTopFive();
-    // Count average grade
-    globals.averageGrade = averageGrade(globals.currentScore.reduce((a, b) => Number(a) + Number(b), 0), 5);
-    // get ascents
-    globals.totalAscentCount = countAscents().total;
-    globals.totalAscents = countAscents();
-
     let periodPicker =  new picker({
       cssClass : 'horizontal-menu full-width',
       targetObj : 'scope',
       options : [
-        {title: `Today`, value: 'today', selected: true},
+        {title: `Today`, value: 'today', selected: true, legend: globals.totalAscentCount, val: 'totalAscentCount'},
         {title: `30 days`, value:'30days'},
         {title: `Year`, value:'year'},
-        {title: `All time`, value:'alltime'}],
-        bindEvents: true,
-        bindEventsPrefix : 'scope-'
+        {title: `All time`, value:'alltime'}]
     });
 
 		let container = dce({el: 'SECTION', cssClass: 'progression'});
@@ -115,11 +103,15 @@ class sectionProgress {
     chartLegendContainer.appendChild(chartLegendFragment);
     gradeDistributionContainer.appendChild(chartLegendContainer);
 
-    globals.storeObservers.push({key: 'ticks', callback: () => {
-      console.log(globals.ticks);
-      console.log(globals.currentClimbingType);
-      
-      
+// update charts
+    globals.storeObservers.push({key: 'ticks', callback: () => {      
+
+      globals.totalAscentCount = countAscents().total;
+      globals.currentScore = countTotalScore();
+      globals.totalScore = countTopFive();
+      globals.averageGrade = averageGrade(globals.currentScore.reduce((a, b) => Number(a) + Number(b), 0), 5);
+
+
       for (let keys in globals.ticks[globals.currentClimbingType].today) {
         let barContainer = globals.ticks[globals.currentClimbingType].today[keys].order;
         let container = chartBarContainer.querySelectorAll('.bar')[globals.ticks[globals.currentClimbingType].today[keys].order];
