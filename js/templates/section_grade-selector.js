@@ -33,8 +33,8 @@ class gradeWheel {
       let globalTicks = globals.ticks;  
       let grade = globals.currentAscentGrade;
       let ascentType = globals.currentAscentType;
-      let count = (globalTicks[globals.currentClimbingType].today[grade] && globalTicks[globals.currentClimbingType].today[grade].ticks[ascentType] && globalTicks[globals.currentClimbingType].today[grade].ticks[ascentType].count) ? globalTicks[globals.currentClimbingType].today[grade].ticks[ascentType].count : '';
-
+      let timestamp = new Date().getTime();
+// create object for current grade if doesn't exists
       if(!globalTicks[globals.currentClimbingType].today[grade]) {
         globalTicks[globals.currentClimbingType].today[grade] = {
           order: grade,
@@ -44,12 +44,9 @@ class gradeWheel {
 
       // Remove tick
       if( !add ) {
-        if(count > 0) {
-          count--;
-          globalTicks[globals.currentClimbingType].today[grade].ticks[ascentType] = {
-              count: count
+        if(globalTicks[globals.currentClimbingType].today[grade].ticks[ascentType] && globalTicks[globals.currentClimbingType].today[grade].ticks[ascentType].length > 0) {
+          globalTicks[globals.currentClimbingType].today[grade].ticks[ascentType] = globalTicks[globals.currentClimbingType].today[grade].ticks[ascentType].slice(0,-1);
           }
-        }
         else{
           delete globalTicks[globals.currentClimbingType].today[grade].ticks[ascentType];
         }
@@ -57,28 +54,14 @@ class gradeWheel {
 
       // Add tick
       else {
-        let count = (globalTicks[globals.currentClimbingType].today[grade] && globalTicks[globals.currentClimbingType].today[grade].ticks && globalTicks[globals.currentClimbingType].today[grade].ticks[ascentType] && globalTicks[globals.currentClimbingType].today[grade].ticks[ascentType].count) ? globalTicks[globals.currentClimbingType].today[grade].ticks[ascentType].count : 0;
-        count++;
-        globalTicks[globals.currentClimbingType].today[grade].ticks[ascentType] = {
-            count: count
-          }
+        if(!globalTicks[globals.currentClimbingType].today[grade].ticks[ascentType]) {
+          globalTicks[globals.currentClimbingType].today[grade].ticks[ascentType] = [];
+        }
+        globalTicks[globals.currentClimbingType].today[grade].ticks[ascentType].push({
+            date : timestamp
+          });
         }
 
-      // Update type totals
-      let typeTotal = 0;
-      for (let keys in globalTicks[globals.currentClimbingType].today) {
-        typeTotal+= (globalTicks[globals.currentClimbingType].today[keys].ticks[ascentType]) ? globalTicks[globals.currentClimbingType].today[keys].ticks[ascentType].count : 0;
-      }
-
-//      legendTag.innerHTML = ( typeTotal > 0 ) ? typeTotal : "";
-
-      // Update today total
-      let total = 0;
-      for (let keys in globalTicks[globals.currentClimbingType].today) {
-        for(let test in globalTicks[globals.currentClimbingType].today[keys]) {
-          total+= (globalTicks[globals.currentClimbingType].today[keys][test].count) ? globalTicks[globals.currentClimbingType].today[keys][test].count : 0;
-        }
-      }
       globals.ticks = globalTicks;
 
       // update local storage

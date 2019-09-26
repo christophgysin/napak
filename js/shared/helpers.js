@@ -97,8 +97,8 @@ let countTotalScore = () => {
       let val = globals.ticks[globals.currentClimbingType].today[i].order;
       let ascentTypes = Object.keys(globals.ticks[globals.currentClimbingType].today[i].ticks);
       ascentTypes.forEach((type) => {
-        if(globals.ticks[globals.currentClimbingType].today[i].ticks[type]['count']) {
-          let count = Number(globals.ticks[globals.currentClimbingType].today[i].ticks[type]['count']);
+        if(globals.ticks[globals.currentClimbingType].today[i].ticks[type]) {
+          let count = globals.ticks[globals.currentClimbingType].today[i].ticks[type].length;
           let temp = Array(count).fill(Number(val));
           score.push(temp.flat(Infinity));
         }
@@ -106,7 +106,7 @@ let countTotalScore = () => {
     }
 
     score = score.flat(Infinity).sort( (a, b) => {return b - a}).map( (num) => {
-        return globals.score.font[num];
+      return globals.score.font[num];
     });
     return score.slice(0, 5).reverse();
   }
@@ -132,12 +132,12 @@ let countAscents = () => {
       let ascentTypes = Object.keys(globals.ticks[globals.currentClimbingType].today[i].ticks);
 
       ascentTypes.forEach((type) => {
-        if(globals.ticks[globals.currentClimbingType].today[i].ticks[type]['count']) {
+        if(globals.ticks[globals.currentClimbingType].today[i].ticks[type]) {
           if(ascents.hasOwnProperty(type)) {
-            ascents[type]+=Number(globals.ticks[globals.currentClimbingType].today[i].ticks[type]['count']);
+            ascents[type]+=Number(globals.ticks[globals.currentClimbingType].today[i].ticks[type].length);
           }
-          if(globals.ticks[globals.currentClimbingType].today[i].ticks[type]['count'] > 0) {
-            ascents.total+=Number(globals.ticks[globals.currentClimbingType].today[i].ticks[type]['count']);
+          if(globals.ticks[globals.currentClimbingType].today[i].ticks[type].length > 0) {
+            ascents.total+=Number(globals.ticks[globals.currentClimbingType].today[i].ticks[type].length);
           }
         }
       });
@@ -162,9 +162,9 @@ let countAscentsByDifficulty = () => {
 
       ascentTypes.forEach((type) => {
         let count;
-        if(globals.ticks[globals.currentClimbingType].today[i].ticks[type]['count']) {
+        if(globals.ticks[globals.currentClimbingType].today[i].ticks[type]) {
           if(ascents.hasOwnProperty(type)) {
-            count = globals.ticks[globals.currentClimbingType].today[i].ticks[type]['count'];
+            count = globals.ticks[globals.currentClimbingType].today[i].ticks[type].length;
           }
           else {
             count = 0;            
@@ -191,7 +191,7 @@ let countAscentsByType = () => {
   temp.forEach((type) => {
     for( let i in globals.ticks[type].today ) {
       for( let j in globals.ticks[type].today[i].ticks) {
-        types[type]+= globals.ticks[type].today[i].ticks[j].count;
+        types[type]+= globals.ticks[type].today[i].ticks[j].length;
       }
     }
   });
@@ -218,6 +218,7 @@ let updateScopeTicks = () => {
     globals.ticks = getTicks;
     globals.totalAscentsByType = countAscentsByType();
 }
+
 
 export {
   dce, 
