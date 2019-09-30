@@ -41,6 +41,12 @@ class wheel {
       gradeFragment.appendChild(gradeContainer);
     }
 
+    let clearLegends = () => {
+      let legends = selectDialog.querySelectorAll(`.legends-holder .legend`);
+      legends.forEach((el,i)=>{
+        el.parentNode.removeChild(el);
+      });
+    }
 
     let updateAll = () => {
       // Get ascents by grade and type and update legends accordingly
@@ -59,7 +65,7 @@ class wheel {
       });
     }
     // Listen for ticks object to update 
-    globals.storeObservers.push({key: 'indoorsOutdoors', callback: updateAll });
+    globals.storeObservers.push({key: 'indoorsOutdoors', callback: () => {clearLegends(), updateAll()} });
     globals.storeObservers.push({key: 'ticks', callback:updateAll});
     
     selectDialog.appendChild(gradeFragment);
