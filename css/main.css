@@ -519,7 +519,7 @@ SECTION.grade:not(.grade-dial-container) * {
 	padding: 0 var(--padding-base) var(--padding-base);
 	z-index: 997;
 	display: block;
-	box-shadow: 0 10px 10px 0 var(--color-black-alpha40);
+	box-shadow: 0 10px 10px 0 rgba(0,0,0,.1);
 }
 
 .in-out-menu::before {

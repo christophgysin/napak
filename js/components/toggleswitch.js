@@ -15,11 +15,14 @@ class toggleSwitch {
         switchEl.classList.add('switched-off')
     };
 
-    switchEl.addEventListener('click', function() {
-        switchStatus = !switchStatus;
-        this.classList.toggle('switched-off');
-        globals[params.targetObj] = ( switchStatus ) ? params.options[1].value : params.options[0].value
-      }, false);
+    let toggle = () => {
+      switchStatus = !switchStatus;
+      switchEl.classList.toggle('switched-off');
+      globals[params.targetObj] = ( switchStatus ) ? params.options[1].value : params.options[0].value
+  }
+    switchEl.addEventListener('click', toggle, false);
+    firstOption.addEventListener('click', toggle, false);
+    secondOption.addEventListener('click', toggle, false);
 
     switchElement.append(firstOption, switchEl, secondOption);
 
