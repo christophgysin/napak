@@ -33,13 +33,16 @@ class picker {
       optionLink.appendChild(legensHolder);
 
       // update legends
-      globals.storeObservers.push({key: 'ticks', callback: () => {
+      let updateLegends = () => {
         let val = legendTag.value;
         if(val) {
           let count = val.split('.').reduce((o,i)=>o[i], globals);
           legendTag.innerHTML = (count) ? count : '';
         }
-      }});
+      };
+
+      globals.storeObservers.push({key: 'indoorsOutdoors', callback: updateLegends });
+      globals.storeObservers.push({key: 'ticks', callback: updateLegends});
 
       option.appendChild(optionLink);
 

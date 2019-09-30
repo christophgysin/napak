@@ -104,7 +104,7 @@ class sectionProgress {
     gradeDistributionContainer.appendChild(chartLegendContainer);
 
 // update charts
-    globals.storeObservers.push({key: 'ticks', callback: () => {
+    let updateCharts = () => {
       globals.totalAscentCount = countAscents().total;
       globals.currentScore = countTotalScore();
       globals.totalScore = countTopFive();
@@ -114,16 +114,20 @@ class sectionProgress {
       let barNodes = chartBarContainer.querySelectorAll('.bar');
       barNodes.forEach((bar, i) => {
         let count = 0;
-        if(globals.ticks[globals.currentClimbingType].today[i]) {
-          for(let test in globals.ticks[globals.currentClimbingType].today[i].ticks) {
-            if(globals.ticks[globals.currentClimbingType].today[i].ticks[test].hasOwnProperty('count')){
-              count+= parseInt(globals.ticks[globals.currentClimbingType].today[i].ticks[test]['count']);
-            }
+        
+        if(globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i]) {
+          
+          for(let test in globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i].ticks) {
+            count = globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i].ticks[test].length;
           }  
         }
+        
         bar.style.height = `${count}px`;
       });
-    }});
+    };
+
+    globals.storeObservers.push({key: 'indoorsOutdoors', callback: updateCharts });
+    globals.storeObservers.push({key: 'ticks', callback: updateCharts });
 
     container.appendChild(gradeDistributionContainer);
 

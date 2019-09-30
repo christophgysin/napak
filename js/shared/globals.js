@@ -58,16 +58,28 @@ let globalObjects = {
   // Ticks
   ticks: {
     boulder : {
-      today: {}
+      today: {
+        indoors: {},
+        outdoors: {}
+      }
     },
     sport : {
-      today: {}
+      today: {
+        indoors: {},
+        outdoors: {}
+      }
     },
     trad : {
-      today: {}
+      today: {
+        indoors: {},
+        outdoors: {}
+      }
     },
     toprope : {
-      today: {}
+      today: {
+        indoors: {},
+        outdoors: {}
+      }
     }
   }
 };

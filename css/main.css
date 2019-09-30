@@ -159,7 +159,7 @@ SECTION.grade::after {
 	right: 0;
 	bottom: 0;
 	content: "";
-	background: url('/images/ileksi.jpg');
+	background: url('/images/bgr_2.jpg');
 	pointer-events: none;
 /*	
 	background-size:  100vh auto;
@@ -519,6 +519,7 @@ SECTION.grade:not(.grade-dial-container) * {
 	padding: 0 var(--padding-base) var(--padding-base);
 	z-index: 997;
 	display: block;
+	box-shadow: 0 10px 10px 0 var(--color-black-alpha40);
 }
 
 .in-out-menu::before {

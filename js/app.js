@@ -23,6 +23,7 @@ let napak = {
     updateAll();
 // Listen to tick objects change and update 
     globals.storeObservers.push({key: 'ticks', callback: updateAll });
+    globals.storeObservers.push({key: 'indoorsOutdoors', callback: updateAll });
 
     // init app
     document.body.innerHTML = "";

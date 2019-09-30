@@ -28,10 +28,10 @@ class wheel {
       let grade = dce({el: 'SPAN', content:globals.grades.font[i]});
       let legendHolder = dce({el: 'SPAN', cssClass: 'legends-holder'});
 
-      if(globals.ticks[globals.currentClimbingType].today[i] && globals.ticks[globals.currentClimbingType].today[i].ticks) {
-        let ascentCountPerType =  Object.keys(globals.ticks[globals.currentClimbingType].today[i].ticks);
+      if(globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i] && globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i].ticks) {
+        let ascentCountPerType =  Object.keys(globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i].ticks);
         ascentCountPerType.forEach((type) => {
-          let legendTag = dce({el: 'SPAN', cssClass: `legend type-${type}`, content: globals.ticks[globals.currentClimbingType].today[i].ticks[type].count});
+          let legendTag = dce({el: 'SPAN', cssClass: `legend type-${type}`, content: globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i].ticks[type].length});
           legendHolder.appendChild(legendTag);
         });
       }
@@ -42,10 +42,9 @@ class wheel {
     }
 
 
-    // Listen for ticks object to update 
-    globals.storeObservers.push({key: 'ticks', callback: () => {      
+    let updateAll = () => {
       // Get ascents by grade and type and update legends accordingly
-      let ascentsByGrade = countAscentsByDifficulty();      
+      let ascentsByGrade = countAscentsByDifficulty();
       let ascentCountPerType =  Object.keys(ascentsByGrade);
       ascentCountPerType.forEach((type) => {        
         for(let i in ascentsByGrade[type]) {          
@@ -58,8 +57,11 @@ class wheel {
           }
         }
       });
-      
-      }});
+    }
+    // Listen for ticks object to update 
+    globals.storeObservers.push({key: 'indoorsOutdoors', callback: updateAll });
+    globals.storeObservers.push({key: 'ticks', callback:updateAll});
+    
     selectDialog.appendChild(gradeFragment);
 
     dialViewport.appendChild(selectDialog);
