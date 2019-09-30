@@ -131,6 +131,8 @@ class sectionProgress {
 
     container.appendChild(gradeDistributionContainer);
 
+    updateCharts();
+    
     this.render = () => {
       return container;
     }
