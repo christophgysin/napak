@@ -499,6 +499,8 @@ SECTION.grade:not(.grade-dial-container) * {
 	font-weight: 400;
 	font-size: 24px;
 	line-height: 40px;
+	position: absolute;
+	right: 0;
 }
 
 .in-out-selector .toggle > * {
