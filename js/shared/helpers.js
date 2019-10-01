@@ -88,7 +88,7 @@ let averageGrade = ( grades, amount ) => {
 }
 
 
-// Total scrore
+// Total score
 // this is retarded
 let countTotalScore = () => {
   let score = [];
@@ -99,22 +99,45 @@ let countTotalScore = () => {
       ascentTypes.forEach((type) => {
         if(globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i].ticks[type]) {
           let count = globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i].ticks[type].length;
-          let temp = Array(count).fill(Number(val));
-          score.push(temp.flat(Infinity));
+          if(count) {
+            let temp = Array(count).fill(Number(eightaNuScore({'type': type, grade: i, sport: globals.currentClimbingType})));
+            score.push(temp.flat(Infinity));
+          }
         }
       })
     }
 
-    score = score.flat(Infinity).sort( (a, b) => {return b - a}).map( (num) => {
-      return globals.score.font[num];
-    });
-    return score.slice(0, 5).reverse();
+    score = score.flat(Infinity).sort(function(a, b){return b-a});
+    return score.slice(0, 5);
   }
   else {
     return [0,0,0,0,0];
   }
 }
 
+
+let eightaNuScore = (data) => {
+  let score = 0;
+  let bonusgrade = 0;
+  let ontop = 0;
+
+  if(data.type === 'flash') {
+    bonusgrade=1; 
+    ontop = 3;
+  }
+
+  if(data.type === 'onsight') {
+    bonusgrade= (data.sport === 'boulder') ? 2 : 3; // Boulder onsight jumps two grades instead of three
+    ontop = -5;
+  }
+  if(data.sport === 'toprope') {
+    bonusgrade-= 1;
+  }
+
+  let grade = Number(data.grade)+bonusgrade;
+  score = ( grade + ( ( grade >= 5 ) ? 3: 1 ) ) * 50 + ontop;
+  return score;
+}
 
 // Get ascents
 let countAscents = () => {
