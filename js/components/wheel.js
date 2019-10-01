@@ -55,7 +55,7 @@ class wheel {
       ascentCountPerType.forEach((type) => {        
         for(let i in ascentsByGrade[type]) {          
           if(selectDialog.childNodes[i].querySelector(`.legends-holder .type-${type}`)) {
-            selectDialog.childNodes[i].querySelector(`.legends-holder .type-${type}`).innerHTML = (!isNaN(ascentsByGrade[type][i].count)) ? ascentsByGrade[type][i].count : '';
+            selectDialog.childNodes[i].querySelector(`.legends-holder .type-${type}`).innerHTML = (!isNaN(ascentsByGrade[type][i].count) && ascentsByGrade[type][i].count > 0) ? ascentsByGrade[type][i].count : '';
           }
           else {
             let holder = dce({el: 'SPAN', cssClass: `legend type-${type}`, content: ascentsByGrade[type][i].count});
