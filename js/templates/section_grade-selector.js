@@ -30,6 +30,9 @@ class gradeWheel {
 
 
     let handleTick = ( add ) => {
+      if(globals.currentAscentGrade < 0) {
+        return;
+      }
       let globalTicks = globals.ticks;  
       let grade = globals.currentAscentGrade;
       let ascentType = globals.currentAscentType;
