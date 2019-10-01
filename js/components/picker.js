@@ -59,7 +59,7 @@ class picker {
       let selectedItem = container.querySelector('.selected');
       selectedItem.classList.remove('selected');
       el.parentNode.classList.add('selected');
-
+      
       this.selected = data;
       if(params.callback) {
         params.callback();

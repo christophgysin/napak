@@ -126,13 +126,14 @@ class sectionProgress {
       });
     };
 
-    globals.storeObservers.push({key: 'indoorsOutdoors', callback: updateCharts });
-    globals.storeObservers.push({key: 'ticks', callback: updateCharts });
 
     container.appendChild(gradeDistributionContainer);
 
+    globals.storeObservers.push({key: 'indoorsOutdoors', callback: updateCharts });
+    globals.storeObservers.push({key: 'ticks', callback: updateCharts });
+
     updateCharts();
-    
+
     this.render = () => {
       return container;
     }

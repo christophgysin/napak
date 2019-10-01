@@ -21,11 +21,25 @@ class viewHome {
     let inOutSelector = dce({el: 'DIV', cssClass: 'in-out-selector'});
 
     let current = dce({el: 'DIV', cssClass: 'current'});
-    let currentTitle = dce({el: 'H3', content: `Climbing ${globals.indoorsOutdoors}`});
+
+  let currentClimbingTypeTitle = () => {
+    if (globals.currentClimbingType === 'boulder') return `Bouldering ${globals.indoorsOutdoors}`;
+    if (globals.currentClimbingType === 'sport') return `Climbing sport ${globals.indoorsOutdoors}`;
+    if (globals.currentClimbingType === 'trad') return `Climbing trad ${globals.indoorsOutdoors}`;
+    if (globals.currentClimbingType === 'toprope') return `Top roping ${globals.indoorsOutdoors}`;
+    return globals.indoorsOutdoors;
+  }
+
+    let currentTitle = dce({el: 'H3', content: currentClimbingTypeTitle()});
     current.appendChild(currentTitle);
+//console.log(globals.currentClimbingType);
+
+    globals.storeObservers.push({key: 'currentClimbingType', callback: () => {
+      currentTitle.innerHTML = currentClimbingTypeTitle();
+    }}); 
 
     globals.storeObservers.push({key: 'indoorsOutdoors', callback: () => {
-      currentTitle.innerHTML = `Climbing ${globals.indoorsOutdoors}`
+      currentTitle.innerHTML = currentClimbingTypeTitle();
     }}); 
 
 
