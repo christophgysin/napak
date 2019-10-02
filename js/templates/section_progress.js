@@ -115,10 +115,10 @@ class sectionProgress {
       barNodes.forEach((bar, i) => {
         let count = 0;
         
-        if(globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i]) {
+        if(globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i]) {
           
-          for(let test in globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i].ticks) {            
-            count+= globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i].ticks[test].length;
+          for(let test in globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks) {            
+            count+= globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks[test].length;
           }  
         }
         

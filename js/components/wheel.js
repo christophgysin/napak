@@ -30,10 +30,10 @@ class wheel {
       let grade = dce({el: 'SPAN', content:globals.grades.font[i]});
       let legendHolder = dce({el: 'SPAN', cssClass: 'legends-holder'});
 
-      if(globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i] && globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i].ticks) {
-        let ascentCountPerType =  Object.keys(globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i].ticks);
+      if(globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i] && globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks) {
+        let ascentCountPerType =  Object.keys(globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks);
         ascentCountPerType.forEach((type) => {
-          let legendTag = dce({el: 'SPAN', cssClass: `legend type-${type}`, content: globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i].ticks[type].length});
+          let legendTag = dce({el: 'SPAN', cssClass: `legend type-${type}`, content: globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks[type].length});
           legendHolder.appendChild(legendTag);
         });
       }

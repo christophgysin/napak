@@ -41,8 +41,8 @@ class gradeWheel {
       console.log(handleDate({dateString: timestamp}));
       
 // create object for current grade if doesn't exists
-      if(!globalTicks[globals.currentClimbingType].today[globals.indoorsOutdoors][grade]) {
-        globalTicks[globals.currentClimbingType].today[globals.indoorsOutdoors][grade] = {
+      if(!globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade]) {
+        globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade] = {
           order: grade,
           ticks : {},
         };
@@ -50,20 +50,20 @@ class gradeWheel {
 
       // Remove tick
       if( !add ) {
-        if(globalTicks[globals.currentClimbingType].today[globals.indoorsOutdoors][grade].ticks[ascentType] && globalTicks[globals.currentClimbingType].today[globals.indoorsOutdoors][grade].ticks[ascentType].length) {
-          globalTicks[globals.currentClimbingType].today[globals.indoorsOutdoors][grade].ticks[ascentType] = globalTicks[globals.currentClimbingType].today[globals.indoorsOutdoors][grade].ticks[ascentType].slice(0,-1);
+        if(globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType] && globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType].length) {
+          globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType] = globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType].slice(0,-1);
           }
         else{
-          delete globalTicks[globals.currentClimbingType].today[globals.indoorsOutdoors][grade].ticks[ascentType];
+          delete globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType];
         }
       }
 
       // Add tick
       else {
-        if(!globalTicks[globals.currentClimbingType].today[globals.indoorsOutdoors][grade].ticks[ascentType]) {
-          globalTicks[globals.currentClimbingType].today[globals.indoorsOutdoors][grade].ticks[ascentType] = [];
+        if(!globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType]) {
+          globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType] = [];
         }
-        globalTicks[globals.currentClimbingType].today[globals.indoorsOutdoors][grade].ticks[ascentType].push({
+        globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType].push({
             date : timestamp
           });
         }
