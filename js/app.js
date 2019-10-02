@@ -6,8 +6,11 @@ import { countAscents, countTotalScore, countTopFive, averageGrade, countAscents
 let napak = {
   initialize : () => {
     let getTicks = store.read({key: 'ticks'});
+    
     if(getTicks) {
-      globals.ticks = getTicks;
+      for(let i in getTicks) {
+        globals.ticks[i] = {...globals.ticks[i], ...getTicks[i]}
+      }
     }
 
     // Update all globals 
