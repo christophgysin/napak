@@ -19,7 +19,7 @@ class wheel {
       // let test = window.getComputedStyle(selectDialog);
       // console.log(test.getPropertyValue('padding-top'));
       if(Math.round(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length))-1 < 0) {
-        dialViewport.scrollTo(0,0);
+        dialViewport.scrollTo(0,Math.round(dialViewport.scrollHeight / globals.grades.font.length/2));
       }
       globals.currentAscentGrade = Math.round(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length))-1;
     }, false);
@@ -83,7 +83,7 @@ class wheel {
     let observer = new MutationObserver(function(mutations) {
       if (document.contains(dialViewport)) {
         setTimeout( () => {
-          dialViewport.scrollTo(0,dialViewport.scrollHeight / globals.grades.font.length * 5)
+          dialViewport.scrollTo(0,dialViewport.scrollHeight / globals.grades.font.length * 5);
         }, 100);
       observer.disconnect();
       }
