@@ -117,8 +117,8 @@ class sectionProgress {
         
         if(globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i]) {
           
-          for(let test in globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i].ticks) {
-            count = globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i].ticks[test].length;
+          for(let test in globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i].ticks) {            
+            count+= globals.ticks[globals.currentClimbingType].today[globals.indoorsOutdoors][i].ticks[test].length;
           }  
         }
         

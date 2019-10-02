@@ -17,7 +17,7 @@ class viewHome {
 
     let appContainer = dce({el: 'DIV', cssClass : 'app'});
     let templateContainer = dce({el: 'DIV', cssClass: 'page-content'});
-    let contentContainer = dce({el: 'DIV', cssClass: 'tick-page'});
+    let tickPage = dce({el: 'DIV', cssClass: 'tick-page'});
     let inOutSelector = dce({el: 'DIV', cssClass: 'in-out-selector'});
 
     let current = dce({el: 'DIV', cssClass: 'current'});
@@ -106,10 +106,10 @@ class viewHome {
 */
     footer.appendChild(footerNav);
 
-    contentContainer.appendChild(inOutSelector);
-    contentContainer.appendChild(progressSection.render());
-    contentContainer.appendChild(gradeSelector.render());
-    templateContainer.appendChild(contentContainer);
+    tickPage.appendChild(inOutSelector);
+    tickPage.appendChild(progressSection.render());
+    tickPage.appendChild(gradeSelector.render());
+    templateContainer.appendChild(tickPage);
     appContainer.appendChild(templateContainer);
     appContainer.appendChild(footer);
 
