@@ -5,14 +5,6 @@ import { countAscents, countTotalScore, countTopFive, averageGrade, countAscents
 
 let napak = {
   initialize : () => {
-    let getTicks = store.read({key: 'ticks'});
-    
-    if(getTicks) {
-      for(let i in getTicks) {
-        globals.ticks[i] = {...globals.ticks[i], ...getTicks[i]}
-      }
-    }
-
     // Update all globals 
     let updateAll = () => {
       globals.currentScore = countTotalScore(); // Array of top scores
@@ -23,10 +15,22 @@ let napak = {
       globals.totalAscentCount = countAscents().total; // Total ascent count by scope : today, 30 days etc
     };
 
-    updateAll();
 // Listen to tick objects change and update 
     globals.storeObservers.push({key: 'ticks', callback: updateAll });
     globals.storeObservers.push({key: 'indoorsOutdoors', callback: updateAll });
+
+  // Get old ticks from local storage
+    let getTicks = store.read({key: 'ticks'});
+    
+    if(getTicks) {
+      // Merge 
+      for(let i in getTicks) {
+        globals.ticks[i] = {...globals.ticks[i], ...getTicks[i]}
+      }
+    }
+
+    globals.ticks = globals.ticks;
+
 
     // init app
     document.body.innerHTML = "";
