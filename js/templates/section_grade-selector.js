@@ -1,4 +1,4 @@
-import { dce } from '/js/shared/helpers.js';
+import { dce, handleDate } from '/js/shared/helpers.js';
 import wheel from '/js/components/wheel.js';
 import picker from '/js/components/picker.js';
 import { globals } from '/js/shared/globals.js';
@@ -37,6 +37,8 @@ class gradeWheel {
       let grade = globals.currentAscentGrade;
       let ascentType = globals.currentAscentType;
       let timestamp = new Date().getTime();
+
+      console.log(handleDate({dateString: timestamp}));
       
 // create object for current grade if doesn't exists
       if(!globalTicks[globals.currentClimbingType].today[globals.indoorsOutdoors][grade]) {

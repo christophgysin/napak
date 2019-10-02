@@ -77,7 +77,20 @@ class wheel {
 
     dialContainer.appendChild(dialViewport);
 
+    // Observe when dial is in DOM
+    let observer = new MutationObserver(function(mutations) {
+      if (document.contains(dialViewport)) {
+        setTimeout( () => {
+          dialViewport.scrollTo(0,dialViewport.scrollHeight / globals.grades.font.length * 5)
+        }, 100);
+      observer.disconnect();
+      }
+    });
+
+    observer.observe(document, {attributes: false, childList: true, characterData: false, subtree:true});
     this.render = () => {
+
+      
       return dialContainer;
     }
 
