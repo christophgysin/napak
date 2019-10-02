@@ -61,7 +61,7 @@ class gradeWheel {
           globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType] = [];
         }
         globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType].push({
-            date : timestamp
+            date : new Date().getTime()
           });
         }
 
