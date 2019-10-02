@@ -18,7 +18,9 @@ class wheel {
       // 200px is 2x100padding
       // let test = window.getComputedStyle(selectDialog);
       // console.log(test.getPropertyValue('padding-top'));
-
+      if(Math.round(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length))-1 < 0) {
+        dialViewport.scrollTo(0,0);
+      }
       globals.currentAscentGrade = Math.round(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length))-1;
     }, false);
 
