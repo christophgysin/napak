@@ -1,7 +1,7 @@
 import viewHome from '/js/templates/page_home.js';
 import { globals } from '/js/shared/globals.js';
 import { store }  from '/js/shared/store.js';
-import { countAscents, countTotalScore, countTopFive, averageGrade, countAscentsByType }  from '/js/shared/helpers.js';
+import { countAscents, countTotalScore, countTopFive, averageGrade, countAscentsByType, allTime}  from '/js/shared/helpers.js';
 
 let napak = {
   initialize : () => {
@@ -30,6 +30,8 @@ let napak = {
     }
 
     globals.ticks = globals.ticks;
+
+    allTime();
 
 
     // init app
