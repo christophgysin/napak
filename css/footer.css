@@ -32,3 +32,43 @@ footer>nav a.active {
 footer>nav a span {
 	font-size: .5em;
 }
+
+
+/* Pull up menu */
+.footer-pullup-menu{
+	position: absolute;
+	bottom: 0;
+	display: grid;
+	grid-auto-rows: 60px;
+	z-index: 9999;
+	margin-bottom: 42px;
+}
+
+.footer-pullup-menu SPAN {
+	display: block;
+	background: var(--color-theme-color3);
+	width: 50px;
+	height: 50px;
+	border-radius: 100%;
+	animation: fromBottom 600ms ease-out forwards;
+	transform: translate3d(0, 100vh, 0);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.footer-pullup-menu SPAN:nth-of-type(1) {animation-delay: 0ms}
+.footer-pullup-menu SPAN:nth-of-type(2) {animation-delay: 30ms}
+.footer-pullup-menu SPAN:nth-of-type(3) {animation-delay: 90ms}
+.footer-pullup-menu SPAN:nth-of-type(4) {animation-delay: 180ms}
+
+@keyframes fromBottom {
+	0% {
+		transform: translate3d(0, 100vh, 0) scale(0);
+	}
+	100% {
+		scale: 1;
+		transform: translate3d(0, 0, 0) scale(1);
+	}
+
+}

@@ -100,10 +100,21 @@ class viewHome {
     let footer = dce({el: 'FOOTER'});
     let footerNav = dce({el: 'NAV'});
 
-/*    let tickPage = dce({el:'A'})
-    tickPage.append(dce({el:'SPAN', content: 'tick'}));
-    footerNav.append(dce({el:'SPAN'}), tickPage);
-*/
+    let linkTickPage = dce({el:'A'})
+    linkTickPage.append(dce({el:'SPAN', content: 'boulder'}));
+    footerNav.append(linkTickPage);
+
+    linkTickPage.addEventListener('click', () => {
+      let linksContainer = dce({el: 'DIV', cssClass: 'footer-pullup-menu'});
+      ['boulder', 'sport', 'trad', 'toprope'].forEach((type) => {
+        let juuh = dce({el: 'SPAN', content: type});
+        linksContainer.appendChild(juuh);
+      });
+      linkTickPage.appendChild(linksContainer);
+    }, false);
+
+
+
     footer.appendChild(footerNav);
 
     tickPage.appendChild(inOutSelector);
