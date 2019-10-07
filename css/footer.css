@@ -40,21 +40,29 @@ footer>nav a span {
 	bottom: 0;
 	display: grid;
 	grid-auto-rows: 60px;
-	z-index: 9999;
+	z-index: 4;
 	margin-bottom: 42px;
 }
 
-.footer-pullup-menu SPAN {
-	display: block;
-	background: var(--color-theme-color3);
-	width: 50px;
-	height: 50px;
-	border-radius: 100%;
-	animation: fromBottom 600ms ease-out forwards;
-	transform: translate3d(0, 100vh, 0);
-	display: flex;
-	justify-content: center;
+.footer-pullup-menu > SPAN {
 	align-items: center;
+	animation: fromBottom 600ms ease-out forwards;
+	background: var(--color-theme-color3);
+	border-radius: 100%;
+	box-shadow: 0 0 3px 0 rgba(0,0,0,.3);
+	color: var(--color-white);
+	display: flex;
+	flex-direction: column;
+	font-size: var(--font-size-base);
+	height: 50px;
+	justify-content: center;
+	transform: translate3d(0, 100vh, 0);
+	width: 50px;
+}
+
+
+.footer-pullup-menu IMG {
+	width: 25px
 }
 
 .footer-pullup-menu SPAN:nth-of-type(1) {animation-delay: 0ms}
