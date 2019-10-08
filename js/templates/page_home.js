@@ -2,6 +2,7 @@ import progress from '/js/templates/section_progress.js';
 import gradeWheel from '/js/templates/section_grade-selector.js';
 import otc from '/js/templates/section_otc.js';
 import picker from '/js/components/picker.js';
+import pulldownMenu from '/js/components/pulldown.js';
 import toggleSwitch from '/js/components/toggleSwitch.js';
 
 import { globals } from '/js/shared/globals.js';
@@ -22,13 +23,13 @@ class viewHome {
 
     let current = dce({el: 'DIV', cssClass: 'current'});
 
-  let currentClimbingTypeTitle = () => {
-    if (globals.currentClimbingType === 'boulder') return `Bouldering ${globals.indoorsOutdoors}`;
-    if (globals.currentClimbingType === 'sport') return `Climbing sport ${globals.indoorsOutdoors}`;
-    if (globals.currentClimbingType === 'trad') return `Climbing trad ${globals.indoorsOutdoors}`;
-    if (globals.currentClimbingType === 'toprope') return `Top roping ${globals.indoorsOutdoors}`;
-    return globals.indoorsOutdoors;
-  }
+    let currentClimbingTypeTitle = () => {
+      if (globals.currentClimbingType === 'boulder') return `Bouldering ${globals.indoorsOutdoors}`;
+      if (globals.currentClimbingType === 'sport') return `Climbing sport ${globals.indoorsOutdoors}`;
+      if (globals.currentClimbingType === 'trad') return `Climbing trad ${globals.indoorsOutdoors}`;
+      if (globals.currentClimbingType === 'toprope') return `Top roping ${globals.indoorsOutdoors}`;
+      return globals.indoorsOutdoors;
+    }
 
     let currentTitle = dce({el: 'H3', content: currentClimbingTypeTitle()});
     current.appendChild(currentTitle);
@@ -43,83 +44,72 @@ class viewHome {
     }}); 
 
 
-    let toggleViewContainer = dce({el: 'DIV', cssClass: 'toggle'});
-
-    let toggleView = svg({
-      el: 'svg', 
-      attrbs: [
-        ['stroke','currentColor'], 
-        ['fill', 'none'], 
-        ['stroke-width', 0.5], 
-        ['viewBox', '0 0 24 24'], 
-        ['stroke-linecap', 'round'], 
-        ['stroke-linejoin', 'round'], 
-        ['height', '1em'], 
-        ['width', '1em']]
-    });
-
-    let toggleViewCircle = svg({el: 'circle', attrbs: [['cx', 12], ['cy', 12], ['r', 3]]});
-    let toggleViewPath = svg({el: 'path', attrbs:[['d','M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z']]});
-    toggleView.append(toggleViewCircle, toggleViewPath);
-    toggleViewContainer.appendChild(toggleView);
-    current.appendChild(toggleViewContainer);
-
     inOutSelector.appendChild(current);
 
-    current.addEventListener('click', function() {
-      inOutSelector.classList.toggle('open');
-    }, false);
-  // In / out menu 
-    let inOutMenu = dce({el: 'DIV', cssClass: 'in-out-menu'})
-    
-    let climbingTypeSelector = new picker({
-      cssClass  : 'horizontal-menu full-width small-legends',
-      targetObj : 'currentClimbingType',
-      options   : [
-        {title: 'Boulder', value:'boulder', selected: true, legend: globals.totalAscentsByType.boulder, val: 'totalAscentsByType.boulder'},
-        {title: 'Sport', value:'sport', legend: globals.totalAscentsByType.sport, val: 'totalAscentsByType.sport'},
-        {title: 'Top rope', value:'toprope', legend: globals.totalAscentsByType.toprope, val: 'totalAscentsByType.toprope'},
-        {title: 'Trad', value:'trad', legend: globals.totalAscentsByType.trad, val: 'totalAscentsByType.trad'}
-      ],
-      callback: updateScopeTicks
-      });
 
-    
-    let indoorsOutdoorsSelector = new toggleSwitch({
-      cssClass  : 'horizontal-menu full-width',
-      targetObj : 'indoorsOutdoors',
-      options   : [
-        {title: 'Outdoors', value:'outdoors', selected: globals.indoorsOutdoors === 'outdoors' },
-        {title: 'Indoors', value:'indoors', selected: globals.indoorsOutdoors === 'indoors'}]
-    });
-
-    inOutMenu.append(climbingTypeSelector.render(), indoorsOutdoorsSelector.render());
-
-    inOutSelector.appendChild(inOutMenu);
     // Footer
     let footer = dce({el: 'FOOTER'});
     let footerNav = dce({el: 'NAV'});
 
-    let linkTickPage = dce({el:'A'})
-    linkTickPage.append(dce({el:'SPAN', content: 'boulder'}));
-    footerNav.append(linkTickPage);
 
-    let linksContainer = dce({el: 'DIV', cssClass: 'footer-pullup-menu hidden'});
-    ['boulder', 'sport', 'trad', 'toprope'].forEach((type) => {
-      let juuh = dce({el: 'SPAN'});
-      let icon = dce({el: 'IMG', source: 'images/rock.svg'})
-      let title = dce({el: 'SPAN', content: type});
-      juuh.append(icon, title)
-      linksContainer.appendChild(juuh);
+    // Change discipline
+    let changeDiscipline = dce({el: 'a'});
+    let changeDisciplineContainer = dce({el: 'SPAN'});
+    let linkTickPageIcon = dce({el: 'IMG', source: 'images/rock.svg'})
+    let linkTickPageTitle = dce({el: 'SPAN', content: globals.currentClimbingType});
+    changeDisciplineContainer.append(linkTickPageIcon, linkTickPageTitle);
+    changeDiscipline.append(changeDisciplineContainer);
+
+    let udpateDiscipline = function (type) {
+      updateScopeTicks();
+      linkTickPageTitle.innerHTML = globals.currentClimbingType;
+    };
+    
+    let disciplines = new pulldownMenu({
+      options   : [
+        {title: 'Boulder', value:'boulder', icon: '/images/rock.svg', selected: true, legend: globals.totalAscentsByType.boulder, val: 'totalAscentsByType.boulder'},
+        {title: 'Sport', value:'sport', icon: '/images/rock.svg',  legend: globals.totalAscentsByType.sport, val: 'totalAscentsByType.sport'},
+        {title: 'Top rope', value:'toprope', icon: '/images/rock.svg', legend: globals.totalAscentsByType.toprope, val: 'totalAscentsByType.toprope'},
+        {title: 'Trad', value:'trad', icon: '/images/rock.svg', legend: globals.totalAscentsByType.trad, val: 'totalAscentsByType.trad'}
+      ],
+      targetObj : 'currentClimbingType',
+      callback: udpateDiscipline
     });
-    linkTickPage.appendChild(linksContainer);
 
+    changeDiscipline.appendChild(disciplines.render());
 
-    linkTickPage.addEventListener('click', () => {
-      linksContainer.classList.toggle('hidden')
+    changeDiscipline.addEventListener('click', () => {
+      disciplines.toggle();
     }, false);
 
 
+
+/* / Indoors / Outdoors -> */
+        let changeIndoorsOutdoors = dce({el: 'a'});
+        let changeIndoorsOutdoorsContainer = dce({el: 'SPAN'});
+        let changeIndoorsOutdoorsIcon = dce({el: 'IMG', source: 'images/rock.svg'})
+        let changeIndoorsOutdoorsTitle = dce({el: 'SPAN', content: globals.indoorsOutdoors});
+        changeIndoorsOutdoorsContainer.append(changeIndoorsOutdoorsIcon, changeIndoorsOutdoorsTitle);
+        changeIndoorsOutdoors.append(changeIndoorsOutdoorsContainer);
+            
+        let inOutScope = new pulldownMenu({
+          options   : [
+            {title: 'Outdoors', value:'outdoors', icon: '/images/rock.svg',selected: globals.indoorsOutdoors === 'outdoors' },
+            {title: 'Indoors', value:'indoors', icon: '/images/rock.svg', selected: globals.indoorsOutdoors === 'indoors'}
+            ],
+          targetObj : 'indoorsOutdoors',
+          callback: udpateDiscipline
+        });
+    
+        changeIndoorsOutdoors.appendChild(inOutScope.render());
+    
+        changeIndoorsOutdoors.addEventListener('click', () => {
+          inOutScope.toggle();
+        }, false);
+
+/* <- / Indoors / Outdoors */
+
+    footerNav.append(changeDiscipline, changeIndoorsOutdoors );
 
     footer.appendChild(footerNav);
 

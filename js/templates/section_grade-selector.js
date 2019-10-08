@@ -80,7 +80,10 @@ class gradeWheel {
 
     buttonsContainer.append(buttonDec, spacer, buttonInc);
     pickerElement.appendChild(buttonsContainer);
-    container.appendChild(pickerElement);
+
+    let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
+
+    container.append(pickerElement, naviShadow);
 
     this.render = () => {
       return container;

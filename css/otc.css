@@ -176,10 +176,14 @@ BODY.otc .menu-trigger .menu-trigger-bar:nth-of-type(3) {
 	pointer-events: none;
 }
 
+BODY.footer-pulldown .grade .navi-shadow {
+	background: rgba(0, 0, 0, .6);
+	pointer-events: all;
+}
+
 BODY.otc .navi-shadow {
 	background: rgba(0, 0, 0, .6);
 	pointer-events: all;
-
 }
 @keyframes fadein {
     from { 	background: rgba(0, 0, 0, 0); }

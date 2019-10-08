@@ -172,7 +172,8 @@ SECTION.grade::after {
 	opacity: 0.1;
 }
 
-SECTION.grade:not(.grade-dial-container) * {
+SECTION.grade:not(.grade-dial-container) *,
+SECTION.grade:not(.navi-shadow) {
 	z-index: 1;
 }
 .grade-dial-container {
