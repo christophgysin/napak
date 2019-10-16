@@ -70,49 +70,35 @@ let triggerCustomEvent = (params) => {
 
 // Count top 5 score
 let countTopFive = () => {
-  return globals.currentScore.reduce((a, b) => Number(a) + Number(b), 0);
-
+  return countTotalScore().reduce((a, b) => Number(a) + Number(b), 0);
 }
 
 // Count average grade
-let averageGrade = (grades, amount) => {
-  if (!grades) {
-    return 'N/A'
-  }
-  let avgr = grades / amount;
-  let closest = globals.grades.font.reduce(function (prev, curr) {
-    return (Math.abs(curr - avgr) < Math.abs(prev - avgr) ? curr : prev);
-  });
+let averageGrade = (amount) => {
+  let ticks = handleScopeTicks(globals.scope);
+  let maxGrades = [];
+  ticks.forEach(tick => {maxGrades.push(tick.grade)});
+  if(maxGrades.length < 1) return 'N/A';
+  maxGrades = maxGrades.sort(function (a, b) { return b - a }).slice(0, 5);
+  console.log(maxGrades);
+  maxGrades = maxGrades.reduce((a, b) => Number(a) + Number(b), 0);
+  let avgr = maxGrades / amount;
+  console.log(maxGrades)
 
-  return globals.grades.font[globals.grades.font.indexOf(closest)];
+  return globals.grades.font[Math.round(avgr)];
 }
 
 
 // Total score
-// this is retarded
 let countTotalScore = () => {
-  let score = [];
-  if (globals.ticks && globals.ticks[globals.currentClimbingType][globals.today] && globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors]) {
-    for (let i in globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors]) {
-      let val = globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].order;
-      let ascentTypes = Object.keys(globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks);
-      ascentTypes.forEach((type) => {
-        if (globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks[type]) {
-          let count = globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks[type].length;
-          if (count) {
-            let temp = Array(count).fill(Number(eightaNuScore({ 'type': type, grade: i, sport: globals.currentClimbingType })));
-            score.push(temp.flat(Infinity));
-          }
-        }
-      })
-    }
+  let ticks = handleScopeTicks(globals.scope);
+  let score = [0,0,0,0,0];
 
-    score = score.flat(Infinity).sort(function (a, b) { return b - a });
-    return score.slice(0, 5);
-  }
-  else {
-    return [0, 0, 0, 0, 0];
-  }
+  ticks.forEach((tick) => {
+    score.push(eightaNuScore({ 'type': tick.ascentType, grade: tick.grade, sport: tick.type }));
+  })
+
+  return score.sort(function (a, b) { return b - a }).slice(0, 5);
 }
 
 
@@ -140,32 +126,28 @@ let eightaNuScore = (data) => {
 }
 
 // Get ascents
-let countAscents = () => {
+let countAscents = (scope) => {
+  let types = ['redpoint', 'onsight', 'flash'];
+
   let ascents = {
     redpoint: 0,
     onsight: 0,
     flash: 0,
     total: 0
   };
+ 
+  let ticks = handleScopeTicks(scope);
 
-  if (globals.ticks && globals.ticks[globals.currentClimbingType][globals.today] && globals.ticks[globals.currentClimbingType][globals.today][[globals.indoorsOutdoors]]) {
+  types.forEach((type) => {
+    let ticksByDiscipline = ticks.filter(obj => {
+      return obj.ascentType === type &&
+      obj.type === globals.currentClimbingType &&
+      obj.indoorsOutdoors === globals.indoorsOutdoors
+    });
+    ascents[type] = ticksByDiscipline.length;
+    ascents.total+=ticksByDiscipline.length;
+  });
 
-    for (let i in globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors]) {
-      let val = globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].order;
-      let ascentTypes = Object.keys(globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks);
-
-      ascentTypes.forEach((type) => {
-        if (globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks[type]) {
-          if (ascents.hasOwnProperty(type)) {
-            ascents[type] += Number(globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks[type].length);
-          }
-          if (globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks[type].length > 0) {
-            ascents.total += Number(globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks[type].length);
-          }
-        }
-      });
-    }
-  }
   return ascents;
 }
 
@@ -177,26 +159,17 @@ let countAscentsByDifficulty = () => {
     flash: {}
   };
 
-  if (globals.ticks && globals.ticks[globals.currentClimbingType][globals.today] && globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors]) {
+  let ticks = handleScopeTicks('today');
 
-    for (let i in globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors]) {
-      let val = globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].order;
-      let ascentTypes = Object.keys(globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks);
-
-      ascentTypes.forEach((type) => {
-        let count;
-        if (globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks[type]) {
-          if (ascents.hasOwnProperty(type)) {
-            count = globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks[type].length;
-          }
-          else {
-            count = 0;
-          }
+  ticks.forEach((tick) => {
+    if(tick.indoorsOutdoors === globals.indoorsOutdoors &&
+      tick.type === globals.currentClimbingType) {
+        if(!ascents[tick.ascentType][tick.grade]) {
+          ascents[tick.ascentType][tick.grade] = 0;
         }
-        ascents[type][val] = { count: count };
-      });
-    }
-  }
+        ascents[tick.ascentType][tick.grade]+= 1;
+      }
+  });
   return ascents;
 }
 
@@ -209,68 +182,78 @@ let countAscentsByType = () => {
     trad: 0
   };
 
+  let ticks = handleScopeTicks('today');
 
   let temp = Object.keys(types);
   temp.forEach((type) => {
-    for (let i in globals.ticks[type][globals.today][globals.indoorsOutdoors]) {
-      for (let j in globals.ticks[type][globals.today][globals.indoorsOutdoors][i].ticks) {
-        types[type] += globals.ticks[type][globals.today][globals.indoorsOutdoors][i].ticks[j].length;
-      }
-    }
+    let ticksByDiscipline = ticks.filter(obj => {
+      return obj.type === type && obj.indoorsOutdoors === globals.indoorsOutdoors
+    })
+    types[type] = ticksByDiscipline.length;
   });
   return types;
 }
 
 
+// Get ascents by grade
+let countAscentsByGrade = (scope) => {
+  let ticks = handleScopeTicks(scope);
+
+  let ascentsByGrade = new Array(globals.grades.font.length).fill(0);
+  let type = globals.currentClimbingType;
+  ascentsByGrade.forEach((grade, count) => {
+    let ticksByGrade = ticks.filter(obj => {
+      return obj.type === type && 
+              obj.indoorsOutdoors === globals.indoorsOutdoors &&
+              obj.grade === count
+    })
+    ascentsByGrade[count] = ticksByGrade.length;
+  });
+  return ascentsByGrade;
+}
+
+
+let handleScopeTicks = (scope) => {
+  let fromNow;
+  let fromNowArray = globals.today.split('-');
+
+  let year = Number(fromNowArray[0]);
+  let month = Number(fromNowArray[1]);
+  let day = Number(fromNowArray[2]);
+
+  if(scope === 'thirtydays')  {month-=1;}
+  if(scope === 'year')        {year-=1;}
+  if(scope === 'alltime')     {year = 2000; month = 1; day = 1;}
+
+  fromNow = new Date(Number(year), Number(month), Number(day)).getTime();
+  let ticks = [];
+  globals.ticks.forEach((tick) => {
+    if(tick.date >= fromNow && tick.type === globals.currentClimbingType) {
+      ticks.push(tick)
+    }
+  })
+//  let ticks = {};
+//  let types = ['boulder', 'sport', 'toprope','trad'];
+  return ticks;
+}
+
 let updateScopeTicks = () => {
   // Clear legends
   // do this somewhere else
-  let legends = document.querySelector('.select-dialog').querySelectorAll('.legends-holder');
-  legends.forEach((nodes) => {
-    while (nodes.childNodes.length > 0) {
-      nodes.removeChild(nodes.lastChild);
-    }
-  })
 
   globals.currentScore = countTotalScore();
   globals.totalScore = countTopFive();
-  globals.averageGrade = averageGrade(globals.currentScore.reduce((a, b) => Number(a) + Number(b), 0), 5);
-  globals.totalAscentCount = countAscents().total;
-  globals.totalAscents = countAscents();
+  globals.totalAscentCount['today'] = countAscents('today').total;
+  globals.totalAscentCount['thirtydays'] = countAscents('thirtydays').total;
+  globals.totalAscentCount['year'] = countAscents('year').total;
+  globals.totalAscentCount['alltime'] = countAscents('alltime').total;
+  globals.totalAscents = countAscents('today');
   let getTicks = globals.ticks;
   globals.ticks = getTicks;
   globals.totalAscentsByType = countAscentsByType();
+  globals.averageGrade = averageGrade(5);
 }
 
-let allTime = () => {
-  let types = {
-    boulder: 0,
-    sport: 0,
-    toprope: 0,
-    trad: 0
-  };
-
-  let ticks = Object.keys(types);
-
-  ticks.forEach((type) => {
-    let dates = Object.keys(globals.ticks[type]);
-    dates.forEach((date) => {
-      let grades = Object.keys(globals.ticks[type][date][globals.indoorsOutdoors]);
-      grades.forEach((grade) => {
-        for (let j in globals.ticks[type][date][globals.indoorsOutdoors][grade].ticks) {
-          types[type] += globals.ticks[type][date][globals.indoorsOutdoors][grade].ticks[j].length;
-/*
-// List ALL ticks 
-          for (let juuh in globals.ticks[type][date][globals.indoorsOutdoors][grade].ticks[j]) {
-            console.log(type, globals.grades.font[grade], globals.ticks[type][date][globals.indoorsOutdoors][grade].ticks[j][juuh].date)
-          };
-*/
-        }
-      })
-    })
-  });
-  console.log('All ticks in localstorage', types);
-}
 
 export {
   dce,
@@ -282,6 +265,32 @@ export {
   countAscents,
   countAscentsByDifficulty,
   countAscentsByType,
-  updateScopeTicks,
-  allTime
+  countAscentsByGrade,
+  handleScopeTicks,
+  updateScopeTicks
 }
+
+
+/*
+
+generateTicks = function(){
+    localStorage.cler();
+    let discipline = ['boulder', 'sport', 'trad', 'toprope'];
+    let ascentTypes = ['redpoint', 'onsight', 'flash'];
+    let indoors = ['indoors', 'outdoors'];
+
+    let ticks = [];
+    for(let i=0, j=100; i<j;i++){
+        ticks.push({
+            "type": discipline[Math.floor(discipline.length * Math.random())],
+            "indoorsOutdoors": indoors[Math.floor(indoors.length * Math.random())],
+            "grade": Math.round(Math.random()*24),
+            "ascentType": ascentTypes[Math.floor(ascentTypes.length * Math.random())],
+            "date": new Date(2000+Math.round(Math.random()*19),
+                                    Math.round(Math.random()*11),
+                                    Math.round(Math.random()*30)).getTime()
+        })
+    }
+    localStorage.setItem('ticks', JSON.stringify(ticks));
+};
+*/

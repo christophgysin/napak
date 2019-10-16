@@ -8,7 +8,7 @@ let handleDate = (params) => {
   let json = {
     dd: dateString.getDate(),
     yyyy: dateString.getFullYear(),
-    mm: dateString.getMonth() + 1,
+    mm: dateString.getMonth(),
     HH: ('0' + dateString.getHours()).substr(-2),
     MM: ('0' + dateString.getMinutes()).substr(-2),
     SS: ('0' + dateString.getSeconds()).substr(-2),

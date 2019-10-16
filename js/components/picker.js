@@ -1,4 +1,4 @@
-import { dce, countTotalScore, countTopFive, averageGrade, countAscents, countAscentsByType } from '/js/shared/helpers.js';
+import { dce } from '/js/shared/helpers.js';
 import { globals } from '/js/shared/globals.js';
 
 class picker {

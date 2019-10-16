@@ -26,6 +26,7 @@ const handler = {
 */
 
 let containerObj = {};
+
 let today = handleDate({dateString: new Date().getTime()});
 let types = ['boulder', 'sport', 'trad', 'toprope'];
 
@@ -46,8 +47,7 @@ let globalObjects = {
   today: today,
 
   grades : {
-    font: ["3", "4", "4+", "5", "5+", "6A", "6A+", "6B", "6B+", "6C", "6C+", "7A", "7A+", "7B", "7B+", "7C", "7C+", "8A", "8A+", "8B", "8B+", "8C", "8C+", "9A"],
-    hueco: ["V0", "V1", "V2", "V3","V4", "V5", "V6", "V7","V8", "V9", "V10", "V11","V12", "V13", "V14", "V15","V16", "V17"],
+    font: ["3", "4", "4+", "5", "5+", "6A", "6A+", "6B", "6B+", "6C", "6C+", "7A", "7A+", "7B", "7B+", "7C", "7C+", "8A", "8A+", "8B", "8B+", "8C", "8C+", "9A"]
   },
 
   currentAscentType : '',
@@ -55,10 +55,17 @@ let globalObjects = {
   indoorsOutdoors : 'indoors',
   currentClimbingType : 'boulder',
 
+  scope: 'today',
+
   currentScore: [0,0,0,0,0],
   totalScore: 0,
   averageGrade: 'N/A',
-  totalAscentCount: 0,
+  totalAscentCount: [{
+    'today': 0,
+    'alltime': 0,
+    'thirtydays': 0,
+    'year': 0
+  }],
   totalAscents : {
     redpoint: 0,
     flash: 0,
@@ -66,17 +73,15 @@ let globalObjects = {
     },
  
   totalAscentsByType : {
-    boulder: '',
-    toprope: '',
-    sport: '',
-    trad: ''
+    boulder: 0,
+    toprope: 0,
+    sport: 0,
+    trad: 0
   },
 
 
   // Ticks
-  ticks: {
-    ... containerObj
-  }
+  ticks: []
 };
 
 

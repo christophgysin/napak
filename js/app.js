@@ -1,7 +1,7 @@
 import viewHome from '/js/templates/page_home.js';
 import { globals } from '/js/shared/globals.js';
 import { store }  from '/js/shared/store.js';
-import { countAscents, countTotalScore, countTopFive, averageGrade, countAscentsByType, allTime}  from '/js/shared/helpers.js';
+import { countAscents, countTotalScore, countTopFive, averageGrade, countAscentsByType}  from '/js/shared/helpers.js';
 
 let napak = {
   initialize : () => {
@@ -9,10 +9,14 @@ let napak = {
     let updateAll = () => {
       globals.currentScore = countTotalScore(); // Array of top scores
       globals.totalScore = countTopFive();  // Top score counted together
-      globals.averageGrade = averageGrade(globals.currentScore.reduce((a, b) => Number(a) + Number(b), 0), 5);
+      globals.averageGrade = averageGrade(5);
       globals.totalAscentsByType = countAscentsByType(); // Total ascents by type: Boulder, Sport, Trad, Toprope
-      globals.totalAscents = countAscents();  // Total ascents by ascent type: Redpoint, onsight, flash
-      globals.totalAscentCount = countAscents().total; // Total ascent count by scope : today, 30 days etc
+      globals.totalAscents = countAscents('today');  // Total ascents by ascent type: Redpoint, onsight, flash
+
+      globals.totalAscentCount['today'] = countAscents('today').total;
+      globals.totalAscentCount['thirtydays'] = countAscents('thirtydays').total;
+      globals.totalAscentCount['year'] = countAscents('year').total;
+      globals.totalAscentCount['alltime'] = countAscents('alltime').total;
     };
 
 // Listen to tick objects change and update 
@@ -30,9 +34,6 @@ let napak = {
     }
 
     globals.ticks = globals.ticks;
-
-    allTime();
-
 
     // init app
     document.body.innerHTML = "";

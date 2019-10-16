@@ -1,5 +1,5 @@
 footer {
-	background: var(--color-black);
+	background: var(--color-theme-color1);
 	color: var(--color-white-dim)
 }
 
@@ -9,12 +9,15 @@ footer>nav {
 	font-family: 'Roboto';
 	font-size: 16px;
 	text-transform: uppercase;
+/*	
 	display: grid;
 	grid-template-columns: repeat(6, 1fr);
+*/
+	display: flex;
 }
 
 footer>nav a {
-	padding: 0 10px;
+/*	padding: 0 10px;*/
 	overflow: hidden;
 	white-space: nowrap;
 	text-align: center;
@@ -24,7 +27,8 @@ footer>nav a svg {
 	display: block;
 	margin: 0 auto -5px;
 }
-footer>nav a.active {
+footer>nav a:active,
+footer>nav a:focus {
 	background: var(--color-theme-color3);
 	color: var(--color-white)
 }
@@ -41,8 +45,10 @@ footer>nav a span {
 	display: grid;
 	grid-auto-rows: 60px;
 	z-index: 4;
-/*	left: 0;*/
+/*	
+	left: 0;
 	margin-left: -10px;
+*/
 	background: var(--color-theme-color1);
 }
 

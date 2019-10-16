@@ -1,21 +1,20 @@
 import picker from '/js/components/picker.js';
 import { globals } from '/js/shared/globals.js';
-import { dce, countTotalScore, countTopFive, countAscents, averageGrade } from '/js/shared/helpers.js';
+import { dce, countTotalScore, countAscentsByGrade, countTopFive, countAscents, averageGrade } from '/js/shared/helpers.js';
 
 class sectionProgress {
   constructor() {
-
     let periodPicker =  new picker({
       cssClass : 'horizontal-menu full-width small-legends',
-      targetObj : 'scope',
       options : [
-        {title: `Today`, value: 'today', selected: true, legend: globals.totalAscentCount, val: 'totalAscentCount'},
-        {title: `30 days`, value:'30days'},
-        {title: `Year`, value:'year'},
-        {title: `All time`, value:'alltime'}]
+        {title: `Today`, value: 'today', selected: true, legend: globals.totalAscentCount['today'], val: 'totalAscentCount.today'},
+        {title: `30 days`, value:'thirtydays',  legend: globals.totalAscentCount['thirtydays'], val: 'totalAscentCount.thirtydays'},
+        {title: `Year`, value:'year',  legend: globals.totalAscentCount['year'], val: 'totalAscentCount.year'},
+        {title: `All time`, value:'alltime',    legend: globals.totalAscentCount['alltime'], val: 'totalAscentCount.alltime'}],
+      targetObj : 'scope'
     });
 
-		let container = dce({el: 'SECTION', cssClass: 'progression'});
+    let container = dce({el: 'SECTION', cssClass: 'progression'});
     container.appendChild(periodPicker.render());
 
     let statisticsContainer = dce({el: 'DIV'});
@@ -29,20 +28,19 @@ class sectionProgress {
 
     points.append(pointsTitle, pointsCount);
 
-    globals.storeObservers.push({key: 'totalScore', callback: () => {
-      pointsCount.innerHTML = globals.totalScore;
-    }});
+    globals.storeObservers.push({key: 'totalScore', callback: () => {pointsCount.innerHTML = globals.totalScore;}});
 
-// Ascents
+    // Ascents
     let ascents = dce({el: 'DIV', cssClass: 'important-ascents'});
     let ascentsTitle = dce({el: 'H3', content: 'Ascents'})
-    let ascentsCount = dce({el: 'H2', content: globals.totalAscentCount.toString()});
+    let ascentsCount = dce({el: 'H2', content: globals.totalAscentCount[globals.scope]});
 
     ascents.append(ascentsTitle, ascentsCount);
 
-    globals.storeObservers.push({key: 'totalAscentCount', callback: () => {
-      ascentsCount.innerHTML = globals.totalAscentCount;
-    }});
+    /* TODO: */
+    // Make a helper function that allow pushing multiple values with same callback
+    globals.storeObservers.push({key: 'scope', callback: () => {ascentsCount.innerHTML = globals.totalAscentCount[globals.scope];}});
+    globals.storeObservers.push({key: 'ticks', callback: () => {ascentsCount.innerHTML = globals.totalAscentCount[globals.scope];}});
 
 
 // Grade
@@ -52,9 +50,8 @@ class sectionProgress {
 
     grade.append(gradeTitle, gradeCount);
 
-    globals.storeObservers.push({key: 'averageGrade', callback: () => {
-      gradeCount.innerHTML = globals.averageGrade;
-    }});
+    globals.storeObservers.push({key: 'averageGrade', callback: () => {gradeCount.innerHTML = globals.averageGrade;}});
+    globals.storeObservers.push({key: 'scope', callback: () => {gradeCount.innerHTML = globals.averageGrade;}});
 
 
 //
@@ -105,24 +102,16 @@ class sectionProgress {
 
 // update charts
     let updateCharts = () => {
-      globals.totalAscentCount = countAscents().total;
+      globals.totalAscentCount[globals.scope] = countAscents(globals.scope).total;
       globals.currentScore = countTotalScore();
       globals.totalScore = countTopFive();
-      globals.averageGrade = averageGrade(globals.currentScore.reduce((a, b) => Number(a) + Number(b), 0), 5);
+      globals.averageGrade = averageGrade(5);
 
 
       let barNodes = chartBarContainer.querySelectorAll('.bar');
+      let ticks = countAscentsByGrade(globals.scope);
       barNodes.forEach((bar, i) => {
-        let count = 0;
-        
-        if(globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i]) {
-          
-          for(let test in globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks) {            
-            count+= globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks[test].length;
-          }  
-        }
-        
-        bar.style.height = `${count}px`;
+        bar.style.height = `${ticks[i]}px`;
       });
     };
 
@@ -130,6 +119,7 @@ class sectionProgress {
     container.appendChild(gradeDistributionContainer);
 
     globals.storeObservers.push({key: 'indoorsOutdoors', callback: updateCharts });
+    globals.storeObservers.push({key: 'scope', callback: updateCharts });
     globals.storeObservers.push({key: 'ticks', callback: updateCharts });
 
     updateCharts();

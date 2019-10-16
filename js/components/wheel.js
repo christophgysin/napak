@@ -9,10 +9,6 @@ class wheel {
     let dialViewport = dce({el: 'DIV', cssClass: 'select-dialog-viewport'});
     let selectDialog = dce({el: 'DIV', cssClass: 'select-dialog', attrbs: [['data-enablescroll', 'true']] });
 
-    dialViewport.addEventListener('click', (e) => {
-      return true;
-    }, false);
-
 
     dialViewport.addEventListener('scroll', (y) => {
       // 200px is 2x100padding
@@ -25,19 +21,19 @@ class wheel {
     }, false);
 
     let gradeFragment = document.createDocumentFragment();
+    let gradeTicks = countAscentsByDifficulty();
+
     for(let i=0, j=globals.grades.font.length; i<j;i++) {
       let gradeContainer = dce({el: 'DIV'});
       let grade = dce({el: 'SPAN', content:globals.grades.font[i]});
       let legendHolder = dce({el: 'SPAN', cssClass: 'legends-holder'});
+      
 
-      if(globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i] && globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks) {
-        let ascentCountPerType =  Object.keys(globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks);
-        ascentCountPerType.forEach((type) => {
-          let legendTag = dce({el: 'SPAN', cssClass: `legend type-${type}`, content: globals.ticks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][i].ticks[type].length});
-          legendHolder.appendChild(legendTag);
-        });
-      }
-
+      let ascentCountPerType =  Object.keys(gradeTicks);
+      ascentCountPerType.forEach((type) => {
+        let legendTag = dce({el: 'SPAN', cssClass: `legend type-${type}`, content: gradeTicks[type][i]});
+        legendHolder.appendChild(legendTag);
+      });
       grade.appendChild(legendHolder);
       gradeContainer.appendChild(grade);
       gradeFragment.appendChild(gradeContainer);
@@ -54,13 +50,13 @@ class wheel {
       // Get ascents by grade and type and update legends accordingly
       let ascentsByGrade = countAscentsByDifficulty();
       let ascentCountPerType =  Object.keys(ascentsByGrade);
-      ascentCountPerType.forEach((type) => {        
-        for(let i in ascentsByGrade[type]) {          
+      ascentCountPerType.forEach((type) => {
+        for(let i in ascentsByGrade[type]) {
           if(selectDialog.childNodes[i].querySelector(`.legends-holder .type-${type}`)) {
-            selectDialog.childNodes[i].querySelector(`.legends-holder .type-${type}`).innerHTML = (!isNaN(ascentsByGrade[type][i].count) && ascentsByGrade[type][i].count > 0) ? ascentsByGrade[type][i].count : '';
+            selectDialog.childNodes[i].querySelector(`.legends-holder .type-${type}`).innerHTML = ascentsByGrade[type][i];
           }
           else {
-            let holder = dce({el: 'SPAN', cssClass: `legend type-${type}`, content: ascentsByGrade[type][i].count});
+            let holder = dce({el: 'SPAN', cssClass: `legend type-${type}`, content: ascentsByGrade[type][i]});
             selectDialog.childNodes[i].querySelector('.legends-holder').appendChild(holder);            
           }
         }

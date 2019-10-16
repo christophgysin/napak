@@ -33,45 +33,31 @@ class gradeWheel {
       if (globals.currentAscentGrade < 0) {
         return;
       }
-      let globalTicks = globals.ticks;
       let grade = globals.currentAscentGrade;
       let ascentType = globals.currentAscentType;
-
-      // create object for current grade if doesn't exists
-      if (!globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade]) {
-        globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade] = {
-          order: grade,
-          ticks: {},
-        };
-      }
+      let ticks = globals.ticks;
 
       // Remove tick
       if (!add) {
-        if (globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType] && globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType].length) {
-          globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType] = globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType].slice(0, -1);
-        }
-        else {
-          delete globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType];
-        }
+          ticks.pop();// = ticks.slice(0, -1);
       }
-
-      // Add tick
       else {
-        if (!globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType]) {
-          globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType] = [];
+        // Add tick
+        ticks.push({
+            type: globals.currentClimbingType,
+            indoorsOutdoors: globals.indoorsOutdoors,
+            grade: grade,
+            ascentType: ascentType,
+            date: new Date().getTime()
+          });
         }
-        globalTicks[globals.currentClimbingType][globals.today][globals.indoorsOutdoors][grade].ticks[ascentType].push({
-          date: new Date().getTime()
-        });
-      }
-
-      globals.ticks = globalTicks;
-
       // update local storage
       store.write({
         key: 'ticks',
         keydata: globals.ticks
-      })
+      });
+
+      globals.ticks = ticks;
     };
 
     buttonInc.addEventListener('click', () => { handleTick(true); }, false);
