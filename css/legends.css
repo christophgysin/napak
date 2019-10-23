@@ -63,6 +63,16 @@
 	height: 16px;
 	line-height: 16px;
 	font-size: 0;
+	top: 50%;
+	transform: translateY(-50%)
+}
+
+.grade-dial-container .legends-holder {
+	top: 50%;
+	transform: translateY(-50%)
+}
+
+.grade-dial-container .legends-holder .legend {
 	top: 0;
 }
 

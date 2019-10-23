@@ -80,10 +80,8 @@ let averageGrade = (amount) => {
   ticks.forEach(tick => {maxGrades.push(tick.grade)});
   if(maxGrades.length < 1) return 'N/A';
   maxGrades = maxGrades.sort(function (a, b) { return b - a }).slice(0, 5);
-  console.log(maxGrades);
   maxGrades = maxGrades.reduce((a, b) => Number(a) + Number(b), 0);
   let avgr = maxGrades / amount;
-  console.log(maxGrades)
 
   return globals.grades.font[Math.round(avgr)];
 }
@@ -213,6 +211,7 @@ let countAscentsByGrade = (scope) => {
 }
 
 
+// Return all ticks matching the scope
 let handleScopeTicks = (scope) => {
   let fromNow;
   let fromNowArray = globals.today.split('-');
@@ -232,15 +231,11 @@ let handleScopeTicks = (scope) => {
       ticks.push(tick)
     }
   })
-//  let ticks = {};
-//  let types = ['boulder', 'sport', 'toprope','trad'];
+
   return ticks;
 }
 
 let updateScopeTicks = () => {
-  // Clear legends
-  // do this somewhere else
-
   globals.currentScore = countTotalScore();
   globals.totalScore = countTopFive();
   globals.totalAscentCount['today'] = countAscents('today').total;
@@ -248,8 +243,11 @@ let updateScopeTicks = () => {
   globals.totalAscentCount['year'] = countAscents('year').total;
   globals.totalAscentCount['alltime'] = countAscents('alltime').total;
   globals.totalAscents = countAscents('today');
+
+  // Trigger 
   let getTicks = globals.ticks;
   globals.ticks = getTicks;
+
   globals.totalAscentsByType = countAscentsByType();
   globals.averageGrade = averageGrade(5);
 }
@@ -274,7 +272,7 @@ export {
 /*
 
 generateTicks = function(){
-    localStorage.cler();
+    localStorage.clear();
     let discipline = ['boulder', 'sport', 'trad', 'toprope'];
     let ascentTypes = ['redpoint', 'onsight', 'flash'];
     let indoors = ['indoors', 'outdoors'];
@@ -284,7 +282,7 @@ generateTicks = function(){
         ticks.push({
             "type": discipline[Math.floor(discipline.length * Math.random())],
             "indoorsOutdoors": indoors[Math.floor(indoors.length * Math.random())],
-            "grade": Math.round(Math.random()*24),
+            "grade": Math.round(Math.random()*23),
             "ascentType": ascentTypes[Math.floor(ascentTypes.length * Math.random())],
             "date": new Date(2000+Math.round(Math.random()*19),
                                     Math.round(Math.random()*11),

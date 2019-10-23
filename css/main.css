@@ -268,7 +268,7 @@ SECTION.grade:not(.navi-shadow) {
 	scroll-snap-coordinate: top;
 }
 
-.select-dialog DIV>SPAN {
+.select-dialog DIV > SPAN {
 	position: relative;
 }
 

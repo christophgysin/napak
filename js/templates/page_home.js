@@ -110,20 +110,8 @@ class viewHome {
 
     }, false);
 
-/* <- / Indoors / Outdoors */
-
-/* settings --> 
-      let changeSettings = dce({el: 'a'});
-      let changeSettingsContainer = dce({el: 'SPAN'});
-      let changeSettingsContainerIcon = dce({el: 'IMG', source: 'images/rock.svg'})
-      let changeSettingsTitle = dce({el: 'SPAN', content: 'Settings'});
-      changeSettingsContainer.append(changeSettingsContainerIcon, changeSettingsTitle);
-      changeSettings.append(changeSettingsContainer);
-
- <-- settings  */
-
+    
     footerNav.append(changeDiscipline, changeIndoorsOutdoors/*, changeSettings*/);
-
     footer.appendChild(footerNav);
 
     tickPage.appendChild(inOutSelector);

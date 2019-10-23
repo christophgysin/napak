@@ -55,12 +55,25 @@ class pulldownMenu {
       return menuContainer;
     }
 
+    this.close = () => {
+      menuContainer.classList.add('hidden');
+    }
+
     this.toggle = () => {
+      // Close other menus
+      for(let i=0, j=globals.openMenus.length; i<j;i++) {
+        if(globals.openMenus[i] !== this) {
+          globals.openMenus[i].close();
+        }
+      }
+      globals.openMenus = [];
+
       menuContainer.classList.toggle('hidden');
       if(menuContainer.classList.contains('hidden')) {
         document.body.classList.remove('footer-pulldown');
       }
       else {
+        globals.openMenus.push(this);
         document.body.classList.add('footer-pulldown');
       }
     }

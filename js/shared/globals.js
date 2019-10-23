@@ -43,7 +43,7 @@ types.forEach((type) => {
   */
 let globalObjects = {
   storeObservers : [],
-
+  openMenus: [],
   today: today,
 
   grades : {
