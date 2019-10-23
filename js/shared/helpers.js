@@ -151,14 +151,18 @@ let countAscents = (scope) => {
 
 // Get ascents by difficulty
 let countAscentsByDifficulty = () => {
+  let temp = globals.grades.font.length;
+  let tempObj = {}
+  for(let i=0, j=temp; i<j;i++) {
+    tempObj[i] = 0;
+  }
   let ascents = {
-    redpoint: {},
-    onsight: {},
-    flash: {}
+    redpoint: {...tempObj},
+    onsight: {...tempObj},
+    flash: {...tempObj}
   };
 
   let ticks = handleScopeTicks('today');
-
   ticks.forEach((tick) => {
     if(tick.indoorsOutdoors === globals.indoorsOutdoors &&
       tick.type === globals.currentClimbingType) {

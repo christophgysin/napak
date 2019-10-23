@@ -39,7 +39,21 @@ class gradeWheel {
 
       // Remove tick
       if (!add) {
-          ticks.pop();// = ticks.slice(0, -1);
+        let ticksByGrade = [];
+        for(let i=0, j=ticks.length; i<j;i++) {
+          let today = globals.today.split("-");
+          today = new Date(today[0], today[1], today[2]).getTime();
+          if(ticks[i].date >= today &&
+            ticks[i].grade === grade &&
+            ticks[i].ascentType === ascentType &&
+            ticks[i].indoorsOutdoors === globals.indoorsOutdoors && 
+            ticks[i].type === globals.currentClimbingType ){
+              ticksByGrade.push(i);
+            }
+        }
+        if(ticksByGrade.length) {
+          ticks.splice(ticksByGrade[ticksByGrade.length-1], 1)
+        }
       }
       else {
         // Add tick

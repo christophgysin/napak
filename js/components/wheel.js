@@ -50,10 +50,11 @@ class wheel {
       // Get ascents by grade and type and update legends accordingly
       let ascentsByGrade = countAscentsByDifficulty();
       let ascentCountPerType =  Object.keys(ascentsByGrade);
+//      console.log(ascentsByGrade)
       ascentCountPerType.forEach((type) => {
         for(let i in ascentsByGrade[type]) {
           if(selectDialog.childNodes[i].querySelector(`.legends-holder .type-${type}`)) {
-            selectDialog.childNodes[i].querySelector(`.legends-holder .type-${type}`).innerHTML = ascentsByGrade[type][i];
+            selectDialog.childNodes[i].querySelector(`.legends-holder .type-${type}`).innerHTML = (ascentsByGrade[type][i]) ? ascentsByGrade[type][i] : '';
           }
           else {
             let holder = dce({el: 'SPAN', cssClass: `legend type-${type}`, content: ascentsByGrade[type][i]});
