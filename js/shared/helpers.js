@@ -157,9 +157,9 @@ let countAscentsByDifficulty = () => {
     tempObj[i] = 0;
   }
   let ascents = {
+    flash: {...tempObj},
     redpoint: {...tempObj},
-    onsight: {...tempObj},
-    flash: {...tempObj}
+    onsight: {...tempObj}
   };
 
   let ticks = handleScopeTicks('today');
