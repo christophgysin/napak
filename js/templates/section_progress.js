@@ -45,7 +45,7 @@ class sectionProgress {
 
 // Grade
     let grade = dce({el: 'DIV', cssClass: 'important-grade'});
-    let gradeTitle = dce({el: 'H3', content: 'Grade'})
+    let gradeTitle = dce({el: 'H3', content: 'Avg. grade'})
     let gradeCount = dce({el: 'H2', content: globals.averageGrade})
 
     grade.append(gradeTitle, gradeCount);
