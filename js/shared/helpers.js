@@ -157,8 +157,8 @@ let countAscentsByDifficulty = () => {
     tempObj[i] = 0;
   }
   let ascents = {
-    flash: {...tempObj},
     redpoint: {...tempObj},
+    flash: {...tempObj},
     onsight: {...tempObj}
   };
 

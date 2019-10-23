@@ -12,8 +12,8 @@ class gradeWheel {
       id: 'ascent-type-selector',
       targetObj: 'currentAscentType',
       options: [
-        { title: 'Flash', value: 'flash', legend: globals.totalAscents.flash, val: 'totalAscents.flash' },
         { title: 'Redpoint', value: 'redpoint', selected: true, legend: globals.totalAscents.redpoint, val: 'totalAscents.redpoint' },
+        { title: 'Flash', value: 'flash', legend: globals.totalAscents.flash, val: 'totalAscents.flash' },
         { title: 'Onsight', value: 'onsight', legend: globals.totalAscents.onsight, val: 'totalAscents.onsight' }]
     });
 
