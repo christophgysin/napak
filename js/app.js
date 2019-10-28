@@ -1,10 +1,18 @@
 import viewHome from '/js/templates/page_home.js';
+import footer from '/js/partials/footer.js';
+import otc from '/js/partials/section_otc.js';
+
 import { globals } from '/js/shared/globals.js';
 import { store }  from '/js/shared/store.js';
-import { countAscents, countTotalScore, countTopFive, averageGrade, countAscentsByType}  from '/js/shared/helpers.js';
+import { dce, countAscents, countTotalScore, countTopFive, averageGrade, countAscentsByType}  from '/js/shared/helpers.js';
 
 let napak = {
   initialize : () => {
+    let appContainer = dce({el: 'DIV', cssClass : 'app'});
+    let pageFooter = new footer();
+    let otcMenu = new otc();
+
+
     // Update all globals 
     let updateAll = () => {
       globals.currentScore = countTotalScore(); // Array of top scores
@@ -37,8 +45,14 @@ let napak = {
 
     // init app
     document.body.innerHTML = "";
-    let home = new viewHome();
-    document.body.appendChild(home.render());
+    let home = new viewHome({mother: appContainer});
+    appContainer.appendChild(home.render());
+    appContainer.appendChild(pageFooter.render(appContainer));
+
+    let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
+    appContainer.append(naviShadow, otcMenu.render());
+    
+    document.body.appendChild(appContainer);
   }
 }
 

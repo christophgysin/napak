@@ -14,6 +14,7 @@ footer>nav {
 	grid-template-columns: repeat(6, 1fr);
 */
 	display: flex;
+	justify-content: center;
 }
 
 footer>nav a {
@@ -70,8 +71,8 @@ footer > nav a > SPAN {
 
 
 footer > nav a > SPAN {
-	background: transparent;
 	align-items: center;
+	background: transparent;
 	color: var(--color-white);
 	display: flex;
 	flex-direction: column;
