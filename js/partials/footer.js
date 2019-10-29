@@ -90,7 +90,7 @@ class footer {
     let changeViewStatistics = dce({el: 'a'});
     let changeViewStatisticsContainer = dce({el: 'SPAN'});
     let linkStatisticsPageIcon = dce({el: 'IMG', source: 'images/rock.svg'})
-    let linkStatisticsPageTitle = dce({el: 'SPAN', content: 'history'});
+    let linkStatisticsPageTitle = dce({el: 'SPAN', content: 'statistics'});
     changeViewStatisticsContainer.append(linkStatisticsPageIcon, linkStatisticsPageTitle);
     changeViewStatistics.append(changeViewStatisticsContainer);
 
