@@ -9,7 +9,6 @@ class viewHome {
     let progressSection = new progress();
     let gradeSelector = new gradeWheel();
 
-    let templateContainer = dce({el: 'DIV', cssClass: 'page-content'});
     let tickPage = dce({el: 'DIV', cssClass: 'tick-page'});
     let inOutSelector = dce({el: 'DIV', cssClass: 'in-out-selector'});
 
@@ -41,10 +40,9 @@ class viewHome {
     tickPage.appendChild(inOutSelector);
     tickPage.appendChild(progressSection.render());
     tickPage.appendChild(gradeSelector.render());
-    templateContainer.appendChild(tickPage);
 
     this.render = () => {
-      return templateContainer;
+      return tickPage;
       }
 		}
   }

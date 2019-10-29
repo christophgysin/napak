@@ -24,6 +24,11 @@ footer>nav a {
 	text-align: center;
 }
 
+footer>nav .logo-container {
+	padding : 0;
+	align-self: center;
+}
+
 footer>nav a svg {
 	display: block;
 	margin: 0 auto -5px;

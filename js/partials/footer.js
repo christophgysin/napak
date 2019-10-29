@@ -3,6 +3,8 @@ import pulldownMenu from '/js/components/pulldown.js';
 import { globals } from '/js/shared/globals.js';
 import { dce, updateScopeTicks} from '/js/shared/helpers.js';
 
+import { route } from '/js/shared/route.js';
+
 class footer {
     constructor(mother) {
 
@@ -65,11 +67,37 @@ class footer {
     changeIndoorsOutdoors.addEventListener('click', () => {
       inOutScope.toggle();
       changeIndoorsOutdoorsTitle.innerHTML = globals.indoorsOutdoors;
-
     }, false);
 
+    let logoContainer = dce({el: 'DIV', cssClass: 'logo-container'});
+    let logoImg = dce({el: 'IMG', source: '/images/napak_vector.svg', cssClass: 'logo'});
+
+    logoContainer.appendChild(logoImg);
+    logoContainer.addEventListener('click', () => {route('home')}, false);
+
+
+    // 
+    let changeViewHistory = dce({el: 'a'});
+    let changeViewHistoryContainer = dce({el: 'SPAN'});
+    let linkHistoryPageIcon = dce({el: 'IMG', source: 'images/rock.svg'})
+    let linkHistoryPageTitle = dce({el: 'SPAN', content: 'history'});
+    changeViewHistoryContainer.append(linkHistoryPageIcon, linkHistoryPageTitle);
+    changeViewHistory.append(changeViewHistoryContainer);
+
+    changeViewHistory.addEventListener('click', () => {route('history')}, false);
+
+    // statstics
+    let changeViewStatistics = dce({el: 'a'});
+    let changeViewStatisticsContainer = dce({el: 'SPAN'});
+    let linkStatisticsPageIcon = dce({el: 'IMG', source: 'images/rock.svg'})
+    let linkStatisticsPageTitle = dce({el: 'SPAN', content: 'history'});
+    changeViewStatisticsContainer.append(linkStatisticsPageIcon, linkStatisticsPageTitle);
+    changeViewStatistics.append(changeViewStatisticsContainer);
+
+    changeViewStatistics.addEventListener('click', () => {route('statistics')}, false);
+
     
-    footerNav.append(changeDiscipline, changeIndoorsOutdoors);
+    footerNav.append(changeDiscipline, changeIndoorsOutdoors, logoContainer, changeViewHistory, changeViewStatistics);
     footer.appendChild(footerNav);
 
     this.render = () => {

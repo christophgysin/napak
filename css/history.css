@@ -14,12 +14,6 @@
 	text-align: left;
 }
 
-.tick-list table td:nth-child(1),
-.tick-list table td:nth-child(2),
-.tick-list table td:nth-child(3){
-	font-family: 'IBM Plex Mono';
-}
-
 .tick-list table tr.header {
 	background: transparent;
 }
@@ -27,21 +21,14 @@
 	border-bottom: 1px solid var(--color-white-dim)
 }
 
-.tick-list table  {
-	font-family: 'IBM Plex Mono';
-
-}
-
-.tick-list table td:last-of-type {
-}
 
 .ticks-page TR:nth-of-type(odd) {
 	background: var(--color-black-alpha)
 }
 .ticks-page TD {
-  white-space: pre;
-  position: relative;
-  overflow: hidden;
-  text-overflow: ellipsis;
+	white-space: pre;
+	position: relative;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	padding: 3px;
 }

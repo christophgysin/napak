@@ -1,4 +1,6 @@
 import viewHome from '/js/templates/page_home.js';
+import viewHistory from '/js/templates/page_history.js';
+import viewStatistics from '/js/templates/page_statistics.js';
 import footer from '/js/partials/footer.js';
 import otc from '/js/partials/section_otc.js';
 
@@ -8,7 +10,12 @@ import { dce, countAscents, countTotalScore, countTopFive, averageGrade, countAs
 
 let napak = {
   initialize : () => {
+    globals.routes.home = viewHome;
+    globals.routes.history = viewHistory;
+    globals.routes.statistics = viewStatistics;
+
     let appContainer = dce({el: 'DIV', cssClass : 'app'});
+    let appContentContainer = dce({el: 'DIV', cssClass : 'page-content'});
     let pageFooter = new footer();
     let otcMenu = new otc();
 
@@ -45,13 +52,13 @@ let napak = {
 
     // init app
     document.body.innerHTML = "";
-    let home = new viewHome({mother: appContainer});
-    appContainer.appendChild(home.render());
-    appContainer.appendChild(pageFooter.render(appContainer));
+    let home = new viewHome();
+    appContentContainer.appendChild(home.render())
+    appContainer.append(appContentContainer, pageFooter.render(appContainer));
 
     let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
     appContainer.append(naviShadow, otcMenu.render());
-    
+
     document.body.appendChild(appContainer);
   }
 }
