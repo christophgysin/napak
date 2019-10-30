@@ -176,6 +176,10 @@ SECTION.grade:not(.grade-dial-container) *,
 SECTION.grade:not(.navi-shadow) {
 	z-index: 1;
 }
+
+SECTION.ticks-page:not(.navi-shadow) {
+	z-index: 1;
+}
 .grade-dial-container {
 	display: block;
 	font-family: 'Space Mono';

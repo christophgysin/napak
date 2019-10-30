@@ -4,7 +4,6 @@ import { globals } from '/js/shared/globals.js';
 class wheel {
   constructor(params) {
     this.selected = false;
-
     let dialContainer = dce({el: 'DIV', cssClass: 'grade-dial-container'});
     let dialViewport = dce({el: 'DIV', cssClass: 'select-dialog-viewport'});
     let selectDialog = dce({el: 'DIV', cssClass: 'select-dialog', attrbs: [['data-enablescroll', 'true']] });
@@ -80,16 +79,14 @@ class wheel {
     let observer = new MutationObserver(function(mutations) {
       if (document.contains(dialViewport)) {
         setTimeout( () => {
-          dialViewport.scrollTo(0,dialViewport.scrollHeight / globals.grades.font.length * 5);
+          dialViewport.scrollTo(0,dialViewport.scrollHeight / globals.grades.font.length * (globals.currentAscentGrade-1));
         }, 100);
       observer.disconnect();
       }
     });
 
     observer.observe(document, {attributes: false, childList: true, characterData: false, subtree:true});
-    this.render = () => {
-
-      
+    this.render = () => {      
       return dialContainer;
     }
 

@@ -24,7 +24,6 @@ class viewHome {
 
     let currentTitle = dce({el: 'H3', content: currentClimbingTypeTitle()});
     current.appendChild(currentTitle);
-//console.log(globals.currentClimbingType);
 
     globals.storeObservers.push({key: 'currentClimbingType', callback: () => {
       currentTitle.innerHTML = currentClimbingTypeTitle();
