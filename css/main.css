@@ -1,6 +1,7 @@
 @import "animations.css";
 @import "buttons.css";
 @import "footer.css";
+@import "fonts.css";
 @import "groups.css";
 @import "history.css";
 @import "horizontal_menu.css";
@@ -9,20 +10,10 @@
 @import "otc.css";
 @import "variables.css";
 
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
-@import url('https://fonts.googleapis.com/css?family=Space+Mono:400');
-@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono:100,300,400');
-
 *,
 *::before,
 *::after {
 	box-sizing: border-box;
-}
-
-HTML,
-BODY {
-	/* overscroll-behavior-y: contain; */
-	/* seems to make scrolling weird when menu is open */
 }
 
 HTML {
@@ -459,8 +450,6 @@ SECTION.ticks-page:not(.navi-shadow) {
 
 /* Stats */
 
-.stats-page {}
-
 .progression {
 	background: linear-gradient(to bottom, var(--color-theme-color1) 0%, var(--color-theme-color1-accent) 100%);
 	padding-top: 0;
@@ -468,9 +457,6 @@ SECTION.ticks-page:not(.navi-shadow) {
 
 .progression-graph canvas {
 	margin: 1em 0;
-}
-
-.in-out-selector {
 }
 
 .in-out-selector .in-out-menu {

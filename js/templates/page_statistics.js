@@ -16,7 +16,9 @@ class viewStatistics {
         getComputedStyle(document.documentElement).getPropertyValue('--color-redpoint'),
         getComputedStyle(document.documentElement).getPropertyValue('--color-flash'),
         getComputedStyle(document.documentElement).getPropertyValue('--color-onsight')
-      ]
+      ],
+      chartHeight: 180
+
     };
   
     let chartTitle = dce({el: 'H3', content: 'Ascents by grade'});
@@ -27,8 +29,11 @@ class viewStatistics {
     let chartData = {
       type: 'barchart',
       xaxis: globals.grades.font,
-      data : lemp
+      data : lemp,
+      chartHeight: 180
     };
+
+    console.log(lemp)
   
     let tempo = new charts(chartData);
 

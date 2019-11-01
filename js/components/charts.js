@@ -7,17 +7,17 @@ class charts {
 
 		let container = dce({el: 'DIV'});
 
+		let canvasHeight = (params.chartHeight) ? params.chartHeight : 320;
 		// Setup canvas
 		let canvas = dce({
 			el: 'CANVAS', 
-			attrbs: [['width', this.pixelRatio*320], ['height', this.pixelRatio*320]],
-			cssStyle: 'width: 320px; height: 320px;'
+			attrbs: [['width', this.pixelRatio*320], ['height', this.pixelRatio*canvasHeight]],
+			cssStyle: `width: 320px; height: ${canvasHeight}px;`
 			});
 
 		this.ctx = canvas.getContext ( '2d' );
 		canvas.x = this.pixelRatio*320 / 2;
-		canvas.y = this.pixelRatio*320 / 2;
-
+		canvas.y = this.pixelRatio*canvasHeight / 2;
 		this.canvas = canvas;
 
 // Pie chart
@@ -28,10 +28,10 @@ class charts {
 			let temp = params.data;
 			const total = temp.reduce((a,b) => a + b, 0);
 
-			this.ctx.clearRect(0,0,320*this.pixelRatio,320*this.pixelRatio);
+			this.ctx.clearRect(0,0,320*this.pixelRatio,canvasHeight*this.pixelRatio);
 			this.ctx.beginPath();
-			let strokeWidth =50*this.pixelRatio;
-			let radius = 160*this.pixelRatio-strokeWidth/2*this.pixelRatio;
+			let strokeWidth =canvasHeight/10*this.pixelRatio;
+			let radius = canvasHeight/2*this.pixelRatio-strokeWidth/2*this.pixelRatio;
 			b = 25;
 
 
@@ -59,31 +59,51 @@ class charts {
 
 // Bar chart
 		this.barchart = () => {
-			this.ctx.clearRect(0,0,320*this.pixelRatio,320*this.pixelRatio);
+			let chartHeight = 160;
+			let xAxisHeight = 20;
+			let totalHeight = chartHeight+xAxisHeight;
+			this.ctx.clearRect(0,0,320*this.pixelRatio,totalHeight*this.pixelRatio);
 			this.ctx.beginPath();
 			let strokeWidth =10;
+			let roundCaps = strokeWidth / 2;
 			let yMax = Math.max(...params.data);
 			let yMaxRoundUp = Math.ceil(yMax / 10) * 10;
 
+			this.ctx.lineCap = 'round';
+
 			// Draw boundaries
-			let yAxis = 300 * this.pixelRatio / (yMaxRoundUp / 10);
-			let yAxisTotal = 300 * this.pixelRatio / yAxis;
+			let yAxis = chartHeight * this.pixelRatio / (yMaxRoundUp / 10);
+			let yAxisTotal = chartHeight * this.pixelRatio / yAxis;
 
 			this.ctx.setLineDash([5, 15]);
 			this.ctx.strokeStyle = 'rgba(255,255,255,.8)';
 
-			for(let i=0, j = yAxisTotal; i<j; i++) {
+			for(let i=0, j = yAxisTotal+1; i<j; i++) {
 				this.ctx.beginPath();
-				this.ctx.moveTo(0,yAxis*i);
-				this.ctx.lineTo(320 * this.pixelRatio, yAxis*i);
+				this.ctx.moveTo(20,yAxis*i);
+				this.ctx.lineTo(300 * this.pixelRatio, yAxis*i);
+				if(i === j-1 ) {this.ctx.setLineDash([]);}
 				this.ctx.stroke();
 			}
 
-			this.ctx.setLineDash([]);
+			this.ctx.fillStyle = (params.color) ? params.colors[i] : 'rgba(255,255,255,.8)';
+			this.ctx.font = "13px IBM Plex Mono";
+			this.ctx.lineWidth = 1;
+
+			for(let i=0, j = yAxisTotal+1; i<j; i++) {
+				this.ctx.fillText(yMaxRoundUp-i*10,0,(yAxis*i) + 6.5, 20);
+			}
+
+// draw bars
 			for( let i = 0, j = params.data.length; i < j ; i ++ ) {
 				this.ctx.beginPath();
-				this.ctx.moveTo(i * this.pixelRatio* 320 / params.data.length + strokeWidth / 2, this.pixelRatio * 300 );
-				this.ctx.lineTo(i * this.pixelRatio * 320 / params.data.length + strokeWidth / 2, this.pixelRatio * 300-(yAxis/yMaxRoundUp * params.data[i])*this.pixelRatio)
+				this.ctx.moveTo(
+					20 + i * this.pixelRatio* 300 / params.data.length + strokeWidth / 2, 
+					this.pixelRatio * chartHeight - roundCaps
+					);
+				this.ctx.lineTo(
+					20 + i * this.pixelRatio * 300 / params.data.length + strokeWidth / 2, 
+					(this.pixelRatio * chartHeight - roundCaps) - ((chartHeight/yMaxRoundUp * params.data[i])-roundCaps)*this.pixelRatio)
 				this.ctx.lineWidth = strokeWidth;
 
 				this.ctx.strokeStyle = (params.color) ? params.colors[i] : getComputedStyle(document.documentElement).getPropertyValue('--color-flash');
@@ -93,11 +113,11 @@ class charts {
 				}
 			this.ctx.closePath();
 
-			this.ctx.strokeStyle = (params.color) ? params.colors[i] : 'rgba(255,255,255,.8)';
+			this.ctx.fillStyle = (params.color) ? params.colors[i] : 'rgba(255,255,255,.8)';
 			this.ctx.font = "13px IBM Plex Mono";
 			this.ctx.lineWidth = 1;
 			for( let i = 0, j = params.xaxis.length; i < j ; i ++ ) {
-				this.ctx.strokeText(params.xaxis[i],i * this.pixelRatio* 320 / params.data.length,320*this.pixelRatio);
+				this.ctx.fillText(params.xaxis[i],20 + i * this.pixelRatio* 300 / params.data.length,totalHeight*this.pixelRatio);
 			}
 		container.append(this.canvas)
 		}

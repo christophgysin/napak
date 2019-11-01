@@ -241,7 +241,6 @@ BODY.otc .navi-shadow {
 /* Maitoa safaripoijille */
 
 @media not all and (min-resolution:.001dpcm) {
-	@media {
 		.otc-navigation {
 			background: var(--color-black-alpha);
 			transition: transform 300ms ease-in-out;
@@ -258,5 +257,4 @@ BODY.otc .navi-shadow {
 		.otc .page-content {
 			transform: none;
 		}
-	}
 }
