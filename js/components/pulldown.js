@@ -20,10 +20,11 @@ class pulldownMenu {
 
 /* Legends */
       let legensHolder = dce({el: 'SPAN', cssClass: 'legends-holder'});
-      let legendTag = dce({el: 'SPAN', cssClass: `legend type-${item.value}`, content: (item.legend) ? item.legend : ''});
+
+      console.log(item.val)
+      let legendTag = dce({el: 'SPAN', cssClass: `legend type-${item.value}`, content: (item.val) ? item.val : ''});
 
       
-
       legendTag.value = item.val;
       this.legends.push(legendTag);
       legensHolder.appendChild(legendTag);      
@@ -35,12 +36,12 @@ class pulldownMenu {
 
       menuContainer.appendChild(itemContainer);
     });
-
     
       // update legends
       let updateLegends = () => {
         this.legends.forEach((legend) => {
           let val = legend.value;
+          
           if(val) {
             let count = val.split('.').reduce((o,i)=>o[i], globals);
             legend.innerHTML = (count) ? count : '';
@@ -48,9 +49,10 @@ class pulldownMenu {
         });
       };
 
-      globals.storeObservers.push({key: 'indoorsOutdoors', callback: updateLegends });
-      globals.storeObservers.push({key: 'ticks', callback: updateLegends});
-
+    globals.storeObservers.push({key: 'indoorsOutdoors', callback: updateLegends });
+    globals.storeObservers.push({key: 'ticks', callback: updateLegends});
+    globals.storeObservers.push({key: 'totalAscentsByType', callback: updateLegends});
+    
     this.render = () => {
       return menuContainer;
     }

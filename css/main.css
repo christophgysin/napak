@@ -128,6 +128,11 @@ SECTION {
 	grid-template-rows: 40px auto 1fr;
 }
 
+.settings-page {
+	height: 100%;
+	display: grid;
+	grid-template-rows: auto auto auto 1fr;
+}
 
 /* Grade selector */
 .grade {
@@ -168,9 +173,12 @@ SECTION.grade:not(.navi-shadow) {
 	z-index: 1;
 }
 
-SECTION.ticks-page:not(.navi-shadow) {
+SECTION.ticks-page:not(.navi-shadow),
+SECTION.settings-page:not(.navi-shadow) {
 	z-index: 1;
 }
+
+
 .grade-dial-container {
 	display: block;
 	font-family: 'Space Mono';

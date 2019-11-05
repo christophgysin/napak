@@ -33,6 +33,7 @@ class footer {
         {title: 'Trad', value:'trad', icon: '/images/rock.svg', legend: globals.totalAscentsByType.trad, val: 'totalAscentsByType.trad'}
       ],
       targetObj : 'currentClimbingType',
+      listen: 'ticks',
       callback: udpateDiscipline
     });
 
@@ -75,17 +76,6 @@ class footer {
     logoContainer.appendChild(logoImg);
     logoContainer.addEventListener('click', () => {route('home')}, false);
 
-
-    // 
-    let changeViewHistory = dce({el: 'a'});
-    let changeViewHistoryContainer = dce({el: 'SPAN'});
-    let linkHistoryPageIcon = dce({el: 'IMG', source: 'images/rock.svg'})
-    let linkHistoryPageTitle = dce({el: 'SPAN', content: 'history'});
-    changeViewHistoryContainer.append(linkHistoryPageIcon, linkHistoryPageTitle);
-    changeViewHistory.append(changeViewHistoryContainer);
-
-    changeViewHistory.addEventListener('click', () => {route('history')}, false);
-
     // statstics
     let changeViewStatistics = dce({el: 'a'});
     let changeViewStatisticsContainer = dce({el: 'SPAN'});
@@ -93,11 +83,21 @@ class footer {
     let linkStatisticsPageTitle = dce({el: 'SPAN', content: 'statistics'});
     changeViewStatisticsContainer.append(linkStatisticsPageIcon, linkStatisticsPageTitle);
     changeViewStatistics.append(changeViewStatisticsContainer);
-
     changeViewStatistics.addEventListener('click', () => {route('statistics')}, false);
 
+
+    // Settings
+    let changeViewSettings = dce({el: 'a'});
+    let changeViewSettingsContainer = dce({el: 'SPAN'});
+    let linkSettingsPageIcon = dce({el: 'IMG', source: 'images/rock.svg'})
+    let linkSettingsPageTitle = dce({el: 'SPAN', content: 'settings'});
+    changeViewSettingsContainer.append(linkSettingsPageIcon, linkSettingsPageTitle);
+    changeViewSettings.append(changeViewSettingsContainer);
+
+    changeViewSettings.addEventListener('click', () => {route('settings')}, false);
+
     
-    footerNav.append(changeDiscipline, changeIndoorsOutdoors, logoContainer, changeViewHistory, changeViewStatistics);
+    footerNav.append(changeDiscipline, changeIndoorsOutdoors, logoContainer, changeViewStatistics, changeViewSettings);
     footer.appendChild(footerNav);
 
     this.render = () => {

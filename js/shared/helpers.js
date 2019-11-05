@@ -184,7 +184,7 @@ let countAscentsByType = () => {
     trad: 0
   };
 
-  let ticks = handleScopeTicks('today');
+  let ticks = handleScopeTicks('today', true);
 
   let temp = Object.keys(types);
   temp.forEach((type) => {
@@ -216,7 +216,7 @@ let countAscentsByGrade = (scope) => {
 
 
 // Return all ticks matching the scope
-let handleScopeTicks = (scope) => {
+let handleScopeTicks = (scope, all) => {
   let fromNow;
   let fromNowArray = globals.today.split('-');
 
@@ -231,8 +231,13 @@ let handleScopeTicks = (scope) => {
   fromNow = new Date(Number(year), Number(month), Number(day)).getTime();
   let ticks = [];
   globals.ticks.forEach((tick) => {
-    if(tick.date >= fromNow && tick.type === globals.currentClimbingType) {
-      ticks.push(tick)
+      if(tick.date >= fromNow) {
+        if(all) {
+          ticks.push(tick)
+        }
+        else if (tick.type === globals.currentClimbingType) {
+        ticks.push(tick)
+      }
     }
   })
 

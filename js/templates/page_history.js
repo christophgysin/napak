@@ -12,6 +12,15 @@ class viewHistory {
     let ticksContainer = dce({el: 'DIV', cssClass: 'today tick-list'});
     let el = dce({el: 'TABLE'});
 
+    ticks.sort(function(a, b){
+      var keyA = a.date,
+          keyB = b.date;
+      // Compare the 2 dates
+      if(keyA < keyB) return -1;
+      if(keyA > keyB) return 1;
+      return 0;
+  });
+
     for( let i=ticks.length-1, j = 0; i>=j; i-- ) {
       let row = dce({el: 'TR'});
       let date = dce({el: 'TD', content: handleDate({dateString: ticks[i].date})});
