@@ -256,6 +256,27 @@ let updateScopeTicks = () => {
   globals.averageGrade = averageGrade(5);
 }
 
+let generateTicks =  () => {
+  localStorage.clear();
+  let discipline = ['boulder']; //, 'sport', 'trad', 'toprope'];
+  let ascentTypes = ['redpoint', 'onsight', 'flash'];
+  let indoors = ['indoors', 'outdoors'];
+
+  let ticks = [];
+  for(let i=0, j=100; i<j;i++){
+      ticks.push({
+          "type": discipline[Math.floor(discipline.length * Math.random())],
+          "indoorsOutdoors": indoors[Math.floor(indoors.length * Math.random())],
+          "grade": Math.round(Math.random()*23),
+          "ascentType": ascentTypes[Math.floor(ascentTypes.length * Math.random())],
+          "date": new Date(2019,
+                                  Math.round(Math.random()*11),
+                                  Math.round(Math.random()*30)).getTime()
+      });
+    }
+  localStorage.setItem('ticks', JSON.stringify(ticks));
+};
+
 
 export {
   dce,
@@ -269,30 +290,6 @@ export {
   countAscentsByType,
   countAscentsByGrade,
   handleScopeTicks,
-  updateScopeTicks
+  updateScopeTicks,
+  generateTicks
 }
-
-
-/*
-
-generateTicks = function(){
-    localStorage.clear();
-    let discipline = ['boulder', 'sport', 'trad', 'toprope'];
-    let ascentTypes = ['redpoint', 'onsight', 'flash'];
-    let indoors = ['indoors', 'outdoors'];
-
-    let ticks = [];
-    for(let i=0, j=100; i<j;i++){
-        ticks.push({
-            "type": discipline[Math.floor(discipline.length * Math.random())],
-            "indoorsOutdoors": indoors[Math.floor(indoors.length * Math.random())],
-            "grade": Math.round(Math.random()*23),
-            "ascentType": ascentTypes[Math.floor(ascentTypes.length * Math.random())],
-            "date": new Date(2000+Math.round(Math.random()*19),
-                                    Math.round(Math.random()*11),
-                                    Math.round(Math.random()*30)).getTime()
-        })
-    }
-    localStorage.setItem('ticks', JSON.stringify(ticks));
-};
-*/

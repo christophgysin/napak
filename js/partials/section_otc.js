@@ -1,4 +1,4 @@
-import { dce } from '/js/shared/helpers.js';
+import { dce, generateTicks } from '/js/shared/helpers.js';
 import toggleSwitch from '/js/components/toggleSwitch.js';
 
 class otc {
@@ -67,7 +67,13 @@ class otc {
         let merchLinkContainer = dce({el: 'A', href: '/#'});
         merchLinkContainer.appendChild(dce({el: 'SPAN', content: 'NAPAK merch'}));
 
-        sideNavLinksContainer.append(groupsLinkContainer, statsLinkContainer, merchLinkContainer);
+        let tickSome = dce({el: 'A', href: '/#'});
+        tickSome.appendChild(dce({el: 'SPAN', content: 'Generate ticks [dev]'}));
+
+        tickSome.addEventListener('click', () => {generateTicks(); return;}, false);
+
+
+        sideNavLinksContainer.append(groupsLinkContainer, statsLinkContainer, merchLinkContainer, tickSome);
 
         linksContainer.append(logoContainer, loginInfo, settingsContainer, sideNavLinksContainer);
         container.append(navContainer, linksContainer);

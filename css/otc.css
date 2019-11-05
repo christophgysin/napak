@@ -1,8 +1,7 @@
 .otc-navigation>nav {
 	position: absolute;
-	bottom: 2px;
+	top: 0px;
 	right: 75vw;
-/*	background: var(--color-black);*/
 	z-index: 999;
 }
 

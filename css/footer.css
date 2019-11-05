@@ -13,8 +13,9 @@ footer>nav {
 	display: grid;
 	grid-template-columns: repeat(6, 1fr);
 */
+	position: relative;
 	display: flex;
-	justify-content: center;
+	justify-content: space-evenly;
 }
 
 footer>nav a {
@@ -98,4 +99,10 @@ footer > nav a > SPAN IMG {
 
 .footer-pullup-menu IMG {
 	margin: 0 10px 0 0	;
+}
+
+@supports(padding: max(0px)) {
+	footer {
+		padding-bottom: max(20px, env(safe-area-inset-bottom));
+	}
 }
