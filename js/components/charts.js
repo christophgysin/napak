@@ -64,9 +64,9 @@ class charts {
 			let totalHeight = chartHeight+xAxisHeight;
 			this.ctx.clearRect(0,0,320*this.pixelRatio,totalHeight*this.pixelRatio);
 			this.ctx.beginPath();
-			let strokeWidth =10;
+			let strokeWidth =10 / params.data.length;
 			let roundCaps = strokeWidth / 2;
-			let yMax = Math.max(...params.data);
+			let yMax = Math.max(...params.data.flat(Infinity));
 			let yMaxRoundUp = Math.ceil(yMax / 10) * 10;
 
 			this.ctx.lineCap = 'round';
@@ -96,19 +96,21 @@ class charts {
 
 // draw bars
 			for( let i = 0, j = params.data.length; i < j ; i ++ ) {
-				this.ctx.beginPath();
-				this.ctx.moveTo(
-					20 + i * this.pixelRatio* 300 / params.data.length + strokeWidth / 2, 
-					this.pixelRatio * chartHeight - roundCaps
-					);
-				this.ctx.lineTo(
-					20 + i * this.pixelRatio * 300 / params.data.length + strokeWidth / 2, 
-					(this.pixelRatio * chartHeight - roundCaps) - ((chartHeight/yMaxRoundUp * params.data[i])-roundCaps)*this.pixelRatio)
-				this.ctx.lineWidth = strokeWidth;
+				for( let k = 0, l = params.data[i].length; k < l ; k ++ ) {
+					this.ctx.beginPath();
+					this.ctx.moveTo(
+						20 + (i*(strokeWidth+3)) + k * this.pixelRatio* 300 / params.data[i].length + strokeWidth / 2, 
+						this.pixelRatio * chartHeight - roundCaps
+						);
+					this.ctx.lineTo(
+						20 + (i*(strokeWidth+3)) + k * this.pixelRatio * 300 / params.data[i].length + strokeWidth / 2, 
+						(this.pixelRatio * chartHeight - roundCaps) - ((chartHeight/yMaxRoundUp * params.data[i][k])-roundCaps)*this.pixelRatio)
+					this.ctx.lineWidth = strokeWidth;
 
-				this.ctx.strokeStyle = (params.color) ? params.colors[i] : getComputedStyle(document.documentElement).getPropertyValue('--color-flash');
-				if(params.data[i]) {
-					this.ctx.stroke();
+					this.ctx.strokeStyle = (params.colors) ? params.colors[i] : getComputedStyle(document.documentElement).getPropertyValue('--color-flash');
+					if(params.data[i][k]) {
+						this.ctx.stroke();
+						}
 					}
 				}
 			this.ctx.closePath();
@@ -117,7 +119,7 @@ class charts {
 			this.ctx.font = "13px IBM Plex Mono";
 			this.ctx.lineWidth = 1;
 			for( let i = 0, j = params.xaxis.length; i < j ; i ++ ) {
-				this.ctx.fillText(params.xaxis[i],20 + i * this.pixelRatio* 300 / params.data.length,totalHeight*this.pixelRatio);
+				this.ctx.fillText(params.xaxis[i],20 + i * this.pixelRatio* 300 / params.xaxis.length,totalHeight*this.pixelRatio);
 			}
 		container.append(this.canvas)
 		}
@@ -131,4 +133,3 @@ class charts {
 	}
 }
 export default charts;
-//fpTimer.init();

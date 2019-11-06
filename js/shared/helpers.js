@@ -75,7 +75,7 @@ let countTopFive = () => {
 
 // Count average grade
 let averageGrade = (amount) => {
-  let ticks = handleScopeTicks(globals.scope);
+  let ticks = handleScopeTicks({scope: globals.scope});
   let maxGrades = [];
   ticks.forEach(tick => {maxGrades.push(tick.grade)});
   if(maxGrades.length < 1) return 'N/A';
@@ -89,7 +89,7 @@ let averageGrade = (amount) => {
 
 // Total score
 let countTotalScore = () => {
-  let ticks = handleScopeTicks(globals.scope);
+  let ticks = handleScopeTicks({scope: globals.scope});
   let score = [0,0,0,0,0];
 
   ticks.forEach((tick) => {
@@ -134,7 +134,7 @@ let countAscents = (scope) => {
     total: 0
   };
  
-  let ticks = handleScopeTicks(scope);
+  let ticks = handleScopeTicks({scope: scope});
 
   types.forEach((type) => {
     let ticksByDiscipline = ticks.filter(obj => {
@@ -162,7 +162,7 @@ let countAscentsByDifficulty = () => {
     onsight: {...tempObj}
   };
 
-  let ticks = handleScopeTicks('today');
+  let ticks = handleScopeTicks({scope: 'today'});
   ticks.forEach((tick) => {
     if(tick.indoorsOutdoors === globals.indoorsOutdoors &&
       tick.type === globals.currentClimbingType) {
@@ -184,7 +184,7 @@ let countAscentsByType = () => {
     trad: 0
   };
 
-  let ticks = handleScopeTicks('today', true);
+  let ticks = handleScopeTicks({scope: 'today', allTypes: true});
 
   let temp = Object.keys(types);
   temp.forEach((type) => {
@@ -198,15 +198,15 @@ let countAscentsByType = () => {
 
 
 // Get ascents by grade
-let countAscentsByGrade = (scope) => {
-  let ticks = handleScopeTicks(scope);
+let countAscentsByGrade = (params) => {
+  let ticks = handleScopeTicks({scope: params.scope});
 
   let ascentsByGrade = new Array(globals.grades.font.length).fill(0);
   let type = globals.currentClimbingType;
   ascentsByGrade.forEach((grade, count) => {
     let ticksByGrade = ticks.filter(obj => {
       return obj.type === type && 
-              obj.indoorsOutdoors === globals.indoorsOutdoors &&
+              obj.indoorsOutdoors === ((params.indoorsOutdoors) ? params.indoorsOutdoors : globals.indoorsOutdoors) &&
               obj.grade === count
     })
     ascentsByGrade[count] = ticksByGrade.length;
@@ -216,7 +216,7 @@ let countAscentsByGrade = (scope) => {
 
 
 // Return all ticks matching the scope
-let handleScopeTicks = (scope, all) => {
+let handleScopeTicks = (params) => {
   let fromNow;
   let fromNowArray = globals.today.split('-');
 
@@ -224,19 +224,16 @@ let handleScopeTicks = (scope, all) => {
   let month = Number(fromNowArray[1]);
   let day = Number(fromNowArray[2]);
 
-  if(scope === 'thirtydays')  {month-=1;}
-  if(scope === 'year')        {year-=1;}
-  if(scope === 'alltime')     {year = 2000; month = 1; day = 1;}
+  if(params.scope === 'thirtydays')  {month-=1;}
+  if(params.scope === 'year')        {year-=1;}
+  if(params.scope === 'alltime')     {year = 2000; month = 1; day = 1;}
 
   fromNow = new Date(Number(year), Number(month), Number(day)).getTime();
   let ticks = [];
   globals.ticks.forEach((tick) => {
       if(tick.date >= fromNow) {
-        if(all) {
-          ticks.push(tick)
-        }
-        else if (tick.type === globals.currentClimbingType) {
-        ticks.push(tick)
+        if (tick.type === globals.currentClimbingType || params.allTypes) {
+         ticks.push(tick)
       }
     }
   })

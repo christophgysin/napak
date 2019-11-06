@@ -6,8 +6,9 @@ class viewStatistics {
   constructor() {
     let temp =  countAscents('alltime');
     let container = dce({el: 'SECTION', cssClass: 'ticks-page'});
-    let nakki = dce({el: 'H3', content: 'Ascents by type'});
-    
+
+  // Ascents by type (Redpoint, flash, onsight)
+    let nakki = dce({el: 'H3', content: 'Ascents by type'});    
     let chartDataAscentTypes = {
       type: 'pie',
       labels: ['Redpoint', 'Flash', 'Onsight'],
@@ -20,20 +21,21 @@ class viewStatistics {
       chartHeight: 180
 
     };
-  
+
+// Ascents by grade
     let chartTitle = dce({el: 'H3', content: 'Ascents by grade'});
 
     let lempo = new charts(chartDataAscentTypes);
+    let indoors =  countAscentsByGrade({scope: 'alltime', indoorsOutdoors: 'indoors'});
+    let outdoors =  countAscentsByGrade({scope: 'alltime', indoorsOutdoors: 'outdoors'});
 
-    let lemp =  countAscentsByGrade('alltime');
     let chartData = {
       type: 'barchart',
       xaxis: globals.grades.font,
-      data : lemp,
-      chartHeight: 180
+      data : [indoors, outdoors],
+      chartHeight: 180,
+      colors : ["#0f8", "#08F"]
     };
-
-    console.log(lemp)
   
     let tempo = new charts(chartData);
 
