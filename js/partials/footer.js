@@ -79,7 +79,7 @@ class footer {
     // statstics
     let changeViewStatistics = dce({el: 'a'});
     let changeViewStatisticsContainer = dce({el: 'SPAN'});
-    let linkStatisticsPageIcon = dce({el: 'IMG', source: 'images/rock.svg'})
+    let linkStatisticsPageIcon = dce({el: 'IMG', source: 'images/stats.svg'})
     let linkStatisticsPageTitle = dce({el: 'SPAN', content: 'statistics'});
     changeViewStatisticsContainer.append(linkStatisticsPageIcon, linkStatisticsPageTitle);
     changeViewStatistics.append(changeViewStatisticsContainer);
