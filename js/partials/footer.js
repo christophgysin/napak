@@ -20,17 +20,17 @@ class footer {
     changeDisciplineContainer.append(linkTickPageIcon, linkTickPageTitle);
     changeDiscipline.append(changeDisciplineContainer);
 
-    let udpateDiscipline = function (type) {
+    let udpateDiscipline = function () {
       updateScopeTicks();
       linkTickPageTitle.innerHTML = globals.currentClimbingType;
     };
     
     let disciplines = new pulldownMenu({
       options   : [
-        {title: 'Boulder', value:'boulder', icon: '/images/rock.svg', selected: true, legend: globals.totalAscentsByType.boulder, val: 'totalAscentsByType.boulder'},
-        {title: 'Sport', value:'sport', icon: '/images/climb.svg',  legend: globals.totalAscentsByType.sport, val: 'totalAscentsByType.sport'},
-        {title: 'Top rope', value:'toprope', icon: '/images/rock.svg', legend: globals.totalAscentsByType.toprope, val: 'totalAscentsByType.toprope'},
-        {title: 'Trad', value:'trad', icon: '/images/rock.svg', legend: globals.totalAscentsByType.trad, val: 'totalAscentsByType.trad'}
+        {title: 'Boulder', value:'boulder', selected: true, legend: globals.totalAscentsByType.boulder, val: 'totalAscentsByType.boulder'},  // icon: '/images/rock.svg'
+        {title: 'Sport', value:'sport',  legend: globals.totalAscentsByType.sport, val: 'totalAscentsByType.sport'},                         // icon: '/images/climb.svg'
+        {title: 'Top rope', value:'toprope', legend: globals.totalAscentsByType.toprope, val: 'totalAscentsByType.toprope'},                 // icon: '/images/rock.svg'
+        {title: 'Trad', value:'trad', legend: globals.totalAscentsByType.trad, val: 'totalAscentsByType.trad'}                               // icon: '/images/rock.svg',
       ],
       targetObj : 'currentClimbingType',
       listen: 'ticks',
@@ -56,8 +56,8 @@ class footer {
         
     let inOutScope = new pulldownMenu({
       options   : [
-        {title: 'Outdoors', value:'outdoors', icon: '/images/garden.svg',selected: globals.indoorsOutdoors === 'outdoors' },
-        {title: 'Indoors', value:'indoors', icon: '/images/rock.svg', selected: globals.indoorsOutdoors === 'indoors'}
+        {title: 'Outdoors', value:'outdoors', selected: globals.indoorsOutdoors === 'outdoors' }, // icon: '/images/garden.svg',
+        {title: 'Indoors', value:'indoors', selected: globals.indoorsOutdoors === 'indoors'} // icon: '/images/rock.svg',
         ],
       targetObj : 'indoorsOutdoors',
       callback: udpateDiscipline
@@ -86,18 +86,35 @@ class footer {
     changeViewStatistics.addEventListener('click', () => {route('statistics')}, false);
 
 
-    // Settings
-    let changeViewSettings = dce({el: 'a'});
-    let changeViewSettingsContainer = dce({el: 'SPAN'});
-    let linkSettingsPageIcon = dce({el: 'IMG', source: 'images/rock.svg'})
-    let linkSettingsPageTitle = dce({el: 'SPAN', content: 'settings'});
-    changeViewSettingsContainer.append(linkSettingsPageIcon, linkSettingsPageTitle);
-    changeViewSettings.append(changeViewSettingsContainer);
+    let routeLinks = function (type) {
+      route(type)
+    };
 
-    changeViewSettings.addEventListener('click', () => {route('settings')}, false);
+    let moreItemsMenu = dce({el: 'a'});
+    let moreItemsMenuContainer = dce({el: 'SPAN'});
+    let moreItemsMenuIcon = dce({el: 'IMG', source: 'images/more.svg'})
+    let moreItemsMenuTitle = dce({el: 'SPAN', content:'More'});
+    moreItemsMenuContainer.append(moreItemsMenuIcon, moreItemsMenuTitle);
+    moreItemsMenu.append(moreItemsMenuContainer);
+        
+    let moreMenu = new pulldownMenu({
+      options   : [
+        {title: 'Settings', value:'settings', icon: '/images/rock.svg'},
+        {title: 'Groups', value:'home', icon: '/images/rock.svg'}
+        ],
+      cssClass: 'right links-only',
+      callback: routeLinks,
+      linksOnly: true
+    });
+
+    moreItemsMenu.appendChild(moreMenu.render());
+
+    moreItemsMenu.addEventListener('click', () => {
+      moreMenu.toggle();
+    }, false);
 
     
-    footerNav.append(changeDiscipline, changeIndoorsOutdoors, logoContainer, changeViewStatistics, changeViewSettings);
+    footerNav.append(changeDiscipline, changeIndoorsOutdoors, logoContainer, changeViewStatistics, moreItemsMenu);
     footer.appendChild(footerNav);
 
     this.render = () => {

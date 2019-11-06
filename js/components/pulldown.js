@@ -5,7 +5,9 @@ class pulldownMenu {
   constructor(params) {
     this.targetObj = params.targetObj;
     this.legends = [];
-    let menuContainer = dce({el: 'DIV', cssClass: 'footer-pullup-menu hidden small-legends'});
+
+    let pos = (params.cssClass) ? params.cssClass : '';
+    let menuContainer = dce({el: 'DIV', cssClass: `footer-pullup-menu hidden small-legends ${pos}`});
 
     params.options.forEach((item) => {
       let itemContainer = dce({el: 'SPAN'});
@@ -15,13 +17,11 @@ class pulldownMenu {
         globals[params.targetObj] = item.value;
       }
       
-      let itemIcon = dce({el: 'IMG', source: item.icon})
       let itemTitle = dce({el: 'SPAN', cssClass: 'menu-title', content: item.title});
 
 /* Legends */
       let legensHolder = dce({el: 'SPAN', cssClass: 'legends-holder'});
 
-      console.log(item.val)
       let legendTag = dce({el: 'SPAN', cssClass: `legend type-${item.value}`, content: (item.val) ? item.val : ''});
 
       
@@ -30,8 +30,14 @@ class pulldownMenu {
       legensHolder.appendChild(legendTag);      
       itemTitle.appendChild(legensHolder);
 
-/* legends */
-      itemContainer.append(itemIcon, itemTitle);
+      if(item.icon) {
+        itemContainer.classList.add('icons');
+        let itemIcon = dce({el: 'IMG', source: item.icon})
+        itemContainer.append(itemIcon, itemTitle);
+      }
+      else {
+        itemContainer.appendChild(itemTitle);
+      }
       itemContainer.addEventListener('click', () => {this.set(itemContainer, item.value)}, false);
 
       menuContainer.appendChild(itemContainer);
@@ -81,6 +87,12 @@ class pulldownMenu {
     }
 
     this.set = (el, data) => {
+      if(params.linksOnly) {
+        if(params.callback) {
+          params.callback(data);
+        }
+      return;
+      }
       globals[params.targetObj] = data;
 
       let selectedItem = menuContainer.querySelector('.selected');
@@ -90,7 +102,7 @@ class pulldownMenu {
       el.classList.add('selected');
 
       if(params.callback) {
-        params.callback();
+        params.callback(data);
       }
     }
   }

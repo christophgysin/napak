@@ -5,29 +5,26 @@ footer {
 
 footer>nav {
 	height: 50px;
-	padding: 0px;
+	padding: 0px var(--padding-base);
 	font-family: 'Roboto';
 	font-size: 16px;
 	text-transform: uppercase;
-/*	
-	display: grid;
-	grid-template-columns: repeat(6, 1fr);
-*/
 	position: relative;
 	display: flex;
 	justify-content: space-evenly;
 }
 
 footer>nav a {
-/*	padding: 0 10px;*/
 	overflow: hidden;
 	white-space: nowrap;
 	text-align: center;
+	min-width: 50px;
 }
 
 footer>nav .logo-container {
 	padding : 0;
 	align-self: center;
+	width: 100%;
 }
 
 footer>nav a svg {
@@ -52,12 +49,13 @@ footer>nav a span {
 	display: grid;
 	grid-auto-rows: 60px;
 	z-index: 4;
-/*	
-	left: 0;
-	margin-left: -10px;
-*/
 	background: var(--color-theme-color1);
 }
+
+.footer-pullup-menu.right{
+	transform: translateX(calc( -100% + 50px ));
+}
+
 
 .footer-pullup-menu > SPAN,
 footer > nav a > SPAN {
@@ -75,6 +73,22 @@ footer > nav a > SPAN {
 	background: var(--color-theme-color3)
 }
 
+.footer-pullup-menu > SPAN.selected:not(.icons) .menu-title:after {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	content: "";
+	font-size: 0;
+	background: var(--color-theme-color2);
+	box-shadow: 0 0 5px 0 var(--color-theme-color2);
+	width: 5px;
+	height: 5px;
+	border-radius: 5px;
+	animation: zoomIn 300ms ease-in-out;
+	transform: translate3d(-50%, -50%, 0) scale(1);
+	display: block;
+}
+
 
 footer > nav a > SPAN {
 	align-items: center;
@@ -88,8 +102,13 @@ footer > nav a > SPAN {
 	width: 50px;
 }
 
-.menu-title {
+.footer-pullup-menu .menu-title {
 	position: relative;
+	padding-left: var(--padding-base);
+}
+
+.footer-pullup-menu.links-only .menu-title{
+	padding-left: 0;
 }
 
 .footer-pullup-menu IMG,

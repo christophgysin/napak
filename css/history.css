@@ -1,6 +1,7 @@
 /* Ticks */
 .ticks-page {
 	overflow-y: auto;
+	min-height: 100%;
 }
 
 .tick-list table {

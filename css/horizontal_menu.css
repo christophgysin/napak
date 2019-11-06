@@ -43,7 +43,6 @@
 	bottom: -10px;
 	left: calc(50% - 2.5px);
 	content: "";
-	transform: translate3d(-50%, -50%, 0);
 	font-size: 0;
 	background: var(--color-theme-color2);
 	box-shadow: 0 0 5px 0 var(--color-theme-color2);
@@ -51,7 +50,7 @@
 	height: 5px;
 	border-radius: 5px;
 	animation: zoomIn 300ms ease-in-out;
-	transform: scale(1);
+	transform: translate3d(-50%, -50%, 0) scale(1);
 	display: block;
 }
 
