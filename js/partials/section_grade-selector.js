@@ -1,4 +1,5 @@
 import { dce } from '/js/shared/helpers.js';
+import { UUID } from '/js/shared/uuid.js';
 import wheel from '/js/components/wheel.js';
 import picker from '/js/components/picker.js';
 import { globals } from '/js/shared/globals.js';
@@ -62,7 +63,10 @@ class gradeWheel {
             indoorsOutdoors: globals.indoorsOutdoors,
             grade: grade,
             ascentType: ascentType,
-            date: new Date().getTime()
+            date: new Date().getTime(),
+            uuid: UUID(),
+            location: false,
+            synchronized: false
           });
         }
       // update local storage

@@ -3,7 +3,7 @@ import toggleSwitch from '/js/components/toggleSwitch.js';
 
 class viewSettings {
   constructor() {
-    let container = dce({el: 'SECTION', cssClass: 'settings-page'});
+    let container = dce({el: 'SECTION', cssClass: 'page-settings'});
  
     let logoContainer = dce({el: 'DIV', cssClass: 'logo-container'});
     let logoImg = dce({el: 'IMG', source: '/images/napak_vector.svg', cssClass: 'logo'});

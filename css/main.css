@@ -122,16 +122,21 @@ SECTION {
 }
 
 
-.tick-page {
+.page-tick {
 	height: 100%;
 	display: grid;
 	grid-template-rows: 40px auto 1fr;
 }
 
-.settings-page {
+.page-settings {
 	height: 100%;
 	display: grid;
 	grid-template-rows: auto auto auto 1fr;
+}
+
+.page-statistics {
+	height: 100%;
+	display: grid;
 }
 
 /* Grade selector */
@@ -156,9 +161,6 @@ SECTION.grade::after {
 	content: "";
 	background: url('/images/bgr_1.jpg');
 	pointer-events: none;
-/*	
-	background-size:  100vh auto;
-*/
 	background-size: cover;
 	background-position: bottom right;
 	background-repeat: no-repeat;
@@ -173,8 +175,9 @@ SECTION.grade:not(.navi-shadow) {
 	z-index: 1;
 }
 
-SECTION.ticks-page:not(.navi-shadow),
-SECTION.settings-page:not(.navi-shadow) {
+SECTION.page-tick:not(.navi-shadow),
+SECTION.page-settings:not(.navi-shadow),
+SECTION.page-statistics:not(.navi-shadow) {
 	z-index: 1;
 }
 

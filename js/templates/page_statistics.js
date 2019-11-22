@@ -5,7 +5,7 @@ import charts from '/js/components/charts.js';
 class viewStatistics {
   constructor() {
     let temp =  countAscents('alltime');
-    let container = dce({el: 'SECTION', cssClass: 'ticks-page'});
+    let container = dce({el: 'SECTION', cssClass: 'page-statistics'});
 
   // Ascents by type (Redpoint, flash, onsight)
     let nakki = dce({el: 'H3', content: 'Ascents by type'});    

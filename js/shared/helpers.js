@@ -279,6 +279,11 @@ let generateTicks =  () => {
   localStorage.setItem('ticks', JSON.stringify(ticks));
 };
 
+let eivittunain = (obj) => {
+  if(globals.storeObservers.findIndex(x => x.id !== obj.id)){
+    globals.storeObservers.push(obj);    
+  }
+}
 
 export {
   dce,

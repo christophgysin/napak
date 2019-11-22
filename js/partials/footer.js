@@ -100,6 +100,7 @@ class footer {
     let moreMenu = new pulldownMenu({
       options   : [
         {title: 'Settings', value:'settings', icon: '/images/rock.svg'},
+        {title: 'History', value:'history', icon: '/images/rock.svg'},
         {title: 'Groups', value:'home', icon: '/images/rock.svg'}
         ],
       cssClass: 'right links-only',

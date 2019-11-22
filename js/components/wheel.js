@@ -1,4 +1,4 @@
-import { dce, countAscentsByDifficulty } from '/js/shared/helpers.js';
+import { dce, countAscentsByDifficulty} from '/js/shared/helpers.js';
 import { globals } from '/js/shared/globals.js';
 
 class wheel {
@@ -16,7 +16,10 @@ class wheel {
       if(Math.round(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length))-1 < 0) {
         dialViewport.scrollTo(0,Math.round(dialViewport.scrollHeight / globals.grades.font.length/2));
       }
-      globals.currentAscentGrade = Math.round(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length))-1;
+      let newVal = Math.round(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length))-1;
+      if(newVal !== globals.currentAscentGrade) {
+        globals.currentAscentGrade = newVal;
+      }
     }, false);
 
     let gradeFragment = document.createDocumentFragment();

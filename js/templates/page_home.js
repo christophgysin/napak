@@ -9,7 +9,7 @@ class viewHome {
     let progressSection = new progress();
     let gradeSelector = new gradeWheel();
 
-    let tickPage = dce({el: 'DIV', cssClass: 'tick-page'});
+    let tickPage = dce({el: 'DIV', cssClass: 'page-tick'});
     let inOutSelector = dce({el: 'DIV', cssClass: 'in-out-selector'});
 
     let current = dce({el: 'DIV', cssClass: 'current'});
@@ -25,13 +25,21 @@ class viewHome {
     let currentTitle = dce({el: 'H3', content: currentClimbingTypeTitle()});
     current.appendChild(currentTitle);
 
-    globals.storeObservers.push({key: 'currentClimbingType', callback: () => {
-      currentTitle.innerHTML = currentClimbingTypeTitle();
-    }}); 
+    globals.storeObservers.push({
+      key: 'currentClimbingType', 
+      id: 'homepageCurrentClimbingType',
+      callback: () => {
+        currentTitle.innerHTML = currentClimbingTypeTitle();
+      }
+    }); 
 
-    globals.storeObservers.push({key: 'indoorsOutdoors', callback: () => {
-      currentTitle.innerHTML = currentClimbingTypeTitle();
-    }}); 
+    globals.storeObservers.push({
+      key: 'indoorsOutdoors', 
+      id: 'homepageIndoorsOutdoors',
+      callback: () => {
+        currentTitle.innerHTML = currentClimbingTypeTitle();
+      }
+    }); 
 
 
     inOutSelector.appendChild(current);

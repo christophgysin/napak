@@ -6,7 +6,7 @@ import footer from '/js/partials/footer.js';
 
 import { globals } from '/js/shared/globals.js';
 import { store }  from '/js/shared/store.js';
-import { dce, countAscents, countTotalScore, countTopFive, averageGrade, countAscentsByType}  from '/js/shared/helpers.js';
+import { dce, countAscents, countTotalScore, countTopFive, averageGrade, countAscentsByType }  from '/js/shared/helpers.js';
 
 let napak = {
   initialize : () => {
@@ -36,8 +36,8 @@ let napak = {
 
   updateAll();
 // Listen to tick objects change and update 
-    globals.storeObservers.push({key: 'ticks', callback: updateAll });
-    globals.storeObservers.push({key: 'indoorsOutdoors', callback: updateAll });
+    globals.storeObservers.push({key: 'ticks', id: 'appTicks', callback: updateAll });
+    globals.storeObservers.push({key: 'indoorsOutdoors', id: 'appIndoorsOutdoors', callback: updateAll });
 
   // Get old ticks from local storage
     let getTicks = store.read({key: 'ticks'});
