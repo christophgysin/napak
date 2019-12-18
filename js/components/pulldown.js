@@ -32,7 +32,7 @@ class pulldownMenu {
 
       if(item.icon) {
         itemContainer.classList.add('icons');
-        let itemIcon = dce({el: 'IMG', source: item.icon})
+        let itemIcon = dce({el: 'IMG', source: item.icon, attrbs: [["label", itemTitle], ["title", "nih"]]});
         itemContainer.append(itemIcon, itemTitle);
       }
       else {

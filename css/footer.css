@@ -1,6 +1,7 @@
 footer {
-	background: var(--color-theme-color1-ascent);
-	color: var(--color-white-dim)
+	background: var(--color-theme-color1-accent);
+	color: var(--color-white-dim);
+	z-index: 1;
 }
 
 footer>nav {

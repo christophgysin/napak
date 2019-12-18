@@ -105,3 +105,12 @@
 	 text-align: right; 
 	/* margin-right: 15px; */
 }
+
+.horizontal-menu.centerize {
+	margin: 0 auto 0;
+	justify-content: space-around;
+}
+
+.horizontal-menu.centerize LI{
+	margin: 0;
+}

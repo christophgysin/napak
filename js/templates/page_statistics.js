@@ -8,7 +8,10 @@ class viewStatistics {
     let container = dce({el: 'SECTION', cssClass: 'page-statistics'});
 
   // Ascents by type (Redpoint, flash, onsight)
+  let nakkiPiirakka = dce({el: 'DIV', cssClass: 'page-title-container'});
+
     let nakki = dce({el: 'H3', content: 'Ascents by type'});    
+    nakkiPiirakka.appendChild(nakki);
     let chartDataAscentTypes = {
       type: 'pie',
       labels: ['Redpoint', 'Flash', 'Onsight'],
@@ -41,7 +44,7 @@ class viewStatistics {
 
     let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
 
-    container.append(nakki, lempo.render(), chartTitle, tempo.render(), naviShadow)
+    container.append(nakkiPiirakka, lempo.render(), chartTitle, tempo.render(), naviShadow)
     this.render = () => {
       return container
     }  

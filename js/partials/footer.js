@@ -47,7 +47,7 @@ class footer {
 
 
 /* / Indoors / Outdoors -> */
-    let changeIndoorsOutdoors = dce({el: 'a'});
+    let changeIndoorsOutdoors = dce({el: 'a', attrbs: [["label", "indoors or outdoors"]]});
     let changeIndoorsOutdoorsContainer = dce({el: 'SPAN'});
     let changeIndoorsOutdoorsIcon = dce({el: 'IMG', source: 'images/garden.svg'})
     let changeIndoorsOutdoorsTitle = dce({el: 'SPAN', content: globals.indoorsOutdoors});
@@ -77,7 +77,7 @@ class footer {
     logoContainer.addEventListener('click', () => {route('home')}, false);
 
     // statstics
-    let changeViewStatistics = dce({el: 'a'});
+    let changeViewStatistics = dce({el: 'a', attrbs: [["label", "statistics"]]});
     let changeViewStatisticsContainer = dce({el: 'SPAN'});
     let linkStatisticsPageIcon = dce({el: 'IMG', source: 'images/stats.svg'})
     let linkStatisticsPageTitle = dce({el: 'SPAN', content: 'statistics'});
@@ -90,7 +90,7 @@ class footer {
       route(type)
     };
 
-    let moreItemsMenu = dce({el: 'a'});
+    let moreItemsMenu = dce({el: 'a', attrbs: [["label", "more options"]]});
     let moreItemsMenuContainer = dce({el: 'SPAN'});
     let moreItemsMenuIcon = dce({el: 'IMG', source: 'images/more.svg'})
     let moreItemsMenuTitle = dce({el: 'SPAN', content:'More'});
@@ -101,7 +101,7 @@ class footer {
       options   : [
         {title: 'Settings', value:'settings', icon: '/images/rock.svg'},
         {title: 'History', value:'history', icon: '/images/rock.svg'},
-        {title: 'Groups', value:'home', icon: '/images/rock.svg'}
+        {title: 'Groups', value:'groups', icon: '/images/rock.svg'}
         ],
       cssClass: 'right links-only',
       callback: routeLinks,

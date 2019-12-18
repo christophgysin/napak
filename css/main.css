@@ -1,5 +1,6 @@
 @import "animations.css";
 @import "buttons.css";
+@import "dropdown.css";
 @import "footer.css";
 @import "fonts.css";
 @import "groups.css";
@@ -628,3 +629,17 @@ SECTION.page-statistics:not(.navi-shadow) {
 }
 
 .hidden {display: none;}
+
+
+/* page title */
+.page-title-container {
+	background: var(--color-theme-color1-accent);
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	transition: filter 300ms ease-in-out;
+	color: var(--color-white);
+	margin: calc( -1 * var(--padding-base) );
+	padding-left: var(--padding-base)
+}
