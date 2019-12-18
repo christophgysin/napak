@@ -12,7 +12,7 @@ class viewSettings {
     logoContainer.append(logoImg, version);
 
     let loginInfo = dce({el: 'DIV', cssClass: 'login-info'});
-    let loginInfoTitle = dce({el: 'H3', content: 'Logged in as pyry 😻'});
+    let loginInfoTitle = dce({el: 'H3', cssClass: 'mt mb', content: 'Logged in as pyry 😻'});
     let logoutButton = dce({el: 'A', cssClass: 'btn login-ling', content: 'Logout'});
 
     loginInfo.append(loginInfoTitle, logoutButton);

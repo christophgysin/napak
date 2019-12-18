@@ -51,7 +51,7 @@ class viewGroups {
       let entryPos = dce({el: 'SPAN', content: `${i+1}.`});
       let entryName = dce({el: 'SPAN', content: 'Pyry'});
       let entryPointsContainer = dce({el: 'SPAN', content: 7500});
-      let entryPointsDirection = dce({el: 'SPAN', cssClass : 'dir'});
+      let entryPointsDirection = dce({el: 'SPAN', cssClass : 'dir', content: ['↓', '↑', '-'][~~(3 * Math.random())]});
       entryPointsContainer.appendChild(entryPointsDirection);
       let entryAvgGrade = dce({el: 'SPAN', content: '7A'});
 
