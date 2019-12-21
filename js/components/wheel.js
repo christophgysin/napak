@@ -16,7 +16,7 @@ class wheel {
       if(Math.round(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length))-1 < 0) {
         dialViewport.scrollTo(0,Math.round(dialViewport.scrollHeight / globals.grades.font.length/2));
       }
-      let newVal = Math.round(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length))-1;
+      let newVal = Math.round(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length));
       if(newVal !== globals.currentAscentGrade) {
         globals.currentAscentGrade = newVal;
       }

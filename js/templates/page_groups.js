@@ -4,8 +4,8 @@ import dropdownMenu from '/js/components/dropdown.js';
 
 class viewGroups {
   constructor() {
-
-    let container = dce({el: 'SECTION'});
+    let container = dce({el: 'DIV', cssClass: 'groups-page'});
+    let groupSelectContainer = dce({el: 'SECTION', cssClass: 'group-select'});
 
     let groupTypeSelector = new picker({
       cssClass: 'horizontal-menu centerize',
@@ -26,11 +26,13 @@ class viewGroups {
         { title: '🥑 Top ropers', value: 'topropers' }]
     });
 
-    container.append(groupTypeSelector.render(), groupSelect.render());
+    groupSelectContainer.append(groupTypeSelector.render(), groupSelect.render());
 
     /*
     Group view 
     */
+
+    let rankingContainer = dce({el: 'SECTION', cssClass: 'ranking'});
 
     let groupClimbingTypeSelector = new picker({
       cssClass: 'horizontal-menu full-width',
@@ -58,11 +60,15 @@ class viewGroups {
       groupEntry.append(entryPos, entryName, entryPointsContainer, entryAvgGrade);
       groupStanding.append(groupEntry, groupEntry);
     }
-    container.append(groupClimbingTypeSelector.render(), groupStanding)
+    rankingContainer.append(groupClimbingTypeSelector.render(), groupStanding)
 
-    let createNewGroupButton = dce({el: 'a', cssClass: 'btn', content: 'Create new group'});
-    container.appendChild(createNewGroupButton);
+    let createNewGroupButton = dce({el: 'a', cssClass: 'btn mt mb'});
+    let plusIcon = dce({el: 'IMG', source: '/images/icon_plus.svg'});
+    let buttonTitle = document.createTextNode('Create new group');
+    createNewGroupButton.append(plusIcon, buttonTitle);
+    rankingContainer.append(createNewGroupButton);
 
+    container.append(groupSelectContainer, rankingContainer);
 
     this.render = () => {
       return container

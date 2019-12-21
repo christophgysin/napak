@@ -1,12 +1,11 @@
 /* Dropwdown --> */
 .dropdown-container {
-    background: var(--color-theme-color1-accent);
+    background: var(--color-black-alpha);
     border-radius: 0px;
     position: relative;
 	border-bottom: 1px solid var(--color-theme-color2);
 	line-height: 35px;
 	text-indent: var(--padding-base);
-	margin: var(--padding-base) 0;
 	border-radius: 2px;
 }
 
