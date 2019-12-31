@@ -10,13 +10,16 @@ class wheel {
 
 
     dialViewport.addEventListener('scroll', (y) => {
+      let elemHeight = selectDialog.firstChild.getBoundingClientRect().height;
+//      console.log(elemHeight)
+//      console.log(dialViewport.scrollTop)
       // 200px is 2x100padding
       // let test = window.getComputedStyle(selectDialog);
       // console.log(test.getPropertyValue('padding-top'));
-      if(Math.round(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length))-1 < 0) {
-        dialViewport.scrollTo(0,Math.round(dialViewport.scrollHeight / globals.grades.font.length/2));
-      }
-      let newVal = Math.round(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length));
+//      if(Math.round(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length))-1 < 0) {
+  //      dialViewport.scrollTo(0,Math.round(dialViewport.scrollHeight / globals.grades.font.length/2));
+    //  }
+      let newVal = Math.floor(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length));
       if(newVal !== globals.currentAscentGrade) {
         globals.currentAscentGrade = newVal;
       }
@@ -82,8 +85,10 @@ class wheel {
     let observer = new MutationObserver(function(mutations) {
       if (document.contains(dialViewport)) {
         setTimeout( () => {
-          dialViewport.scrollTo(0,dialViewport.scrollHeight / globals.grades.font.length * (globals.currentAscentGrade-1));
-        }, 100);
+          let elemSize = selectDialog.firstChild.getBoundingClientRect().height;
+          let elemTopScrollPos = 50;
+          dialViewport.scrollTo(0,elemSize*globals.currentAscentGrade + elemTopScrollPos);
+        }, 300);
       observer.disconnect();
       }
     });

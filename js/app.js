@@ -1,11 +1,14 @@
 import viewHome from '/js/templates/page_home.js';
+import viewLogin from '/js/templates/page_login.js';
 import viewHistory from '/js/templates/page_history.js';
 import viewStatistics from '/js/templates/page_statistics.js';
 import viewSettings from '/js/templates/page_settings.js';
 import viewGroups from '/js/templates/page_groups.js';
 import footer from '/js/partials/footer.js';
+import { route } from '/js/shared/route.js';
 
 import { globals } from '/js/shared/globals.js';
+import { user } from '/js/shared/user.js';
 import { store }  from '/js/shared/store.js';
 import { dce, countAscents, countTotalScore, countTopFive, averageGrade, countAscentsByType }  from '/js/shared/helpers.js';
 
@@ -16,6 +19,7 @@ let napak = {
     globals.routes.statistics = viewStatistics;
     globals.routes.settings = viewSettings;
     globals.routes.groups = viewGroups;
+    globals.routes.login = viewLogin;
 
     let appContainer = dce({el: 'DIV', cssClass : 'app'});
     let appContentContainer = dce({el: 'DIV', cssClass : 'page-content'});
@@ -54,14 +58,29 @@ let napak = {
 
     // init app
     document.body.innerHTML = "";
-    let home = new viewHome();
-    appContentContainer.appendChild(home.render())
     appContainer.append(appContentContainer, pageFooter.render(appContainer));
 
     let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
     appContainer.append(naviShadow);
 
     document.body.appendChild(appContainer);
+
+
+
+
+    let loginStatus = () => {
+      if(!user.login.isLoggedIn) {
+        route('login');
+        }
+  
+      else {
+        route('home');
+      }  
+    }
+    user.storeObservers.push({key: 'login', callback: loginStatus})
+
+    loginStatus();
+
   }
 }
 

@@ -1,6 +1,7 @@
 import pulldownMenu from '/js/components/pulldown.js';
 
 import { globals } from '/js/shared/globals.js';
+import { user } from '/js/shared/user.js';
 import { dce, updateScopeTicks} from '/js/shared/helpers.js';
 
 import { route } from '/js/shared/route.js';
@@ -41,7 +42,6 @@ class footer {
 
     changeDiscipline.addEventListener('click', () => {
       disciplines.toggle();
-
     }, false);
 
 
@@ -117,6 +117,17 @@ class footer {
     
     footerNav.append(changeDiscipline, changeIndoorsOutdoors, logoContainer, changeViewStatistics, moreItemsMenu);
     footer.appendChild(footerNav);
+
+    let toggleVisibility = () => {
+      if(user.login.isLoggedIn) {
+        footer.classList.remove('hidden');
+      }
+      else  {
+        footer.classList.add('hidden');
+      }
+    }
+    user.storeObservers.push({key: 'login', callback: toggleVisibility});
+
 
     this.render = () => {
         return footer;
