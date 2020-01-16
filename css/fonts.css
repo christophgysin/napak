@@ -4,8 +4,8 @@
     font-style: normal;
     font-weight: 100;
     src: local('IBM Plex Mono Thin'), local('IBMPlexMono-Thin'),
-         url('/fonts/IBM_Plex_mono/ibm-plex-mono-v5-latin-100.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-         url('/fonts/IBM_Plex_mono/ibm-plex-mono-v5-latin-100.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+         url('/fonts/IBM_Plex_Mono/ibm-plex-mono-v5-latin-100.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url('/fonts/IBM_Plex_Mono/ibm-plex-mono-v5-latin-100.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
   }
   
   /* ibm-plex-mono-300 - latin */
@@ -14,8 +14,8 @@
     font-style: normal;
     font-weight: 300;
     src: local('IBM Plex Mono Light'), local('IBMPlexMono-Light'),
-         url('/fonts/IBM_Plex_mono/ibm-plex-mono-v5-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-         url('/fonts/IBM_Plex_mono/ibm-plex-mono-v5-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+         url('/fonts/IBM_Plex_Mono/ibm-plex-mono-v5-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url('/fonts/IBM_Plex_Mono/ibm-plex-mono-v5-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
   }
   
   /* ibm-plex-mono-regular - latin */
@@ -24,8 +24,8 @@
     font-style: normal;
     font-weight: 400;
     src: local('IBM Plex Mono'), local('IBMPlexMono'),
-         url('/fonts/IBM_Plex_mono/ibm-plex-mono-v5-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-         url('/fonts/IBM_Plex_mono/ibm-plex-mono-v5-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+         url('/fonts/IBM_Plex_Mono/ibm-plex-mono-v5-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url('/fonts/IBM_Plex_Mono/ibm-plex-mono-v5-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
   }
   
 

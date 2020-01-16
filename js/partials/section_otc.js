@@ -1,5 +1,5 @@
 import { dce } from '/js/shared/helpers.js';
-import toggleSwitch from '/js/components/toggleSwitch.js';
+import toggleSwitch from '/js/components/toggleswitch.js';
 import { user } from '/js/shared/user.js';
 import { route } from '/js/shared/route.js';
 
