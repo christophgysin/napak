@@ -5,7 +5,7 @@ import viewStatistics from '/js/templates/page_statistics.js';
 import viewSettings from '/js/templates/page_settings.js';
 import viewGroups from '/js/templates/page_groups.js';
 import footer from '/js/partials/footer.js';
-import otc from '/js/templates/section_otc.js';
+import otc from '/js/partials/section_otc.js';
 import { route } from '/js/shared/route.js';
 
 import { globals } from '/js/shared/globals.js';

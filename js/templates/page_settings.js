@@ -12,6 +12,8 @@ class viewSettings {
 
     logoContainer.append(logoImg, version);
 
+    user.storeObservers.push({key: 'ticks', id: 'appTicks', callback: updateAll });
+
 
     let loginInfo = dce({el: 'DIV', cssClass: 'login-info'});
     if(user.login.isLoggedIn) {

@@ -21,10 +21,9 @@ class otc {
 
     logoContainer.append(logoImg, version);
 
-
     let loginInfo = dce({el: 'DIV', cssClass: 'login-info'});
     if(user.login.isLoggedIn) {
-      let loginInfoTitle = dce({el: 'H3', cssClass: 'mt mb', content: `Logged in as ${user.name.userName} 😻`});
+      let loginInfoTitle = dce({el: 'H3', cssClass: 'mt mb username', content: `Logged in as ${user.name.userName} 😻`});
       let logoutButton = dce({el: 'A', cssClass: 'btn login-link', content: 'Logout'});
       loginInfo.append(loginInfoTitle, logoutButton);
 
@@ -40,6 +39,17 @@ class otc {
       let logInButton = dce({el: 'A', cssClass: 'btn login-link', content: 'Login'});
       loginInfo.append(loginInfoTitle, logInButton)
     }
+
+
+// Listen and update details when login/logout. This is retarded. Fix it at some point
+    let loginStatus = () => {
+      loginInfo.querySelector('H3.username').innerHTML = `Logged in as ${user.name.userName} 😻`
+//      loginInfoTitle.innerHTML = 'MEH'
+    }
+    user.storeObservers.push({key: 'login', callback: loginStatus});
+
+
+
     let settingsContainer = dce({el: 'DIV', cssClass: 'settings'});
 
     let vibrateTitle = dce({el: 'H3', content: 'VIBRATE WHEN TICKING'});
