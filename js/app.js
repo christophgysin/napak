@@ -5,6 +5,7 @@ import viewStatistics from '/js/templates/page_statistics.js';
 import viewSettings from '/js/templates/page_settings.js';
 import viewGroups from '/js/templates/page_groups.js';
 import footer from '/js/partials/footer.js';
+import otc from '/js/templates/section_otc.js';
 import { route } from '/js/shared/route.js';
 
 import { globals } from '/js/shared/globals.js';
@@ -24,6 +25,7 @@ let napak = {
     let appContainer = dce({el: 'DIV', cssClass : 'app'});
     let appContentContainer = dce({el: 'DIV', cssClass : 'page-content'});
     let pageFooter = new footer();
+    let otcMenu = new otc();
 
     // Update all globals 
     let updateAll = () => {
@@ -58,14 +60,12 @@ let napak = {
 
     // init app
     document.body.innerHTML = "";
-    appContainer.append(appContentContainer, pageFooter.render(appContainer));
+    appContainer.append(appContentContainer, pageFooter.render(appContainer), otcMenu.render());
 
     let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
     appContainer.append(naviShadow);
 
     document.body.appendChild(appContainer);
-
-
 
 
     let loginStatus = () => {

@@ -111,7 +111,8 @@ class footer {
     moreItemsMenu.appendChild(moreMenu.render());
 
     moreItemsMenu.addEventListener('click', () => {
-      moreMenu.toggle();
+//      moreMenu.toggle();
+      document.body.classList.toggle('otc');
     }, false);
 
     

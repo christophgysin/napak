@@ -58,7 +58,17 @@ let svg = (params) => {
   return element;
 }
 
-
+// vibrate 
+let vibrate = (params) => {
+  let supportsVibrate = "vibrate" in navigator;
+  let duration = [10, 0];
+  if ( params && params.duration ) {
+    duration = params.duration;
+  }
+  if(supportsVibrate) {
+    window.navigator.vibrate(duration);
+  }
+}
 // Custom events
 let triggerCustomEvent = (params) => {
   let vent = new CustomEvent(params.vent, params.data);
@@ -288,6 +298,7 @@ let eivittunain = (obj) => {
 export {
   dce,
   svg,
+  vibrate,
   triggerCustomEvent,
   countTopFive,
   averageGrade,

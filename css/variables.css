@@ -29,6 +29,7 @@
 	--padding-base : 20px;
   --padding-base-wide : 20px 40px;
   --padding-base-wide-horizontal : 40px;
+	--padding-base-negative : -20px;
 
   --chart-bar-radius : 2px;
   --base-btn-border-radius: 2px;

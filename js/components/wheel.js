@@ -1,4 +1,4 @@
-import { dce, countAscentsByDifficulty} from '/js/shared/helpers.js';
+import { dce, countAscentsByDifficulty, vibrate } from '/js/shared/helpers.js';
 import { globals } from '/js/shared/globals.js';
 
 class wheel {
@@ -22,6 +22,7 @@ class wheel {
       let newVal = Math.floor(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length));
       if(newVal !== globals.currentAscentGrade) {
         globals.currentAscentGrade = newVal;
+        vibrate();
       }
     }, false);
 

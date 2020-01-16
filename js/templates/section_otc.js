@@ -1,11 +1,20 @@
 import { dce } from '/js/shared/helpers.js';
 import toggleSwitch from '/js/components/toggleSwitch.js';
 import { user } from '/js/shared/user.js';
+import { route } from '/js/shared/route.js';
 
-class viewSettings {
+class otc {
   constructor() {
-    let container = dce({el: 'SECTION', cssClass: 'page-settings'});
- 
+    let container = dce({el: 'DIV', cssClass: 'otc-navigation'});
+
+    let navContainer = dce({el: 'NAV'});
+
+    navContainer.addEventListener('click', () => {
+        document.body.classList.toggle('otc');
+    }, false);
+
+    let otcLinksContainer = dce({el: 'DIV', cssClass: 'otc-links-container'});
+
     let logoContainer = dce({el: 'DIV', cssClass: 'logo-container'});
     let logoImg = dce({el: 'IMG', source: '/images/napak_vector.svg', cssClass: 'logo'});
     let version = dce({el: 'SPAN', content: ' 0.x'});
@@ -16,18 +25,19 @@ class viewSettings {
     let loginInfo = dce({el: 'DIV', cssClass: 'login-info'});
     if(user.login.isLoggedIn) {
       let loginInfoTitle = dce({el: 'H3', cssClass: 'mt mb', content: `Logged in as ${user.name.userName} 😻`});
-      let logoutButton = dce({el: 'A', cssClass: 'btn login-ling', content: 'Logout'});
+      let logoutButton = dce({el: 'A', cssClass: 'btn login-link', content: 'Logout'});
       loginInfo.append(loginInfoTitle, logoutButton);
 
       logoutButton.addEventListener('click', () => {
         user.login.isLoggedIn = false;
 
         user.login = user.login;
+        document.body.classList.remove('otc')
       }, false)
     }
     else {
       let loginInfoTitle = dce({el: 'H3', cssClass: 'mt mb', content: `Not logged in. No data is saved`});
-      let logInButton = dce({el: 'A', cssClass: 'btn login-ling', content: 'Login'});
+      let logInButton = dce({el: 'A', cssClass: 'btn login-link', content: 'Login'});
       loginInfo.append(loginInfoTitle, logInButton)
     }
     let settingsContainer = dce({el: 'DIV', cssClass: 'settings'});
@@ -52,9 +62,29 @@ class viewSettings {
     settingsContainer.append(vibrateTitle, vibrateOnOff.render(), locationTitle, locationOnOff.render())
 
 
-    let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
+// Page links
 
-    container.append(logoContainer, loginInfo, settingsContainer, naviShadow);
+      let sideNavLinks = dce({el: 'SECTION', cssClass: 'sidenav-links'});
+
+      let btnGroups = dce({el: 'A', content: 'Groups' })
+      let btnHistory = dce({el: 'A', content: 'History' })
+
+      btnGroups.addEventListener('click', () => {
+          route('groups');
+          document.body.classList.remove('otc')
+        }, false);
+
+        btnHistory.addEventListener('click', () => {
+        route('history');
+        document.body.classList.remove('otc')
+        }, false);
+  
+
+    sideNavLinks.append(btnGroups, btnHistory);
+
+    otcLinksContainer.append(logoContainer, loginInfo, settingsContainer,sideNavLinks);
+
+    container.append(otcLinksContainer, navContainer);
     
     this.render = () => {
       return container
@@ -62,4 +92,4 @@ class viewSettings {
   }
 }
 
-export default viewSettings;
+export default otc;

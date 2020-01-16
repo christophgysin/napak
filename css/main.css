@@ -39,6 +39,7 @@ BODY {
 	color: var(--color-white-dim);
 	font-weight: 100;
 	-webkit-overflow-scrolling: touch;
+	z-index: 1;
 }
 
 H2 {
@@ -103,6 +104,7 @@ SECTION {
 	bottom: 0;
 	display: flex;
 	flex-direction: column;
+	z-index: 2;
 }
 
 .page-content {
@@ -642,4 +644,11 @@ SECTION.page-statistics:not(.navi-shadow) {
 
 .mt {
 	margin-top: 10px!important;
+}
+
+
+@supports(padding: max(0px)) {
+	.page-content {
+		padding-top: max(20px, env(safe-area-inset-top));
+	}
 }
