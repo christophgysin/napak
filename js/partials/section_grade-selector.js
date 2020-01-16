@@ -29,7 +29,6 @@ class gradeWheel {
     let spacer = dce({ el: 'DIV', cssStyle: 'width: 20px; min-width: 20px;' });
     let buttonInc = dce({ el: 'A', cssClass: 'btn type-redpoint', content: 'Tick' });
 
-
     let handleTick = (add) => {
       if (globals.currentAscentGrade < 0) {
         return;
@@ -45,12 +44,12 @@ class gradeWheel {
           let today = globals.today.split("-");
           today = new Date(today[0], today[1], today[2]).getTime();
           if(ticks[i].date >= today &&
-            ticks[i].grade === grade &&
-            ticks[i].ascentType === ascentType &&
-            ticks[i].indoorsOutdoors === globals.indoorsOutdoors && 
-            ticks[i].type === globals.currentClimbingType ){
-              ticksByGrade.push(i);
-            }
+             ticks[i].grade === grade &&
+             ticks[i].ascentType === ascentType &&
+             ticks[i].indoorsOutdoors === globals.indoorsOutdoors &&
+             ticks[i].type === globals.currentClimbingType) {
+            ticksByGrade.push(i);
+          }
         }
         if(ticksByGrade.length) {
           ticks.splice(ticksByGrade[ticksByGrade.length-1], 1)
@@ -59,16 +58,17 @@ class gradeWheel {
       else {
         // Add tick
         ticks.push({
-            type: globals.currentClimbingType,
-            indoorsOutdoors: globals.indoorsOutdoors,
-            grade: grade,
-            ascentType: ascentType,
-            date: new Date().getTime(),
-            uuid: UUID(),
-            location: false,
-            synchronized: false
-          });
-        }
+          type: globals.currentClimbingType,
+          indoorsOutdoors: globals.indoorsOutdoors,
+          grade: grade,
+          ascentType: ascentType,
+          date: new Date().getTime(),
+          uuid: UUID(),
+          location: false,
+          synchronized: false
+        });
+      }
+
       // update local storage
       store.write({
         key: 'ticks',
@@ -80,7 +80,6 @@ class gradeWheel {
 
     buttonInc.addEventListener('click', () => { handleTick(true); }, false);
     buttonDec.addEventListener('click', () => { handleTick(false); }, false);
-
 
     buttonsContainer.append(buttonDec, spacer, buttonInc);
     pickerElement.appendChild(buttonsContainer);

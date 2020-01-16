@@ -20,8 +20,7 @@ class sectionProgress {
     let statisticsContainer = dce({el: 'DIV'});
     let pointsContainer = dce({el: 'DIV', cssClass: 'important-numbers'});
 
-
-// Points
+    // Points
     let points = dce({el: 'DIV', cssClass: 'important-points'});
     let pointsTitle = dce({el: 'H3', content: 'Points'})
     let pointsCount = dce({el: 'H2', content: globals.totalScore.toString()})
@@ -42,8 +41,7 @@ class sectionProgress {
     globals.storeObservers.push({key: 'scope', callback: () => {ascentsCount.innerHTML = globals.totalAscentCount[globals.scope];}});
     globals.storeObservers.push({key: 'ticks', callback: () => {ascentsCount.innerHTML = globals.totalAscentCount[globals.scope];}});
 
-
-// Grade
+    // Grade
     let grade = dce({el: 'DIV', cssClass: 'important-grade'});
     let gradeTitle = dce({el: 'H3', content: 'Avg. grade'})
     let gradeCount = dce({el: 'H2', content: globals.averageGrade})
@@ -53,12 +51,9 @@ class sectionProgress {
     globals.storeObservers.push({key: 'averageGrade', callback: () => {gradeCount.innerHTML = globals.averageGrade;}});
     globals.storeObservers.push({key: 'scope', callback: () => {gradeCount.innerHTML = globals.averageGrade;}});
 
-
-//
     pointsContainer.append(points, ascents, grade);
     container.appendChild(pointsContainer);
 
-//
     let graphPullDown = document.createElement("SPAN");
     graphPullDown.className = "graph-pulldown";
 
@@ -80,12 +75,10 @@ class sectionProgress {
       chartFragment.appendChild(barContainer)
     };
 
-
-// Toggle graphview
+    // Toggle graphview
     graphPullDown.addEventListener('click', () => {
       gradeDistributionContainer.classList.toggle('hidden');
     }, false);
-
 
     chartBarContainer.appendChild(chartFragment);
     gradeDistributionChartContainer.appendChild(chartBarContainer);
@@ -100,13 +93,12 @@ class sectionProgress {
     chartLegendContainer.appendChild(chartLegendFragment);
     gradeDistributionContainer.appendChild(chartLegendContainer);
 
-// update charts
+    // update charts
     let updateCharts = () => {
       globals.totalAscentCount[globals.scope] = countAscents(globals.scope).total;
       globals.currentScore = countTotalScore();
       globals.totalScore = countTopFive();
       globals.averageGrade = averageGrade(5);
-
 
       let barNodes = chartBarContainer.querySelectorAll('.bar');
       let ticks = countAscentsByGrade({scope: globals.scope});
@@ -114,7 +106,6 @@ class sectionProgress {
         bar.style.height = `${ticks[i]}px`;
       });
     };
-
 
     container.appendChild(gradeDistributionContainer);
 
@@ -127,7 +118,7 @@ class sectionProgress {
     this.render = () => {
       return container;
     }
-	}
+  }
 }
 
 export default sectionProgress;

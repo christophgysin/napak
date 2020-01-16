@@ -28,9 +28,7 @@ class viewGroups {
 
     groupSelectContainer.append(groupTypeSelector.render(), groupSelect.render());
 
-    /*
-    Group view 
-    */
+    // Group view
 
     let rankingContainer = dce({el: 'SECTION', cssClass: 'ranking'});
 
@@ -72,7 +70,7 @@ class viewGroups {
 
     this.render = () => {
       return container
-    }  
+    }
   }
 }
 

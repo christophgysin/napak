@@ -25,15 +25,15 @@ class footer {
       updateScopeTicks();
       linkTickPageTitle.innerHTML = globals.currentClimbingType;
     };
-    
+
     let disciplines = new pulldownMenu({
-      options   : [
+      options: [
         {title: 'Boulder', value:'boulder', selected: true, legend: globals.totalAscentsByType.boulder, val: 'totalAscentsByType.boulder'},  // icon: '/images/rock.svg'
         {title: 'Sport', value:'sport',  legend: globals.totalAscentsByType.sport, val: 'totalAscentsByType.sport'},                         // icon: '/images/climb.svg'
         {title: 'Top rope', value:'toprope', legend: globals.totalAscentsByType.toprope, val: 'totalAscentsByType.toprope'},                 // icon: '/images/rock.svg'
         {title: 'Trad', value:'trad', legend: globals.totalAscentsByType.trad, val: 'totalAscentsByType.trad'}                               // icon: '/images/rock.svg',
       ],
-      targetObj : 'currentClimbingType',
+      targetObj: 'currentClimbingType',
       listen: 'ticks',
       callback: udpateDiscipline
     });
@@ -44,22 +44,20 @@ class footer {
       disciplines.toggle();
     }, false);
 
-
-
-/* / Indoors / Outdoors -> */
+    /* / Indoors / Outdoors -> */
     let changeIndoorsOutdoors = dce({el: 'a', attrbs: [["label", "indoors or outdoors"]]});
     let changeIndoorsOutdoorsContainer = dce({el: 'SPAN'});
     let changeIndoorsOutdoorsIcon = dce({el: 'IMG', source: 'images/garden.svg'})
     let changeIndoorsOutdoorsTitle = dce({el: 'SPAN', content: globals.indoorsOutdoors});
     changeIndoorsOutdoorsContainer.append(changeIndoorsOutdoorsIcon, changeIndoorsOutdoorsTitle);
     changeIndoorsOutdoors.append(changeIndoorsOutdoorsContainer);
-        
+
     let inOutScope = new pulldownMenu({
-      options   : [
+      options: [
         {title: 'Outdoors', value:'outdoors', selected: globals.indoorsOutdoors === 'outdoors' }, // icon: '/images/garden.svg',
         {title: 'Indoors', value:'indoors', selected: globals.indoorsOutdoors === 'indoors'} // icon: '/images/rock.svg',
-        ],
-      targetObj : 'indoorsOutdoors',
+      ],
+      targetObj: 'indoorsOutdoors',
       callback: udpateDiscipline
     });
 
@@ -85,7 +83,6 @@ class footer {
     changeViewStatistics.append(changeViewStatisticsContainer);
     changeViewStatistics.addEventListener('click', () => {route('statistics')}, false);
 
-
     let routeLinks = function (type) {
       route(type)
     };
@@ -96,13 +93,13 @@ class footer {
     let moreItemsMenuTitle = dce({el: 'SPAN', content:'More'});
     moreItemsMenuContainer.append(moreItemsMenuIcon, moreItemsMenuTitle);
     moreItemsMenu.append(moreItemsMenuContainer);
-        
+
     let moreMenu = new pulldownMenu({
-      options   : [
+      options: [
         {title: 'Settings', value:'settings', icon: '/images/rock.svg'},
         {title: 'History', value:'history', icon: '/images/rock.svg'},
         {title: 'Groups', value:'groups', icon: '/images/rock.svg'}
-        ],
+      ],
       cssClass: 'right links-only',
       callback: routeLinks,
       linksOnly: true
@@ -111,11 +108,10 @@ class footer {
     moreItemsMenu.appendChild(moreMenu.render());
 
     moreItemsMenu.addEventListener('click', () => {
-//      moreMenu.toggle();
+      // moreMenu.toggle();
       document.body.classList.toggle('otc');
     }, false);
 
-    
     footerNav.append(changeDiscipline, changeIndoorsOutdoors, logoContainer, changeViewStatistics, moreItemsMenu);
     footer.appendChild(footerNav);
 
@@ -123,17 +119,16 @@ class footer {
       if(user.login.isLoggedIn) {
         footer.classList.remove('hidden');
       }
-      else  {
+      else {
         footer.classList.add('hidden');
       }
     }
     user.storeObservers.push({key: 'login', callback: toggleVisibility});
 
-
     this.render = () => {
-        return footer;
-        }
+      return footer;
     }
-} 
+  }
+}
 
 export default footer;

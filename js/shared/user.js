@@ -16,8 +16,8 @@ const handler = {
   }
 }
 
-/* 
-  User 
+/*
+  User
   */
 let userObject = {
   storeObservers : [],

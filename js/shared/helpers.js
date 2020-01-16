@@ -32,7 +32,6 @@ let dce = (params) => {
   return element;
 }
 
-
 // Create SVG element
 let svg = (params) => {
   let xlmns = 'http://www.w3.org/2000/svg';
@@ -58,7 +57,7 @@ let svg = (params) => {
   return element;
 }
 
-// vibrate 
+// vibrate
 let vibrate = (params) => {
   let supportsVibrate = "vibrate" in navigator;
   let duration = [10, 0];
@@ -69,6 +68,7 @@ let vibrate = (params) => {
     window.navigator.vibrate(duration);
   }
 }
+
 // Custom events
 let triggerCustomEvent = (params) => {
   let vent = new CustomEvent(params.vent, params.data);
@@ -76,7 +76,6 @@ let triggerCustomEvent = (params) => {
     document.dispatchEvent(vent);
   }
 }
-
 
 // Count top 5 score
 let countTopFive = () => {
@@ -143,7 +142,7 @@ let countAscents = (scope) => {
     flash: 0,
     total: 0
   };
- 
+
   let ticks = handleScopeTicks({scope: scope});
 
   types.forEach((type) => {
@@ -206,7 +205,6 @@ let countAscentsByType = () => {
   return types;
 }
 
-
 // Get ascents by grade
 let countAscentsByGrade = (params) => {
   let ticks = handleScopeTicks({scope: params.scope});
@@ -215,7 +213,7 @@ let countAscentsByGrade = (params) => {
   let type = globals.currentClimbingType;
   ascentsByGrade.forEach((grade, count) => {
     let ticksByGrade = ticks.filter(obj => {
-      return obj.type === type && 
+      return obj.type === type &&
               obj.indoorsOutdoors === ((params.indoorsOutdoors) ? params.indoorsOutdoors : globals.indoorsOutdoors) &&
               obj.grade === count
     })
@@ -223,7 +221,6 @@ let countAscentsByGrade = (params) => {
   });
   return ascentsByGrade;
 }
-
 
 // Return all ticks matching the scope
 let handleScopeTicks = (params) => {
@@ -260,7 +257,7 @@ let updateScopeTicks = () => {
   globals.totalAscentCount['alltime'] = countAscents('alltime').total;
   globals.totalAscents = countAscents('today');
 
-  // Trigger 
+  // Trigger
   let getTicks = globals.ticks;
   globals.ticks = getTicks;
 
@@ -291,7 +288,7 @@ let generateTicks =  () => {
 
 let eivittunain = (obj) => {
   if(globals.storeObservers.findIndex(x => x.id !== obj.id)){
-    globals.storeObservers.push(obj);    
+    globals.storeObservers.push(obj);
   }
 }
 

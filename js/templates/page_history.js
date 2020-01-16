@@ -19,7 +19,7 @@ class viewHistory {
       if(keyA < keyB) return -1;
       if(keyA > keyB) return 1;
       return 0;
-  });
+    });
 
     let currentDate = "0000-00-00";
     for( let i=ticks.length-1, j = 0; i>=j; i-- ) {
@@ -33,7 +33,7 @@ class viewHistory {
       }
 
       let row = dce({el: 'TR'});
-//      let date = dce({el: 'TD', content: handleDate({dateString: ticks[i].date})});
+      // let date = dce({el: 'TD', content: handleDate({dateString: ticks[i].date})});
       let indoors = dce({el: 'TD', content: ticks[i].indoorsOutdoors});
       let type = dce({el: 'TD', content: ticks[i].type});
       let gradeContainer = dce({el: 'TD'});
@@ -47,7 +47,7 @@ class viewHistory {
     container.append(nakki, ticksContainer)
     this.render = () => {
       return container
-    }  
+    }
   }
 }
 

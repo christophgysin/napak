@@ -34,7 +34,7 @@ class dropdownMenu {
 
     this.toggle = () => {
       dropdonwOptionsContainer.classList.toggle('hidden');
-      }
+    }
     this.set = (el, data) => {
       let currentSelected = el.parentNode.querySelectorAll('.selected');
       currentSelected.forEach((el) => {el.classList.remove('selected')});

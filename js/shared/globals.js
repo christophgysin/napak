@@ -38,8 +38,8 @@ types.forEach((type) => {
   }
 });
 
-/* 
-  Globals 
+/*
+  Globals
   */
 let globalObjects = {
   routes: {},
@@ -72,7 +72,7 @@ let globalObjects = {
     flash: 0,
     onsight: 0,
     },
- 
+
   totalAscentsByType : {
     boulder: 0,
     toprope: 0,
