@@ -1,12 +1,11 @@
 import { globals } from '/js/shared/globals.js';
 
 let route = (params) => {
-  console.log(params)
-  console.log(globals.routes)
-  console.log(params in globals.routes)
-  let nakki = new globals.routes[params];
+  let trgt = new globals.routes[params];
+  let routeTitle = params;
+//  history.pushState( globals.pushHistory, params, params );
   document.querySelector('.page-content').innerHTML = "";
-  document.querySelector('.page-content').appendChild(nakki.render());
+  document.querySelector('.page-content').appendChild(trgt.render());
 };
 
 

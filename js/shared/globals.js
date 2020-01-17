@@ -42,6 +42,7 @@ types.forEach((type) => {
   Globals
   */
 let globalObjects = {
+  pushHistory : {},
   routes: {},
   storeObservers : [],
   openMenus: [],
