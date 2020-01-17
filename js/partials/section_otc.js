@@ -40,65 +40,60 @@ class otc {
       loginInfo.append(loginInfoTitle, logInButton)
     }
 
-
-// Listen and update details when login/logout. This is retarded. Fix it at some point
+    // Listen and update details when login/logout. This is retarded. Fix it at some point
     let loginStatus = () => {
       loginInfo.querySelector('H3.username').innerHTML = `Logged in as ${user.name.userName} 😻`
-//      loginInfoTitle.innerHTML = 'MEH'
+      // loginInfoTitle.innerHTML = 'MEH'
     }
     user.storeObservers.push({key: 'login', callback: loginStatus});
-
-
 
     let settingsContainer = dce({el: 'DIV', cssClass: 'settings'});
 
     let vibrateTitle = dce({el: 'H3', content: 'VIBRATE WHEN TICKING'});
     let vibrateOnOff = new toggleSwitch({
-        cssClass  : 'horizontal-menu full-width',
-        targetObj : 'vibrate',
-        options   : [
-          {title: 'On', value:'on'},
-          {title: 'Off', value:'off'}]
-      });
+      cssClass  : 'horizontal-menu full-width',
+      targetObj : 'vibrate',
+      options   : [
+        {title: 'On', value:'on'},
+        {title: 'Off', value:'off'}]
+    });
 
-      let locationTitle = dce({el: 'H3', content: 'LOCATION TRACKING'});
-      let locationOnOff = new toggleSwitch({
-          cssClass  : 'horizontal-menu full-width',
-          targetObj : 'vibrate',
-          options   : [
-            {title: 'On', value:'on'},
-            {title: 'Off', value:'off'}]
-        });
+    let locationTitle = dce({el: 'H3', content: 'LOCATION TRACKING'});
+    let locationOnOff = new toggleSwitch({
+      cssClass  : 'horizontal-menu full-width',
+      targetObj : 'vibrate',
+      options   : [
+        {title: 'On', value:'on'},
+        {title: 'Off', value:'off'}]
+    });
     settingsContainer.append(vibrateTitle, vibrateOnOff.render(), locationTitle, locationOnOff.render())
 
+    // Page links
 
-// Page links
+    let sideNavLinks = dce({el: 'SECTION', cssClass: 'sidenav-links'});
 
-      let sideNavLinks = dce({el: 'SECTION', cssClass: 'sidenav-links'});
+    let btnGroups = dce({el: 'A', content: 'Groups' })
+    let btnHistory = dce({el: 'A', content: 'History' })
 
-      let btnGroups = dce({el: 'A', content: 'Groups' })
-      let btnHistory = dce({el: 'A', content: 'History' })
+    btnGroups.addEventListener('click', () => {
+      route('groups');
+      document.body.classList.remove('otc')
+    }, false);
 
-      btnGroups.addEventListener('click', () => {
-          route('groups');
-          document.body.classList.remove('otc')
-        }, false);
-
-        btnHistory.addEventListener('click', () => {
-        route('history');
-        document.body.classList.remove('otc')
-        }, false);
-  
+    btnHistory.addEventListener('click', () => {
+      route('history');
+      document.body.classList.remove('otc')
+    }, false);
 
     sideNavLinks.append(btnGroups, btnHistory);
 
     otcLinksContainer.append(logoContainer, loginInfo, settingsContainer,sideNavLinks);
 
     container.append(otcLinksContainer, navContainer);
-    
+
     this.render = () => {
       return container
-    }  
+    }
   }
 }
 

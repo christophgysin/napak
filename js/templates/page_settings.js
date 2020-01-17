@@ -5,7 +5,7 @@ import { user } from '/js/shared/user.js';
 class viewSettings {
   constructor() {
     let container = dce({el: 'SECTION', cssClass: 'page-settings'});
- 
+
     let logoContainer = dce({el: 'DIV', cssClass: 'logo-container'});
     let logoImg = dce({el: 'IMG', source: '/images/napak_vector.svg', cssClass: 'logo'});
     let version = dce({el: 'SPAN', content: ' 0.x'});
@@ -13,7 +13,6 @@ class viewSettings {
     logoContainer.append(logoImg, version);
 
     user.storeObservers.push({key: 'ticks', id: 'appTicks', callback: updateAll });
-
 
     let loginInfo = dce({el: 'DIV', cssClass: 'login-info'});
     if(user.login.isLoggedIn) {
@@ -36,31 +35,30 @@ class viewSettings {
 
     let vibrateTitle = dce({el: 'H3', content: 'VIBRATE WHEN TICKING'});
     let vibrateOnOff = new toggleSwitch({
-        cssClass  : 'horizontal-menu full-width',
-        targetObj : 'vibrate',
-        options   : [
-          {title: 'On', value:'on'},
-          {title: 'Off', value:'off'}]
-      });
+      cssClass  : 'horizontal-menu full-width',
+      targetObj : 'vibrate',
+      options   : [
+        {title: 'On', value:'on'},
+        {title: 'Off', value:'off'}]
+    });
 
-      let locationTitle = dce({el: 'H3', content: 'LOCATION TRACKING'});
-      let locationOnOff = new toggleSwitch({
-          cssClass  : 'horizontal-menu full-width',
-          targetObj : 'vibrate',
-          options   : [
-            {title: 'On', value:'on'},
-            {title: 'Off', value:'off'}]
-        });
+    let locationTitle = dce({el: 'H3', content: 'LOCATION TRACKING'});
+    let locationOnOff = new toggleSwitch({
+      cssClass  : 'horizontal-menu full-width',
+      targetObj : 'vibrate',
+      options   : [
+        {title: 'On', value:'on'},
+        {title: 'Off', value:'off'}]
+    });
     settingsContainer.append(vibrateTitle, vibrateOnOff.render(), locationTitle, locationOnOff.render())
-
 
     let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
 
     container.append(logoContainer, loginInfo, settingsContainer, naviShadow);
-    
+
     this.render = () => {
       return container
-    }  
+    }
   }
 }
 

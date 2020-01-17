@@ -16,7 +16,6 @@ class viewLogin {
     let password = dce({el: 'INPUT', attrbs: [['placeholder', 'Password'], ['type', 'password']]});
     let loginButton = dce({el: 'A', cssClass: 'btn mt mb', content: 'Login'});
 
-
     loginButton.addEventListener('click', () => {
       user.login.isLoggedIn = true;
       user.name.userName = userName.value;
@@ -29,7 +28,7 @@ class viewLogin {
 
     this.render = () => {
       return container
-    }  
+    }
   }
 }
 

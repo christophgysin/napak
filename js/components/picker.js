@@ -24,10 +24,10 @@ class picker {
 
       optionLink.appendChild(optionLinkText);
 
-// Legends tag
+      // Legends tag
       let legensHolder = dce({el: 'SPAN', cssClass: 'legends-holder'});
       let legendTag = dce({el: 'SPAN', cssClass: `legend type-${params.options[i].value}`, content: (params.options[i].legend) ? params.options[i].legend : ''});
-      
+
       legendTag.value = params.options[i].val;
       legensHolder.appendChild(legendTag);
       optionLink.appendChild(legensHolder);
@@ -53,13 +53,13 @@ class picker {
       return pickerElement;
     }
 
-    this.set = (el, data) => {      
+    this.set = (el, data) => {
       globals[params.targetObj] = el.value;
       let container = el.parentNode.parentNode;
       let selectedItem = container.querySelector('.selected');
       selectedItem.classList.remove('selected');
       el.parentNode.classList.add('selected');
-      
+
       this.selected = data;
       if(params.callback) {
         params.callback();

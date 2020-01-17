@@ -8,17 +8,16 @@ class wheel {
     let dialViewport = dce({el: 'DIV', cssClass: 'select-dialog-viewport'});
     let selectDialog = dce({el: 'DIV', cssClass: 'select-dialog', attrbs: [['data-enablescroll', 'true']] });
 
-
     dialViewport.addEventListener('scroll', (y) => {
       let elemHeight = selectDialog.firstChild.getBoundingClientRect().height;
-//      console.log(elemHeight)
-//      console.log(dialViewport.scrollTop)
+      // console.log(elemHeight)
+      // console.log(dialViewport.scrollTop)
       // 200px is 2x100padding
       // let test = window.getComputedStyle(selectDialog);
       // console.log(test.getPropertyValue('padding-top'));
-//      if(Math.round(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length))-1 < 0) {
-  //      dialViewport.scrollTo(0,Math.round(dialViewport.scrollHeight / globals.grades.font.length/2));
-    //  }
+      // if(Math.round(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length))-1 < 0) {
+      //   dialViewport.scrollTo(0,Math.round(dialViewport.scrollHeight / globals.grades.font.length/2));
+      // }
       let newVal = Math.floor(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length));
       if(newVal !== globals.currentAscentGrade) {
         globals.currentAscentGrade = newVal;
@@ -33,7 +32,6 @@ class wheel {
       let gradeContainer = dce({el: 'DIV'});
       let grade = dce({el: 'SPAN', content:globals.grades.font[i]});
       let legendHolder = dce({el: 'SPAN', cssClass: 'legends-holder'});
-      
 
       let ascentCountPerType =  Object.keys(gradeTicks);
       ascentCountPerType.forEach((type) => {
@@ -56,7 +54,7 @@ class wheel {
       // Get ascents by grade and type and update legends accordingly
       let ascentsByGrade = countAscentsByDifficulty();
       let ascentCountPerType =  Object.keys(ascentsByGrade);
-//      console.log(ascentsByGrade)
+      // console.log(ascentsByGrade)
       ascentCountPerType.forEach((type) => {
         for(let i in ascentsByGrade[type]) {
           if(selectDialog.childNodes[i].querySelector(`.legends-holder .type-${type}`)) {
@@ -64,15 +62,16 @@ class wheel {
           }
           else {
             let holder = dce({el: 'SPAN', cssClass: `legend type-${type}`, content: ascentsByGrade[type][i]});
-            selectDialog.childNodes[i].querySelector('.legends-holder').appendChild(holder);            
+            selectDialog.childNodes[i].querySelector('.legends-holder').appendChild(holder);
           }
         }
       });
     }
-    // Listen for ticks object to update 
+
+    // Listen for ticks object to update
     globals.storeObservers.push({key: 'indoorsOutdoors', callback: () => {clearLegends(), updateAll()} });
     globals.storeObservers.push({key: 'ticks', callback:updateAll});
-    
+
     selectDialog.appendChild(gradeFragment);
 
     dialViewport.appendChild(selectDialog);
@@ -88,14 +87,14 @@ class wheel {
         setTimeout( () => {
           let elemSize = selectDialog.firstChild.getBoundingClientRect().height;
           let elemTopScrollPos = 50;
-          dialViewport.scrollTo(0,elemSize*globals.currentAscentGrade + elemTopScrollPos);
+          dialViewport.scrollTo(0, elemSize*globals.currentAscentGrade + elemTopScrollPos);
         }, 300);
-      observer.disconnect();
+        observer.disconnect();
       }
     });
 
     observer.observe(document, {attributes: false, childList: true, characterData: false, subtree:true});
-    this.render = () => {      
+    this.render = () => {
       return dialContainer;
     }
 

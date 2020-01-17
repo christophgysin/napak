@@ -19,7 +19,7 @@ class toggleSwitch {
       switchStatus = !switchStatus;
       switchEl.classList.toggle('switched-off');
       globals[params.targetObj] = ( switchStatus ) ? params.options[1].value : params.options[0].value
-  }
+    }
     switchEl.addEventListener('click', toggle, false);
     firstOption.addEventListener('click', toggle, false);
     secondOption.addEventListener('click', toggle, false);

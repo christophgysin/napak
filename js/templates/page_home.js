@@ -26,21 +26,20 @@ class viewHome {
     current.appendChild(currentTitle);
 
     globals.storeObservers.push({
-      key: 'currentClimbingType', 
+      key: 'currentClimbingType',
       id: 'homepageCurrentClimbingType',
       callback: () => {
         currentTitle.innerHTML = currentClimbingTypeTitle();
       }
-    }); 
+    });
 
     globals.storeObservers.push({
-      key: 'indoorsOutdoors', 
+      key: 'indoorsOutdoors',
       id: 'homepageIndoorsOutdoors',
       callback: () => {
         currentTitle.innerHTML = currentClimbingTypeTitle();
       }
-    }); 
-
+    });
 
     inOutSelector.appendChild(current);
 
@@ -50,8 +49,8 @@ class viewHome {
 
     this.render = () => {
       return tickPage;
-      }
-		}
+    }
   }
+}
 
 export default viewHome;

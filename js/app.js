@@ -27,7 +27,7 @@ let napak = {
     let pageFooter = new footer();
     let otcMenu = new otc();
 
-    // Update all globals 
+    // Update all globals
     let updateAll = () => {
       globals.currentScore = countTotalScore(); // Array of top scores
       globals.totalScore = countTopFive();  // Top score counted together
@@ -41,16 +41,17 @@ let napak = {
       globals.totalAscentCount['alltime'] = countAscents('alltime').total;
     };
 
-  updateAll();
-// Listen to tick objects change and update 
+    updateAll();
+
+    // Listen to tick objects change and update
     globals.storeObservers.push({key: 'ticks', id: 'appTicks', callback: updateAll });
     globals.storeObservers.push({key: 'indoorsOutdoors', id: 'appIndoorsOutdoors', callback: updateAll });
 
-  // Get old ticks from local storage
+    // Get old ticks from local storage
     let getTicks = store.read({key: 'ticks'});
-    
+
     if(getTicks) {
-      // Merge 
+      // Merge
       for(let i in getTicks) {
         globals.ticks[i] = {...globals.ticks[i], ...getTicks[i]}
       }
@@ -71,16 +72,15 @@ let napak = {
     let loginStatus = () => {
       if(!user.login.isLoggedIn) {
         route('login');
-        }
-  
+      }
+
       else {
         route('home');
-      }  
+      }
     }
     user.storeObservers.push({key: 'login', callback: loginStatus})
 
     loginStatus();
-
   }
 }
 
