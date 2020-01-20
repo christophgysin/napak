@@ -1,5 +1,6 @@
 import { dce } from '/js/shared/helpers.js';
 import { user } from '/js/shared/user.js';
+import { store } from '/js/shared/store.js';
 
 class viewLogin {
   constructor() {
@@ -20,6 +21,11 @@ class viewLogin {
       user.login.isLoggedIn = true;
       user.name.userName = userName.value;
       user.login = user.login;
+      store.write({
+        key: 'user',
+        keydata: { ...user.name, ...user.login}
+      });
+      
     }, false);
 
     loginFormContainer.append(logoContainer, userName, password, loginButton)

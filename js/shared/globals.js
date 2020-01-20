@@ -1,4 +1,5 @@
 import { handleDate } from '/js/shared/date.js';
+import { store } from '/js/shared/store.js';
 
 //  Defaults
 const handler = {
@@ -38,9 +39,13 @@ types.forEach((type) => {
   }
 });
 
+
+let ticksFromStorage = store.read({key: 'user'}).ticks;
+
 /*
   Globals
-  */
+*/
+
 let globalObjects = {
   pushHistory : {},
   routes: {},
@@ -83,7 +88,7 @@ let globalObjects = {
 
 
   // Ticks
-  ticks: []
+  ticks: (ticksFromStorage) ? ticksFromStorage : []
 };
 
 

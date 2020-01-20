@@ -3,6 +3,7 @@ import { UUID } from '/js/shared/uuid.js';
 import wheel from '/js/components/wheel.js';
 import picker from '/js/components/picker.js';
 import { globals } from '/js/shared/globals.js';
+import { user } from '/js/shared/user.js';
 import { store } from '/js/shared/store.js';
 
 class gradeWheel {
@@ -35,7 +36,11 @@ class gradeWheel {
       }
       let grade = globals.currentAscentGrade;
       let ascentType = globals.currentAscentType;
-      let ticks = globals.ticks;
+      let ticks = user.ticks;
+
+      console.log(user);
+      console.log(ticks)
+      
 
       // Remove tick
       if (!add) {
@@ -69,10 +74,13 @@ class gradeWheel {
         });
       }
 
+      let userFromStorage = store.read({key: 'user'});
+      console.log(userFromStorage)
+      userFromStorage.ticks = ticks;
       // update local storage
       store.write({
-        key: 'ticks',
-        keydata: globals.ticks
+        key: 'user',
+        keydata: userFromStorage
       });
 
       globals.ticks = ticks;

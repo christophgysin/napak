@@ -214,8 +214,15 @@ BODY.otc .navi-shadow {
 		content: "";
 		width: 100%;
 		height: max(20px, env(safe-area-inset-bottom));
-		background: #000;
+		background: var(--color-black);
 		bottom: 0;
 		position: absolute;
+		opacity: 0;
+		transition: transform .3s ease-in-out;
 	}
+
+	.otc .otc-navigation:after {
+		opacity: 1;
+	}
+	
 }

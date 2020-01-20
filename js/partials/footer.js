@@ -10,7 +10,7 @@ class footer {
     constructor(mother) {
 
 // Footer
-    let footer = dce({el: 'FOOTER'});
+    let footer = dce({el: 'FOOTER', cssClass :'hidden'});
     let footerNav = dce({el: 'NAV'});
 
     // Change discipline
@@ -122,9 +122,11 @@ class footer {
       else {
         footer.classList.add('hidden');
       }
-    }
+    };
     user.storeObservers.push({key: 'login', callback: toggleVisibility});
 
+    toggleVisibility();
+    
     this.render = () => {
       return footer;
     }

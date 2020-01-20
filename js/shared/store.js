@@ -1,5 +1,5 @@
 const store = {
-  supported: (() => {return 'localStorage' in window && window['localStorage'] !== null})(),
+  supported: (() => {return 'localStorage' in window })(),
 
   format: function() {
     localStorage.clear();
@@ -10,7 +10,10 @@ const store = {
   },
 
   read: function(params){
-    return localStorage.getObject(params.key);
+    if(localStorage.getObject(params.key)) {
+      return localStorage.getObject(params.key);
+    }
+    else return false;
   }
 }
 

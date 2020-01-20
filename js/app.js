@@ -47,18 +47,6 @@ let napak = {
     globals.storeObservers.push({key: 'ticks', id: 'appTicks', callback: updateAll });
     globals.storeObservers.push({key: 'indoorsOutdoors', id: 'appIndoorsOutdoors', callback: updateAll });
 
-    // Get old ticks from local storage
-    let getTicks = store.read({key: 'ticks'});
-
-    if(getTicks) {
-      // Merge
-      for(let i in getTicks) {
-        globals.ticks[i] = {...globals.ticks[i], ...getTicks[i]}
-      }
-    }
-
-    globals.ticks = globals.ticks;
-
     // init app
     document.body.innerHTML = "";
     appContainer.append(appContentContainer, pageFooter.render(appContainer), otcMenu.render());
@@ -67,7 +55,6 @@ let napak = {
     appContainer.append(naviShadow);
 
     document.body.appendChild(appContainer);
-
 
     let loginStatus = () => {
       if(!user.login.isLoggedIn) {
