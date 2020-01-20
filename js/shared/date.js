@@ -1,26 +1,29 @@
 /* Handle dates */
 let handleDate = (params) => {
-  if (!params.dateString) { return; }
+  let {
+    dateString,
+    dateFormat = 'yyyy-mm-dd',
+  } = params;
 
-  let dateString = new Date(params.dateString),
-    dateFormat = (params.dateFormat) ? params.dateFormat : 'yyyy-mm-dd';
+  if (!dateString) { return; }
+
+  let date = new Date(dateString);
 
   let json = {
-    dd: dateString.getDate(),
-    yyyy: dateString.getFullYear(),
-    mm: dateString.getMonth(),
-    HH: ('0' + dateString.getHours()).substr(-2),
-    MM: ('0' + dateString.getMinutes()).substr(-2),
-    SS: ('0' + dateString.getSeconds()).substr(-2),
-    MS: ('0' + dateString.getMilliseconds()).substr(-2)
+    yyyy: date.getFullYear(),
+    mm: String(date.getMonth() + 1).padStart(2, 0),
+    dd: String(date.getDate()).padStart(2, 0),
+    HH: String(date.getHours()).padStart(2, 0),
+    MM: String(date.getMinutes()).padStart(2, 0),
+    SS: String(date.getSeconds()).padStart(2, 0),
+    MS: String(date.getMilliseconds()).padStart(3, 0),
   };
 
-  for (let i in json) {
-    let patt = new RegExp(i, 'gm');
-    if (dateFormat.match(patt) !== null) {
-      dateFormat = dateFormat.replace(patt, json[i]);
-    }
-  }
+  Object.entries(json).forEach(([key, value]) => {
+    let patt = new RegExp(key, 'gm');
+    dateFormat = dateFormat.replace(patt, value);
+  });
+
   return dateFormat;
 };
 
