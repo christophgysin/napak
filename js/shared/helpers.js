@@ -226,7 +226,6 @@ let countAscentsByGrade = (params) => {
 let handleScopeTicks = (params) => {
   let fromNow;
   let fromNowArray = globals.today.split('-');
-
   let year = Number(fromNowArray[0]);
   let month = Number(fromNowArray[1]);
   let day = Number(fromNowArray[2]);
@@ -237,6 +236,7 @@ let handleScopeTicks = (params) => {
 
   fromNow = new Date(Number(year), Number(month), Number(day)).getTime();
   let ticks = [];
+  console.log(fromNow)
   globals.ticks.forEach((tick) => {
       if(tick.date >= fromNow) {
         if (tick.type === globals.currentClimbingType || params.allTypes) {
