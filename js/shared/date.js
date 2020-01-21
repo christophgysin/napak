@@ -11,7 +11,7 @@ let handleDate = (params) => {
 
   let json = {
     yyyy: date.getFullYear(),
-    mm: String(date.getMonth()).padStart(2, 0),
+    mm: String(date.getMonth() + 1).padStart(2, 0),
     dd: String(date.getDate()).padStart(2, 0),
     HH: String(date.getHours()).padStart(2, 0),
     MM: String(date.getMinutes()).padStart(2, 0),
