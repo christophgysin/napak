@@ -1,0 +1,17 @@
+{
+  "name": "napak",
+  "version": "0.0.1",
+  "description": "Climbing route tick application",
+  "repository": "https://github.com/pyryahlfors/Napak",
+  "author": {
+    "name": "Pyry Ahlfors",
+    "email": "pyry@kiinto.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "parcel build index.html && cp -r favicon.ico images dist/"
+  },
+  "devDependencies": {
+    "parcel": "^2.0.0-alpha.3.2"
+  }
+}
