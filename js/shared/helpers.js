@@ -234,7 +234,7 @@ let handleScopeTicks = (params) => {
   if(params.scope === 'year')        {year-=1;}
   if(params.scope === 'alltime')     {year = 2000; month = 1; day = 1;}
 
-  fromNow = new Date(Number(year), Number(month), Number(day)).getTime();
+  fromNow = new Date(Number(year), Number(month) - 1, Number(day)).getTime();
   let ticks = [];
   console.log(fromNow)
   globals.ticks.forEach((tick) => {
