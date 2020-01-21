@@ -1,15 +1,15 @@
-@import "animations.css";
-@import "buttons.css";
-@import "dropdown.css";
-@import "footer.css";
-@import "fonts.css";
-@import "groups.css";
-@import "history.css";
-@import "horizontal_menu.css";
-@import "legends.css";
-@import "login.css";
-@import "otc.css";
-@import "variables.css";
+@import "./animations.css";
+@import "./buttons.css";
+@import "./dropdown.css";
+@import "./footer.css";
+@import "./fonts.css";
+@import "./groups.css";
+@import "./history.css";
+@import "./horizontal_menu.css";
+@import "./legends.css";
+@import "./login.css";
+@import "./otc.css";
+@import "./variables.css";
 
 *,
 *::before,
