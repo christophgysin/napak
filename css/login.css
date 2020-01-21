@@ -13,7 +13,7 @@
 	right: 0;
 	bottom: 0;
 	content: "";
-	background: url('/images/test_bgr.jpg');
+	/* background: url('/images/test_bgr.jpg'); */
 	pointer-events: none;
 	background-size: cover;
 	background-repeat: no-repeat;
