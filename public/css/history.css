@@ -26,19 +26,20 @@
   background: transparent;
   margin-bottom: 10px;
 }
+
 .tick-list table tr.header td {
-  border-bottom: 1px solid var(--color-white-dim)
+  border-bottom: 1px solid var(--color-white-dim);
 }
 
-.page-tick TR.header TH:not(:first-of-type) {
+.page-tick tr.header th:not(:first-of-type) {
   padding-top: 10px;
 }
 
-.page-tick TR.header:not(:first-of-type) TH {
+.page-tick tr.header:not(:first-of-type) th {
   padding-top: 10px;
 }
 
-.page-tick TD {
+.page-tick td {
   white-space: pre;
   position: relative;
   overflow: hidden;
@@ -58,13 +59,36 @@
   align-items: center;
 }
 
-.grade-legend.gray {background: rgb(128,128,128); color : #fff;}
-.grade-legend.yellow {background: rgb(255,222,0); color : #000;}
-.grade-legend.green {background: rgb(64,222,61)}
-.grade-legend.orange {background: rgb(255,128,0);}
-.grade-legend.red {background: rgb(255,0,0);}
-.grade-legend.blue {background: rgb(32,64,222);}
-.grade-legend.purple {background: rgb(255,0,255);}
-.grade-legend.pink {background: rgb(222,0,128);}
-.grade-legend.black {background: rgb(32,32,32);}
-.grade-legend.white {background: rgb(2555,32255,255); color: #000;}
+.grade-legend.gray {
+  background: rgb(128, 128, 128);
+  color: #fff;
+}
+.grade-legend.yellow {
+  background: rgb(255, 222, 0);
+  color: #000;
+}
+.grade-legend.green {
+  background: rgb(64, 222, 61);
+}
+.grade-legend.orange {
+  background: rgb(255, 128, 0);
+}
+.grade-legend.red {
+  background: rgb(255, 0, 0);
+}
+.grade-legend.blue {
+  background: rgb(32, 64, 222);
+}
+.grade-legend.purple {
+  background: rgb(255, 0, 255);
+}
+.grade-legend.pink {
+  background: rgb(222, 0, 128);
+}
+.grade-legend.black {
+  background: rgb(32, 32, 32);
+}
+.grade-legend.white {
+  background: rgb(2555, 32255, 255);
+  color: #000;
+}

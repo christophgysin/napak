@@ -1,7 +1,7 @@
 /* Dropwdown --> */
 .dropdown-container {
   background: var(--color-black-alpha);
-  border-radius: 0px;
+  border-radius: 0;
   position: relative;
   border-bottom: 1px solid var(--color-theme-color2);
   line-height: 35px;
@@ -12,6 +12,7 @@
 .dropdown-container .dropdown-options.hidden {
   display: none;
 }
+
 .dropdown-container .dropdown-options {
   left: 0;
   position: absolute;
@@ -26,22 +27,21 @@
   z-index: 1;
 }
 
-
-.dropdown-container .dropdown-options > A {
+.dropdown-container .dropdown-options > a {
   display: block;
   width: 100%;
-  white-space : nowrap;
+  white-space: nowrap;
   line-height: 35px;
   text-indent: var(--padding-base);
-  }
-
-.dropdown-container .dropdown-options > A.selected,
-.dropdown-container .dropdown-options > A.selected:hover{
-  background: var(--color-theme-color2);
-  color: var(--color-black)
 }
 
-.dropdown-container .dropdown-options > A:hover {
+.dropdown-container .dropdown-options > a.selected,
+.dropdown-container .dropdown-options > a.selected:hover {
+  background: var(--color-theme-color2);
+  color: var(--color-black);
+}
+
+.dropdown-container .dropdown-options > a:hover {
   background: var(--color-theme-color2-alpha);
-  color: var(--color-black)
+  color: var(--color-black);
 }

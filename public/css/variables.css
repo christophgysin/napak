@@ -4,33 +4,26 @@
   --color-theme-color1-accent: rgba(72, 73, 84, 1);
   --color-theme-color1-alpha0: rgba(80, 81, 93, 0);
   --color-theme-color2: rgba(0, 255, 203, 1);
-  --color-theme-color2-alpha: rgba(0, 255, 203, .5);
+  --color-theme-color2-alpha: rgba(0, 255, 203, 0.5);
   --color-theme-color2-alpha0: rgba(0, 255, 203, 0);
   --color-theme-color3: rgba(91, 110, 120, 1);
-
-  --color-redpoint: #DC2C4B;
-  --color-flash: #D8D6B2; /*#F8F682;*/
-  --color-onsight: #00FFCB;
-  --color-black-alpha40: rgba(0, 0, 0, .4);
-
-  --color-black: rgba(0,0,0,0.8);
-  --color-black-alpha: rgba(0,0,0,0.2);
-
-  --color-white: rgba(255,255,255,0.9);
-  --color-white-dim: rgba(255,255,255,0.5);
-
-  --tap-highlight: rgba(0,0,0,0);
-
-  --font-size-base: .81rem;      /* 13px */
-  --font-size-bodytext: 1.234rem;  /* 16px */
+  --color-redpoint: #dc2c4b;
+  --color-flash: #d8d6b2; /* #F8F682; */
+  --color-onsight: #00ffcb;
+  --color-black-alpha40: rgba(0, 0, 0, 0.4);
+  --color-black: rgba(0, 0, 0, 0.8);
+  --color-black-alpha: rgba(0, 0, 0, 0.2);
+  --color-white: rgba(255, 255, 255, 0.9);
+  --color-white-dim: rgba(255, 255, 255, 0.5);
+  --tap-highlight: rgba(0, 0, 0, 0);
+  --font-size-base: 0.81rem; /* 13px */
+  --font-size-bodytext: 1.234rem; /* 16px */
   --font-size-heading-1: 2rem; /* 32px */
-  --font-size-heading-2: 3rem;   /* 48px */
-
+  --font-size-heading-2: 3rem; /* 48px */
   --padding-base: 20px;
   --padding-base-wide: 20px 40px;
   --padding-base-wide-horizontal: 40px;
   --padding-base-negative: -20px;
-
   --chart-bar-radius: 2px;
   --base-btn-border-radius: 2px;
 }

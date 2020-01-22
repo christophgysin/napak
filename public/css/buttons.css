@@ -24,19 +24,21 @@
   width: 2em;
 }
 
-.btn svg{
+.btn svg {
   height: 100%;
   position: absolute;
   left: 0;
   margin-left: 10px;
 }
-.btn IMG {
+
+.btn img {
   position: absolute;
   left: 0;
   margin-left: 10px;
   top: 50%;
   transform: translateY(-50%);
 }
+
 .grade-list-container .btn_dec {
   margin-right: 5px;
 }

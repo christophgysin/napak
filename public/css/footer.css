@@ -4,9 +4,9 @@ footer {
   z-index: 1;
 }
 
-footer>nav {
+footer > nav {
   height: 50px;
-  padding: 0px var(--padding-base);
+  padding: 0 var(--padding-base);
   font-family: 'Roboto';
   font-size: 16px;
   text-transform: uppercase;
@@ -15,35 +15,36 @@ footer>nav {
   justify-content: space-evenly;
 }
 
-footer>nav a {
+footer > nav a {
   overflow: hidden;
   white-space: nowrap;
   text-align: center;
   min-width: 50px;
 }
 
-footer>nav .logo-container {
-  padding : 0;
+footer > nav .logo-container {
+  padding: 0;
   align-self: center;
   width: 100%;
 }
 
-footer>nav a svg {
+footer > nav a svg {
   display: block;
   margin: 0 auto -5px;
 }
-footer>nav a:active,
-footer>nav a:focus {
+
+footer > nav a:active,
+footer > nav a:focus {
   background: var(--color-theme-color3);
-  color: var(--color-white)
+  color: var(--color-white);
 }
 
-footer>nav a span {
-  font-size: .5em;
+footer > nav a span {
+  font-size: 0.5em;
 }
 
 /* Pull up menu */
-.footer-pullup-menu{
+.footer-pullup-menu {
   position: absolute;
   bottom: 50px;
   display: grid;
@@ -52,12 +53,12 @@ footer>nav a span {
   background: var(--color-theme-color1-accent);
 }
 
-.footer-pullup-menu.right{
-  transform: translateX(calc( -100% + 50px ));
+.footer-pullup-menu.right {
+  transform: translateX(calc(-100% + 50px));
 }
 
-.footer-pullup-menu > SPAN,
-footer > nav a > SPAN {
+.footer-pullup-menu > span,
+footer > nav a > span {
   align-items: center;
   color: var(--color-white);
   display: flex;
@@ -68,15 +69,15 @@ footer > nav a > SPAN {
   position: relative;
 }
 
-.footer-pullup-menu > SPAN.selected {
-  background: var(--color-theme-color3)
+.footer-pullup-menu > span.selected {
+  background: var(--color-theme-color3);
 }
 
-.footer-pullup-menu > SPAN.selected:not(.icons) .menu-title:after {
+.footer-pullup-menu > span.selected:not(.icons) .menu-title::after {
   position: absolute;
   top: 50%;
   left: 0;
-  content: "";
+  content: '';
   font-size: 0;
   background: var(--color-theme-color2);
   box-shadow: 0 0 5px 0 var(--color-theme-color2);
@@ -88,7 +89,7 @@ footer > nav a > SPAN {
   display: block;
 }
 
-footer > nav a > SPAN {
+footer > nav a > span {
   align-items: center;
   background: transparent;
   color: var(--color-white);
@@ -105,20 +106,20 @@ footer > nav a > SPAN {
   padding-left: var(--padding-base);
 }
 
-.footer-pullup-menu.links-only .menu-title{
+.footer-pullup-menu.links-only .menu-title {
   padding-left: 0;
 }
 
-.footer-pullup-menu IMG,
-footer > nav a > SPAN IMG {
+.footer-pullup-menu img,
+footer > nav a > span img {
   width: 25px;
 }
 
-.footer-pullup-menu IMG {
-  margin: 0 10px 0 0  ;
+.footer-pullup-menu img {
+  margin: 0 10px 0 0;
 }
 
-@supports(padding: max(0px)) {
+@supports (padding: max(0)) {
   footer {
     padding-bottom: max(0, env(safe-area-inset-bottom));
   }
