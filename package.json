@@ -13,14 +13,9 @@
     "deploy": "firebase deploy"
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "firebase-tools": "^7.12.1",
-    "parcel": "^2.0.0-alpha.3.2"
+    "firebase-tools": "^7.12.1"
   },
   "dependencies": {
-    "yarn": "^1.21.1"
-=======
-    "firebase-tools": "^7.12.1"
->>>>>>> dce4be85d7bb0884320e795d849e2cc1c9dc936e
+    "firebase": "^7.7.0"
   }
 }
