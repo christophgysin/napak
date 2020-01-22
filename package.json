@@ -9,12 +9,10 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "parcel build index.html && cp -r favicon.ico images dist/",
     "start": "firebase serve",
     "deploy": "firebase deploy"
   },
   "devDependencies": {
-    "firebase-tools": "^7.12.1",
-    "parcel": "^2.0.0-alpha.3.2"
+    "firebase-tools": "^7.12.1"
   }
 }
