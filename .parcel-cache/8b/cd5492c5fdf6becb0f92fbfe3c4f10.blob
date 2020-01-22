@@ -1,0 +1,65 @@
+var $b51449a7057ddeb480993e4a6b3ac0$exports = {};
+$parcel$require("79b51449a7057ddeb480993e4a6b3ac0", "/js/shared/globals.js");
+$parcel$require("79b51449a7057ddeb480993e4a6b3ac0", "/js/shared/helpers.js");
+$parcel$require("79b51449a7057ddeb480993e4a6b3ac0", "/js/components/charts.js");
+
+class $b51449a7057ddeb480993e4a6b3ac0$export$default {
+  constructor() {
+    let temp = $b51449a7057ddeb480993e4a6b3ac0$import$countAscents('alltime');
+    let container = $b51449a7057ddeb480993e4a6b3ac0$import$dce({
+      el: 'SECTION',
+      cssClass: 'page-statistics'
+    }); // Ascents by type (Redpoint, flash, onsight)
+
+    let nakkiPiirakka = $b51449a7057ddeb480993e4a6b3ac0$import$dce({
+      el: 'DIV',
+      cssClass: 'page-title-container'
+    });
+    let nakki = $b51449a7057ddeb480993e4a6b3ac0$import$dce({
+      el: 'H3',
+      content: 'Ascents by type'
+    });
+    nakkiPiirakka.appendChild(nakki);
+    let chartDataAscentTypes = {
+      type: 'pie',
+      labels: ['Redpoint', 'Flash', 'Onsight'],
+      data: [temp.redpoint, temp.flash, temp.onsight],
+      colors: [getComputedStyle(document.documentElement).getPropertyValue('--color-redpoint'), getComputedStyle(document.documentElement).getPropertyValue('--color-flash'), getComputedStyle(document.documentElement).getPropertyValue('--color-onsight')],
+      chartHeight: 180
+    }; // Ascents by grade
+
+    let chartTitle = $b51449a7057ddeb480993e4a6b3ac0$import$dce({
+      el: 'H3',
+      content: 'Ascents by grade'
+    });
+    let lempo = new $b51449a7057ddeb480993e4a6b3ac0$import$charts(chartDataAscentTypes);
+    let indoors = $b51449a7057ddeb480993e4a6b3ac0$import$countAscentsByGrade({
+      scope: 'alltime',
+      indoorsOutdoors: 'indoors'
+    });
+    let outdoors = $b51449a7057ddeb480993e4a6b3ac0$import$countAscentsByGrade({
+      scope: 'alltime',
+      indoorsOutdoors: 'outdoors'
+    });
+    let chartData = {
+      type: 'barchart',
+      xaxis: $b51449a7057ddeb480993e4a6b3ac0$import$globals.grades.font,
+      data: [indoors, outdoors],
+      chartHeight: 180,
+      colors: ["#0f8", "#08F"]
+    };
+    let tempo = new $b51449a7057ddeb480993e4a6b3ac0$import$charts(chartData);
+    let naviShadow = $b51449a7057ddeb480993e4a6b3ac0$import$dce({
+      el: 'DIV',
+      cssClass: 'navi-shadow'
+    });
+    container.append(nakkiPiirakka, lempo.render(), chartTitle, tempo.render(), naviShadow);
+
+    this.render = () => {
+      return container;
+    };
+  }
+
+}
+
+$b51449a7057ddeb480993e4a6b3ac0$exports.default = $b51449a7057ddeb480993e4a6b3ac0$export$default;

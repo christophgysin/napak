@@ -1,0 +1,60 @@
+/* ibm-plex-mono-100 - latin */
+@font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 100;
+    src: local('IBM Plex Mono Thin'), local('IBMPlexMono-Thin'),
+         url('9f775db4431a7638681771f6d23a03e7') format('woff2'), 
+         url('9d3bc5ca1a69428dff10b3303fef7781') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  
+  /* ibm-plex-mono-300 - latin */
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 300;
+    src: local('IBM Plex Mono Light'), local('IBMPlexMono-Light'),
+         url('46da7e06b600370507c12634032de4ec') format('woff2'), 
+         url('c85f3a4d402fae542b7d5aacc3e308db') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  
+  /* ibm-plex-mono-regular - latin */
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 400;
+    src: local('IBM Plex Mono'), local('IBMPlexMono'),
+         url('265585f9e4664c30349ed2e502629bbf') format('woff2'), 
+         url('0d51b33a999e2fe48b7bd1b4422b6efe') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  
+
+/* roboto-300 - latin */
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Roboto Light'), local('Roboto-Light'),
+         url('a5d9c18d79fcb35f61ebea463ebc99f3') format('woff2'), 
+         url('f9597acbd2a8c82e7b9d4a5b4e045ac8') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  
+  /* roboto-regular - latin */
+  @font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto'), local('Roboto-Regular'),
+         url('7906c8a33879b6d045e789efba8ff22a') format('woff2'), 
+         url('6d6764b44a6fe9db38fc737103fd64ad') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+
+/* space-mono-regular - latin */
+@font-face {
+    font-family: 'Space Mono';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Space Mono'), local('SpaceMono-Regular'),
+         url('6df5c486051b436297fcb2f5bb9cf292') format('woff2'), 
+         url('372c0409b9483caa67f3bf4d58eb1094') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }

@@ -1,0 +1,114 @@
+var $fb561fee9ed885b4dc43ed0e9df131c$exports = {};
+$parcel$require("5fb561fee9ed885b4dc43ed0e9df131c", "/js/shared/helpers.js");
+$parcel$require("5fb561fee9ed885b4dc43ed0e9df131c", "/js/components/toggleswitch.js");
+$parcel$require("5fb561fee9ed885b4dc43ed0e9df131c", "/js/shared/user.js");
+
+class $fb561fee9ed885b4dc43ed0e9df131c$export$default {
+  constructor() {
+    let container = $fb561fee9ed885b4dc43ed0e9df131c$import$dce({
+      el: 'SECTION',
+      cssClass: 'page-settings'
+    });
+    let logoContainer = $fb561fee9ed885b4dc43ed0e9df131c$import$dce({
+      el: 'DIV',
+      cssClass: 'logo-container'
+    });
+    let logoImg = $fb561fee9ed885b4dc43ed0e9df131c$import$dce({
+      el: 'IMG',
+      source: '/images/napak_vector.svg',
+      cssClass: 'logo'
+    });
+    let version = $fb561fee9ed885b4dc43ed0e9df131c$import$dce({
+      el: 'SPAN',
+      content: ' 0.x'
+    });
+    logoContainer.append(logoImg, version);
+    $fb561fee9ed885b4dc43ed0e9df131c$import$user.storeObservers.push({
+      key: 'ticks',
+      id: 'appTicks',
+      callback: updateAll
+    });
+    let loginInfo = $fb561fee9ed885b4dc43ed0e9df131c$import$dce({
+      el: 'DIV',
+      cssClass: 'login-info'
+    });
+
+    if ($fb561fee9ed885b4dc43ed0e9df131c$import$user.login.isLoggedIn) {
+      let loginInfoTitle = $fb561fee9ed885b4dc43ed0e9df131c$import$dce({
+        el: 'H3',
+        cssClass: 'mt mb',
+        content: "Logged in as ".concat($fb561fee9ed885b4dc43ed0e9df131c$import$user.name.userName, " \uD83D\uDE3B")
+      });
+      let logoutButton = $fb561fee9ed885b4dc43ed0e9df131c$import$dce({
+        el: 'A',
+        cssClass: 'btn login-ling',
+        content: 'Logout'
+      });
+      loginInfo.append(loginInfoTitle, logoutButton);
+      logoutButton.addEventListener('click', () => {
+        $fb561fee9ed885b4dc43ed0e9df131c$import$user.login.isLoggedIn = false;
+        $fb561fee9ed885b4dc43ed0e9df131c$import$user.login = $fb561fee9ed885b4dc43ed0e9df131c$import$user.login;
+      }, false);
+    } else {
+      let loginInfoTitle = $fb561fee9ed885b4dc43ed0e9df131c$import$dce({
+        el: 'H3',
+        cssClass: 'mt mb',
+        content: "Not logged in. No data is saved"
+      });
+      let logInButton = $fb561fee9ed885b4dc43ed0e9df131c$import$dce({
+        el: 'A',
+        cssClass: 'btn login-ling',
+        content: 'Login'
+      });
+      loginInfo.append(loginInfoTitle, logInButton);
+    }
+
+    let settingsContainer = $fb561fee9ed885b4dc43ed0e9df131c$import$dce({
+      el: 'DIV',
+      cssClass: 'settings'
+    });
+    let vibrateTitle = $fb561fee9ed885b4dc43ed0e9df131c$import$dce({
+      el: 'H3',
+      content: 'VIBRATE WHEN TICKING'
+    });
+    let vibrateOnOff = new $fb561fee9ed885b4dc43ed0e9df131c$import$toggleSwitch({
+      cssClass: 'horizontal-menu full-width',
+      targetObj: 'vibrate',
+      options: [{
+        title: 'On',
+        value: 'on'
+      }, {
+        title: 'Off',
+        value: 'off'
+      }]
+    });
+    let locationTitle = $fb561fee9ed885b4dc43ed0e9df131c$import$dce({
+      el: 'H3',
+      content: 'LOCATION TRACKING'
+    });
+    let locationOnOff = new $fb561fee9ed885b4dc43ed0e9df131c$import$toggleSwitch({
+      cssClass: 'horizontal-menu full-width',
+      targetObj: 'vibrate',
+      options: [{
+        title: 'On',
+        value: 'on'
+      }, {
+        title: 'Off',
+        value: 'off'
+      }]
+    });
+    settingsContainer.append(vibrateTitle, vibrateOnOff.render(), locationTitle, locationOnOff.render());
+    let naviShadow = $fb561fee9ed885b4dc43ed0e9df131c$import$dce({
+      el: 'DIV',
+      cssClass: 'navi-shadow'
+    });
+    container.append(logoContainer, loginInfo, settingsContainer, naviShadow);
+
+    this.render = () => {
+      return container;
+    };
+  }
+
+}
+
+$fb561fee9ed885b4dc43ed0e9df131c$exports.default = $fb561fee9ed885b4dc43ed0e9df131c$export$default;

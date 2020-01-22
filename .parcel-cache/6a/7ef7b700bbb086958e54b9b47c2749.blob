@@ -1,0 +1,49 @@
+var $d7e3a5f9c2a6c87bfd18e099e7d41711$exports = {};
+$parcel$require("d7e3a5f9c2a6c87bfd18e099e7d41711", "/js/shared/helpers.js");
+$parcel$require("d7e3a5f9c2a6c87bfd18e099e7d41711", "/js/shared/globals.js");
+
+class $d7e3a5f9c2a6c87bfd18e099e7d41711$export$default {
+  constructor(params) {
+    let switchElement = $d7e3a5f9c2a6c87bfd18e099e7d41711$import$dce({
+      el: 'DIV',
+      cssClass: 'on-off-selector'
+    });
+    let firstOption = $d7e3a5f9c2a6c87bfd18e099e7d41711$import$dce({
+      el: 'SPAN',
+      content: params.options[0].title
+    });
+    let secondOption = $d7e3a5f9c2a6c87bfd18e099e7d41711$import$dce({
+      el: 'SPAN',
+      content: params.options[1].title
+    });
+    let switchEl = $d7e3a5f9c2a6c87bfd18e099e7d41711$import$dce({
+      el: 'DIV',
+      cssClass: 'on-off-switch'
+    });
+    let switchStatus = params.options[0].selected ? false : true;
+
+    if (switchStatus) {
+      switchEl.classList.add('switched-off');
+    }
+
+    ;
+
+    let toggle = () => {
+      switchStatus = !switchStatus;
+      switchEl.classList.toggle('switched-off');
+      $d7e3a5f9c2a6c87bfd18e099e7d41711$import$globals[params.targetObj] = switchStatus ? params.options[1].value : params.options[0].value;
+    };
+
+    switchEl.addEventListener('click', toggle, false);
+    firstOption.addEventListener('click', toggle, false);
+    secondOption.addEventListener('click', toggle, false);
+    switchElement.append(firstOption, switchEl, secondOption);
+
+    this.render = () => {
+      return switchElement;
+    };
+  }
+
+}
+
+$d7e3a5f9c2a6c87bfd18e099e7d41711$exports.default = $d7e3a5f9c2a6c87bfd18e099e7d41711$export$default;

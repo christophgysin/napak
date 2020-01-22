@@ -1,0 +1,144 @@
+var $c8cadc1c050e4b8f1d30ccf6$exports = {};
+$parcel$require("76355440c8cadc1c050e4b8f1d30ccf6", "/js/shared/helpers.js");
+$parcel$require("76355440c8cadc1c050e4b8f1d30ccf6", "/js/components/toggleswitch.js");
+$parcel$require("76355440c8cadc1c050e4b8f1d30ccf6", "/js/shared/user.js");
+$parcel$require("76355440c8cadc1c050e4b8f1d30ccf6", "/js/shared/route.js");
+$parcel$require("76355440c8cadc1c050e4b8f1d30ccf6", "/js/shared/store.js");
+
+function $c8cadc1c050e4b8f1d30ccf6$var$ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function $c8cadc1c050e4b8f1d30ccf6$var$_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { $c8cadc1c050e4b8f1d30ccf6$var$ownKeys(Object(source), true).forEach(function (key) { $c8cadc1c050e4b8f1d30ccf6$var$_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { $c8cadc1c050e4b8f1d30ccf6$var$ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function $c8cadc1c050e4b8f1d30ccf6$var$_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+class $c8cadc1c050e4b8f1d30ccf6$export$default {
+  constructor() {
+    let container = $c8cadc1c050e4b8f1d30ccf6$import$dce({
+      el: 'DIV',
+      cssClass: 'otc-navigation'
+    });
+    let navContainer = $c8cadc1c050e4b8f1d30ccf6$import$dce({
+      el: 'NAV'
+    });
+    navContainer.addEventListener('click', () => {
+      document.body.classList.toggle('otc');
+    }, false);
+    let otcLinksContainer = $c8cadc1c050e4b8f1d30ccf6$import$dce({
+      el: 'DIV',
+      cssClass: 'otc-links-container'
+    });
+    let logoContainer = $c8cadc1c050e4b8f1d30ccf6$import$dce({
+      el: 'DIV',
+      cssClass: 'logo-container'
+    });
+    let logoImg = $c8cadc1c050e4b8f1d30ccf6$import$dce({
+      el: 'IMG',
+      source: '/images/napak_vector.svg',
+      cssClass: 'logo'
+    });
+    let version = $c8cadc1c050e4b8f1d30ccf6$import$dce({
+      el: 'SPAN',
+      content: ' 0.x'
+    });
+    logoContainer.append(logoImg, version);
+    let loginInfo = $c8cadc1c050e4b8f1d30ccf6$import$dce({
+      el: 'DIV',
+      cssClass: 'login-info'
+    });
+    let loginInfoTitle = $c8cadc1c050e4b8f1d30ccf6$import$dce({
+      el: 'H3',
+      cssClass: 'mt mb username',
+      content: "Logged in as ".concat($c8cadc1c050e4b8f1d30ccf6$import$user.name.userName, " \uD83D\uDE3B")
+    });
+    let logoutButton = $c8cadc1c050e4b8f1d30ccf6$import$dce({
+      el: 'A',
+      cssClass: 'btn login-link',
+      content: 'Logout'
+    });
+    loginInfo.append(loginInfoTitle, logoutButton);
+    logoutButton.addEventListener('click', () => {
+      $c8cadc1c050e4b8f1d30ccf6$import$user.login.isLoggedIn = false;
+      $c8cadc1c050e4b8f1d30ccf6$import$user.login = $c8cadc1c050e4b8f1d30ccf6$import$user.login;
+      $c8cadc1c050e4b8f1d30ccf6$import$store.write({
+        key: 'user',
+        keydata: $c8cadc1c050e4b8f1d30ccf6$var$_objectSpread({}, $c8cadc1c050e4b8f1d30ccf6$import$user.name, {}, $c8cadc1c050e4b8f1d30ccf6$import$user.login)
+      });
+      document.body.classList.remove('otc');
+    }, false); // Listen and update details when login/logout. This is retarded. Fix it at some point
+
+    let loginStatus = () => {
+      loginInfo.querySelector('H3.username').innerHTML = "Logged in as ".concat($c8cadc1c050e4b8f1d30ccf6$import$user.name.userName, " \uD83D\uDE3B");
+    };
+
+    $c8cadc1c050e4b8f1d30ccf6$import$user.storeObservers.push({
+      key: 'login',
+      callback: loginStatus
+    });
+    let settingsContainer = $c8cadc1c050e4b8f1d30ccf6$import$dce({
+      el: 'DIV',
+      cssClass: 'settings'
+    });
+    let vibrateTitle = $c8cadc1c050e4b8f1d30ccf6$import$dce({
+      el: 'H3',
+      content: 'VIBRATE WHEN TICKING'
+    });
+    let vibrateOnOff = new $c8cadc1c050e4b8f1d30ccf6$import$toggleSwitch({
+      cssClass: 'horizontal-menu full-width',
+      targetObj: 'vibrate',
+      options: [{
+        title: 'On',
+        value: 'on'
+      }, {
+        title: 'Off',
+        value: 'off'
+      }]
+    });
+    let locationTitle = $c8cadc1c050e4b8f1d30ccf6$import$dce({
+      el: 'H3',
+      content: 'LOCATION TRACKING'
+    });
+    let locationOnOff = new $c8cadc1c050e4b8f1d30ccf6$import$toggleSwitch({
+      cssClass: 'horizontal-menu full-width',
+      targetObj: 'vibrate',
+      options: [{
+        title: 'On',
+        value: 'on'
+      }, {
+        title: 'Off',
+        value: 'off'
+      }]
+    });
+    settingsContainer.append(vibrateTitle, vibrateOnOff.render(), locationTitle, locationOnOff.render()); // Page links
+
+    let sideNavLinks = $c8cadc1c050e4b8f1d30ccf6$import$dce({
+      el: 'SECTION',
+      cssClass: 'sidenav-links'
+    });
+    let btnGroups = $c8cadc1c050e4b8f1d30ccf6$import$dce({
+      el: 'A',
+      content: 'Groups'
+    });
+    let btnHistory = $c8cadc1c050e4b8f1d30ccf6$import$dce({
+      el: 'A',
+      content: 'History'
+    });
+    btnGroups.addEventListener('click', () => {
+      $c8cadc1c050e4b8f1d30ccf6$import$route('groups');
+      document.body.classList.remove('otc');
+    }, false);
+    btnHistory.addEventListener('click', () => {
+      $c8cadc1c050e4b8f1d30ccf6$import$route('history');
+      document.body.classList.remove('otc');
+    }, false);
+    sideNavLinks.append(btnGroups, btnHistory);
+    otcLinksContainer.append(logoContainer, loginInfo, settingsContainer, sideNavLinks);
+    container.append(otcLinksContainer, navContainer);
+
+    this.render = () => {
+      return container;
+    };
+  }
+
+}
+
+$c8cadc1c050e4b8f1d30ccf6$exports.default = $c8cadc1c050e4b8f1d30ccf6$export$default;

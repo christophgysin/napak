@@ -1,0 +1,230 @@
+var $d3e3765af1f167a6a0201ca73d0bd0c$exports = {};
+$parcel$require("2d3e3765af1f167a6a0201ca73d0bd0c", "/js/components/picker.js");
+$parcel$require("2d3e3765af1f167a6a0201ca73d0bd0c", "/js/shared/globals.js");
+$parcel$require("2d3e3765af1f167a6a0201ca73d0bd0c", "/js/shared/helpers.js");
+
+class $d3e3765af1f167a6a0201ca73d0bd0c$export$default {
+  constructor() {
+    let periodPicker = new $d3e3765af1f167a6a0201ca73d0bd0c$import$picker({
+      cssClass: 'horizontal-menu full-width small-legends',
+      options: [{
+        title: "Today",
+        value: 'today',
+        selected: true,
+        legend: $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.totalAscentCount['today'],
+        val: 'totalAscentCount.today'
+      }, {
+        title: "30 days",
+        value: 'thirtydays',
+        legend: $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.totalAscentCount['thirtydays'],
+        val: 'totalAscentCount.thirtydays'
+      }, {
+        title: "Year",
+        value: 'year',
+        legend: $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.totalAscentCount['year'],
+        val: 'totalAscentCount.year'
+      }, {
+        title: "All time",
+        value: 'alltime',
+        legend: $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.totalAscentCount['alltime'],
+        val: 'totalAscentCount.alltime'
+      }],
+      targetObj: 'scope'
+    });
+    let container = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'SECTION',
+      cssClass: 'progression'
+    });
+    container.appendChild(periodPicker.render());
+    let statisticsContainer = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'DIV'
+    });
+    let pointsContainer = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'DIV',
+      cssClass: 'important-numbers'
+    }); // Points
+
+    let points = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'DIV',
+      cssClass: 'important-points'
+    });
+    let pointsTitle = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'H3',
+      content: 'Points'
+    });
+    let pointsCount = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'H2',
+      content: $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.totalScore.toString()
+    });
+    points.append(pointsTitle, pointsCount);
+    $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.storeObservers.push({
+      key: 'totalScore',
+      callback: () => {
+        pointsCount.innerHTML = $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.totalScore;
+      }
+    }); // Ascents
+
+    let ascents = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'DIV',
+      cssClass: 'important-ascents'
+    });
+    let ascentsTitle = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'H3',
+      content: 'Ascents'
+    });
+    let ascentsCount = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'H2',
+      content: $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.totalAscentCount[$d3e3765af1f167a6a0201ca73d0bd0c$import$globals.scope]
+    });
+    ascents.append(ascentsTitle, ascentsCount);
+    /* TODO: */
+    // Make a helper function that allow pushing multiple values with same callback
+
+    $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.storeObservers.push({
+      key: 'scope',
+      callback: () => {
+        ascentsCount.innerHTML = $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.totalAscentCount[$d3e3765af1f167a6a0201ca73d0bd0c$import$globals.scope];
+      }
+    });
+    $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.storeObservers.push({
+      key: 'ticks',
+      callback: () => {
+        ascentsCount.innerHTML = $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.totalAscentCount[$d3e3765af1f167a6a0201ca73d0bd0c$import$globals.scope];
+      }
+    }); // Grade
+
+    let grade = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'DIV',
+      cssClass: 'important-grade'
+    });
+    let gradeTitle = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'H3',
+      content: 'Avg. grade'
+    });
+    let gradeCount = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'H2',
+      content: $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.averageGrade
+    });
+    grade.append(gradeTitle, gradeCount);
+    $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.storeObservers.push({
+      key: 'averageGrade',
+      callback: () => {
+        gradeCount.innerHTML = $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.averageGrade;
+      }
+    });
+    $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.storeObservers.push({
+      key: 'scope',
+      callback: () => {
+        gradeCount.innerHTML = $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.averageGrade;
+      }
+    });
+    pointsContainer.append(points, ascents, grade);
+    container.appendChild(pointsContainer);
+    let graphPullDown = document.createElement("SPAN");
+    graphPullDown.className = "graph-pulldown";
+    let graphIcon = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'DIV',
+      cssClass: 'stripes'
+    });
+    graphIcon.append($d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'DIV'
+    }), $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'DIV'
+    }), $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'DIV'
+    }));
+    graphPullDown.appendChild(graphIcon);
+    container.appendChild(graphPullDown);
+    let gradeDistributionContainer = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'DIV',
+      cssClass: 'grade-distribution hidden'
+    });
+    let gradeDistributionTitle = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'H3',
+      content: 'Grade distribution'
+    });
+    let gradeDistributionChartContainer = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'DIV',
+      cssClass: 'grade-chart'
+    });
+    let chartBarContainer = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'DIV',
+      cssClass: 'chart-container'
+    });
+    let chartFragment = document.createDocumentFragment();
+
+    for (let i = 0, j = $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.grades.font.length; i < j; i++) {
+      let barContainer = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+        el: 'DIV'
+      });
+      let bar = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+        el: 'SPAN',
+        cssClass: 'bar'
+      });
+      barContainer.appendChild(bar);
+      chartFragment.appendChild(barContainer);
+    }
+
+    ; // Toggle graphview
+
+    graphPullDown.addEventListener('click', () => {
+      gradeDistributionContainer.classList.toggle('hidden');
+    }, false);
+    chartBarContainer.appendChild(chartFragment);
+    gradeDistributionChartContainer.appendChild(chartBarContainer);
+    gradeDistributionContainer.append(gradeDistributionTitle, gradeDistributionChartContainer);
+    let chartLegendContainer = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+      el: 'DIV',
+      cssClass: 'chart-legend'
+    });
+    let chartLegendFragment = document.createDocumentFragment();
+
+    for (let i = 0, j = $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.grades.font.length; i < j; i++) {
+      let grade = $d3e3765af1f167a6a0201ca73d0bd0c$import$dce({
+        el: 'DIV',
+        content: $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.grades.font[i]
+      });
+      chartLegendFragment.appendChild(grade);
+    }
+
+    ;
+    chartLegendContainer.appendChild(chartLegendFragment);
+    gradeDistributionContainer.appendChild(chartLegendContainer); // update charts
+
+    let updateCharts = () => {
+      $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.totalAscentCount[$d3e3765af1f167a6a0201ca73d0bd0c$import$globals.scope] = $d3e3765af1f167a6a0201ca73d0bd0c$import$countAscents($d3e3765af1f167a6a0201ca73d0bd0c$import$globals.scope).total;
+      $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.currentScore = $d3e3765af1f167a6a0201ca73d0bd0c$import$countTotalScore();
+      $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.totalScore = $d3e3765af1f167a6a0201ca73d0bd0c$import$countTopFive();
+      $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.averageGrade = $d3e3765af1f167a6a0201ca73d0bd0c$import$averageGrade(5);
+      let barNodes = chartBarContainer.querySelectorAll('.bar');
+      let ticks = $d3e3765af1f167a6a0201ca73d0bd0c$import$countAscentsByGrade({
+        scope: $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.scope
+      });
+      barNodes.forEach((bar, i) => {
+        bar.style.height = "".concat(ticks[i], "px");
+      });
+    };
+
+    container.appendChild(gradeDistributionContainer);
+    $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.storeObservers.push({
+      key: 'indoorsOutdoors',
+      callback: updateCharts
+    });
+    $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.storeObservers.push({
+      key: 'scope',
+      callback: updateCharts
+    });
+    $d3e3765af1f167a6a0201ca73d0bd0c$import$globals.storeObservers.push({
+      key: 'ticks',
+      callback: updateCharts
+    });
+    updateCharts();
+
+    this.render = () => {
+      return container;
+    };
+  }
+
+}
+
+$d3e3765af1f167a6a0201ca73d0bd0c$exports.default = $d3e3765af1f167a6a0201ca73d0bd0c$export$default;

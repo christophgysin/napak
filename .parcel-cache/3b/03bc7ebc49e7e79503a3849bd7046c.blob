@@ -1,0 +1,86 @@
+$parcel$require("445b62753d4a12cdea5d21456a202000", "/js/templates/page_home.js");
+$parcel$require("445b62753d4a12cdea5d21456a202000", "/js/templates/page_login.js");
+$parcel$require("445b62753d4a12cdea5d21456a202000", "/js/templates/page_history.js");
+$parcel$require("445b62753d4a12cdea5d21456a202000", "/js/templates/page_statistics.js");
+$parcel$require("445b62753d4a12cdea5d21456a202000", "/js/templates/page_settings.js");
+$parcel$require("445b62753d4a12cdea5d21456a202000", "/js/templates/page_groups.js");
+$parcel$require("445b62753d4a12cdea5d21456a202000", "/js/partials/footer.js");
+$parcel$require("445b62753d4a12cdea5d21456a202000", "/js/partials/section_otc.js");
+$parcel$require("445b62753d4a12cdea5d21456a202000", "/js/shared/route.js");
+$parcel$require("445b62753d4a12cdea5d21456a202000", "/js/shared/globals.js");
+$parcel$require("445b62753d4a12cdea5d21456a202000", "/js/shared/user.js");
+$parcel$require("445b62753d4a12cdea5d21456a202000", "/js/shared/store.js");
+$parcel$require("445b62753d4a12cdea5d21456a202000", "/js/shared/helpers.js");
+let $b62753d4a12cdea5d21456a202000$var$napak = {
+  initialize: () => {
+    $b62753d4a12cdea5d21456a202000$import$globals.routes.home = $b62753d4a12cdea5d21456a202000$import$viewHome;
+    $b62753d4a12cdea5d21456a202000$import$globals.routes.history = $b62753d4a12cdea5d21456a202000$import$viewHistory;
+    $b62753d4a12cdea5d21456a202000$import$globals.routes.statistics = $b62753d4a12cdea5d21456a202000$import$viewStatistics;
+    $b62753d4a12cdea5d21456a202000$import$globals.routes.settings = $b62753d4a12cdea5d21456a202000$import$viewSettings;
+    $b62753d4a12cdea5d21456a202000$import$globals.routes.groups = $b62753d4a12cdea5d21456a202000$import$viewGroups;
+    $b62753d4a12cdea5d21456a202000$import$globals.routes.login = $b62753d4a12cdea5d21456a202000$import$viewLogin;
+    let appContainer = $b62753d4a12cdea5d21456a202000$import$dce({
+      el: 'DIV',
+      cssClass: 'app'
+    });
+    let appContentContainer = $b62753d4a12cdea5d21456a202000$import$dce({
+      el: 'DIV',
+      cssClass: 'page-content'
+    });
+    let pageFooter = new $b62753d4a12cdea5d21456a202000$import$footer();
+    let otcMenu = new $b62753d4a12cdea5d21456a202000$import$otc(); // Update all globals
+
+    let updateAll = () => {
+      $b62753d4a12cdea5d21456a202000$import$globals.currentScore = $b62753d4a12cdea5d21456a202000$import$countTotalScore(); // Array of top scores
+
+      $b62753d4a12cdea5d21456a202000$import$globals.totalScore = $b62753d4a12cdea5d21456a202000$import$countTopFive(); // Top score counted together
+
+      $b62753d4a12cdea5d21456a202000$import$globals.averageGrade = $b62753d4a12cdea5d21456a202000$import$averageGrade(5);
+      $b62753d4a12cdea5d21456a202000$import$globals.totalAscentsByType = $b62753d4a12cdea5d21456a202000$import$countAscentsByType(); // Total ascents by type: Boulder, Sport, Trad, Toprope
+
+      $b62753d4a12cdea5d21456a202000$import$globals.totalAscents = $b62753d4a12cdea5d21456a202000$import$countAscents('today'); // Total ascents by ascent type: Redpoint, onsight, flash
+
+      $b62753d4a12cdea5d21456a202000$import$globals.totalAscentCount['today'] = $b62753d4a12cdea5d21456a202000$import$countAscents('today').total;
+      $b62753d4a12cdea5d21456a202000$import$globals.totalAscentCount['thirtydays'] = $b62753d4a12cdea5d21456a202000$import$countAscents('thirtydays').total;
+      $b62753d4a12cdea5d21456a202000$import$globals.totalAscentCount['year'] = $b62753d4a12cdea5d21456a202000$import$countAscents('year').total;
+      $b62753d4a12cdea5d21456a202000$import$globals.totalAscentCount['alltime'] = $b62753d4a12cdea5d21456a202000$import$countAscents('alltime').total;
+    };
+
+    updateAll(); // Listen to tick objects change and update
+
+    $b62753d4a12cdea5d21456a202000$import$globals.storeObservers.push({
+      key: 'ticks',
+      id: 'appTicks',
+      callback: updateAll
+    });
+    $b62753d4a12cdea5d21456a202000$import$globals.storeObservers.push({
+      key: 'indoorsOutdoors',
+      id: 'appIndoorsOutdoors',
+      callback: updateAll
+    }); // init app
+
+    document.body.innerHTML = "";
+    appContainer.append(appContentContainer, pageFooter.render(appContainer), otcMenu.render());
+    let naviShadow = $b62753d4a12cdea5d21456a202000$import$dce({
+      el: 'DIV',
+      cssClass: 'navi-shadow'
+    });
+    appContainer.append(naviShadow);
+    document.body.appendChild(appContainer);
+
+    let loginStatus = () => {
+      if (!$b62753d4a12cdea5d21456a202000$import$user.login.isLoggedIn) {
+        $b62753d4a12cdea5d21456a202000$import$route('login');
+      } else {
+        $b62753d4a12cdea5d21456a202000$import$route('home');
+      }
+    };
+
+    $b62753d4a12cdea5d21456a202000$import$user.storeObservers.push({
+      key: 'login',
+      callback: loginStatus
+    });
+    loginStatus();
+  }
+};
+$b62753d4a12cdea5d21456a202000$var$napak.initialize();

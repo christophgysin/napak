@@ -1,0 +1,68 @@
+var $eb3b31fd7c650fc8f9b95c27d2aa8f2c$exports = {};
+$parcel$require("eb3b31fd7c650fc8f9b95c27d2aa8f2c", "/js/shared/helpers.js");
+$parcel$require("eb3b31fd7c650fc8f9b95c27d2aa8f2c", "/js/shared/user.js");
+$parcel$require("eb3b31fd7c650fc8f9b95c27d2aa8f2c", "/js/shared/store.js");
+
+function $eb3b31fd7c650fc8f9b95c27d2aa8f2c$var$ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function $eb3b31fd7c650fc8f9b95c27d2aa8f2c$var$_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { $eb3b31fd7c650fc8f9b95c27d2aa8f2c$var$ownKeys(Object(source), true).forEach(function (key) { $eb3b31fd7c650fc8f9b95c27d2aa8f2c$var$_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { $eb3b31fd7c650fc8f9b95c27d2aa8f2c$var$ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function $eb3b31fd7c650fc8f9b95c27d2aa8f2c$var$_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+class $eb3b31fd7c650fc8f9b95c27d2aa8f2c$export$default {
+  constructor() {
+    let container = $eb3b31fd7c650fc8f9b95c27d2aa8f2c$import$dce({
+      el: 'DIV',
+      cssClass: 'login-page'
+    });
+    let loginFormContainer = $eb3b31fd7c650fc8f9b95c27d2aa8f2c$import$dce({
+      el: 'SECTION',
+      cssClass: 'login-form'
+    });
+    let logoContainer = $eb3b31fd7c650fc8f9b95c27d2aa8f2c$import$dce({
+      el: 'DIV',
+      cssClass: 'logo-container'
+    });
+    let logo = $eb3b31fd7c650fc8f9b95c27d2aa8f2c$import$dce({
+      el: 'IMG',
+      source: '/images/napak_vector.svg',
+      cssClass: 'logo'
+    });
+    let version = $eb3b31fd7c650fc8f9b95c27d2aa8f2c$import$dce({
+      el: 'SPAN',
+      content: '  0.x'
+    });
+    logoContainer.append(logo, version);
+    let userName = $eb3b31fd7c650fc8f9b95c27d2aa8f2c$import$dce({
+      el: 'INPUT',
+      attrbs: [['placeholder', 'User name']]
+    });
+    let password = $eb3b31fd7c650fc8f9b95c27d2aa8f2c$import$dce({
+      el: 'INPUT',
+      attrbs: [['placeholder', 'Password'], ['type', 'password']]
+    });
+    let loginButton = $eb3b31fd7c650fc8f9b95c27d2aa8f2c$import$dce({
+      el: 'A',
+      cssClass: 'btn mt mb',
+      content: 'Login'
+    });
+    loginButton.addEventListener('click', () => {
+      $eb3b31fd7c650fc8f9b95c27d2aa8f2c$import$user.login.isLoggedIn = true;
+      $eb3b31fd7c650fc8f9b95c27d2aa8f2c$import$user.name.userName = userName.value;
+      $eb3b31fd7c650fc8f9b95c27d2aa8f2c$import$user.login = $eb3b31fd7c650fc8f9b95c27d2aa8f2c$import$user.login;
+      $eb3b31fd7c650fc8f9b95c27d2aa8f2c$import$store.write({
+        key: 'user',
+        keydata: $eb3b31fd7c650fc8f9b95c27d2aa8f2c$var$_objectSpread({}, $eb3b31fd7c650fc8f9b95c27d2aa8f2c$import$user.name, {}, $eb3b31fd7c650fc8f9b95c27d2aa8f2c$import$user.login)
+      });
+    }, false);
+    loginFormContainer.append(logoContainer, userName, password, loginButton);
+    container.append(loginFormContainer);
+
+    this.render = () => {
+      return container;
+    };
+  }
+
+}
+
+$eb3b31fd7c650fc8f9b95c27d2aa8f2c$exports.default = $eb3b31fd7c650fc8f9b95c27d2aa8f2c$export$default;

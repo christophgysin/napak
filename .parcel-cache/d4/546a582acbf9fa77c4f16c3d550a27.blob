@@ -1,0 +1,12 @@
+var $ae211f6b24ad7e715c00a72af1987968$exports = {};
+$parcel$require("ae211f6b24ad7e715c00a72af1987968", "/js/shared/globals.js");
+
+let $ae211f6b24ad7e715c00a72af1987968$export$route = params => {
+  let trgt = new $ae211f6b24ad7e715c00a72af1987968$import$globals.routes[params]();
+  let routeTitle = params; //  history.pushState( globals.pushHistory, params, params );
+
+  document.querySelector('.page-content').innerHTML = "";
+  document.querySelector('.page-content').appendChild(trgt.render());
+};
+
+$ae211f6b24ad7e715c00a72af1987968$exports.route = $ae211f6b24ad7e715c00a72af1987968$export$route;

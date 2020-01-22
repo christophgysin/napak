@@ -1,0 +1,141 @@
+var $a4f2f9d0f303a1e7a87de8e71d817f7$exports = {};
+$parcel$require("7a4f2f9d0f303a1e7a87de8e71d817f7", "/js/shared/helpers.js");
+$parcel$require("7a4f2f9d0f303a1e7a87de8e71d817f7", "/js/shared/globals.js");
+
+class $a4f2f9d0f303a1e7a87de8e71d817f7$export$default {
+  constructor(params) {
+    this.targetObj = params.targetObj;
+    this.legends = [];
+    let pos = params.cssClass ? params.cssClass : '';
+    let menuContainer = $a4f2f9d0f303a1e7a87de8e71d817f7$import$dce({
+      el: 'DIV',
+      cssClass: "footer-pullup-menu hidden small-legends ".concat(pos)
+    });
+    params.options.forEach(item => {
+      let itemContainer = $a4f2f9d0f303a1e7a87de8e71d817f7$import$dce({
+        el: 'SPAN'
+      });
+
+      if (item.selected) {
+        itemContainer.classList.add('selected');
+        this.selected = item;
+        $a4f2f9d0f303a1e7a87de8e71d817f7$import$globals[params.targetObj] = item.value;
+      }
+
+      let itemTitle = $a4f2f9d0f303a1e7a87de8e71d817f7$import$dce({
+        el: 'SPAN',
+        cssClass: 'menu-title',
+        content: item.title
+      });
+      /* Legends */
+
+      let legensHolder = $a4f2f9d0f303a1e7a87de8e71d817f7$import$dce({
+        el: 'SPAN',
+        cssClass: 'legends-holder'
+      });
+      let legendTag = $a4f2f9d0f303a1e7a87de8e71d817f7$import$dce({
+        el: 'SPAN',
+        cssClass: "legend type-".concat(item.value),
+        content: item.val ? item.val : ''
+      });
+      legendTag.value = item.val;
+      this.legends.push(legendTag);
+      legensHolder.appendChild(legendTag);
+      itemTitle.appendChild(legensHolder);
+
+      if (item.icon) {
+        itemContainer.classList.add('icons');
+        let itemIcon = $a4f2f9d0f303a1e7a87de8e71d817f7$import$dce({
+          el: 'IMG',
+          source: item.icon,
+          attrbs: [["label", itemTitle], ["title", "nih"]]
+        });
+        itemContainer.append(itemIcon, itemTitle);
+      } else {
+        itemContainer.appendChild(itemTitle);
+      }
+
+      itemContainer.addEventListener('click', () => {
+        this.set(itemContainer, item.value);
+      }, false);
+      menuContainer.appendChild(itemContainer);
+    }); // update legends
+
+    let updateLegends = () => {
+      this.legends.forEach(legend => {
+        let val = legend.value;
+
+        if (val) {
+          let count = val.split('.').reduce((o, i) => o[i], $a4f2f9d0f303a1e7a87de8e71d817f7$import$globals);
+          legend.innerHTML = count ? count : '';
+        }
+      });
+    };
+
+    $a4f2f9d0f303a1e7a87de8e71d817f7$import$globals.storeObservers.push({
+      key: 'indoorsOutdoors',
+      callback: updateLegends
+    });
+    $a4f2f9d0f303a1e7a87de8e71d817f7$import$globals.storeObservers.push({
+      key: 'ticks',
+      callback: updateLegends
+    });
+    $a4f2f9d0f303a1e7a87de8e71d817f7$import$globals.storeObservers.push({
+      key: 'totalAscentsByType',
+      callback: updateLegends
+    });
+
+    this.render = () => {
+      return menuContainer;
+    };
+
+    this.close = () => {
+      menuContainer.classList.add('hidden');
+    };
+
+    this.toggle = () => {
+      // Close other menus
+      for (let i = 0, j = $a4f2f9d0f303a1e7a87de8e71d817f7$import$globals.openMenus.length; i < j; i++) {
+        if ($a4f2f9d0f303a1e7a87de8e71d817f7$import$globals.openMenus[i] !== this) {
+          $a4f2f9d0f303a1e7a87de8e71d817f7$import$globals.openMenus[i].close();
+        }
+      }
+
+      $a4f2f9d0f303a1e7a87de8e71d817f7$import$globals.openMenus = [];
+      menuContainer.classList.toggle('hidden');
+
+      if (menuContainer.classList.contains('hidden')) {
+        document.body.classList.remove('footer-pulldown');
+      } else {
+        $a4f2f9d0f303a1e7a87de8e71d817f7$import$globals.openMenus.push(this);
+        document.body.classList.add('footer-pulldown');
+      }
+    };
+
+    this.set = (el, data) => {
+      if (params.linksOnly) {
+        if (params.callback) {
+          params.callback(data);
+        }
+
+        return;
+      }
+
+      $a4f2f9d0f303a1e7a87de8e71d817f7$import$globals[params.targetObj] = data;
+      let selectedItem = menuContainer.querySelector('.selected');
+
+      if (selectedItem) {
+        selectedItem.classList.remove('selected');
+      }
+
+      el.classList.add('selected');
+
+      if (params.callback) {
+        params.callback(data);
+      }
+    };
+  }
+
+}
+
+$a4f2f9d0f303a1e7a87de8e71d817f7$exports.default = $a4f2f9d0f303a1e7a87de8e71d817f7$export$default;
