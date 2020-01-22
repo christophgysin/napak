@@ -36,7 +36,7 @@ class otc {
         keydata: { ...user.name, ...user.login}
       });
 
-      
+
       document.body.classList.remove('otc')
     }, false)
 

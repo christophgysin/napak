@@ -40,7 +40,7 @@ class gradeWheel {
 
       console.log(user);
       console.log(ticks)
-      
+
 
       // Remove tick
       if (!add) {

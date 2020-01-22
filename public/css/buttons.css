@@ -1,42 +1,42 @@
 .btn {
-	width: 100%;
-	display: block;
-	text-align: center;
-	font-size: 16px;
-	font-family: 'Roboto';
-	color: var(--color-black);
-	background: var(--color-theme-color2);
-	-webkit-tap-highlight-color: var(--color-theme-color2);
-	line-height: 35px;
-	border-radius: var(--base-btn-border-radius);
-	position: relative;
-	transition: all 300ms ease-in-out;
+  width: 100%;
+  display: block;
+  text-align: center;
+  font-size: 16px;
+  font-family: 'Roboto';
+  color: var(--color-black);
+  background: var(--color-theme-color2);
+  -webkit-tap-highlight-color: var(--color-theme-color2);
+  line-height: 35px;
+  border-radius: var(--base-btn-border-radius);
+  position: relative;
+  transition: all 300ms ease-in-out;
 }
 
 .btn_white {
-	background: var(--color-theme-color3);
-	color: var(--color-white);
-	-webkit-tap-highlight-color: var(--color-white);
-	position: relative;
+  background: var(--color-theme-color3);
+  color: var(--color-white);
+  -webkit-tap-highlight-color: var(--color-white);
+  position: relative;
 }
 
 .btn_small {
-	width: 2em;
+  width: 2em;
 }
 
 .btn svg{
-	height: 100%;
-	position: absolute;
-	left: 0;
-	margin-left: 10px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  margin-left: 10px;
 }
 .btn IMG {
-	position: absolute;
-	left: 0;
-	margin-left: 10px;
-	top: 50%;
-	transform: translateY(-50%);
+  position: absolute;
+  left: 0;
+  margin-left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .grade-list-container .btn_dec {
-	margin-right: 5px;
+  margin-right: 5px;
 }
