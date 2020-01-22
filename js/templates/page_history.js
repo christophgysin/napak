@@ -26,7 +26,7 @@ class viewHistory {
       let tickDate = handleDate({dateString: ticks[i].date});
       if(tickDate !== currentDate) {
         let headerRow = dce({el: 'TR', cssClass: 'header'});
-        let headerTitle = dce({el: 'TH', content: tickDate, attrbs: [['colspan', 4]]});
+        let headerTitle = dce({el: 'TH', content: handleDate({dateString : tickDate, dateFormat : 'yyyy-mm-dd'}), attrbs: [['colspan', 4]]});
         headerRow.appendChild(headerTitle);
         el.appendChild(headerRow);
         currentDate = tickDate
@@ -37,7 +37,7 @@ class viewHistory {
       let indoors = dce({el: 'TD', content: ticks[i].indoorsOutdoors});
       let type = dce({el: 'TD', content: ticks[i].type});
       let gradeContainer = dce({el: 'TD'});
-      let grade = dce({el: 'SPAN', cssClass: 'grade-legend', content: globals.grades.font[ticks[i].grade]});
+      let grade = dce({el: 'SPAN', cssClass: `grade-legend ${globals.difficulty[ticks[i].grade]}`, content: globals.grades.font[ticks[i].grade]});
       gradeContainer.appendChild(grade);
       let ascentType = dce({el: 'TD', content: ticks[i].ascentType});
       row.append(/*date,*/ gradeContainer, ascentType, type, indoors);

@@ -16,5 +16,8 @@
   "devDependencies": {
     "firebase-tools": "^7.12.1",
     "parcel": "^2.0.0-alpha.3.2"
+  },
+  "dependencies": {
+    "yarn": "^1.21.1"
   }
 }
