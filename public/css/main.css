@@ -642,6 +642,6 @@ SECTION.page-statistics:not(.navi-shadow) {
 
 @supports(padding: max(0px)) {
 	.page-content {
-		padding-top: max(20px, env(safe-area-inset-top));
+		padding-top: max(0, env(safe-area-inset-top));
 	}
 }

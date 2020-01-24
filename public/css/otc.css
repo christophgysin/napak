@@ -203,17 +203,17 @@ BODY.otc .navi-shadow {
 
 @supports(padding: max(0px)) {
 	.otc-navigation  {
-		padding-bottom: max(20px, env(safe-area-inset-bottom));
-		padding-top: max(20px, env(safe-area-inset-top));
+		padding-bottom: max(0, env(safe-area-inset-bottom));
+		padding-top: max(0, env(safe-area-inset-top));
 	}
 	.otc-navigation>nav {
-		bottom: max(20px, env(safe-area-inset-bottom));
+		bottom: max(0, env(safe-area-inset-bottom));
 	}
 	.otc-navigation:after {
 		display: block;
 		content: "";
 		width: 100%;
-		height: max(20px, env(safe-area-inset-bottom));
+		height: max(0, env(safe-area-inset-bottom));
 		background: var(--color-black);
 		bottom: 0;
 		position: absolute;

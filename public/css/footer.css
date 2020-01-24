@@ -123,6 +123,6 @@ footer > nav a > SPAN IMG {
 
 @supports(padding: max(0px)) {
 	footer {
-		padding-bottom: max(20px, env(safe-area-inset-bottom));
+		padding-bottom: max(0, env(safe-area-inset-bottom));
 	}
 }
