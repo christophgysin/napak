@@ -17,7 +17,7 @@ class viewLogin {
     let password = dce({el: 'INPUT', attrbs: [['placeholder', 'Password'], ['type', 'password']]});
     let loginButton = dce({el: 'A', cssClass: 'btn mt mb', content: 'Login'});
 
-    loginButton.addEventListener('click', () => {
+    const login = () => {
       user.login.isLoggedIn = true;
       user.name.userName = userName.value;
       user.login = user.login;
@@ -25,8 +25,13 @@ class viewLogin {
         key: 'user',
         keydata: { ...user.name, ...user.login}
       });
-      
-    }, false);
+    };
+
+    const onEnter = func => ({keyCode}) => (keyCode === 13) && func();
+
+    userName.addEventListener('keydown', onEnter(() => password.focus()), false);
+    password.addEventListener('keydown', onEnter(login), false);
+    loginButton.addEventListener('click', login, false);
 
     loginFormContainer.append(logoContainer, userName, password, loginButton)
 
