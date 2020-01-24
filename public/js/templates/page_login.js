@@ -1,6 +1,7 @@
 import { dce } from '/js/shared/helpers.js';
 import { user } from '/js/shared/user.js';
 import { store } from '/js/shared/store.js';
+import { renderAuthUI } from '/js/shared/auth.js';
 
 class viewLogin {
   constructor() {
@@ -13,33 +14,16 @@ class viewLogin {
 
     logoContainer.append(logo, version);
 
-    let userName = dce({el: 'INPUT', attrbs: [['placeholder', 'User name']]});
-    let password = dce({el: 'INPUT', attrbs: [['placeholder', 'Password'], ['type', 'password']]});
-    let loginButton = dce({el: 'A', cssClass: 'btn mt mb', content: 'Login'});
+    let authContainer = dce({ el: 'DIV', id: 'auth-container' });
 
-    const login = () => {
-      user.login.isLoggedIn = true;
-      user.name.userName = userName.value;
-      user.login = user.login;
-      store.write({
-        key: 'user',
-        keydata: { ...user.name, ...user.login}
-      });
-    };
-
-    const onEnter = func => ({keyCode}) => (keyCode === 13) && func();
-
-    userName.addEventListener('keydown', onEnter(() => password.focus()), false);
-    password.addEventListener('keydown', onEnter(login), false);
-    loginButton.addEventListener('click', login, false);
-
-    loginFormContainer.append(logoContainer, userName, password, loginButton)
+    loginFormContainer.append(logoContainer, authContainer);
 
     container.append(loginFormContainer);
 
     this.render = () => {
-      return container
-    }
+      setTimeout(renderAuthUI, 0)
+      return container;
+    };
   }
 }
 

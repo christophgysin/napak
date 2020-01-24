@@ -1,6 +1,7 @@
 import { dce } from '/js/shared/helpers.js';
 import toggleSwitch from '/js/components/toggleswitch.js';
 import { user } from '/js/shared/user.js';
+import { logout } from '/js/shared/auth.js';
 
 class viewSettings {
   constructor() {
@@ -20,11 +21,7 @@ class viewSettings {
       let logoutButton = dce({el: 'A', cssClass: 'btn login-ling', content: 'Logout'});
       loginInfo.append(loginInfoTitle, logoutButton);
 
-      logoutButton.addEventListener('click', () => {
-        user.login.isLoggedIn = false;
-
-        user.login = user.login;
-      }, false)
+      logoutButton.addEventListener('click', logout, false);
     }
     else {
       let loginInfoTitle = dce({el: 'H3', cssClass: 'mt mb', content: `Not logged in. No data is saved`});
