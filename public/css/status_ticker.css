@@ -1,0 +1,31 @@
+.status-ticker {
+    background: var(--color-theme-color1-accent);
+    height: 40px;
+    align-items: center;
+    display: block;
+    justify-content: space-between;
+    transition: filter 300ms ease-in-out;
+    color: var(--color-white);
+    position: relative;
+  }
+  
+  .status-ticker div {
+    width: 100%;
+    margin: 0 auto 0;
+    display: flex;
+    height: 40px;
+    justify-content: center;  
+    align-items: center;
+    position: relative;
+    transition: top .3s ease-in-out;
+    top: 0;
+  }
+  
+  .status-ticker div.network {
+    background: var(--color-theme-color2);
+    color: var(--color-black)
+  }
+  
+  .status-ticker.show-message div {
+    top: -40px;
+  }

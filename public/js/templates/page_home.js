@@ -1,6 +1,6 @@
 import progress from '/js/partials/section_progress.js';
 import gradeWheel from '/js/partials/section_grade-selector.js';
-
+import statusTicker from '/js/partials/status_ticker.js';
 import { globals } from '/js/shared/globals.js';
 import { dce } from '/js/shared/helpers.js';
 
@@ -8,22 +8,10 @@ class viewHome {
   constructor() {
     let progressSection = new progress();
     let gradeSelector = new gradeWheel();
+    let ticker = new statusTicker();
 
     let tickPage = dce({el: 'DIV', cssClass: 'page-tick'});
-    let inOutSelector = dce({el: 'DIV', cssClass: 'in-out-selector'});
 
-    let current = dce({el: 'DIV', cssClass: 'current'});
-
-    let currentClimbingTypeTitle = () => {
-      if (globals.currentClimbingType === 'boulder') return `Bouldering ${globals.indoorsOutdoors}`;
-      if (globals.currentClimbingType === 'sport') return `Climbing sport ${globals.indoorsOutdoors}`;
-      if (globals.currentClimbingType === 'trad') return `Climbing trad ${globals.indoorsOutdoors}`;
-      if (globals.currentClimbingType === 'toprope') return `Top roping ${globals.indoorsOutdoors}`;
-      return globals.indoorsOutdoors;
-    }
-
-    let currentTitle = dce({el: 'H3', content: currentClimbingTypeTitle()});
-    current.appendChild(currentTitle);
 
     globals.storeObservers.push({
       key: 'currentClimbingType',
@@ -41,9 +29,7 @@ class viewHome {
       }
     });
 
-    inOutSelector.appendChild(current);
-
-    tickPage.appendChild(inOutSelector);
+    tickPage.appendChild(ticker.render());
     tickPage.appendChild(progressSection.render());
     tickPage.appendChild(gradeSelector.render());
 

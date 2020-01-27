@@ -10,6 +10,7 @@
 @import './login.css';
 @import './otc.css';
 @import './variables.css';
+@import './status_ticker.css';
 
 *,
 *::before,
@@ -463,75 +464,6 @@ section.page-statistics:not(.navi-shadow) {
   margin: 1em 0;
 }
 
-.in-out-selector .in-out-menu {
-  display: none;
-}
-
-.in-out-selector.open .in-out-menu {
-  display: block;
-}
-
-.in-out-selector .current {
-  background: var(--color-theme-color1-accent);
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: filter 300ms ease-in-out;
-  color: var(--color-white);
-}
-
-.in-out-selector .current h3 {
-  margin: 0 auto 0;
-}
-
-.in-out-selector .current .toggle {
-  height: 40px;
-  width: 40px;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 40px;
-  position: absolute;
-  right: 0;
-}
-
-.in-out-selector .toggle > * {
-  align-self: center;
-  transform: rotate(0);
-  transition: all 450ms ease-in-out;
-}
-
-.in-out-selector.open .toggle > * {
-  transform: rotate(180deg);
-}
-
-.in-out-menu {
-  background: var(--color-theme-color1-accent);
-  position: absolute;
-  width: 100%;
-  padding: 0 var(--padding-base) var(--padding-base);
-  z-index: 997;
-  display: block;
-  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.1);
-}
-
-.in-out-menu::before {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  height: 35px;
-  content: '';
-  display: block;
-  background: linear-gradient(
-    to bottom,
-    var(--color-theme-color1-accent) 0%,
-    var(--color-theme-color1) 100%
-  );
-}
 
 .on-off-selector {
   display: flex;
