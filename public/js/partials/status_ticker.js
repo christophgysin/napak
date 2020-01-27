@@ -28,6 +28,23 @@ class statusTicker {
       container.classList.add('show-message')
     }
 
+
+    globals.storeObservers.push({
+      key: 'currentClimbingType',
+      id: 'homepageCurrentClimbingType',
+      callback: () => {
+        currentTitleContent.innerHTML = currentClimbingTypeTitle();
+      }
+    });
+
+    globals.storeObservers.push({
+      key: 'indoorsOutdoors',
+      id: 'homepageIndoorsOutdoors',
+      callback: () => {
+        currentTitleContent.innerHTML = currentClimbingTypeTitle();
+      }
+    });
+
     setTimeout(() => {container.classList.remove('show-message')}, 3000)
 /* <- Move this to new component */
 
