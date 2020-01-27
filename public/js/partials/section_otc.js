@@ -72,7 +72,7 @@ class otc {
     let sideNavLinks = dce({el: 'SECTION', cssClass: 'sidenav-links'});
 
     let btnGroups = dce({el: 'A', content: 'Groups' })
-    let btnHistory = dce({el: 'A', content: 'History' })
+    let btnHistory = dce({el: 'A', content: 'Statistics' })
 
     btnGroups.addEventListener('click', () => {
       route('groups');
@@ -80,7 +80,7 @@ class otc {
     }, false);
 
     btnHistory.addEventListener('click', () => {
-      route('history');
+      route('statistics');
       document.body.classList.remove('otc')
     }, false);
 

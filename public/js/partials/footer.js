@@ -75,13 +75,13 @@ class footer {
     logoContainer.addEventListener('click', () => {route('home')}, false);
 
     // statstics
-    let changeViewStatistics = dce({el: 'a', attrbs: [["label", "statistics"]]});
+    let changeViewStatistics = dce({el: 'a', attrbs: [["label", "history"]]});
     let changeViewStatisticsContainer = dce({el: 'SPAN'});
     let linkStatisticsPageIcon = dce({el: 'IMG', source: 'images/stats.svg'})
-    let linkStatisticsPageTitle = dce({el: 'SPAN', content: 'statistics'});
+    let linkStatisticsPageTitle = dce({el: 'SPAN', content: 'history'});
     changeViewStatisticsContainer.append(linkStatisticsPageIcon, linkStatisticsPageTitle);
     changeViewStatistics.append(changeViewStatisticsContainer);
-    changeViewStatistics.addEventListener('click', () => {route('statistics')}, false);
+    changeViewStatistics.addEventListener('click', () => {route('history')}, false);
 
     let routeLinks = function (type) {
       route(type)
@@ -94,22 +94,9 @@ class footer {
     moreItemsMenuContainer.append(moreItemsMenuIcon, moreItemsMenuTitle);
     moreItemsMenu.append(moreItemsMenuContainer);
 
-    let moreMenu = new pulldownMenu({
-      options: [
-        {title: 'Settings', value:'settings', icon: '/images/rock.svg'},
-        {title: 'History', value:'history', icon: '/images/rock.svg'},
-        {title: 'Groups', value:'groups', icon: '/images/rock.svg'}
-      ],
-      cssClass: 'right links-only',
-      callback: routeLinks,
-      linksOnly: true
-    });
-
-    moreItemsMenu.appendChild(moreMenu.render());
 
     moreItemsMenu.addEventListener('click', () => {
-      // moreMenu.toggle();
-      document.body.classList.toggle('otc');
+     document.body.classList.toggle('otc');
     }, false);
 
     footerNav.append(changeDiscipline, changeIndoorsOutdoors, logoContainer, changeViewStatistics, moreItemsMenu);
