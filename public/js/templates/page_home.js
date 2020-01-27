@@ -12,23 +12,6 @@ class viewHome {
 
     let tickPage = dce({el: 'DIV', cssClass: 'page-tick'});
 
-
-    globals.storeObservers.push({
-      key: 'currentClimbingType',
-      id: 'homepageCurrentClimbingType',
-      callback: () => {
-        currentTitle.innerHTML = currentClimbingTypeTitle();
-      }
-    });
-
-    globals.storeObservers.push({
-      key: 'indoorsOutdoors',
-      id: 'homepageIndoorsOutdoors',
-      callback: () => {
-        currentTitle.innerHTML = currentClimbingTypeTitle();
-      }
-    });
-
     tickPage.appendChild(ticker.render());
     tickPage.appendChild(progressSection.render());
     tickPage.appendChild(gradeSelector.render());
