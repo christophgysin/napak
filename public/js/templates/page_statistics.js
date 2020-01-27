@@ -16,7 +16,7 @@ class viewStatistics {
       type: 'pie',
       labels: ['Redpoint', 'Flash', 'Onsight'],
       data : [temp.redpoint, temp.flash, temp.onsight],
-      colors : 	[
+      colors :  [
         getComputedStyle(document.documentElement).getPropertyValue('--color-redpoint'),
         getComputedStyle(document.documentElement).getPropertyValue('--color-flash'),
         getComputedStyle(document.documentElement).getPropertyValue('--color-onsight')

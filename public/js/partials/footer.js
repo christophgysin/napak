@@ -126,7 +126,7 @@ class footer {
     user.storeObservers.push({key: 'login', callback: toggleVisibility});
 
     toggleVisibility();
-    
+
     this.render = () => {
       return footer;
     }

@@ -22,7 +22,7 @@ const handler = {
 let userFromStorage = store.read({key: 'user'});
 /*
   User
-*/  
+*/
 let userObject = {
   storeObservers : [],
   name : {
@@ -32,7 +32,7 @@ let userObject = {
     email:  (userFromStorage.email) ? userFromStorage.email : null,
     id:  (userFromStorage.id) ? userFromStorage.id : null
   },
-  
+
   login : {
     isLoggedIn :  (userFromStorage.isLoggedIn) ? userFromStorage.isLoggedIn : null,
   },

@@ -1,69 +1,94 @@
 /* Ticks */
 .page-ticks {
-	overflow-y: auto;
-	min-height: 100%;
+  overflow-y: auto;
+  min-height: 100%;
 }
 
 .tick-list table {
-	width: 100%;
-	margin: 10px 0;
-	border-spacing: 0;
-	border-collapse: separate;
+  width: 100%;
+  margin: 10px 0;
+  border-spacing: 0;
+  border-collapse: separate;
 }
 
 .tick-list table th {
-	text-align: left;
-	color: inherit;
-	font-family: 'IBM Plex Mono';
-	font-size: 12px;
-	text-transform: uppercase;
-	font-weight: 100;
-	border-bottom: 1px solid var(--color-white-dim);
-	text-indent: 5px;
+  text-align: left;
+  color: inherit;
+  font-family: 'IBM Plex Mono';
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 100;
+  border-bottom: 1px solid var(--color-white-dim);
+  text-indent: 5px;
 }
 
 .tick-list table tr.header {
-	background: transparent;
-	margin-bottom: 10px;
+  background: transparent;
+  margin-bottom: 10px;
 }
+
 .tick-list table tr.header td {
-	border-bottom: 1px solid var(--color-white-dim)
+  border-bottom: 1px solid var(--color-white-dim);
 }
 
-.page-tick TR.header TH:not(:first-of-type) {
-	padding-top: 10px;
+.page-tick tr.header th:not(:first-of-type) {
+  padding-top: 10px;
 }
 
-.page-tick TR.header:not(:first-of-type) TH {
-	padding-top: 10px;
+.page-tick tr.header:not(:first-of-type) th {
+  padding-top: 10px;
 }
 
-.page-tick TD {
-	white-space: pre;
-	position: relative;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	padding: 3px;
-	font-size: 12px;text-transform: capitalize;
+.page-tick td {
+  white-space: pre;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 3px;
+  font-size: 12px;
+  text-transform: capitalize;
 }
 
 .grade-legend {
-	background:#0f8;
-	color: #fff;
-	width: 25px;
-	display: flex;
-	border-radius: 20px;
-	justify-content: center;
-	align-items: center;
-} 
+  background: #0f8;
+  color: #fff;
+  width: 25px;
+  display: flex;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+}
 
-.grade-legend.gray {background : rgb(128,128,128); color : #fff;}
-.grade-legend.yellow {background : rgb(255,222,0); color : #000;}
-.grade-legend.green {background : rgb(64,222,61)}
-.grade-legend.orange {background : rgb(255,128,0);}
-.grade-legend.red {background : rgb(255,0,0);}
-.grade-legend.blue {background : rgb(32,64,222);}
-.grade-legend.purple {background : rgb(255,0,255); }
-.grade-legend.pink {background : rgb(222,0,128); }
-.grade-legend.black {background : rgb(32,32,32); }
-.grade-legend.white {background : rgb(2555,32255,255); color: #000 }
+.grade-legend.gray {
+  background: rgb(128, 128, 128);
+  color: #fff;
+}
+.grade-legend.yellow {
+  background: rgb(255, 222, 0);
+  color: #000;
+}
+.grade-legend.green {
+  background: rgb(64, 222, 61);
+}
+.grade-legend.orange {
+  background: rgb(255, 128, 0);
+}
+.grade-legend.red {
+  background: rgb(255, 0, 0);
+}
+.grade-legend.blue {
+  background: rgb(32, 64, 222);
+}
+.grade-legend.purple {
+  background: rgb(255, 0, 255);
+}
+.grade-legend.pink {
+  background: rgb(222, 0, 128);
+}
+.grade-legend.black {
+  background: rgb(32, 32, 32);
+}
+.grade-legend.white {
+  background: rgb(2555, 32255, 255);
+  color: #000;
+}
