@@ -7,7 +7,7 @@ import viewGroups from '/js/templates/page_groups.js';
 import footer from '/js/partials/footer.js';
 import otc from '/js/partials/section_otc.js';
 import { route } from '/js/shared/route.js';
-
+import { initAuth } from '/js/shared/auth.js';
 import { globals } from '/js/shared/globals.js';
 import { user } from '/js/shared/user.js';
 import { store }  from '/js/shared/store.js';
@@ -47,6 +47,8 @@ let napak = {
     globals.storeObservers.push({key: 'ticks', id: 'appTicks', callback: updateAll });
     globals.storeObservers.push({key: 'indoorsOutdoors', id: 'appIndoorsOutdoors', callback: updateAll });
 
+    initAuth();
+
     // init app
     document.body.innerHTML = "";
     appContainer.append(appContentContainer, pageFooter.render(appContainer), otcMenu.render());
@@ -56,19 +58,20 @@ let napak = {
 
     document.body.appendChild(appContainer);
 
-    let loginStatus = () => {
-      if(!user.login.isLoggedIn) {
+    switch (window.location.pathname) {
+      case '/login':
         route('login');
-      }
+      break;
 
-      else {
-        route('home');
-      }
+      default:
+        if (!user.login.isLoggedIn) {
+          window.location.pathname = '/login';
+        } else {
+          route('home');
+        }
+        break;
     }
-    user.storeObservers.push({key: 'login', callback: loginStatus})
-
-    loginStatus();
-  }
-}
+  },
+};
 
 napak.initialize();

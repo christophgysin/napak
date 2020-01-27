@@ -3,6 +3,7 @@ import toggleSwitch from '/js/components/toggleswitch.js';
 import { user } from '/js/shared/user.js';
 import { route } from '/js/shared/route.js';
 import { store } from '/js/shared/store.js';
+import { logout } from '/js/shared/auth.js';
 
 class otc {
   constructor() {
@@ -27,18 +28,7 @@ class otc {
     let logoutButton = dce({el: 'A', cssClass: 'btn login-link', content: 'Logout'});
     loginInfo.append(loginInfoTitle, logoutButton);
 
-    logoutButton.addEventListener('click', () => {
-      user.login.isLoggedIn = false;
-      user.login = user.login;
-
-      store.write({
-        key: 'user',
-        keydata: { ...user.name, ...user.login}
-      });
-
-
-      document.body.classList.remove('otc')
-    }, false)
+    logoutButton.addEventListener('click', logout, false);
 
     // Listen and update details when login/logout. This is retarded. Fix it at some point
     let loginStatus = () => {
