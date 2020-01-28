@@ -12,7 +12,6 @@ class statusTicker {
       if (globals.currentClimbingType === 'toprope') return `Top roping ${globals.indoorsOutdoors}`;
       return globals.indoorsOutdoors;
     }
-/* Move this to new component -> */
 
     let currentTitle = dce({el: 'DIV'});
     let currentTitleContent = dce({el: 'H3', content: currentClimbingTypeTitle()});
@@ -20,14 +19,15 @@ class statusTicker {
     container.appendChild(currentTitle);
 
     let currentStatus = dce({el: 'DIV', cssClass: 'network'});
-    let currentStatusContent = dce({el: 'H3', content: 'Synchronizing ticks'});
-    currentStatus.appendChild(currentStatusContent)
+    let currentStatusContent = dce({el: 'H3', content: 'Synchronizing ticks '});
+    let blink = dce({el: 'SPAN', cssClass: 'spinner spin360'});
+
+    currentStatus.append(currentStatusContent, blink)
     container.appendChild(currentStatus);
 
     if(container.childNodes.length > 0 ) {
       container.classList.add('show-message')
     }
-
 
     globals.storeObservers.push({
       key: 'currentClimbingType',
@@ -45,8 +45,7 @@ class statusTicker {
       }
     });
 
-    setTimeout(() => {container.classList.remove('show-message')}, 3000)
-/* <- Move this to new component */
+    setTimeout(() => {container.classList.remove('show-message')}, 3000);
 
     this.render = () => {
       return container;

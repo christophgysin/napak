@@ -24,12 +24,20 @@
 
 @keyframes gravity {
   0% {
-    -webkit-transform: translateY(-100.5%);
     transform: translateY(-100.5%);
   }
 
   100% {
-    -webkit-transform: translateY(100.5%);
     transform: translateY(100.5%);
   }
+}
+
+@keyframes blink {
+  from {opacity: 1.0;}
+  to {opacity: 0.0;}
+}
+
+@keyframes spin360 {
+  from {transform : rotate(0)}
+  to {transform : rotate(360deg)}
 }
