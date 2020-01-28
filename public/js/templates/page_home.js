@@ -1,6 +1,6 @@
-import progress from '/js/partials/section_progress.js';
-import gradeWheel from '/js/partials/section_grade-selector.js';
-import statusTicker from '/js/partials/status_ticker.js';
+import progress from '/js/templates/partials/section_progress.js';
+import gradeWheel from '/js/templates/partials/section_grade-selector.js';
+import statusTicker from '/js/templates/partials/status_ticker.js';
 import { globals } from '/js/shared/globals.js';
 import { dce } from '/js/shared/helpers.js';
 
