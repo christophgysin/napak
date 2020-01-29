@@ -1,4 +1,4 @@
-import { dce } from '/js/shared/helpers.js';
+import { dce, storeObserver } from '/js/shared/helpers.js';
 import { globals } from '/js/shared/globals.js';
 
 class pulldownMenu {
@@ -55,9 +55,26 @@ class pulldownMenu {
       });
     };
 
-    globals.storeObservers.push({key: 'indoorsOutdoors', callback: updateLegends });
-    globals.storeObservers.push({key: 'ticks', callback: updateLegends});
-    globals.storeObservers.push({key: 'totalAscentsByType', callback: updateLegends});
+    storeObserver.add({
+      store: globals,
+      key: 'indoorsOutdoors', 
+      callback: updateLegends,
+      id: 'pulldownIndoorsOutdoors'
+    });
+
+    storeObserver.add({
+      store: globals,
+      key: 'ticks', 
+      callback: updateLegends,
+      id: 'pulldowUpdatenTicks'
+    });
+    
+    storeObserver.add({
+      store: globals,
+      key: 'totalAscentsByType', 
+      callback: updateLegends,
+      id: 'pulldownUpdateTotals'
+    });
 
     this.render = () => {
       return menuContainer;

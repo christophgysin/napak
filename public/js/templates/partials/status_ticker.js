@@ -1,10 +1,21 @@
-import { dce } from '/js/shared/helpers.js';
+import { dce, storeObserver } from '/js/shared/helpers.js';
+import { animate } from '/js/shared/animate.js';
 import { globals } from '/js/shared/globals.js';
 
 class statusTicker {
   constructor() {
+    console.log(globals.storeObservers);
     let container = dce({el: 'DIV', cssClass: 'current status-ticker'});
+    let messageContainer = dce({el: 'DIV', cssClass: 'status-ticker-content'});
+    container.appendChild(messageContainer);
 
+
+    let standardMessage = dce({el: 'DIV', cssClass: 'standard'});
+    let standardMessageContent = dce({el: 'H3', content: 'Venga!'});
+    standardMessage.appendChild(standardMessageContent);
+    messageContainer.appendChild(standardMessage);
+  
+/* */ 
     let currentClimbingTypeTitle = () => {
       if (globals.currentClimbingType === 'boulder') return `Bouldering ${globals.indoorsOutdoors}`;
       if (globals.currentClimbingType === 'sport') return `Climbing sport ${globals.indoorsOutdoors}`;
@@ -16,20 +27,10 @@ class statusTicker {
     let currentTitle = dce({el: 'DIV'});
     let currentTitleContent = dce({el: 'H3', content: currentClimbingTypeTitle()});
     currentTitle.appendChild(currentTitleContent);
-    container.appendChild(currentTitle);
+    messageContainer.appendChild(currentTitle);
 
-    let currentStatus = dce({el: 'DIV', cssClass: 'network'});
-    let currentStatusContent = dce({el: 'H3', content: 'Synchronizing ticks '});
-    let blink = dce({el: 'SPAN', cssClass: 'spinner spin360'});
-
-    currentStatus.append(currentStatusContent, blink)
-    container.appendChild(currentStatus);
-
-    if(container.childNodes.length > 0 ) {
-      container.classList.add('show-message')
-    }
-
-    globals.storeObservers.push({
+    storeObserver.add({
+      store: globals,
       key: 'currentClimbingType',
       id: 'homepageCurrentClimbingType',
       callback: () => {
@@ -37,7 +38,8 @@ class statusTicker {
       }
     });
 
-    globals.storeObservers.push({
+    storeObserver.add({
+      store: globals,
       key: 'indoorsOutdoors',
       id: 'homepageIndoorsOutdoors',
       callback: () => {
@@ -45,7 +47,59 @@ class statusTicker {
       }
     });
 
-    setTimeout(() => {container.classList.remove('show-message')}, 3000);
+
+    let serverMessage = dce({el: 'DIV', cssClass: 'network'});
+    let serverMessageContent = dce({el: 'H3', content: ''});
+    let blink = dce({el: 'SPAN', cssClass: 'spinner spin360'});
+    serverMessage.append(serverMessageContent, blink);
+    messageContainer.appendChild(serverMessage);
+
+    // Listen for network messages
+    let handleTicker = function() {
+      if( globals.standardMessage.length ) {
+        standardMessageContent.innerHTML = globals.standardMessage[0].message;
+        container.classList.add('show-message', 'standard');
+        if(globals.standardMessage[0].timeout) {
+          setTimeout(function(){
+            animate.watch({
+              el: messageContainer,
+              execute: () => { 
+                globals.standardMessage.splice(0,1);
+                globals.standardMessage = globals.standardMessage;
+               },
+              unwatch: true
+              });
+            container.classList.remove('show-message', 'standard');
+
+          },globals.standardMessage[0].timeout*1000)
+        }
+
+      }
+      else if( globals.serverMessage.length ) {
+        serverMessageContent.innerHTML = globals.serverMessage[0].message;
+        container.classList.remove('standard')
+        container.classList.add('show-message', 'network')
+      }
+      else {
+        container.classList.remove('show-message', 'network', 'standard')
+      }
+
+    }.bind(this);
+    
+    storeObserver.add({
+      store: globals,
+      key: 'serverMessage',
+      id: 'statusTickerServerMessage',
+      callback: handleTicker
+    });
+
+    storeObserver.add({
+      store: globals,
+      key: 'standardMessage',
+      id: 'statusTickerStandardMessage',
+      callback: handleTicker
+    });
+
 
     this.render = () => {
       return container;

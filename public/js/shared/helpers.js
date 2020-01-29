@@ -1,5 +1,42 @@
 import { globals } from '/js/shared/globals.js';
 
+let storeObserver = { 
+  add : ( params ) => {
+    let store = params.store;
+
+    // remove existing observer if it has some ID
+    store.storeObservers.forEach((o, count) => {
+      if(params.id && o.id === params.id) {
+        store.storeObservers.splice(count, 1)
+      }
+    });
+
+    store.storeObservers.push({
+      key: params.key,
+      id: params.id,
+      callback: params.callback,
+      removeOnRouteChange: params.removeOnRouteChange
+    });
+  },
+
+  remove: ( id ) => {
+    console.log(id);
+  },
+
+  clear: () => {
+    let remove = [];
+    globals.storeObservers.forEach( (o, count) => {
+      if(o.removeOnRouteChange) {
+        remove.push(count)
+       }
+    });
+
+    remove.slice().reverse().forEach((c)=>{
+      globals.storeObservers.splice(c, 1)
+    });
+  }
+};
+
 // Create DOM element
 let dce = (params) => {
   let element = document.createElement(params.el);
@@ -293,6 +330,7 @@ let eivittunain = (obj) => {
 }
 
 export {
+  storeObserver, 
   dce,
   svg,
   vibrate,

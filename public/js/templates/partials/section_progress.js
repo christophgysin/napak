@@ -1,6 +1,6 @@
 import picker from '/js/components/picker.js';
 import { globals } from '/js/shared/globals.js';
-import { dce, countTotalScore, countAscentsByGrade, countTopFive, countAscents, averageGrade } from '/js/shared/helpers.js';
+import { dce, countTotalScore, countAscentsByGrade, countTopFive, countAscents, averageGrade, storeObserver } from '/js/shared/helpers.js';
 
 class sectionProgress {
   constructor() {
@@ -27,8 +27,12 @@ class sectionProgress {
 
     points.append(pointsTitle, pointsCount);
 
-    globals.storeObservers.push({key: 'totalScore', callback: () => {pointsCount.innerHTML = globals.totalScore;}});
-
+    storeObserver.add({
+      store: globals,
+      key: 'totalScore', 
+      id: 'progressUpdateScore',
+      callback: () => {pointsCount.innerHTML = globals.totalScore;
+      }});
     // Ascents
     let ascents = dce({el: 'DIV', cssClass: 'important-ascents'});
     let ascentsTitle = dce({el: 'H3', content: 'Ascents'})
@@ -36,10 +40,18 @@ class sectionProgress {
 
     ascents.append(ascentsTitle, ascentsCount);
 
-    /* TODO: */
-    // Make a helper function that allow pushing multiple values with same callback
-    globals.storeObservers.push({key: 'scope', callback: () => {ascentsCount.innerHTML = globals.totalAscentCount[globals.scope];}});
-    globals.storeObservers.push({key: 'ticks', callback: () => {ascentsCount.innerHTML = globals.totalAscentCount[globals.scope];}});
+    storeObserver.add({
+      store: globals,
+      key: 'scope', 
+      id: 'progressScopeChange',
+      callback: () => {ascentsCount.innerHTML = globals.totalAscentCount[globals.scope];}
+    });
+    storeObserver.add({
+      store: globals,
+      key: 'ticks', 
+      id: 'progressTicksUpdate',
+      callback: () => {ascentsCount.innerHTML = globals.totalAscentCount[globals.scope];}
+    });
 
     // Grade
     let grade = dce({el: 'DIV', cssClass: 'important-grade'});
@@ -48,8 +60,19 @@ class sectionProgress {
 
     grade.append(gradeTitle, gradeCount);
 
-    globals.storeObservers.push({key: 'averageGrade', callback: () => {gradeCount.innerHTML = globals.averageGrade;}});
-    globals.storeObservers.push({key: 'scope', callback: () => {gradeCount.innerHTML = globals.averageGrade;}});
+    storeObserver.add({
+      store: globals,
+      key: 'averageGrade', 
+      id: 'progressAverageGradeUpdate',
+      callback: () => {gradeCount.innerHTML = globals.averageGrade;}
+    });
+
+    storeObserver.add({
+      store: globals,
+      key: 'scope', 
+      id: 'progressScopeChangeAverage',
+      callback: () => {gradeCount.innerHTML = globals.averageGrade;}
+    });
 
     pointsContainer.append(points, ascents, grade);
     container.appendChild(pointsContainer);
@@ -109,9 +132,24 @@ class sectionProgress {
 
     container.appendChild(gradeDistributionContainer);
 
-    globals.storeObservers.push({key: 'indoorsOutdoors', callback: updateCharts });
-    globals.storeObservers.push({key: 'scope', callback: updateCharts });
-    globals.storeObservers.push({key: 'ticks', callback: updateCharts });
+    storeObserver.add({
+      store: globals,
+      key: 'indoorsOutdoors', 
+      id: 'progress_update_chart--indoorsOutdoors',
+      callback: updateCharts 
+    });
+    storeObserver.add({
+      store: globals,
+      key: 'scope', 
+      id: 'progress_update_chart--scope',
+      callback: updateCharts 
+    });
+    storeObserver.add({
+      store: globals,
+      key: 'ticks', 
+      id: 'progress_update_chart--ticks',
+      callback: updateCharts 
+    });
 
     updateCharts();
 

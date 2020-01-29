@@ -72,10 +72,14 @@ class gradeWheel {
           location: false,
           synchronized: false
         });
+        globals.standardMessage.push({
+          message : 'Gamba!',
+          timeout: 1
+        });  
+        globals.standardMessage = globals.standardMessage;
       }
 
       let userFromStorage = store.read({key: 'user'});
-      console.log(userFromStorage)
       userFromStorage.ticks = ticks;
       // update local storage
       store.write({

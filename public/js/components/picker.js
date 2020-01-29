@@ -1,4 +1,4 @@
-import { dce } from '/js/shared/helpers.js';
+import { dce, storeObserver } from '/js/shared/helpers.js';
 import { globals } from '/js/shared/globals.js';
 
 class picker {
@@ -41,8 +41,18 @@ class picker {
         }
       };
 
-      globals.storeObservers.push({key: 'indoorsOutdoors', callback: updateLegends });
-      globals.storeObservers.push({key: 'ticks', callback: updateLegends});
+      storeObserver.add({
+        store: globals,
+        key: 'indoorsOutdoors', 
+        callback: updateLegends,
+        removeOnRouteChange: true
+      });
+      storeObserver.add({
+        store: globals,
+        key: 'ticks', 
+        callback: updateLegends,
+        removeOnRouteChange: true
+      });
 
       option.appendChild(optionLink);
 

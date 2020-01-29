@@ -1,4 +1,4 @@
-import { dce, countAscentsByDifficulty, vibrate } from '/js/shared/helpers.js';
+import { dce, countAscentsByDifficulty, vibrate, storeObserver } from '/js/shared/helpers.js';
 import { globals } from '/js/shared/globals.js';
 
 class wheel {
@@ -69,8 +69,19 @@ class wheel {
     }
 
     // Listen for ticks object to update
-    globals.storeObservers.push({key: 'indoorsOutdoors', callback: () => {clearLegends(), updateAll()} });
-    globals.storeObservers.push({key: 'ticks', callback:updateAll});
+    storeObserver.add({
+      store: globals,
+      key: 'indoorsOutdoors', 
+      id: 'wheelIndoorsOutdoors',
+      callback: () => {clearLegends(), updateAll()}
+    });
+
+    storeObserver.add({
+      store: globals,
+      key: 'ticks', 
+      id: 'wheelUpdateTicks',
+      callback: updateAll
+    });
 
     selectDialog.appendChild(gradeFragment);
 

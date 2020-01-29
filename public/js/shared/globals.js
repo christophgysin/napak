@@ -115,7 +115,9 @@ let globalObjects = {
 
 
   // Ticks
-  ticks: (ticksFromStorage) ? ticksFromStorage : []
+  ticks: (ticksFromStorage) ? ticksFromStorage : [],
+  serverMessage :[] ,
+  standardMessage: []
 };
 
 

@@ -1,31 +1,58 @@
 .status-ticker {
-    background: var(--color-theme-color1-accent);
-    height: 40px;
-    align-items: center;
-    display: block;
-    justify-content: space-between;
-    transition: filter 300ms ease-in-out;
-    color: var(--color-white);
-    position: relative;
-  }
-  
-  .status-ticker div {
-    width: 100%;
-    margin: 0 auto 0;
-    display: flex;
-    height: 40px;
-    justify-content: center;  
-    align-items: center;
-    position: relative;
-    transition: top .3s ease-in-out;
-    top: 0;
-  }
-  
-  .status-ticker div.network {
-    background: var(--color-theme-color2);
-    color: var(--color-black)
-  }
-  
-  .status-ticker.show-message div {
-    top: -40px;
-  }
+  background: var(--color-theme-color1-accent);
+  height: 40px;
+  display: block;
+  justify-content: space-between;
+  color: var(--color-white);
+  position: relative;
+  overflow: hidden;
+}
+.status-ticker-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  animation : 0.3s scrollToCenter ease-in-out forwards;
+  top: -40px;
+}
+
+.status-ticker.show-message.network .status-ticker-content {
+animation : 0.3s scrollToBottom ease-in-out forwards;
+}
+
+.status-ticker.show-message.standard .status-ticker-content {
+animation : 0.3s scrollToTop ease-in-out forwards;
+}
+
+
+.status-ticker .status-ticker-content div {
+  width: 100%;
+  margin: 0 auto 0;
+  display: flex;
+  height: 40px;
+  justify-content: center;  
+  align-items: center;
+  position: relative;
+}
+
+.status-ticker div.network {
+background: var(--color-theme-color2);
+color: var(--color-black)
+}
+
+.status-ticker div.standard {
+background: var(--color-theme-color3);
+color: var(--color-white);
+}
+@keyframes scrollToBottom {
+100% {top : -80px;}
+}
+
+@keyframes scrollToTop {
+100% {top : 0;}
+}
+
+@keyframes scrollToCenter {
+0% {top : 0px}
+100% {top : -40px;}
+}
