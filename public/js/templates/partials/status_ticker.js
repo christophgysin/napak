@@ -4,7 +4,6 @@ import { globals } from '/js/shared/globals.js';
 
 class statusTicker {
   constructor() {
-    console.log(globals.storeObservers);
     let container = dce({el: 'DIV', cssClass: 'current status-ticker'});
     let messageContainer = dce({el: 'DIV', cssClass: 'status-ticker-content'});
     container.appendChild(messageContainer);
@@ -57,21 +56,25 @@ class statusTicker {
     // Listen for network messages
     let handleTicker = function() {
       if( globals.standardMessage.length ) {
-        standardMessageContent.innerHTML = globals.standardMessage[0].message;
+        let tickerMessage = globals.standardMessage[globals.standardMessage.length-1];
+        standardMessageContent.innerHTML = tickerMessage.message;
         container.classList.add('show-message', 'standard');
-        if(globals.standardMessage[0].timeout) {
-          setTimeout(function(){
+
+        if(tickerMessage.timeout) {
+          if(messageContainer.timeout) {
+            clearTimeout(messageContainer.timeout)
+          }
+          messageContainer.timeout = setTimeout(function(){
             animate.watch({
               el: messageContainer,
               execute: () => { 
-                globals.standardMessage.splice(0,1);
+                globals.standardMessage.splice(globals.standardMessage.length-1,1);
                 globals.standardMessage = globals.standardMessage;
                },
               unwatch: true
               });
             container.classList.remove('show-message', 'standard');
-
-          },globals.standardMessage[0].timeout*1000)
+          },tickerMessage.timeout*1000);
         }
 
       }

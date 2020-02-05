@@ -47,7 +47,7 @@ class gradeWheel {
         let ticksByGrade = [];
         for(let i=0, j=ticks.length; i<j;i++) {
           let today = globals.today.split("-");
-          today = new Date(today[0], today[1], today[2]).getTime();
+          today = new Date(today[0], today[1]-1, today[2]).getTime();
           if(ticks[i].date >= today &&
              ticks[i].grade === grade &&
              ticks[i].ascentType === ascentType &&
