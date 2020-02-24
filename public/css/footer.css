@@ -118,9 +118,3 @@ footer > nav a > span img {
 .footer-pullup-menu img {
   margin: 0 10px 0 0;
 }
-
-@supports (padding: max(0)) {
-  footer {
-    padding-bottom: max(0, env(safe-area-inset-bottom));
-  }
-}

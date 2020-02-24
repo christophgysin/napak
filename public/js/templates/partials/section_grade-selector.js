@@ -1,10 +1,8 @@
 import { dce } from '/js/shared/helpers.js';
-import { UUID } from '/js/shared/uuid.js';
 import wheel from '/js/components/wheel.js';
 import picker from '/js/components/picker.js';
 import { globals } from '/js/shared/globals.js';
-import { user } from '/js/shared/user.js';
-import { store } from '/js/shared/store.js';
+import handleTick from '/js/shared/handle_tick.js';
 
 class gradeWheel {
   constructor() {
@@ -16,7 +14,7 @@ class gradeWheel {
       options: [
         { title: 'Redpoint', value: 'redpoint', selected: true, legend: globals.totalAscents.redpoint, val: 'totalAscents.redpoint' },
         { title: 'Flash', value: 'flash', legend: globals.totalAscents.flash, val: 'totalAscents.flash' },
-        { title: 'Onsight', value: 'onsight', legend: globals.totalAscents.onsight, val: 'totalAscents.onsight' }]
+        { title: 'Onsight', value: 'onsight', legend: globals.totalAscents.onsight, val: 'totalAscents.onsight', hide: 'currentClimbingType', hideValue: 'boulder' }]
     });
 
     let container = dce({ el: 'SECTION', cssClass: 'grade bgr-gradient' });
@@ -29,66 +27,6 @@ class gradeWheel {
     let buttonDec = dce({ el: 'A', cssClass: 'btn btn_white', content: 'Remove Tick' });
     let spacer = dce({ el: 'DIV', cssStyle: 'width: 20px; min-width: 20px;' });
     let buttonInc = dce({ el: 'A', cssClass: 'btn type-redpoint', content: 'Tick' });
-
-    let handleTick = (add) => {
-      if (globals.currentAscentGrade < 0) {
-        return;
-      }
-      let grade = globals.currentAscentGrade;
-      let ascentType = globals.currentAscentType;
-      let ticks = user.ticks;
-
-      console.log(user);
-      console.log(ticks)
-
-
-      // Remove tick
-      if (!add) {
-        let ticksByGrade = [];
-        for(let i=0, j=ticks.length; i<j;i++) {
-          let today = globals.today.split("-");
-          today = new Date(today[0], today[1]-1, today[2]).getTime();
-          if(ticks[i].date >= today &&
-             ticks[i].grade === grade &&
-             ticks[i].ascentType === ascentType &&
-             ticks[i].indoorsOutdoors === globals.indoorsOutdoors &&
-             ticks[i].type === globals.currentClimbingType) {
-            ticksByGrade.push(i);
-          }
-        }
-        if(ticksByGrade.length) {
-          ticks.splice(ticksByGrade[ticksByGrade.length-1], 1)
-        }
-      }
-      else {
-        // Add tick
-        ticks.push({
-          type: globals.currentClimbingType,
-          indoorsOutdoors: globals.indoorsOutdoors,
-          grade: grade,
-          ascentType: ascentType,
-          date: new Date().getTime(),
-          uuid: UUID(),
-          location: false,
-          synchronized: false
-        });
-        globals.standardMessage.push({
-          message : 'Gamba!',
-          timeout: 1
-        });  
-        globals.standardMessage = globals.standardMessage;
-      }
-
-      let userFromStorage = store.read({key: 'user'});
-      userFromStorage.ticks = ticks;
-      // update local storage
-      store.write({
-        key: 'user',
-        keydata: userFromStorage
-      });
-
-      globals.ticks = ticks;
-    };
 
     buttonInc.addEventListener('click', () => { handleTick(true); }, false);
     buttonDec.addEventListener('click', () => { handleTick(false); }, false);

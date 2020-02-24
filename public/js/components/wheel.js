@@ -9,15 +9,6 @@ class wheel {
     let selectDialog = dce({el: 'DIV', cssClass: 'select-dialog', attrbs: [['data-enablescroll', 'true']] });
 
     dialViewport.addEventListener('scroll', (y) => {
-      let elemHeight = selectDialog.firstChild.getBoundingClientRect().height;
-      // console.log(elemHeight)
-      // console.log(dialViewport.scrollTop)
-      // 200px is 2x100padding
-      // let test = window.getComputedStyle(selectDialog);
-      // console.log(test.getPropertyValue('padding-top'));
-      // if(Math.round(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length))-1 < 0) {
-      //   dialViewport.scrollTo(0,Math.round(dialViewport.scrollHeight / globals.grades.font.length/2));
-      // }
       let newVal = Math.floor(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length));
       if(newVal !== globals.currentAscentGrade) {
         globals.currentAscentGrade = newVal;

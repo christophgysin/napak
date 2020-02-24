@@ -1,21 +1,22 @@
-.login-page {
-  height: 100vh;
+.login-page,
+.signup-page {
+  height: 100%;
   text-align: center;
   color: var(--color-white);
   background: var(--color-theme-color1);
   position: relative;
 }
 
-.login-page::after {
+.login-page::after,
+.signup-page::after {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   content: '';
-
-  /* background: url('/images/test_bgr.jpg'); */
   pointer-events: none;
+  background: url('/images/bgr_2.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   mix-blend-mode: screen;
@@ -23,12 +24,16 @@
   opacity: 0.1;
 }
 
-.login-page section {
-  top: 25%;
+.login-page section,
+.signup-page section {
   padding: var(--padding-base-wide);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.login-page h1 {
+.login-page H1,
+.signup-page H1 {
   font-size: 4em;
   color: var(--color-white-dim);
   margin: 0;
@@ -36,7 +41,9 @@
 }
 
 .login-page input,
-.login-page button {
+.login-page button,
+.signup-page input,
+.signup-page button {
   border: 0;
   border-bottom: 1px solid var(--color-theme-color2);
   border-radius: 2px 2px 0 0;
@@ -50,16 +57,19 @@
   margin: 0 auto var(--padding-base);
 }
 
-.login-page input {
+.login-page input,
+.signup-page INPUT {
   color: var(--color-theme-color2);
 }
 
-.login-page input::placeholder {
+.login-page input::placeholder,
+.signup-page INPUT::placeholder {
   color: var(--color-theme-color2-alpha);
 }
 
 .login-form button,
-.logout-form button {
+.logout-form button,
+.signup-page BUTTON {
   background: var(--color-theme-color2);
   color: var(--color-white);
   text-transform: uppercase;
@@ -68,4 +78,15 @@
 .login-page .loader {
   margin-left: 10px;
   position: absolute;
+}
+
+
+.login-error:not(:empty),
+.signup-error:not(:empty) {
+  margin: 0 0 var(--padding-base);
+  color: var(--color-redpoint)
+}
+
+.login-title-new {
+  color: var(--color-theme-color2);
 }

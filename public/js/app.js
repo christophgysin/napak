@@ -4,14 +4,15 @@ import viewHistory from '/js/templates/page_history.js';
 import viewStatistics from '/js/templates/page_statistics.js';
 import viewSettings from '/js/templates/page_settings.js';
 import viewGroups from '/js/templates/page_groups.js';
+import viewSignup from '/js/templates/page_signup.js';
 import footer from '/js/templates/partials/footer.js';
 import otc from '/js/templates/partials/section_otc.js';
 import { route } from '/js/shared/route.js';
-import { initAuth } from '/js/shared/auth.js';
+
 import { globals } from '/js/shared/globals.js';
 import { user } from '/js/shared/user.js';
-import { store }  from '/js/shared/store.js';
-import { dce, countAscents, countTotalScore, countTopFive, averageGrade, countAscentsByType, storeObserver }  from '/js/shared/helpers.js';
+import { dce, storeObserver, countAscents, countTotalScore, countTopFive, averageGrade, countAscentsByType }  from '/js/shared/helpers.js';
+
 
 let napak = {
   initialize : () => {
@@ -21,6 +22,7 @@ let napak = {
     globals.routes.settings = viewSettings;
     globals.routes.groups = viewGroups;
     globals.routes.login = viewLogin;
+    globals.routes.signup = viewSignup;
 
     let appContainer = dce({el: 'DIV', cssClass : 'app'});
     let appContentContainer = dce({el: 'DIV', cssClass : 'page-content'});
@@ -58,8 +60,6 @@ let napak = {
       callback: updateAll 
     });
 
-    initAuth();
-
     // init app
     document.body.innerHTML = "";
     appContainer.append(appContentContainer, pageFooter.render(appContainer), otcMenu.render());
@@ -69,20 +69,15 @@ let napak = {
 
     document.body.appendChild(appContainer);
 
-    switch (window.location.pathname) {
-      case '/login':
-        route('login');
-      break;
-
-      default:
-        if (!user.login.isLoggedIn) {
-          window.location.pathname = '/login';
-        } else {
-          route('home');
-        }
-        break;
+    let loginStatus = () => {
+      if(!user.login.isLoggedIn) {route('login');}
+      else {route('home');}
     }
-  },
-};
+    
+    user.storeObservers.push({key: 'login', callback: loginStatus})
+
+    loginStatus();
+  }
+}
 
 napak.initialize();

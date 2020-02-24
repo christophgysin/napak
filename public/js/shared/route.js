@@ -5,7 +5,9 @@ let route = (params) => {
   if(params !== globals.route) {
     // Clear store observers marked with removeOnRouteChange
     storeObserver.clear();
+
     let trgt = new globals.routes[params];
+    globals.route = params;
     let routeTitle = params;
   //  history.pushState( globals.pushHistory, params, params );
     document.querySelector('.page-content').innerHTML = "";

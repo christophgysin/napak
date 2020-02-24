@@ -3,7 +3,7 @@ import { animate } from '/js/shared/animate.js';
 import { globals } from '/js/shared/globals.js';
 
 class statusTicker {
-  constructor() {
+  constructor(params) {
     let container = dce({el: 'DIV', cssClass: 'current status-ticker'});
     let messageContainer = dce({el: 'DIV', cssClass: 'status-ticker-content'});
     container.appendChild(messageContainer);
@@ -16,11 +16,7 @@ class statusTicker {
   
 /* */ 
     let currentClimbingTypeTitle = () => {
-      if (globals.currentClimbingType === 'boulder') return `Bouldering ${globals.indoorsOutdoors}`;
-      if (globals.currentClimbingType === 'sport') return `Climbing sport ${globals.indoorsOutdoors}`;
-      if (globals.currentClimbingType === 'trad') return `Climbing trad ${globals.indoorsOutdoors}`;
-      if (globals.currentClimbingType === 'toprope') return `Top roping ${globals.indoorsOutdoors}`;
-      return globals.indoorsOutdoors;
+      return params[`titlePrefix_${globals.currentClimbingType}`] + ((!params.hideIndoorsOutdoors) ? globals.indoorsOutdoors : '');
     }
 
     let currentTitle = dce({el: 'DIV'});
@@ -59,6 +55,7 @@ class statusTicker {
         let tickerMessage = globals.standardMessage[globals.standardMessage.length-1];
         standardMessageContent.innerHTML = tickerMessage.message;
         container.classList.add('show-message', 'standard');
+        container.classList.remove('from-bottom');
 
         if(tickerMessage.timeout) {
           if(messageContainer.timeout) {
@@ -76,17 +73,30 @@ class statusTicker {
             container.classList.remove('show-message', 'standard');
           },tickerMessage.timeout*1000);
         }
-
       }
-      else if( globals.serverMessage.length ) {
-        serverMessageContent.innerHTML = globals.serverMessage[0].message;
-        container.classList.remove('standard')
-        container.classList.add('show-message', 'network')
+      if( globals.serverMessage.length ) {
+        let tickerMessage = globals.serverMessage[globals.serverMessage.length-1];
+        serverMessageContent.innerHTML = tickerMessage.message;
+        container.classList.add('show-message', 'network');
+        container.classList.remove('standard');
+        if(tickerMessage.finished) {
+          if(messageContainer.timeout) {
+            clearTimeout(messageContainer.timeout)
+          }
+          messageContainer.timeout = setTimeout(function(){
+            animate.watch({
+              el: messageContainer,
+              execute: () => { 
+                globals.serverMessage.splice(globals.serverMessage.length-1,1);
+                globals.serverMessage = globals.serverMessage;
+               },
+              unwatch: true
+              });
+              container.classList.add('from-bottom');
+            container.classList.remove('show-message', 'network');
+          },1000);
+        }
       }
-      else {
-        container.classList.remove('show-message', 'network', 'standard')
-      }
-
     }.bind(this);
     
     storeObserver.add({

@@ -15,14 +15,24 @@ const store = {
   write: function(params){
     localStorage.setObject(params.key, params.keydata);
     // TODO: use user.uid as key instead
-    db.collection('users').doc('pyry').set({
-      [params.key]: params.keydata,
-    });
+    if(localStorage.getItem("user")) {
+      let user = JSON.parse(localStorage.getItem("user")).localId;
+      db.collection('users').doc(user).set({
+        [params.key]: params.keydata,
+      });
+    }
   },
 
   read: function(params){
+    console.log(firebase.app().options.DatabaseUrl)
+    
+    /*
+    if(localStorage.getItem("user")) {
+      let user = JSON.parse(localStorage.getItem("user")).localId;
+      db.collection('users').doc(user).get();
+    }
+    */
     // TODO: return data from DB when caller supports async invocation
-    db.collection('users').doc('pyry').get();
 
     if(localStorage.getObject(params.key)) {
       return localStorage.getObject(params.key);
