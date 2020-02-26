@@ -10,7 +10,7 @@ const handler = {
 
   set: (obj, prop, value) => {
     obj[prop] = value;
-    console.log(`setting property ${prop} : ${obj[prop]}`);
+  //  console.log(`setting property ${prop} : ${obj[prop]}`);
 
     for(let i=0, j = globals.storeObservers.length; i<j; i++) {
       if(globals[globals.storeObservers[i].key] === obj[prop]) {
@@ -85,7 +85,7 @@ let globalObjects = {
   },
 
   currentAscentType : '',
-  currentAscentGrade: 0,
+  currentAscentGrade:6,
   indoorsOutdoors : 'indoors',
   currentClimbingType : 'boulder',
 

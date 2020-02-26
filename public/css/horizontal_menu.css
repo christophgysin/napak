@@ -1,7 +1,7 @@
 .horizontal-menu {
   display: flex;
   font-family: 'Roboto';
-  font-size: 20px;
+  font-size: var(--font-size-bodytext);
   padding-top: 6px;
   white-space: nowrap;
   height: 2.25em;
@@ -94,11 +94,11 @@
 }
 
 .horizontal-menu.full-width li:first-child {
-  text-align: left;
+/*  text-align: left;*/
 }
 
 .horizontal-menu.full-width li:last-child {
-  text-align: right;
+/*  text-align: right;*/
 
   /* margin-right: 15px; */
 }

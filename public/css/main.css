@@ -16,6 +16,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  user-select: none;
 }
 
 html {
@@ -26,8 +27,8 @@ html {
 body {
   margin: 0;
   width: 100vw;
-  height: 100vh;
-  background: #383843;
+  height: 100%;
+  background: var(--color-theme-color1-accent);
   overflow: hidden;
   overscroll-behavior: contain;
   font-family: 'Roboto';
@@ -81,13 +82,13 @@ section {
   /*  padding: var(--padding-base-wide); */
   padding: var(--padding-base);
   position: relative;
-  width: 100vw;
+  width: 100%;
 }
 
 /* SPA styles */
 
 .app {
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   position: fixed;
   top: 0;
@@ -97,21 +98,43 @@ section {
   display: flex;
   flex-direction: column;
   z-index: 2;
+  touch-action: none;
 }
 
 .page-content {
-  height: 100vh;
+  height: 100%;
   color: var(--color-white);
-  background: var(--color-theme-color1-accent);
+  background: var(--color-theme-color1);
   flex: 1;
   transition: filter 300ms ease-in-out;
-  overflow: auto;
+  overflow: hidden;
+  touch-action: none;
+  padding-top: env(safe-area-inset-top, 0);
 }
 
 .page-tick {
   height: 100%;
   display: grid;
   grid-template-rows: 40px auto 1fr;
+  grid-template-areas: 
+    "header"
+   "stats"
+   "tick";
+}
+
+@media (orientation: landscape) {
+  .page-tick {
+    grid-template-rows: 40px 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+      "header header"
+      "stats tick";
+  }
+
+  .grade-selector {
+    margin-top: 0!important;
+    padding: 10px!important;
+  }
 }
 
 .page-settings {
@@ -130,15 +153,19 @@ section {
   background: var(--color-theme-color1);
   padding: var(--padding-base);
   z-index: 2;
+  grid-area: tick;
+
 }
 
 section.grade {
   overflow: hidden;
   padding: 0;
-  width: 100vw;
+  width: 100%;
+  height: 100%;
 }
 
-section.grade::after {
+section.grade::after,
+section.page-history::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -155,6 +182,9 @@ section.grade::after {
   z-index: 1;
   opacity: 0.1;
 }
+section.page-history::after {
+  background: url('/images/bgr_2.jpg');
+}
 
 section.grade:not(.grade-dial-container) *,
 section.grade:not(.navi-shadow) {
@@ -166,7 +196,12 @@ section.page-settings:not(.navi-shadow),
 section.page-statistics:not(.navi-shadow) {
   z-index: 1;
 }
-
+.scroll-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
+}
 .grade-dial-container {
   display: block;
   font-family: 'Space Mono';
@@ -452,16 +487,27 @@ section.page-statistics:not(.navi-shadow) {
 /* Stats */
 
 .progression {
-  background: linear-gradient(
-    to bottom,
-    var(--color-theme-color1) 0%,
-    var(--color-theme-color1-accent) 100%
-  );
   padding-top: 0;
+  grid-area: stats;
+  background: var(--color-theme-color1);
 }
 
 .progression-graph canvas {
   margin: 1em 0;
+}
+@media (orientation: landscape) {
+  .progression {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+  }
+  .graph-pulldown {
+    display: none;
+  }
+  .grade-distribution.hidden {
+    display: block;
+    align-self: end;
+  }
 }
 
 
@@ -579,11 +625,6 @@ section.page-statistics:not(.navi-shadow) {
   margin-top: 10px !important;
 }
 
-@supports (padding: max(0)) {
-  .page-content {
-    padding-top: max(0, env(safe-area-inset-top));
-  }
-}
 .blink {
   text-decoration: blink;
   animation: zoomIn 0.8s infinite ease-in-out;
@@ -598,4 +639,8 @@ section.page-statistics:not(.navi-shadow) {
   border-top-color: transparent;
   animation: spin360 0.8s infinite linear;
   margin: 1em;
+}
+
+.text-link {
+  color: var(--color-theme-color2);
 }

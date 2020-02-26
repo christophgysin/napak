@@ -15,6 +15,25 @@ class picker {
         this.selected = params.options[i];
         globals[params.targetObj] = params.options[i].value;
       }
+      if(params.options[i].hide) {
+        let hideElement = () => {
+          if ( globals[params.options[i].hide] === params.options[i].hideValue ) {
+            option.classList.add('hidden');
+          }
+          else {
+            option.classList.remove('hidden');
+          }
+        }
+
+        storeObserver.add({
+          store: globals,
+          key: params.options[i].hide, 
+          callback: hideElement,
+          removeOnRouteChange: true
+        });
+
+        hideElement();
+      }
       let optionLink = dce({el: 'A'});
       optionLink.value = params.options[i].value;
       let optionLinkText = dce({el: 'SPAN', cssClass: 'menu-title', content: params.options[i].title});

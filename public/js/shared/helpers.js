@@ -273,7 +273,7 @@ let handleScopeTicks = (params) => {
 
   fromNow = new Date(Number(year), Number(month) - 1, Number(day)).getTime();
   let ticks = [];
-  console.log(fromNow)
+
   globals.ticks.forEach((tick) => {
       if(tick.date >= fromNow) {
         if (tick.type === globals.currentClimbingType || params.allTypes) {
@@ -329,8 +329,91 @@ let eivittunain = (obj) => {
   }
 }
 
+const getFireStoreProp = (value) => {
+  const props = {
+    arrayValue: 1,
+    bytesValue: 1,
+    booleanValue: 1,
+    doubleValue: 1,
+    geoPointValue: 1,
+    integerValue: 1,
+    mapValue: 1,
+    nullValue: 1,
+    referenceValue: 1,
+    stringValue: 1,
+    timestampValue: 1,
+  };
+  return Object.keys(value).find(k => props[k] === 1);
+};
+
+let fireStoreParser = (value) => {
+  let newVal = value;
+
+  const prop = getFireStoreProp(newVal);
+  if (prop === 'doubleValue' || prop === 'integerValue') {
+    newVal = Number(newVal[prop]);
+  } else if (prop === 'arrayValue') {
+    newVal = ((newVal[prop] && newVal[prop].values) || []).map(v => fireStoreParser(v));
+  } else if (prop === 'mapValue') {
+    newVal = fireStoreParser((newVal[prop] && newVal[prop].fields) || {});
+  } else if (prop === 'geoPointValue') {
+    newVal = { latitude: 0, longitude: 0, ...newVal[prop] };
+  } else if (prop) {
+    newVal = newVal[prop];
+  } else if (typeof newVal === 'object') {
+    Object.keys(newVal).forEach((k) => { newVal[k] = fireStoreParser(newVal[k]); });
+  }
+  return newVal;
+};
+
+let firebasePayLoad = ( data ) => {
+  return {
+    "fields" : {
+      "user" : {
+        "mapValue" : {
+          "fields": {
+            "ticks": {
+              "arrayValue": {
+                "values": [{
+                  "mapValue": {
+                    "fields": {
+                      "ascentType": {"stringValue": data.ascentType},
+                      "date": {"integerValue": data.date},
+                      "grade": {"integerValue": data.grade},
+                      "indoorsOutdoors": {"stringValue": data.indoorsOutdoors},
+                      "location": {"booleanValue": data.location},
+                      "synchronized": {"booleanValue": data.synchronized},
+                      "type": {"stringValue": data.type},
+                      "uuid": {"stringValue": data.uuid}
+                    }
+                  }
+                }]
+              }
+            }
+          }
+        }
+      }
+    }
+  };
+}
+
+const unmarshal = (data) => Object.entries(data).map(([key, value]) => ({
+  [key]: (
+    value.hasOwnProperty('mapValue') ? unmarshal(value.mapValue.fields) :
+    value.hasOwnProperty('arrayValue') ? value.arrayValue.values.map((item) => unmarshal({ item }).item) :
+    value.hasOwnProperty('stringValue') ? value.stringValue :
+    value.hasOwnProperty('booleanValue') ? value.booleanValue :
+    value.hasOwnProperty('integerValue') ? value.integerValue :
+    value.hasOwnProperty('nullValue') ? value.nullValue :
+    value),
+})).reduce((a, b) => ({ ...a, ...b}));
+
+
+
+
+
 export {
-  storeObserver, 
+  storeObserver,
   dce,
   svg,
   vibrate,
@@ -344,5 +427,8 @@ export {
   countAscentsByGrade,
   handleScopeTicks,
   updateScopeTicks,
-  generateTicks
+  generateTicks,
+  fireStoreParser,
+  firebasePayLoad,
+  unmarshal
 }

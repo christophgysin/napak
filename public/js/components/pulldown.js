@@ -5,7 +5,6 @@ class pulldownMenu {
   constructor(params) {
     this.targetObj = params.targetObj;
     this.legends = [];
-
     let pos = (params.cssClass) ? params.cssClass : '';
     let menuContainer = dce({el: 'DIV', cssClass: `footer-pullup-menu hidden small-legends ${pos}`});
 
@@ -59,21 +58,24 @@ class pulldownMenu {
       store: globals,
       key: 'indoorsOutdoors', 
       callback: updateLegends,
-      id: 'pulldownIndoorsOutdoors'
+//      removeOnRouteChange: true
+//      id: 'pulldownIndoorsOutdoors'
     });
 
     storeObserver.add({
       store: globals,
       key: 'ticks', 
       callback: updateLegends,
-      id: 'pulldowUpdatenTicks'
+//     removeOnRouteChange: true
+//      id: 'pulldowUpdatenTicks'
     });
     
     storeObserver.add({
       store: globals,
       key: 'totalAscentsByType', 
       callback: updateLegends,
-      id: 'pulldownUpdateTotals'
+//      removeOnRouteChange: true
+//      id: 'pulldownUpdateTotals'
     });
 
     this.render = () => {

@@ -6,7 +6,7 @@
   position: absolute;
   top: 0;
   width: 75vw;
-  height: 100vh;
+  height: 100%;
   z-index: 9999;
   display: flex;
   flex-direction: column;
@@ -15,11 +15,13 @@
   font-family: Roboto;
   backdrop-filter: blur(0);
   will-change: transform;
+  padding-top: env(safe-area-inset-top, 0);
 }
 
 .otc .otc-navigation > nav {
   opacity: 1;
   pointer-events: all;
+
 }
 
 .otc-navigation > nav {
@@ -32,7 +34,7 @@
   height: 50px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out; 
 }
 
 .otc-navigation > nav::before,
@@ -153,6 +155,7 @@
   z-index: 997;
   transition: all 300ms ease-in-out;
   pointer-events: none;
+  height: 100%;
 }
 
 body.footer-pulldown .page-content .navi-shadow {
@@ -165,23 +168,6 @@ body.otc .navi-shadow {
   pointer-events: all;
 }
 
-.login-page::after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  content: '';
-  background: url('/images/bgr_2.jpg');
-  pointer-events: none;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  mix-blend-mode: screen;
-  filter: grayscale(1);
-  z-index: 1;
-  opacity: 0.1;
-}
 
 .sidenav-links {
   padding: 0;
@@ -201,31 +187,4 @@ body.otc .navi-shadow {
   width: 100%;
   display: flex;
   flex-direction: column;
-}
-
-@supports(padding: max(0)) {
-  .otc-navigation  {
-    padding-bottom: max(0, env(safe-area-inset-bottom));
-    padding-top: max(0, env(safe-area-inset-top));
-  }
-
-  .otc-navigation>nav {
-    bottom: max(0, env(safe-area-inset-bottom));
-  }
-
-  .otc-navigation::after {
-    display: block;
-    content: '';
-    width: 100%;
-    height: max(0, env(safe-area-inset-bottom));
-    background: var(--color-black);
-    bottom: 0;
-    position: absolute;
-    opacity: 0;
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .otc .otc-navigation::after {
-    opacity: 1;
-  }
 }

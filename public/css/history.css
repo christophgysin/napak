@@ -9,6 +9,8 @@
   margin: 10px 0;
   border-spacing: 0;
   border-collapse: separate;
+  text-transform: capitalize;
+  font-size: var(--font-size-base);
 }
 
 .tick-list table th {
@@ -57,6 +59,7 @@
   border-radius: 20px;
   justify-content: center;
   align-items: center;
+  font-size: var(--font-size-small);
 }
 
 .grade-legend.gray {
@@ -83,7 +86,7 @@
   background: rgb(255, 0, 255);
 }
 .grade-legend.pink {
-  background: rgb(222, 0, 128);
+  background: rgb(255, 0, 128);
 }
 .grade-legend.black {
   background: rgb(32, 32, 32);
@@ -91,4 +94,22 @@
 .grade-legend.white {
   background: rgb(2555, 32255, 255);
   color: #000;
+}
+
+.page-history {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 40px 1fr;
+  grid-template-areas: "header" "History";
+  position: relative;
+}
+
+
+.history-content {
+  padding: 0 var(--padding-base) 0;
+}
+
+.page-history:not(.status-ticker) *,
+.page-history:not(.navi-shadow) {
+  z-index: 1;
 }

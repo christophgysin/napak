@@ -8,7 +8,7 @@ const handler = {
 
   set: (obj, prop, value) => {
     obj[prop] = value;
-    console.log(`setting property ${prop} : ${obj[prop]}`);
+  //  console.log(`setting property ${prop} : ${obj[prop]}`);
 
     for(let i=0, j = user.storeObservers.length; i<j; i++) {
       if(user[user.storeObservers[i].key] === obj[prop]) {
@@ -22,6 +22,7 @@ const handler = {
 let userFromStorage = store.read({key: 'user'});
 /*
   User
+  user.name.id
 */
 let userObject = {
   storeObservers : [],
