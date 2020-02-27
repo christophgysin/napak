@@ -103,13 +103,15 @@ class footer {
     footer.appendChild(footerNav);
 
     let toggleVisibility = () => {
-      if(user.login.isLoggedIn) {
-        footer.classList.remove('hidden');
-      }
-      else {
-        footer.classList.add('hidden');
-      }
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          footer.classList.remove('hidden');
+        } else {
+          footer.classList.add('hidden');
+        }
+      });
     };
+    
     user.storeObservers.push({key: 'login', callback: toggleVisibility});
 
     toggleVisibility();

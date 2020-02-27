@@ -302,115 +302,6 @@ let updateScopeTicks = () => {
   globals.averageGrade = averageGrade(5);
 }
 
-let generateTicks =  () => {
-  localStorage.clear();
-  let discipline = ['boulder']; //, 'sport', 'trad', 'toprope'];
-  let ascentTypes = ['redpoint', 'onsight', 'flash'];
-  let indoors = ['indoors', 'outdoors'];
-
-  let ticks = [];
-  for(let i=0, j=100; i<j;i++){
-      ticks.push({
-          "type": discipline[Math.floor(discipline.length * Math.random())],
-          "indoorsOutdoors": indoors[Math.floor(indoors.length * Math.random())],
-          "grade": Math.round(Math.random()*23),
-          "ascentType": ascentTypes[Math.floor(ascentTypes.length * Math.random())],
-          "date": new Date(2019,
-                                  Math.round(Math.random()*11),
-                                  Math.round(Math.random()*30)).getTime()
-      });
-    }
-  localStorage.setItem('ticks', JSON.stringify(ticks));
-};
-
-let eivittunain = (obj) => {
-  if(globals.storeObservers.findIndex(x => x.id !== obj.id)){
-    globals.storeObservers.push(obj);
-  }
-}
-
-const getFireStoreProp = (value) => {
-  const props = {
-    arrayValue: 1,
-    bytesValue: 1,
-    booleanValue: 1,
-    doubleValue: 1,
-    geoPointValue: 1,
-    integerValue: 1,
-    mapValue: 1,
-    nullValue: 1,
-    referenceValue: 1,
-    stringValue: 1,
-    timestampValue: 1,
-  };
-  return Object.keys(value).find(k => props[k] === 1);
-};
-
-let fireStoreParser = (value) => {
-  let newVal = value;
-
-  const prop = getFireStoreProp(newVal);
-  if (prop === 'doubleValue' || prop === 'integerValue') {
-    newVal = Number(newVal[prop]);
-  } else if (prop === 'arrayValue') {
-    newVal = ((newVal[prop] && newVal[prop].values) || []).map(v => fireStoreParser(v));
-  } else if (prop === 'mapValue') {
-    newVal = fireStoreParser((newVal[prop] && newVal[prop].fields) || {});
-  } else if (prop === 'geoPointValue') {
-    newVal = { latitude: 0, longitude: 0, ...newVal[prop] };
-  } else if (prop) {
-    newVal = newVal[prop];
-  } else if (typeof newVal === 'object') {
-    Object.keys(newVal).forEach((k) => { newVal[k] = fireStoreParser(newVal[k]); });
-  }
-  return newVal;
-};
-
-let firebasePayLoad = ( data ) => {
-  return {
-    "fields" : {
-      "user" : {
-        "mapValue" : {
-          "fields": {
-            "ticks": {
-              "arrayValue": {
-                "values": [{
-                  "mapValue": {
-                    "fields": {
-                      "ascentType": {"stringValue": data.ascentType},
-                      "date": {"integerValue": data.date},
-                      "grade": {"integerValue": data.grade},
-                      "indoorsOutdoors": {"stringValue": data.indoorsOutdoors},
-                      "location": {"booleanValue": data.location},
-                      "synchronized": {"booleanValue": data.synchronized},
-                      "type": {"stringValue": data.type},
-                      "uuid": {"stringValue": data.uuid}
-                    }
-                  }
-                }]
-              }
-            }
-          }
-        }
-      }
-    }
-  };
-}
-
-const unmarshal = (data) => Object.entries(data).map(([key, value]) => ({
-  [key]: (
-    value.hasOwnProperty('mapValue') ? unmarshal(value.mapValue.fields) :
-    value.hasOwnProperty('arrayValue') ? value.arrayValue.values.map((item) => unmarshal({ item }).item) :
-    value.hasOwnProperty('stringValue') ? value.stringValue :
-    value.hasOwnProperty('booleanValue') ? value.booleanValue :
-    value.hasOwnProperty('integerValue') ? value.integerValue :
-    value.hasOwnProperty('nullValue') ? value.nullValue :
-    value),
-})).reduce((a, b) => ({ ...a, ...b}));
-
-
-
-
 
 export {
   storeObserver,
@@ -426,9 +317,5 @@ export {
   countAscentsByType,
   countAscentsByGrade,
   handleScopeTicks,
-  updateScopeTicks,
-  generateTicks,
-  fireStoreParser,
-  firebasePayLoad,
-  unmarshal
+  updateScopeTicks
 }
