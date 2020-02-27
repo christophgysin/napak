@@ -27,11 +27,12 @@ let handleTick = (add) => {
       }
     }
     if (ticksByGrade.length) {
-      ticks.splice(ticksByGrade[ticksByGrade.length - 1], 1)
+      let indx = ticksByGrade.length - 1;
       store.remove({
-        key: 'ticks',
-        keydata: ticks[ticksByGrade[ticksByGrade.length-1]]
-      });  
+          key: 'ticks',
+          keydata: ticks[ticksByGrade[indx]]
+        });
+      ticks.splice(ticksByGrade[indx], 1)
     }
   }
   else {
@@ -43,8 +44,7 @@ let handleTick = (add) => {
       ascentType: ascentType,
       date: new Date().getTime(),
       uuid: UUID(),
-      location: false,
-      synchronized: false
+      location: false
     };
     ticks.push(newTick);
     globals.ticks = ticks;
