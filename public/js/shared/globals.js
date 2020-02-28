@@ -4,14 +4,12 @@ import { store } from '/js/shared/store.js';
 //  Defaults
 const handler = {
   get: (obj, prop) => {
-//    console.log(`getting property ${prop} for ${obj}`);
     return obj[prop];
   },
 
   set: (obj, prop, value) => {
     obj[prop] = value;
-  //  console.log(`setting property ${prop} : ${obj[prop]}`);
-
+    
     for(let i=0, j = globals.storeObservers.length; i<j; i++) {
       if(globals[globals.storeObservers[i].key] === obj[prop]) {
         globals.storeObservers[i].callback();
@@ -39,15 +37,11 @@ types.forEach((type) => {
   }
 });
 
-
-let ticksFromStorage = store.read({key: 'user'}).ticks;
-
 /*
   Globals
 */
 
 let globalObjects = {
-  pushHistory : {},
   routes: {},
   storeObservers : [],
   openMenus: [],
@@ -115,12 +109,15 @@ let globalObjects = {
 
 
   // Ticks
-  ticks: (ticksFromStorage) ? ticksFromStorage : [],
+  ticks:/* (ticksFromStorage) ? ticksFromStorage :*/ [],
   serverMessage :[] ,
   standardMessage: []
 };
 
 
 const globals = new Proxy(globalObjects, handler);
+
+// Expose this for debugging purposes
+window.globals = globals;
 
 export { globals }

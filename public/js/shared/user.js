@@ -8,7 +8,6 @@ const handler = {
 
   set: (obj, prop, value) => {
     obj[prop] = value;
-  //  console.log(`setting property ${prop} : ${obj[prop]}`);
 
     for(let i=0, j = user.storeObservers.length; i<j; i++) {
       if(user[user.storeObservers[i].key] === obj[prop]) {
@@ -19,11 +18,8 @@ const handler = {
   }
 }
 
-let userFromStorage = store.read({key: 'user'});
-/*
-  User
-  user.name.id
-*/
+let userFromStorage = store.read({key: 'user', onlyLS: true});
+
 let userObject = {
   storeObservers : [],
   name : {
@@ -42,5 +38,7 @@ let userObject = {
 
 
 const user = new Proxy(userObject, handler);
+// Expose this for debugging purposes
+window.user = user;
 
 export { user }

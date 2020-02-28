@@ -17,12 +17,8 @@ class pulldownMenu {
       }
 
       let itemTitle = dce({el: 'SPAN', cssClass: 'menu-title', content: item.title});
-
-      /* Legends */
       let legensHolder = dce({el: 'SPAN', cssClass: 'legends-holder'});
-
       let legendTag = dce({el: 'SPAN', cssClass: `legend type-${item.value}`, content: (item.val) ? item.val : ''});
-
 
       legendTag.value = item.val;
       this.legends.push(legendTag);
@@ -53,6 +49,9 @@ class pulldownMenu {
         }
       });
     };
+
+
+/* TODO: Fix these */
 
     storeObserver.add({
       store: globals,

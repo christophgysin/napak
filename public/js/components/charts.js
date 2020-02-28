@@ -55,7 +55,6 @@ class charts {
       let legendsContainer = dce({el: 'UL', cssStyle: 'display: flex; justify-content: space-between'});
       for( let i = 0, j = params.labels.length; i < j ; i ++ ) {
         let tagTitle = dce({el: 'LI', content: params.labels[i], cssStyle: `color : ${params.colors[i]}; position: relative`});
-        // legendsContainer.appendChild(dce({el: 'DIV', content: `${params.labels[i]} : `, cssStyle: `color : ${params.colors[i]}; position: relative` }));
         let legendsTagContainer = dce({el:'SPAN', cssClass: 'legends-holder'});
         let legend = dce({el: 'SPAN', cssClass: `legend type-${params.labels[i].toLowerCase()}`, content: params.data[i]});
         legendsTagContainer.appendChild(legend);

@@ -2,7 +2,6 @@ import viewHome from '/js/templates/page_home.js';
 import viewLogin from '/js/templates/page_login.js';
 import viewHistory from '/js/templates/page_history.js';
 import viewStatistics from '/js/templates/page_statistics.js';
-import viewSettings from '/js/templates/page_settings.js';
 import viewGroups from '/js/templates/page_groups.js';
 import viewSignup from '/js/templates/page_signup.js';
 import footer from '/js/templates/partials/footer.js';
@@ -19,7 +18,6 @@ let napak = {
     globals.routes.home = viewHome;
     globals.routes.history = viewHistory;
     globals.routes.statistics = viewStatistics;
-    globals.routes.settings = viewSettings;
     globals.routes.groups = viewGroups;
     globals.routes.login = viewLogin;
     globals.routes.signup = viewSignup;
@@ -70,8 +68,14 @@ let napak = {
     document.body.appendChild(appContainer);
 
     let loginStatus = () => {
-      if(!user.login.isLoggedIn) {route('login');}
-      else {route('home');}
+
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          route('home');
+        } else {
+          route('login');
+        }
+      });
     }
     
     user.storeObservers.push({key: 'login', callback: loginStatus})

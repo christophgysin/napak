@@ -58,6 +58,12 @@ class viewHistory {
         row.append(/*date,*/ gradeContainer, ascentType, type, indoors);
         el.appendChild(row);
       }
+      if(!ticks.length) {
+        let row = dce({el: 'TR'});
+        let col = dce({el: 'TD', cssClass: 'no-history', content: 'Nothing to see here. Move along'});
+        row.appendChild(col);
+        el.appendChild(row);
+      }
     }
     updateHistory();
 

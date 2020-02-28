@@ -113,3 +113,10 @@
 .page-history:not(.navi-shadow) {
   z-index: 1;
 }
+
+.no-history {
+  text-transform: none;
+  text-align: center;
+  font-family: 'IBM Plex Mono';
+  text-transform: uppercase;
+}

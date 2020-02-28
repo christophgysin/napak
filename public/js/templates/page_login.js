@@ -32,34 +32,26 @@ class viewLogin {
 
 
     let doLogin = () => {
-
-      (async () => {
-        const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebase.app().options.apiKey}`, {
-          method: 'POST',
-          mode: 'cors',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            "email": userName.value, 
-            "password": password.value,
-            "returnSecureToken": true
-          })
-        });
-        const body = await response.json();
-        if(body.error) {
-          loginError.innerHTML = body.error.message.replace(/_/g, " ");
-        }
-        else {
+      firebase.auth().signInWithEmailAndPassword(userName.value, password.value)
+        .then(function(result) {
           user.login.isLoggedIn = true;
-          user.name.userName = body.displayName;
-          user.name.emaio
+          user.name.userName = result.user.displayName;
+          user.name.email = result.user.email;
+          user.name.id = result.user.uid;
           user.login = user.login;
-          store.write({
-            key: 'user',
-            keydata: { ...user.name, ...user.login, ...body}
+        })
+          // result.user.tenantId sho
+        .catch(function(error) {
+        // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          if (errorCode === 'auth/wrong-password') {
+            loginError.innerHTML = "Wrong password";
+          } else {
+            loginError.innerHTML = errorMessage; //body.error.message.replace(/_/g, " ");
+          }
+          console.log(error);
           });
-        }
-      })()
-
     } 
 
     loginForm.addEventListener('submit', (e) => {

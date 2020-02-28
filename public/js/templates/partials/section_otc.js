@@ -28,16 +28,14 @@ class otc {
     loginInfo.append(loginInfoTitle, logoutButton);
 
     logoutButton.addEventListener('click', () => {
-      user.login.isLoggedIn = false;
-      user.login = user.login;
 
-      store.write({
-        key: 'user',
-        keydata: { ...user.name, ...user.login}
-      });
-
-      
-      document.body.classList.remove('otc')
+      firebase.auth().signOut().then(function() {
+        document.body.classList.remove('otc')
+        user.login.isLoggedIn = false;
+        user.login = user.login;
+        }, function(error) {
+        // An error happened.
+      });      
     }, false)
 
     // Listen and update details when login/logout. This is retarded. Fix it at some point

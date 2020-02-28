@@ -37,32 +37,19 @@ class viewSignup {
         return;
       }
 
-      (async () => {
-        const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCftIfYkMqm6PCZvQzP167AxY4KZsFV9KQ', {
-          method: 'POST',
-          mode: 'cors',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            "email": userName.value, 
-            "password": password.value,
-            "returnSecureToken": true
-          })
+      firebase.auth().createUserWithEmailAndPassword(userName.value, password.value).catch(function(error) {
+        var errorMessage = error.message;
+        signupError.innerHTML = error.message;
+      }).then((msg) => {
+        user.name.email = msg.user.email;
+        user.name.userName = '';
+        user.name.id = msg.user.uid;
+
+        store.write({
+          key: 'user',
+          keydata: { ...user.name}
         });
-        const body = await response.json();
-        if(body.error) {
-          signupError.innerHTML = body.error.message.replace(/_/g, " ");
-        }
-        else {
-          user.login.isLoggedIn = true;
-          user.name.userName = body.displayName;
-          user.name.emaio
-          user.login = user.login;
-          store.write({
-            key: 'user',
-            keydata: { ...user.name, ...user.login, ...body}
-          });
-        }
-      })()
+      });
     } 
 
     signupForm.addEventListener('submit', (e) => {
