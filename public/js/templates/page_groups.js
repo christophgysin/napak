@@ -4,7 +4,7 @@ import dropdownMenu from '/js/components/dropdown.js';
 
 class viewGroups {
   constructor() {
-    let container = dce({el: 'DIV', cssClass: 'groups-page'});
+    let container = dce({el: 'DIV', cssClass: 'page-groups'});
     let groupSelectContainer = dce({el: 'SECTION', cssClass: 'group-select'});
 
     let groupTypeSelector = new picker({
@@ -30,7 +30,7 @@ class viewGroups {
 
     // Group view
 
-    let rankingContainer = dce({el: 'SECTION', cssClass: 'ranking'});
+    let rankingContainer = dce({el: 'SECTION', cssClass: 'ranking scroll-container'});
 
     let groupClimbingTypeSelector = new picker({
       cssClass: 'horizontal-menu full-width',

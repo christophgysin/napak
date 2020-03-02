@@ -1,3 +1,10 @@
+.page-groups {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: "header" "History";
+  position: relative;
+}
 .group-select {
   background: rgba(0, 0, 0, 0.1);
 }
