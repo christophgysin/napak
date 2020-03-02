@@ -16,7 +16,7 @@
   bottom: 0;
   content: '';
   pointer-events: none;
-  background: url('/images/bgr_2.jpg');
+  background: url('/images/bgr_outdoors.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   mix-blend-mode: screen;

@@ -79,7 +79,6 @@ a {
 }
 
 section {
-  /*  padding: var(--padding-base-wide); */
   padding: var(--padding-base);
   position: relative;
   width: 100%;
@@ -325,13 +324,6 @@ section.page-statistics:not(.navi-shadow) {
 }
 
 .grade-distribution {
-  /*  position: absolute;
-  z-index: 995;
-  background: var(--color-theme-color1-accent);
-  left: 0;
-  right: 0;
-  padding: var(--padding-base);
-*/
   margin-top: 10px;
   padding-top: 10px;
 }
@@ -392,9 +384,6 @@ section.page-statistics:not(.navi-shadow) {
 
 .bar {
   background: var(--color-theme-color2);
-
-  /*  background: linear-gradient(to bottom, var(--color-redpoint) 0%, var(--color-redpoint) 50%, var(--color-flash) 50%, var(--color-flash) 75%, var(--color-onsight) 75%, var(--color-onsight) 100%); */
-
   width: 3px;
   display: block;
   position: absolute;
@@ -436,34 +425,10 @@ section.page-statistics:not(.navi-shadow) {
   margin-bottom: 10px;
 }
 
-.toggle-view {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  color: var(--color-white);
-  font-family: spapp;
-  font-size: 24px;
-  background: rgba(
-    var(--color-r),
-    var(--color-g),
-    var(--color-b),
-    var(--global-opacity)
-  );
-  z-index: 2;
-}
-
 .tick-buttons-container {
   display: flex;
   justify-content: space-between;
   margin-bottom: var(--padding-base);
-}
-
-#scope-selector > li {
-  margin-right: 20px;
-}
-
-#scope-selector > li:last-child {
-  margin-right: 0;
 }
 
 .important-numbers {
