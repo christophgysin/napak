@@ -9,19 +9,20 @@
 
 .login-page::after,
 .signup-page::after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  background: url('/images/bgr_outdoors.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   bottom: 0;
   content: '';
-  pointer-events: none;
-  background: url('/images/bgr_outdoors.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  mix-blend-mode: screen;
   filter: grayscale(1);
+  left: 0;
+  mix-blend-mode: screen;
   opacity: 0.1;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .login-page section,
@@ -44,17 +45,17 @@
 .login-page button,
 .signup-page input,
 .signup-page button {
+  background: rgba(0, 0, 0, 0.3);
   border: 0;
   border-bottom: 1px solid var(--color-theme-color2);
   border-radius: 2px 2px 0 0;
-  background: rgba(0, 0, 0, 0.3);
   box-shadow: none;
   color: var(--color-white);
   font-family: 'Roboto';
   font-size: 20px;
   padding: var(--padding-base);
-  width: 100%;
   margin: 0 auto var(--padding-base);
+  width: 100%;
 }
 
 .login-page input,

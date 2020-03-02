@@ -18,7 +18,7 @@ class viewSignup {
 
     let newAccount = dce({el: 'h3', cssClass: 'mb', content: 'Create new account'});
     let signupForm = dce({el: 'FORM', attrbs: [['name', 'napak-login']]});
-    let userName = dce({el: 'INPUT', attrbs: [['placeholder', 'email'], ['name', 'email']]});
+    let userEmail = dce({el: 'INPUT', attrbs: [['placeholder', 'email'], ['name', 'email']]});
     let password = dce({el: 'INPUT', attrbs: [['placeholder', 'Password'], ['type', 'password'], ['name', 'pass']]});
     let passwordAgain = dce({el: 'INPUT', attrbs: [['placeholder', 'Password again'], ['type', 'password'], ['name', 'passagain']]});
     let signupError = dce({el: 'DIV', cssClass : 'signup-error'});
@@ -56,9 +56,9 @@ class viewSignup {
       event.preventDefault();
       doSignup();
       return;
-    }, false)
+    }, false);
 
-    signupForm.append(userName, password, passwordAgain, signupError, signupButton);
+    signupForm.append(userEmail, password, passwordAgain, signupError, signupButton);
 
     signupFormContainer.append(logoContainer, newAccount, signupForm, goBack);
 

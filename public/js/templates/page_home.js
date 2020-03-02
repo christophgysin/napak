@@ -3,11 +3,12 @@ import gradeWheel from '/js/templates/partials/section_grade-selector.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
 import { dce } from '/js/shared/helpers.js';
 import { globals } from '/js/shared/globals.js';
+import { user } from '/js/shared/user.js';
  
 class viewHome {
   constructor() {
     const db = firebase.firestore();
-    const user = firebase.auth().currentUser;
+    const dbuser = firebase.auth().currentUser;
     let ticker = new statusTicker({
       titlePrefix_boulder : 'Bouldering ',
       titlePrefix_sport : 'Climbing sport ',
@@ -33,7 +34,7 @@ class viewHome {
     globals.serverMessage.push(newStatusMessage);
     globals.serverMessage = globals.serverMessage;
 
-    db.collection('users').doc(user.uid).get().then( (doc) => {
+    db.collection('users').doc(dbuser.uid).get().then( (doc) => {
       const data = doc.data();
       globals.serverMessage[0].finished = true; 
       globals.serverMessage = globals.serverMessage;
@@ -41,6 +42,10 @@ class viewHome {
         globals.ticks = data.ticks;
       }
     });
+
+    user.name.displayName = (firebase.auth().currentUser && firebase.auth().currentUser.displayName) ? firebase.auth().currentUser.displayName : false;
+    user.name = user.name;
+
 
     this.render = () => {
       return tickPage;

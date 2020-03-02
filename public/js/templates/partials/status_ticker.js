@@ -76,6 +76,7 @@ class statusTicker {
       }
       if( globals.serverMessage.length ) {
         let tickerMessage = globals.serverMessage[globals.serverMessage.length-1];
+
         serverMessageContent.innerHTML = tickerMessage.message;
         container.classList.add('show-message', 'network');
         container.classList.remove('standard');
@@ -92,7 +93,7 @@ class statusTicker {
                },
               unwatch: true
               });
-              container.classList.add('from-bottom');
+            container.classList.add('from-bottom');
             container.classList.remove('show-message', 'network');
           },1000);
         }

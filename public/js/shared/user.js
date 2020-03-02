@@ -1,4 +1,3 @@
-import { globals } from '/js/shared/globals.js';
 import { store }  from '/js/shared/store.js';
 
 const handler = {
@@ -23,17 +22,14 @@ let userFromStorage = store.read({key: 'user', onlyLS: true});
 let userObject = {
   storeObservers : [],
   name : {
-    firstName: (userFromStorage.name) ? userFromStorage.name : false,
-    lastName:  (userFromStorage.lastName) ? userFromStorage.lastName : false,
-    userName:  (userFromStorage.userName) ? userFromStorage.userName : false,
+    displayName:  (userFromStorage.userName) ? userFromStorage.userName : false,
     email:  (userFromStorage.email) ? userFromStorage.email : false,
     id:  (userFromStorage.id) ? userFromStorage.id : false
   },
 
   login : {
     isLoggedIn :  (userFromStorage.isLoggedIn) ? userFromStorage.isLoggedIn : null,
-  },
-  ticks : [...globals.ticks]
+  }
 };
 
 
