@@ -25,8 +25,7 @@
 }
 
 .tick-list table tr.header {
-  background: transparent;
-  margin-bottom: 10px;
+  line-height: 2em;
 }
 
 .tick-list table tr.header td {
@@ -119,4 +118,27 @@
   text-align: center;
   font-family: 'IBM Plex Mono';
   text-transform: uppercase;
+}
+
+.score {
+  font-family: 'IBM Plex Mono'; 
+}
+
+
+.page-history .scroll-container::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: '';
+  background-image: url('/images/bgr_history.jpg');
+  pointer-events: none;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  filter: grayscale(1);
+  z-index: 1;
+  opacity: 0.1;
 }

@@ -1,9 +1,10 @@
+import viewGroups from '/js/templates/page_groups.js';
+import viewHistory from '/js/templates/page_history.js';
 import viewHome from '/js/templates/page_home.js';
 import viewLogin from '/js/templates/page_login.js';
-import viewHistory from '/js/templates/page_history.js';
-import viewStatistics from '/js/templates/page_statistics.js';
-import viewGroups from '/js/templates/page_groups.js';
+import viewProfile from '/js/templates/page_profile.js';
 import viewSignup from '/js/templates/page_signup.js';
+import viewStatistics from '/js/templates/page_statistics.js';
 import footer from '/js/templates/partials/footer.js';
 import otc from '/js/templates/partials/section_otc.js';
 import { route } from '/js/shared/route.js';
@@ -15,12 +16,13 @@ import { dce, storeObserver, countAscents, countTotalScore, countTopFive, averag
 
 let napak = {
   initialize : () => {
-    globals.routes.home = viewHome;
-    globals.routes.history = viewHistory;
-    globals.routes.statistics = viewStatistics;
     globals.routes.groups = viewGroups;
+    globals.routes.history = viewHistory;
+    globals.routes.home = viewHome;
     globals.routes.login = viewLogin;
+    globals.routes.profile = viewProfile;
     globals.routes.signup = viewSignup;
+    globals.routes.statistics = viewStatistics;
 
     let appContainer = dce({el: 'DIV', cssClass : 'app'});
     let appContentContainer = dce({el: 'DIV', cssClass : 'page-content'});
@@ -39,6 +41,10 @@ let napak = {
       globals.totalAscentCount['thirtydays'] = countAscents('thirtydays').total;
       globals.totalAscentCount['year'] = countAscents('year').total;
       globals.totalAscentCount['alltime'] = countAscents('alltime').total;
+
+      // Update background image
+      if(globals.indoorsOutdoors === 'indoors') {document.body.classList.add('indoors');}
+      else {document.body.classList.remove('indoors');}
     };
 
     updateAll();
@@ -68,7 +74,6 @@ let napak = {
     document.body.appendChild(appContainer);
 
     let loginStatus = () => {
-
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           route('home');

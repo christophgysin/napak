@@ -23,11 +23,11 @@ let userFromStorage = store.read({key: 'user', onlyLS: true});
 let userObject = {
   storeObservers : [],
   name : {
-    firstName: (userFromStorage.name) ? userFromStorage.name : null,
-    lastName:  (userFromStorage.lastName) ? userFromStorage.lastName : null,
-    userName:  (userFromStorage.userName) ? userFromStorage.userName : null,
-    email:  (userFromStorage.email) ? userFromStorage.email : null,
-    id:  (userFromStorage.id) ? userFromStorage.id : null
+    firstName: (userFromStorage.name) ? userFromStorage.name : false,
+    lastName:  (userFromStorage.lastName) ? userFromStorage.lastName : false,
+    userName:  (userFromStorage.userName) ? userFromStorage.userName : false,
+    email:  (userFromStorage.email) ? userFromStorage.email : false,
+    id:  (userFromStorage.id) ? userFromStorage.id : false
   },
 
   login : {

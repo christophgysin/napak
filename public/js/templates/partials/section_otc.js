@@ -23,9 +23,24 @@ class otc {
 
     let loginInfo = dce({el: 'DIV', cssClass: 'login-info'});
 
-    let loginInfoTitle = dce({el: 'H3', cssClass: 'mt mb username', content: `Logged in as ${user.name.userName} 😻`});
+    let userName = user.name.userName;
+    let loginInfoTitle = dce({el: 'H3', cssClass: 'mt mb username', content: `Logged in as ${userName} 😻`});
     let logoutButton = dce({el: 'A', cssClass: 'btn login-link', content: 'Logout'});
-    loginInfo.append(loginInfoTitle, logoutButton);
+    loginInfo.appendChild(loginInfoTitle)
+
+    if(!userName) {
+      let updateProfile = dce({el: 'h3', content: 'What kind of user name is that? '});
+      let updateProfileLink = dce({el: 'A', cssClass: 'text-link', content: 'Update your profile'});
+      updateProfileLink.addEventListener('click', ()=>{
+        route('profile');
+      }, false);
+      
+      updateProfile.appendChild(updateProfileLink);
+      loginInfo.appendChild(updateProfile);
+    }
+
+
+    loginInfo.appendChild(logoutButton);
 
     logoutButton.addEventListener('click', () => {
 

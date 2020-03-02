@@ -164,15 +164,14 @@ section.grade {
   height: 100%;
 }
 
-section.grade::after,
-section.page-history::after {
+section.grade::after {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   content: '';
-  background: url('/images/bgr_1.jpg');
+  background-image: url('/images/bgr_outdoors.jpg');
   pointer-events: none;
   background-size: cover;
   background-position: bottom right;
@@ -182,8 +181,9 @@ section.page-history::after {
   z-index: 1;
   opacity: 0.1;
 }
-section.page-history::after {
-  background: url('/images/bgr_2.jpg');
+
+BODY.indoors section.grade::after {
+  background-image: url('/images/bgr_indoors.jpg');
 }
 
 section.grade:not(.grade-dial-container) *,
@@ -201,6 +201,7 @@ section.page-statistics:not(.navi-shadow) {
   height: 100%;
   overflow: hidden;
   overflow-y: scroll;
+  position: relative;
 }
 .grade-dial-container {
   display: block;

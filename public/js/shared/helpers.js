@@ -276,7 +276,7 @@ let handleScopeTicks = (params) => {
 
   globals.ticks.forEach((tick) => {
       if(tick.date >= fromNow) {
-        if (tick.type === globals.currentClimbingType || params.allTypes) {
+        if ( tick.type === globals.currentClimbingType && tick.indoorsOutdoors === globals.indoorsOutdoors ) {
          ticks.push(tick)
       }
     }
@@ -311,6 +311,7 @@ export {
   triggerCustomEvent,
   countTopFive,
   averageGrade,
+  eightaNuScore,
   countTotalScore,
   countAscents,
   countAscentsByDifficulty,

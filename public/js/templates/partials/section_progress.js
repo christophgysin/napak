@@ -8,16 +8,15 @@ class sectionProgress {
       cssClass : 'horizontal-menu full-width small-legends',
       options : [
         {title: `Today`, value: 'today', selected: true, legend: globals.totalAscentCount['today'], val: 'totalAscentCount.today'},
-        {title: `30 days`, value:'thirtydays',  legend: globals.totalAscentCount['thirtydays'], val: 'totalAscentCount.thirtydays'},
-        {title: `Year`, value:'year',  legend: globals.totalAscentCount['year'], val: 'totalAscentCount.year'},
-        {title: `All time`, value:'alltime',    legend: globals.totalAscentCount['alltime'], val: 'totalAscentCount.alltime'}],
+        {title: `30 days`, value:'thirtydays', legend: globals.totalAscentCount['thirtydays'], val: 'totalAscentCount.thirtydays'},
+        {title: `Year`, value:'year', legend: globals.totalAscentCount['year'], val: 'totalAscentCount.year'},
+        {title: `All time`, value:'alltime', legend: globals.totalAscentCount['alltime'], val: 'totalAscentCount.alltime'}],
       targetObj : 'scope'
     });
 
     let container = dce({el: 'SECTION', cssClass: 'progression'});
     container.appendChild(periodPicker.render());
 
-    let statisticsContainer = dce({el: 'DIV'});
     let pointsContainer = dce({el: 'DIV', cssClass: 'important-numbers'});
 
     // Points

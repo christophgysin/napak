@@ -1,6 +1,6 @@
 import { globals } from '/js/shared/globals.js';
 import { handleDate } from '/js/shared/date.js';
-import { dce, storeObserver, handleScopeTicks} from '/js/shared/helpers.js';
+import { dce, storeObserver, handleScopeTicks, eightaNuScore } from '/js/shared/helpers.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
 
 class viewHistory {
@@ -26,7 +26,6 @@ class viewHistory {
       el.innerHTML = "";
       let ticks = handleScopeTicks({scope: 'alltime'});
 
-
       ticks.sort(function(a, b){
         var keyA = a.date,
             keyB = b.date;
@@ -41,7 +40,7 @@ class viewHistory {
         let tickDate = handleDate({dateString: ticks[i].date});
         if(tickDate !== currentDate) {
           let headerRow = dce({el: 'TR', cssClass: 'header'});
-          let headerTitle = dce({el: 'TH', content: handleDate({dateString : tickDate, dateFormat : 'yyyy-mm-dd'}), attrbs: [['colspan', 4]]});
+          let headerTitle = dce({el: 'TH', content: handleDate({dateString : tickDate, dateFormat : 'yyyy-mm-dd'}), attrbs: [['colspan', 5]]});
           headerRow.appendChild(headerTitle);
           el.appendChild(headerRow);
           currentDate = tickDate
@@ -55,7 +54,8 @@ class viewHistory {
         let grade = dce({el: 'SPAN', cssClass: `grade-legend ${globals.difficulty[ticks[i].grade]}`, content: globals.grades.font[ticks[i].grade]});
         gradeContainer.appendChild(grade);
         let ascentType = dce({el: 'TD', content: ticks[i].ascentType});
-        row.append(/*date,*/ gradeContainer, ascentType, type, indoors);
+        let ascentPoints = dce({el: 'TD', cssClass: 'score', content: eightaNuScore(ticks[i])});
+        row.append(/*date,*/ gradeContainer, ascentType, type, indoors, ascentPoints);
         el.appendChild(row);
       }
       if(!ticks.length) {
@@ -77,6 +77,13 @@ class viewHistory {
     storeObserver.add({
       store: globals,
       key: 'currentClimbingType', 
+      callback: updateHistory,
+      removeOnRouteChange: true
+    });
+
+    storeObserver.add({
+      store: globals,
+      key: 'indoorsOutdoors', 
       callback: updateHistory,
       removeOnRouteChange: true
     });

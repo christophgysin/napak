@@ -25,7 +25,6 @@ const handler = {
 */
 
 let containerObj = {};
-
 let today = handleDate({dateString: new Date().getTime()});
 let types = ['boulder', 'sport', 'trad', 'toprope'];
 
@@ -59,10 +58,10 @@ let globalObjects = {
     4 : 'green',
     5 : 'orange',
     6 : 'orange',
-    7 : 'red',
-    8 : 'red',
-    9 : 'blue',
-    10 : 'blue',
+    7 : 'blue',
+    8 : 'blue',
+    9 : 'red',
+    10 : 'red',
     11 : 'purple',
     12 : 'purple',
     13 : 'pink',
@@ -109,7 +108,7 @@ let globalObjects = {
 
 
   // Ticks
-  ticks:/* (ticksFromStorage) ? ticksFromStorage :*/ [],
+  ticks: [],
   serverMessage :[] ,
   standardMessage: []
 };
