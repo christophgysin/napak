@@ -69,6 +69,10 @@ let napak = {
     appContainer.append(appContentContainer, pageFooter.render(appContainer), otcMenu.render());
 
     let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
+
+    naviShadow.addEventListener('click', () => {
+      document.body.classList.remove('otc');
+    }, false);
     appContainer.append(naviShadow);
 
     document.body.appendChild(appContainer);

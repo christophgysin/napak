@@ -6,11 +6,6 @@ import { route } from '/js/shared/route.js';
 class otc {
   constructor() {
     let container = dce({el: 'DIV', cssClass: 'otc-navigation'});
-    let navContainer = dce({el: 'NAV'});
-
-    navContainer.addEventListener('click', () => {
-        document.body.classList.toggle('otc');
-    }, false);
 
     let otcLinksContainer = dce({el: 'DIV', cssClass: 'otc-links-container'});
 
@@ -111,7 +106,7 @@ class otc {
 
     otcLinksContainer.append(logoContainer, loginInfo, settingsContainer,sideNavLinks);
 
-    container.append(otcLinksContainer, navContainer);
+    container.append(otcLinksContainer);
 
     this.render = () => {
       return container

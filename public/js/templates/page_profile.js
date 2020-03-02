@@ -1,6 +1,6 @@
 import { dce } from '/js/shared/helpers.js';
 import { user } from '/js/shared/user.js';
-import { store } from '/js/shared/store.js';
+import { route } from '../shared/route.js';
 
 class viewProfile {
   constructor() {
@@ -22,11 +22,21 @@ class viewProfile {
     let userName = dce({el: 'INPUT', attrbs: [['placeholder', 'user name'], ['name', 'username'], ['value', firebase.auth().currentUser.displayName]]});
     let updateProfileButton = dce({el: 'BUTTON', cssClass: '', content: 'Update'});
 
+    let errorMessage = dce({el: 'DIV', cssClass : 'error'});
+    let successMessage = dce({el: 'DIV', cssClass : 'succerss', content: 'Profile updated. '});
+    let successMessageLink = dce({el: 'A', cssClass : 'text-link', content: 'Back to the wall'});
+    successMessageLink.addEventListener('click', ()=>{
+      route('home');
+    }, false);
+
+    successMessage.appendChild(successMessageLink);
+
     userProfileForm.append(userNameTitle, userName, updateProfileButton);
 
     loginFormContainer.append(logoContainer, pageTitle, userProfileForm);
 
     container.append(loginFormContainer);
+    container.appendChild(successMessage);
 
 
     let updateProfile = () => {
@@ -34,12 +44,13 @@ class viewProfile {
 
       dbUser.updateProfile({
         displayName: userName.value
-      }).then(function() {
+      }).then(function(msg) {
         user.name.displayName = userName.value; 
         user.name = user.name; // touch user login to update OTC element
-      alert('user name updated')
+        container.appendChild(successMessage);
       }).catch(function(error) {
-        alert('fail')
+        errorMessage.innerHMTL = error;
+        container.appendChild(errorMessage);
       });
       
     } 
