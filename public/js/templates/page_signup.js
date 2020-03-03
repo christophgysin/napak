@@ -37,8 +37,7 @@ class viewSignup {
         return;
       }
 
-      firebase.auth().createUserWithEmailAndPassword(userName.value, password.value).catch(function(error) {
-        var errorMessage = error.message;
+      firebase.auth().createUserWithEmailAndPassword(userEmail.value, password.value).catch(function(error) {
         signupError.innerHTML = error.message;
       }).then((msg) => {
         user.name.email = msg.user.email;
