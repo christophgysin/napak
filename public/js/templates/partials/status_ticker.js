@@ -10,7 +10,7 @@ class statusTicker {
 
 
     let standardMessage = dce({el: 'DIV', cssClass: 'standard'});
-    let standardMessageContent = dce({el: 'H3', content: 'Venga!'});
+    let standardMessageContent = dce({el: 'H3', content: ''});
     standardMessage.appendChild(standardMessageContent);
     messageContainer.appendChild(standardMessage);
   
