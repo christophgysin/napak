@@ -57,6 +57,17 @@ class viewHistory {
         let ascentPoints = dce({el: 'TD', cssClass: 'score', content: eightaNuScore(ticks[i])});
         row.append(/*date,*/ gradeContainer, ascentType, type, indoors, ascentPoints);
         el.appendChild(row);
+
+        let tickDetailsContainerRow = dce({el: 'TR', cssClass: 'hidden'});
+        let tickDetailsContainerCell = dce({el: 'TD', attrbs: [['colspan', 5]]});
+        let tickDetails = dce({el: 'DIV', cssClass: '', content : 'Edit actions for tick here...'});
+
+        tickDetailsContainerCell.appendChild(tickDetails);
+        tickDetailsContainerRow.appendChild(tickDetailsContainerCell);
+        el.appendChild(tickDetailsContainerRow);
+
+        row.addEventListener('click', ()=>{tickDetailsContainerRow.classList.toggle('hidden')}, false);
+
       }
       if(!ticks.length) {
         let row = dce({el: 'TR'});
