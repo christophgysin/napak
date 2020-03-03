@@ -50,7 +50,7 @@ let handleTick = (add) => {
     globals.ticks = ticks;
 
 
-    if ((Number(globals.totalAscentCount['today']) + 1) % 5 === 0) {
+    if ((Number(globals.totalAscentCount['today'])) % 5 === 0) {
       let cheer = ["Gamba!", "Venga!", "Allez 💪", "Joo joo!", "Kom igen!", "🔥", "Come on!"];
       globals.standardMessage.unshift({
         message: cheer[~~(Math.random() * cheer.length)],

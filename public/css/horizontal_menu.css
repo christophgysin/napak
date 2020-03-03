@@ -93,16 +93,6 @@
   text-align: center;
 }
 
-.horizontal-menu.full-width li:first-child {
-/*  text-align: left;*/
-}
-
-.horizontal-menu.full-width li:last-child {
-/*  text-align: right;*/
-
-  /* margin-right: 15px; */
-}
-
 .horizontal-menu.centerize {
   margin: 0 auto 0;
   justify-content: space-around;

@@ -9,6 +9,7 @@
 @import './legends.css';
 @import './login.css';
 @import './otc.css';
+@import './profile.css';
 @import './variables.css';
 @import './status_ticker.css';
 
@@ -79,7 +80,6 @@ a {
 }
 
 section {
-  /*  padding: var(--padding-base-wide); */
   padding: var(--padding-base);
   position: relative;
   width: 100%;
@@ -164,15 +164,14 @@ section.grade {
   height: 100%;
 }
 
-section.grade::after,
-section.page-history::after {
+section.grade::after {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   content: '';
-  background: url('/images/bgr_1.jpg');
+  background-image: url('/images/bgr_outdoors.jpg');
   pointer-events: none;
   background-size: cover;
   background-position: bottom right;
@@ -182,8 +181,9 @@ section.page-history::after {
   z-index: 1;
   opacity: 0.1;
 }
-section.page-history::after {
-  background: url('/images/bgr_2.jpg');
+
+BODY.indoors section.grade::after {
+  background-image: url('/images/bgr_indoors.jpg');
 }
 
 section.grade:not(.grade-dial-container) *,
@@ -201,6 +201,7 @@ section.page-statistics:not(.navi-shadow) {
   height: 100%;
   overflow: hidden;
   overflow-y: scroll;
+  position: relative;
 }
 .grade-dial-container {
   display: block;
@@ -324,13 +325,6 @@ section.page-statistics:not(.navi-shadow) {
 }
 
 .grade-distribution {
-  /*  position: absolute;
-  z-index: 995;
-  background: var(--color-theme-color1-accent);
-  left: 0;
-  right: 0;
-  padding: var(--padding-base);
-*/
   margin-top: 10px;
   padding-top: 10px;
 }
@@ -391,9 +385,6 @@ section.page-statistics:not(.navi-shadow) {
 
 .bar {
   background: var(--color-theme-color2);
-
-  /*  background: linear-gradient(to bottom, var(--color-redpoint) 0%, var(--color-redpoint) 50%, var(--color-flash) 50%, var(--color-flash) 75%, var(--color-onsight) 75%, var(--color-onsight) 100%); */
-
   width: 3px;
   display: block;
   position: absolute;
@@ -435,34 +426,10 @@ section.page-statistics:not(.navi-shadow) {
   margin-bottom: 10px;
 }
 
-.toggle-view {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  color: var(--color-white);
-  font-family: spapp;
-  font-size: 24px;
-  background: rgba(
-    var(--color-r),
-    var(--color-g),
-    var(--color-b),
-    var(--global-opacity)
-  );
-  z-index: 2;
-}
-
 .tick-buttons-container {
   display: flex;
   justify-content: space-between;
   margin-bottom: var(--padding-base);
-}
-
-#scope-selector > li {
-  margin-right: 20px;
-}
-
-#scope-selector > li:last-child {
-  margin-right: 0;
 }
 
 .important-numbers {

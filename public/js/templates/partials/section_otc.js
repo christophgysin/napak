@@ -2,16 +2,10 @@ import { dce } from '/js/shared/helpers.js';
 import toggleSwitch from '/js/components/toggleswitch.js';
 import { user } from '/js/shared/user.js';
 import { route } from '/js/shared/route.js';
-import { store } from '/js/shared/store.js';
 
 class otc {
   constructor() {
     let container = dce({el: 'DIV', cssClass: 'otc-navigation'});
-    let navContainer = dce({el: 'NAV'});
-
-    navContainer.addEventListener('click', () => {
-        document.body.classList.toggle('otc');
-    }, false);
 
     let otcLinksContainer = dce({el: 'DIV', cssClass: 'otc-links-container'});
 
@@ -23,12 +17,24 @@ class otc {
 
     let loginInfo = dce({el: 'DIV', cssClass: 'login-info'});
 
-    let loginInfoTitle = dce({el: 'H3', cssClass: 'mt mb username', content: `Logged in as ${user.name.userName} 😻`});
+    let userName = (firebase.auth().currentUser && firebase.auth().currentUser.displayName) ? firebase.auth().currentUser.displayName : false;
+    let loginInfoTitle = dce({el: 'H3', cssClass: 'mt mb username', content: `Logged in as ${userName} 😻`});
     let logoutButton = dce({el: 'A', cssClass: 'btn login-link', content: 'Logout'});
-    loginInfo.append(loginInfoTitle, logoutButton);
+    loginInfo.appendChild(loginInfoTitle)
+
+    let updateProfile = dce({el: 'h3', cssClass: 'hidden', content: 'What kind of user name is that? '});
+    let updateProfileLink = dce({el: 'A', cssClass: 'text-link', content: 'Update your profile'});
+    updateProfileLink.addEventListener('click', ()=>{
+      route('profile');
+    }, false);
+
+    if(!userName) {updateProfile.classList.remove('hidden'); }
+    updateProfile.appendChild(updateProfileLink);
+    loginInfo.appendChild(updateProfile);
+
+    loginInfo.appendChild(logoutButton);
 
     logoutButton.addEventListener('click', () => {
-
       firebase.auth().signOut().then(function() {
         document.body.classList.remove('otc')
         user.login.isLoggedIn = false;
@@ -40,9 +46,17 @@ class otc {
 
     // Listen and update details when login/logout. This is retarded. Fix it at some point
     let loginStatus = () => {
-      loginInfo.querySelector('H3.username').innerHTML = `Logged in as ${user.name.userName} 😻`;
+      let userName = (firebase.auth().currentUser && firebase.auth().currentUser.displayName) ? firebase.auth().currentUser.displayName : false;
+      loginInfo.querySelector('H3.username').innerHTML = `Logged in as ${userName} 😻`;
+      if(!userName) {
+        updateProfile.classList.remove('hidden');
+      }
+      else {
+        updateProfile.classList.add('hidden');
+      }
     }
     user.storeObservers.push({key: 'login', callback: loginStatus});
+    user.storeObservers.push({key: 'name', callback: loginStatus});
 
     let settingsContainer = dce({el: 'DIV', cssClass: 'settings'});
 
@@ -69,8 +83,14 @@ class otc {
 
     let sideNavLinks = dce({el: 'SECTION', cssClass: 'sidenav-links'});
 
+    let btnProfile = dce({el: 'A', content: 'Profile' })
     let btnGroups = dce({el: 'A', content: 'Groups' })
     let btnStatistics = dce({el: 'A', content: 'Statistics' })
+
+    btnProfile.addEventListener('click', () => {
+      route('profile');
+      document.body.classList.remove('otc')
+    }, false);
 
     btnGroups.addEventListener('click', () => {
       route('groups');
@@ -82,11 +102,11 @@ class otc {
       document.body.classList.remove('otc')
     }, false);
 
-    sideNavLinks.append(btnGroups, btnStatistics);
+    sideNavLinks.append(btnProfile, btnGroups, btnStatistics);
 
     otcLinksContainer.append(logoContainer, loginInfo, settingsContainer,sideNavLinks);
 
-    container.append(otcLinksContainer, navContainer);
+    container.append(otcLinksContainer);
 
     this.render = () => {
       return container

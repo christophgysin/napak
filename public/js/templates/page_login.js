@@ -18,7 +18,7 @@ class viewLogin {
 
     let loginTitle = dce({el: 'h3', cssClass: 'mb', content: 'Login'});
     let loginForm = dce({el: 'FORM', attrbs: [['name', 'napak-login']]});
-    let userName = dce({el: 'INPUT', attrbs: [['placeholder', 'email'], ['name', 'email']]});
+    let userEmail = dce({el: 'INPUT', attrbs: [['placeholder', 'email'], ['name', 'email']]});
     let password = dce({el: 'INPUT', attrbs: [['placeholder', 'Password'], ['type', 'password'], ['name', 'pass']]});
     let loginError = dce({el: 'DIV', cssClass : 'login-error'});
     let loginButton = dce({el: 'BUTTON', cssClass: '', content: 'Login'});
@@ -32,10 +32,9 @@ class viewLogin {
 
 
     let doLogin = () => {
-      firebase.auth().signInWithEmailAndPassword(userName.value, password.value)
+      firebase.auth().signInWithEmailAndPassword(userEmail.value, password.value)
         .then(function(result) {
           user.login.isLoggedIn = true;
-          user.name.userName = result.user.displayName;
           user.name.email = result.user.email;
           user.name.id = result.user.uid;
           user.login = user.login;
@@ -61,7 +60,7 @@ class viewLogin {
     }, false)
 
 
-    loginForm.append(userName, password, loginError, loginButton)
+    loginForm.append(userEmail, password, loginError, loginButton)
     loginFormContainer.append(logoContainer, loginTitle, loginForm, noAccount);
 
     container.append(loginFormContainer);
