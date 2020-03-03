@@ -41,7 +41,6 @@ class viewSignup {
         signupError.innerHTML = error.message;
       }).then((msg) => {
         user.name.email = msg.user.email;
-        user.name.userName = '';
         user.name.id = msg.user.uid;
 
         store.write({
