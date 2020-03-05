@@ -121,7 +121,7 @@ let countTopFive = (scp) => {
 
 // Count average grade
 let averageGrade = (amount, scp) => {
-  let ticks = handleScopeTicks({scope: (scp) ? globals[scp] : globals.scope});
+  let ticks = handleScopeTicks({scope: (scp) ? scp : globals.scope});
   let maxGrades = [];
   ticks.forEach(tick => {maxGrades.push(tick.grade)});
   if(maxGrades.length < 1) return 'N/A';
@@ -135,7 +135,7 @@ let averageGrade = (amount, scp) => {
 
 // Total score
 let countTotalScore = (scp) => {
-  let ticks = handleScopeTicks({scope: (scp) ? globals[scp] : globals.scope});
+  let ticks = handleScopeTicks({scope: (scp) ? scp : globals.scope});
   let score = [0,0,0,0,0];
 
   ticks.forEach((tick) => {

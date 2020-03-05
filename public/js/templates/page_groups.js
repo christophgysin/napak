@@ -57,7 +57,7 @@ class viewGroups {
       let entryPointsContainer = dce({el: 'SPAN', content: score});
       let entryPointsDirection = dce({el: 'SPAN', cssClass : 'dir', content: ['↓', '↑', '-'][~~(3 * Math.random())]});
       entryPointsContainer.appendChild(entryPointsDirection);
-      let entryAvgGrade = dce({el: 'SPAN', content: globals.averageGrade});
+      let entryAvgGrade = dce({el: 'SPAN', content: avgGrade});
 
       groupEntry.append(entryPos, entryName, entryPointsContainer, entryAvgGrade);
       groupStanding.append(groupEntry, groupEntry);
