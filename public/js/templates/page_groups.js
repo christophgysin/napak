@@ -1,4 +1,4 @@
-import { dce } from '/js/shared/helpers.js';
+import { dce, countTopFive, averageGrade } from '/js/shared/helpers.js';
 import picker from '/js/components/picker.js';
 import dropdownMenu from '/js/components/dropdown.js';
 
@@ -46,11 +46,15 @@ class viewGroups {
 
     let groupStanding = dce({el: 'UL', cssClass: 'group-toplist'});
 
-    for(let i = 0, j = 10; i < j; i++) {
+    // get all users in group.... somehow?
+//    for(let i = 0, j = 10; i < j; i++) {
+    for(let i = 0, j = 1; i < j; i++) {
+      let score = countTopFive('thirtydays');
+      let avgGrade = averageGrade(5, 'thirtydays');
       let groupEntry = dce({el: 'LI', cssClass: 'entry-container'});
       let entryPos = dce({el: 'SPAN', content: `${i+1}.`});
       let entryName = dce({el: 'SPAN', content: firebase.auth().currentUser.displayName});
-      let entryPointsContainer = dce({el: 'SPAN', content: globals.totalScore});
+      let entryPointsContainer = dce({el: 'SPAN', content: score});
       let entryPointsDirection = dce({el: 'SPAN', cssClass : 'dir', content: ['↓', '↑', '-'][~~(3 * Math.random())]});
       entryPointsContainer.appendChild(entryPointsDirection);
       let entryAvgGrade = dce({el: 'SPAN', content: globals.averageGrade});

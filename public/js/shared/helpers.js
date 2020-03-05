@@ -115,13 +115,13 @@ let triggerCustomEvent = (params) => {
 }
 
 // Count top 5 score
-let countTopFive = () => {
-  return countTotalScore().reduce((a, b) => Number(a) + Number(b), 0);
+let countTopFive = (scp) => {
+  return countTotalScore(scp).reduce((a, b) => Number(a) + Number(b), 0);
 }
 
 // Count average grade
-let averageGrade = (amount) => {
-  let ticks = handleScopeTicks({scope: globals.scope});
+let averageGrade = (amount, scp) => {
+  let ticks = handleScopeTicks({scope: (scp) ? globals[scp] : globals.scope});
   let maxGrades = [];
   ticks.forEach(tick => {maxGrades.push(tick.grade)});
   if(maxGrades.length < 1) return 'N/A';
@@ -134,8 +134,8 @@ let averageGrade = (amount) => {
 
 
 // Total score
-let countTotalScore = () => {
-  let ticks = handleScopeTicks({scope: globals.scope});
+let countTotalScore = (scp) => {
+  let ticks = handleScopeTicks({scope: (scp) ? globals[scp] : globals.scope});
   let score = [0,0,0,0,0];
 
   ticks.forEach((tick) => {

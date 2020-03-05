@@ -12,9 +12,8 @@
   color: inherit;
   font-family: 'IBM Plex Mono';
   font-size: 12px;
-  font-weight: 300;
   text-transform: uppercase;
-  font-weight: 100;
+  font-weight: 300;
   border-bottom: 1px solid var(--color-white-dim);
   text-indent: 5px;
 }
