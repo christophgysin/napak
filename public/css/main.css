@@ -528,6 +528,7 @@ section.page-statistics:not(.navi-shadow) {
   height: 19px;
   border-radius: 19px;
   display: block;
+  transition: all 60ms ease-in-out;
 }
 
 .on-off-switch.switched-off::after {

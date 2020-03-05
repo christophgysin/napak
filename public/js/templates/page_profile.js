@@ -25,7 +25,7 @@ class viewProfile {
     let errorMessage = dce({el: 'DIV', cssClass : 'error'});
     let successMessage = dce({el: 'DIV', cssClass : 'succerss', content: 'Profile updated. '});
     let successMessageLink = dce({el: 'A', cssClass : 'text-link', content: 'Back to the wall'});
-    successMessageLink.addEventListener('click', ()=>{
+    successMessageLink.addEventListener('click', () => {
       route('home');
     }, false);
 
@@ -36,8 +36,6 @@ class viewProfile {
     loginFormContainer.append(logoContainer, pageTitle, userProfileForm);
 
     container.append(loginFormContainer);
-    container.appendChild(successMessage);
-
 
     let updateProfile = () => {
       let dbUser = firebase.auth().currentUser;

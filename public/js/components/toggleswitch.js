@@ -11,6 +11,7 @@ class toggleSwitch {
     let switchEl = dce({el: 'DIV', cssClass: 'on-off-switch'});
 
     let switchStatus = params.options[0].selected ? false : true;
+    globals[params.targetObj] = ( switchStatus ) ? params.options[1].value : params.options[0].value;
     if(switchStatus) {
         switchEl.classList.add('switched-off')
     };

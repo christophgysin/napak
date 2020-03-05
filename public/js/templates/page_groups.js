@@ -12,8 +12,8 @@ class viewGroups {
       id: 'ascent-type-selector',
       targetObj: 'groupType',
       options: [
-        { title: 'Your groups', value: 'userGroups', selected: true, val: 'totalAscents.redpoint' },
-        { title: 'Public groups', value: 'publicGroups', val: 'totalAscents.flash' }]
+        { title: 'Your groups', value: 'userGroups', selected: true },
+        { title: 'Public groups', value: 'publicGroups' }]
     });
 
     let groupSelect = new dropdownMenu({

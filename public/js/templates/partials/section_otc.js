@@ -65,17 +65,17 @@ class otc {
       cssClass  : 'horizontal-menu full-width',
       targetObj : 'vibrate',
       options   : [
-        {title: 'On', value:'on'},
-        {title: 'Off', value:'off'}]
+        {title: 'On', value: true, selected: true},
+        {title: 'Off', value: false}]
     });
 
     let locationTitle = dce({el: 'H3', content: 'LOCATION TRACKING'});
     let locationOnOff = new toggleSwitch({
       cssClass  : 'horizontal-menu full-width',
-      targetObj : 'vibrate',
+      targetObj : 'location',
       options   : [
-        {title: 'On', value:'on'},
-        {title: 'Off', value:'off'}]
+        {title: 'On', value: true},
+        {title: 'Off', value: false, selected: true}]
     });
     settingsContainer.append(vibrateTitle, vibrateOnOff.render(), locationTitle, locationOnOff.render())
 
