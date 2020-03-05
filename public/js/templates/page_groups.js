@@ -49,11 +49,11 @@ class viewGroups {
     for(let i = 0, j = 10; i < j; i++) {
       let groupEntry = dce({el: 'LI', cssClass: 'entry-container'});
       let entryPos = dce({el: 'SPAN', content: `${i+1}.`});
-      let entryName = dce({el: 'SPAN', content: 'Pyry'});
-      let entryPointsContainer = dce({el: 'SPAN', content: 7500});
+      let entryName = dce({el: 'SPAN', content: firebase.auth().currentUser.displayName});
+      let entryPointsContainer = dce({el: 'SPAN', content: globals.totalScore});
       let entryPointsDirection = dce({el: 'SPAN', cssClass : 'dir', content: ['↓', '↑', '-'][~~(3 * Math.random())]});
       entryPointsContainer.appendChild(entryPointsDirection);
-      let entryAvgGrade = dce({el: 'SPAN', content: '7A'});
+      let entryAvgGrade = dce({el: 'SPAN', content: globals.averageGrade});
 
       groupEntry.append(entryPos, entryName, entryPointsContainer, entryAvgGrade);
       groupStanding.append(groupEntry, groupEntry);

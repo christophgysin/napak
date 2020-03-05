@@ -82,6 +82,9 @@
 
 .history-content {
   padding: 0 var(--padding-base) 0;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
 .page-history:not(.status-ticker) *,
@@ -102,7 +105,7 @@
 }
 
 
-.page-history .scroll-container::after {
+.page-history .history-content::after {
   position: absolute;
   top: 0;
   left: 0;

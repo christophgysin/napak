@@ -16,8 +16,8 @@ class viewHistory {
     });
 
 
-    let scrollContainer = dce({el: 'DIV', cssClass : 'scroll-container'});
     let historyContent = dce({el: 'DIV', cssClass: 'history-content'});
+    let scrollContainer = dce({el: 'DIV', cssClass : 'scroll-container'});
 
     let ticksContainer = dce({el: 'DIV', cssClass: 'today tick-list'});
     let el = dce({el: 'TABLE'});
@@ -81,9 +81,9 @@ class viewHistory {
     let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
 
     ticksContainer.appendChild(el);
-    historyContent.append(ticksContainer);
-    scrollContainer.appendChild(historyContent);
-    container.append(ticker.render(), scrollContainer, naviShadow);
+    scrollContainer.append(ticksContainer);
+    historyContent.appendChild(scrollContainer);
+    container.append(ticker.render(), historyContent, naviShadow);
 
     storeObserver.add({
       store: globals,
