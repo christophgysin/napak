@@ -139,7 +139,7 @@ let countTotalScore = (scp) => {
   let score = [0,0,0,0,0];
 
   ticks.forEach((tick) => {
-    score.push(eightaNuScore({ 'type': tick.ascentType, grade: tick.grade, sport: tick.type }));
+    score.push(eightaNuScore({ 'ascentType': tick.ascentType, grade: tick.grade, sport: tick.type }));
   })
 
   return score.sort(function (a, b) { return b - a }).slice(0, 5);
@@ -151,16 +151,16 @@ let eightaNuScore = (data) => {
   let bonusgrade = 0;
   let ontop = 0;
 
-  if (data.type === 'flash') {
+  if (data.ascentType === 'flash') {
     bonusgrade = 1;
     ontop = 3;
   }
 
-  if (data.type === 'onsight') {
+  if (data.ascentType === 'onsight') {
     bonusgrade = (data.sport === 'boulder') ? 2 : 3; // Boulder onsight jumps two grades instead of three
     ontop = -5;
   }
-  if (data.sport === 'toprope') {
+  if (data.ascentType === 'toprope') {
     bonusgrade -= 1;
   }
 
