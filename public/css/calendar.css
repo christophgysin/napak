@@ -1,0 +1,128 @@
+/* Calendar */
+.calendar {
+    background: var(--color-theme-color1);
+	display: block;
+    font-size: 12px;
+	font-family: 'IBM Plex Mono';
+	font-weight: 300;
+    height: 100%;
+    max-width: 320px;
+    margin: 10px auto 0;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.calendar::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    right: 0;
+    left: 0;
+    bottom: -100%;
+    background: rgba(0, 0, 0, 0.6);
+	z-index: -1;
+}
+
+.calendar .month {
+	height: 3em;
+	line-height: 3em;
+	clear: both;
+    position: relative;
+	background: var(--color-theme-color2);
+	color: var(--color-black);
+}
+
+.calendar .weekdays {
+	width: 100%;
+	line-height: 3em;
+    background: var(--color-theme-color3);
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar .date-container {
+	color: var(--color-white);
+}
+
+.calendar .date-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-columns: 1fr;
+}
+.calendar .date,
+.calendar .days,
+.calendar .today,
+.calendar .weekend{
+	line-height: 3em;
+	text-align: center;
+}
+
+.calendar .calendarPrev,
+.calendar .calendarNext {
+	position: absolute;
+	width: 3em;
+	height: 3em;
+	font-weight: bold;
+	line-height: 3em;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+}
+
+.calendar .calendarNext {right: 0px;}
+.calendar .calendarPrev {left: 0px;}
+
+.calendar .currentmonth {
+	float: left;
+	width: 100%;
+	text-align: center;
+	display: block;
+
+}
+.calendar .date {
+	position: relative;
+	z-index: 1;
+}
+.calendar .weekend {
+	background: var(--color-black-alpha40);
+}
+
+.calendar .selected {
+	color: var(--color-theme-color2)
+}
+
+.calendar .today:before {
+	position: absolute;
+	margin: -15px 0 0 -15px;
+	top: 50%;
+	left: 50%;
+	content : "";
+	display: block;
+	width: 30px;
+	height: 30px;
+	border-radius: 30px;
+	z-index: -1;
+	box-shadow: inset 0 0 0 2px var(--color-theme-color2);
+}
+
+.calendar .selected:after {
+	position: absolute;
+	top: 50%;
+	left: 20%;
+	transform: translate3d(-50%, -50%, 0);
+	background: var(--color-theme-color2);
+	box-shadow: 0 0 5px 0 var(--color-theme-color2);
+	width: 5px;
+	height: 5px;
+	border-radius: 5px;
+	display: block;
+	content: "";
+  }
+
+.calendar .today.selected:after {
+	display: none
+}
+
+.calendar .future {
+	color: var(--color-white-dim)
+}

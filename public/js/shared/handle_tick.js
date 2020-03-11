@@ -1,7 +1,8 @@
 import { globals } from '/js/shared/globals.js';
 import { UUID } from '/js/shared/uuid.js';
 import { store } from '/js/shared/store.js';
-
+import { handleDate } from '/js/shared/date.js';
+import { parseDate } from '/js/shared/helpers.js';
 /* Handle tick */
 
 let handleTick = (add) => {
@@ -16,8 +17,8 @@ let handleTick = (add) => {
   if (!add) {
     let ticksByGrade = [];
     for (let i = 0, j = ticks.length; i < j; i++) {
-      let today = globals.today.split("-");
-      today = new Date(today[0], today[1] - 1, today[2]).getTime();
+      let today = parseDate(globals.today);
+      today = new Date(today.year, today.month-1, today.date).getTime();
       if (ticks[i].date >= today &&
         ticks[i].grade === grade &&
         ticks[i].ascentType === ascentType &&
@@ -36,13 +37,16 @@ let handleTick = (add) => {
     }
   }
   else {
+    let todayParsed = parseDate(globals.today);
+
+    let tickDate = (globals.today === handleDate({dateString: new Date().getTime()})) ? new Date().getTime() : new Date(todayParsed.year, todayParsed.month-1, todayParsed.date ).getTime()
     // Add tick
     let newTick = {
       type: globals.currentClimbingType,
       indoorsOutdoors: globals.indoorsOutdoors,
       grade: grade,
       ascentType: ascentType,
-      date: new Date().getTime(),
+      date: tickDate,
       uuid: UUID(),
       location: false
     };

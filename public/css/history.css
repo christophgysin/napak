@@ -18,6 +18,16 @@
   text-indent: 5px;
 }
 
+.tick-list table .header-total th {
+  border: 0;
+  text-indent: 0;
+  font-weight: 600;
+}
+
+.tick-list table .header-total th:first-of-type {
+  text-align: right;
+}
+
 .tick-list table tr.header {
   line-height: 2em;
 }

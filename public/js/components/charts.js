@@ -1,5 +1,4 @@
 import { dce } from '/js/shared/helpers.js';
-import { globals } from '/js/shared/globals.js';
 
 class charts {
   constructor(params) {

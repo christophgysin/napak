@@ -69,6 +69,14 @@ class wheel {
 
     storeObserver.add({
       store: globals,
+      key: 'today', 
+      id: 'wheelDateChange',
+      callback: () => {clearLegends(), updateAll()}
+    });
+    
+
+    storeObserver.add({
+      store: globals,
       key: 'ticks', 
       id: 'wheelUpdateTicks',
       callback: updateAll

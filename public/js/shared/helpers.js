@@ -94,6 +94,16 @@ let svg = (params) => {
   return element;
 }
 
+// Parse date 
+let parseDate = (d) => {
+  let parsed = d.split("-");
+  return {
+    year: parsed[0],
+    month: parsed[1],
+    date : parsed[2]
+  }
+}
+
 // vibrate
 let vibrate = (params) => {
   let supportsVibrate = "vibrate" in navigator;
@@ -139,7 +149,7 @@ let countTotalScore = (scp) => {
   let score = [0,0,0,0,0];
 
   ticks.forEach((tick) => {
-    score.push(eightaNuScore({ 'ascentType': tick.ascentType, grade: tick.grade, sport: tick.type }));
+    score.push(eightaNuScore({ ascentType: tick.ascentType, grade: tick.grade, sport: tick.type }));
   })
 
   return score.sort(function (a, b) { return b - a }).slice(0, 5);
@@ -207,8 +217,12 @@ let countAscentsByDifficulty = () => {
     flash: {...tempObj},
     onsight: {...tempObj}
   };
+// get ticks only for selected day
+  let limitTo = parseDate(globals.today);
 
-  let ticks = handleScopeTicks({scope: 'today'});
+  let onlyThisDay = new Date(limitTo.year, limitTo.month-1, limitTo.date, 23, 59);
+
+  let ticks = handleScopeTicks({scope: 'today', limit: onlyThisDay});
   ticks.forEach((tick) => {
     if(tick.indoorsOutdoors === globals.indoorsOutdoors &&
       tick.type === globals.currentClimbingType) {
@@ -262,20 +276,40 @@ let countAscentsByGrade = (params) => {
 // Return all ticks matching the scope
 let handleScopeTicks = (params) => {
   let fromNow;
-  let fromNowArray = globals.today.split('-');
+  let limitTo;
+  /* 
+    if scope is set to Today, use globals.today which might be any date
+    if scope is anything else, use globals.realToday which is allways the correct date
+  */
+  let fromNowArray = (params.scope === 'today') ? globals.today.split('-') : globals.realToday.split('-');
   let year = Number(fromNowArray[0]);
   let month = Number(fromNowArray[1]);
   let day = Number(fromNowArray[2]);
 
-  if(params.scope === 'thirtydays')  {month-=1;}
-  if(params.scope === 'year')        {year-=1;}
-  if(params.scope === 'alltime')     {year = 2000; month = 1; day = 1;}
+  let limitDay = day;
+  let limitMonth = month;
+  let limitYear = year;
 
-  fromNow = new Date(Number(year), Number(month) - 1, Number(day)).getTime();
+  if(params.scope === 'thirtydays') {
+    limitMonth=month;
+    month-=1;
+  }
+  if(params.scope === 'year') {
+    limitYear = year;
+    year-=1;
+  }
+  if(params.scope === 'alltime'){
+    year = 2000; month = 1; day = 1;
+    limitYear = 2100;
+  }
+
+  fromNow = new Date(year, month-1, day).getTime();
+  limitTo = new Date(limitYear, limitMonth-1 , limitDay, 23,59).getTime();
+
   let ticks = [];
 
   globals.ticks.forEach((tick) => {
-      if(tick.date >= fromNow) {
+      if(tick.date >= fromNow && tick.date <= limitTo) {
         if ( tick.type === globals.currentClimbingType && tick.indoorsOutdoors === globals.indoorsOutdoors ) {
          ticks.push(tick)
       }
@@ -318,5 +352,6 @@ export {
   countAscentsByType,
   countAscentsByGrade,
   handleScopeTicks,
-  updateScopeTicks
+  updateScopeTicks,
+  parseDate
 }

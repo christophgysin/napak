@@ -66,9 +66,17 @@ class picker {
         callback: updateLegends,
         removeOnRouteChange: true
       });
+
       storeObserver.add({
         store: globals,
         key: 'ticks', 
+        callback: updateLegends,
+        removeOnRouteChange: true
+      });
+
+      storeObserver.add({
+        store: globals,
+        key: 'today', 
         callback: updateLegends,
         removeOnRouteChange: true
       });

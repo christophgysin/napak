@@ -45,6 +45,7 @@ let globalObjects = {
   storeObservers : [],
   openMenus: [],
   today: today,
+  realToday: today,
   vibrate: false,
   location: false,
 

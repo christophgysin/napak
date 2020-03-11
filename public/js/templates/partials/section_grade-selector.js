@@ -1,12 +1,14 @@
 import { dce } from '/js/shared/helpers.js';
-import wheel from '/js/components/wheel.js';
-import picker from '/js/components/picker.js';
 import { globals } from '/js/shared/globals.js';
+import calendar from '/js/components/calendar.js';
 import handleTick from '/js/shared/handle_tick.js';
+import picker from '/js/components/picker.js';
+import wheel from '/js/components/wheel.js';
 
 class gradeWheel {
   constructor() {
     let gradePicker = new wheel();
+    let datePicker = new calendar();
     let ascentTypeSelector = new picker({
       cssClass: 'horizontal-menu full-width',
       id: 'ascent-type-selector',
@@ -34,6 +36,7 @@ class gradeWheel {
     buttonsContainer.append(buttonDec, spacer, buttonInc);
     pickerElement.appendChild(buttonsContainer);
 
+    pickerElement.appendChild(datePicker.render());
     let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
 
     container.append(pickerElement, naviShadow);
