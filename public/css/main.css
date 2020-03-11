@@ -187,10 +187,12 @@ BODY.indoors section.grade::after {
   background-image: url('/images/bgr_indoors.jpg');
 }
 
+/*
 section.grade:not(.grade-dial-container) *,
 section.grade:not(.navi-shadow) {
   z-index: 1;
 }
+*/
 /*
 section.page-tick:not(.navi-shadow),
 section.page-settings:not(.navi-shadow),
@@ -266,7 +268,7 @@ section.page-statistics:not(.navi-shadow) {
   right: 0;
   top: 0;
   pointer-events: none;
-  z-index: 2;
+  z-index: 1;
 }
 
 .grade-dial-container::after {
