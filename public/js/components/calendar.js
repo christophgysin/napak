@@ -11,7 +11,7 @@ class calendar {
         let todayForReal = new Date();
 
         let container = dce({el: 'DIV', cssStyle: 'position: absolute; top: 0; width: 100%;'});
-        let currentDate = dce({el: 'h3', cssStyle: 'text-align: center;', content: `${globals.today} ˅`});
+        let currentDate = dce({el: 'h3', cssStyle: 'text-align: center; font-weight: 600', content: `${globals.today} ˅`});
 
         container.appendChild(currentDate);
         
