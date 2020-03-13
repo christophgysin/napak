@@ -135,11 +135,15 @@
 }
 
 .calendar .has-ticks:before {
-	width: 100%;
+	/* width: 100%;
 	height: 100%;
 	content: "";
 	position: absolute;
 	display: block;
 	background: var(--color-theme-color3-alpha);
-	z-index: -1;
+	z-index: -1; */
+}
+
+.calendar .legends-holder {
+	left: unset
 }

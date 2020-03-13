@@ -22,13 +22,16 @@ class calendar {
             let ticks = globals.ticks;
             for (let i = 0, j=ticks.length; i<j;i++) {
                 let tickDate = handleDate({dateString: ticks[i].date});
-                if(!dateHasTicks.includes(tickDate)) {
-                    dateHasTicks.push(tickDate);
+                if(!dateHasTicks[tickDate]) {
+                    dateHasTicks[tickDate] = {count: 1};
+                }
+                else {
+                    let count= dateHasTicks[tickDate].count + 1 ;
+                    dateHasTicks[tickDate] = {'count': count};
                 }
             }
         }
 
-        checkDateThatHasTicks();
 
         storeObserver.add({
             store: globals,
@@ -55,7 +58,7 @@ class calendar {
             if(container.lastChild.classList.contains('calendar')) {
                 container.removeChild(container.lastChild);
             }
-            let calendarContainer = dce({el: 'DIV', cssClass: 'calendar'})
+            let calendarContainer = dce({el: 'DIV', cssClass: 'calendar small-legends'})
 
             // Month
             let selectMonth = dce({el: 'DIV', cssClass: 'month'});
@@ -146,7 +149,11 @@ class calendar {
                     
                     // Date has ticks
                     let parsedDate = `${year}-${String(month+1).padStart(2, 0)}-${String(count).padStart(2, 0)}`;
-                    if(dateHasTicks.includes(parsedDate)) {
+                    if(dateHasTicks[parsedDate]) {
+                        let legendHolder = dce({el: 'SPAN', cssClass: 'legends-holder'});
+                        let legend = dce({el: 'SPAN', cssClass: 'legend', content: dateHasTicks[parsedDate].count});
+                        legendHolder.appendChild(legend);
+                        dateCell.appendChild(legendHolder);
                         dateCell.classList.add('has-ticks')
                         }
                     };
