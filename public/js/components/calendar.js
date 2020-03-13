@@ -1,4 +1,4 @@
-import { dce, parseDate } from '/js/shared/helpers.js';
+import { dce, parseDate, storeObserver   } from '/js/shared/helpers.js';
 import { globals } from '/js/shared/globals.js';
 import { handleDate } from '/js/shared/date.js';
 
@@ -14,7 +14,29 @@ class calendar {
         let currentDate = dce({el: 'h3', cssStyle: 'text-align: center; font-weight: 600', content: `${globals.today} ˅`});
 
         container.appendChild(currentDate);
+
+        let dateHasTicks = [];
         
+        let checkDateThatHasTicks = () => {
+            dateHasTicks = [];
+            let ticks = globals.ticks;
+            for (let i = 0, j=ticks.length; i<j;i++) {
+                let tickDate = handleDate({dateString: ticks[i].date});
+                if(!dateHasTicks.includes(tickDate)) {
+                    dateHasTicks.push(tickDate);
+                }
+            }
+        }
+
+        checkDateThatHasTicks();
+
+        storeObserver.add({
+            store: globals,
+            key: 'ticks', 
+            callback: checkDateThatHasTicks,
+            removeOnRouteChange: true
+          });
+    
         currentDate.addEventListener('click', () => {
             let todayParsed = parseDate(globals.today);
             let year = todayParsed.year;
@@ -91,17 +113,20 @@ class calendar {
                 let dateCell = dce({el: 'DIV', cssClass : 'date'});
 					
 				if(count >= 1 && count <=31){
-					dateCell.appendChild(document.createTextNode(count));
+                    dateCell.appendChild(document.createTextNode(count));
+                    // Weekends
 					if (dateCounter >= 5) { 
                         dateCell.classList.add('weekend'); 
                         }
 
+                    // Today
                     if (count == thisDate && 
                         month == thisMonth && 
                         year == thisYear) {
                         dateCell.classList.add('today');
                         }
                     
+                    // Future
                     if ((
                             count > thisDate && 
                             month >= thisMonth && 
@@ -114,9 +139,15 @@ class calendar {
                         ) {
                         dateCell.classList.add('future');
                         }
-
+                    // selected
                     if (count == todayParsed.date && month == todayParsed.month-1 && year == todayParsed.year) {
                         dateCell.classList.add('selected');
+                        }
+                    
+                    // Date has ticks
+                    let parsedDate = `${year}-${String(month+1).padStart(2, 0)}-${String(count).padStart(2, 0)}`;
+                    if(dateHasTicks.includes(parsedDate)) {
+                        dateCell.classList.add('has-ticks')
                         }
                     };
 

@@ -15,16 +15,14 @@ class viewProfile {
 
     logoContainer.append(logo, version);
 
-    let pageTitle = dce({el: 'h3', cssClass: 'mb', content: 'Profile'});
-
     let userProfileForm = dce({el: 'FORM', attrbs: [['name', 'napak-profile']]});
-    let userNameTitle = dce({el: 'H3', content: 'User name: '});
+    let userNameTitle = dce({el: 'H3', cssClass: 'mb', content: 'User name: '});
     let userName = dce({el: 'INPUT', attrbs: [['placeholder', 'user name'], ['name', 'username'], ['value', firebase.auth().currentUser.displayName]]});
-    let updateProfileButton = dce({el: 'BUTTON', cssClass: '', content: 'Update'});
+    let updateProfileButton = dce({el: 'BUTTON', cssClass: 'mb', content: 'Update'});
 
     let errorMessage = dce({el: 'DIV', cssClass : 'error'});
-    let successMessage = dce({el: 'DIV', cssClass : 'succerss', content: 'Profile updated. '});
-    let successMessageLink = dce({el: 'A', cssClass : 'text-link', content: 'Back to the wall'});
+    let successMessage = dce({el: 'DIV', cssClass : 'success', content: 'Profile updated. Take me '});
+    let successMessageLink = dce({el: 'A', cssClass : 'text-link', content: 'back to the wall'});
     successMessageLink.addEventListener('click', () => {
       route('home');
     }, false);
@@ -33,7 +31,7 @@ class viewProfile {
 
     userProfileForm.append(userNameTitle, userName, updateProfileButton);
 
-    loginFormContainer.append(logoContainer, pageTitle, userProfileForm);
+    loginFormContainer.append(logoContainer, userProfileForm);
 
     container.append(loginFormContainer);
 
@@ -45,10 +43,10 @@ class viewProfile {
       }).then(function(msg) {
         user.name.displayName = userName.value; 
         user.name = user.name; // touch user login to update OTC element
-        container.appendChild(successMessage);
+        loginFormContainer.appendChild(successMessage);
       }).catch(function(error) {
         errorMessage.innerHMTL = error;
-        container.appendChild(errorMessage);
+        loginFormContainer.appendChild(errorMessage);
       });
       
     } 

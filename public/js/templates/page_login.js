@@ -21,7 +21,7 @@ class viewLogin {
     let userEmail = dce({el: 'INPUT', attrbs: [['placeholder', 'email'], ['name', 'email']]});
     let password = dce({el: 'INPUT', attrbs: [['placeholder', 'Password'], ['type', 'password'], ['name', 'pass']]});
     let loginError = dce({el: 'DIV', cssClass : 'login-error'});
-    let loginButton = dce({el: 'BUTTON', cssClass: '', content: 'Login'});
+    let loginButton = dce({el: 'BUTTON', cssClass: 'mb', content: 'Login'});
     let noAccount = dce({el: 'DIV', cssClass: '', content: 'No account? '});
     let createAccountLink = dce({el: 'A', cssClass: 'text-link', content: 'Create one!'});
     noAccount.appendChild(createAccountLink);
