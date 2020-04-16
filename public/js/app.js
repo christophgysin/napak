@@ -24,6 +24,7 @@ let napak = {
     globals.routes.signup = viewSignup;
     globals.routes.statistics = viewStatistics;
 
+    let gridContainer = dce({el: 'DIV', cssClass: 'grid-container'});
     let appContainer = dce({el: 'DIV', cssClass : 'app'});
     let appContentContainer = dce({el: 'DIV', cssClass : 'page-content'});
     let pageFooter = new footer();
@@ -75,7 +76,8 @@ let napak = {
     }, false);
     appContainer.append(naviShadow);
 
-    document.body.appendChild(appContainer);
+    gridContainer.appendChild(appContainer);
+    document.body.appendChild(gridContainer);
 
     let loginStatus = () => {
       firebase.auth().onAuthStateChanged(function(user) {

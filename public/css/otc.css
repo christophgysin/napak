@@ -152,3 +152,19 @@ body.otc .navi-shadow {
   display: flex;
   flex-direction: column;
 }
+
+
+@media only screen and (min-width: 1024px) and (min-height: 768px) { 
+  .otc-navigation {
+    width: 75%;
+    transform: translateX(0);
+    right: -100%;
+    transition: right 300ms ease-in-out;
+
+  }
+
+  .otc .otc-navigation {
+    transform: translateX(0);
+    right: 0;
+  }
+}
