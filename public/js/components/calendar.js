@@ -8,8 +8,6 @@ class calendar {
         let months = ['January', 'February','March','April','May','June','July','August','September','October','November','December'];
         let daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-        let todayForReal = new Date();
-
         let container = dce({el: 'DIV', cssClass: 'calendar-container'});
         let currentDate = dce({el: 'h3', cssStyle: 'text-align: center; font-weight: 600', content: `${globals.today} ˅`});
 
@@ -54,6 +52,8 @@ class calendar {
 
         // draw calendar
         this.drawCalendar = (month, year) => {
+            let todayForReal = new Date();
+
             // Create calendar container
             if(container.lastChild.classList.contains('calendar')) {
                 container.removeChild(container.lastChild);

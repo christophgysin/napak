@@ -147,3 +147,9 @@
 .calendar .legends-holder {
 	left: unset
 }
+
+
+.calendar .selected .legend {
+	/* background: var(--color-theme-color2);
+	color: var(--color-black); */
+}
