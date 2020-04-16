@@ -25,9 +25,16 @@ class viewLogin {
     let noAccount = dce({el: 'DIV', cssClass: '', content: 'No account? '});
     let createAccountLink = dce({el: 'A', cssClass: 'text-link', content: 'Create one!'});
     noAccount.appendChild(createAccountLink);
-
     createAccountLink.addEventListener('click', ()=>{
       route('signup');
+    }, false)
+
+    let forgotPasswordContainer = dce({el: 'DIV', cssClass: 'mt mb'});
+    let forgotPasswordLink = dce({el: 'A', cssClass: 'mb mt text-link', content: 'Forgot password'})
+    forgotPasswordContainer.appendChild(forgotPasswordLink);
+
+    forgotPasswordLink.addEventListener('click', ()=>{
+      route('resetPassword');
     }, false)
 
 
@@ -61,7 +68,7 @@ class viewLogin {
 
 
     loginForm.append(userEmail, password, loginError, loginButton)
-    loginFormContainer.append(logoContainer, loginTitle, loginForm, noAccount);
+    loginFormContainer.append(logoContainer, loginTitle, loginForm, noAccount, forgotPasswordContainer);
 
     container.append(loginFormContainer);
 

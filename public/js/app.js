@@ -5,6 +5,7 @@ import viewLogin from '/js/templates/page_login.js';
 import viewProfile from '/js/templates/page_profile.js';
 import viewSignup from '/js/templates/page_signup.js';
 import viewStatistics from '/js/templates/page_statistics.js';
+import viewResetPassword from '/js/templates/page_reset-password.js';
 import footer from '/js/templates/partials/footer.js';
 import otc from '/js/templates/partials/section_otc.js';
 import { route } from '/js/shared/route.js';
@@ -23,6 +24,7 @@ let napak = {
     globals.routes.profile = viewProfile;
     globals.routes.signup = viewSignup;
     globals.routes.statistics = viewStatistics;
+    globals.routes.resetPassword = viewResetPassword;
 
     let gridContainer = dce({el: 'DIV', cssClass: 'grid-container'});
     let appContainer = dce({el: 'DIV', cssClass : 'app'});

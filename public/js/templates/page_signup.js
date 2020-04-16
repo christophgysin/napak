@@ -21,9 +21,9 @@ class viewSignup {
     let userEmail = dce({el: 'INPUT', attrbs: [['placeholder', 'email'], ['name', 'email']]});
     let password = dce({el: 'INPUT', attrbs: [['placeholder', 'Password'], ['type', 'password'], ['name', 'pass']]});
     let passwordAgain = dce({el: 'INPUT', attrbs: [['placeholder', 'Password again'], ['type', 'password'], ['name', 'passagain']]});
-    let signupError = dce({el: 'DIV', cssClass : 'signup-error'});
+    let signupError = dce({el: 'DIV', cssClass : 'api-message-error'});
     let signupButton = dce({el: 'BUTTON', cssClass: '', content: 'Create account'});
-    let goBack = dce({el: 'DIV', cssClass: '', content: 'Go back to '});
+    let goBack = dce({el: 'DIV', cssClass: 'mb mt', content: 'Go back to '});
     let goBackLink = dce({el: 'A', cssClass: 'text-link', content: 'login page'});
     goBack.appendChild(goBackLink);
 
