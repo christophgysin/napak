@@ -2,6 +2,7 @@ import { globals } from '/js/shared/globals.js';
 import { handleDate } from '/js/shared/date.js';
 import { dce, storeObserver, handleScopeTicks, eightaNuScore } from '/js/shared/helpers.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
+import climbingTypeSelector from '/js/templates/partials/climbing_type-selector.js';
 
 class viewHistory {
   constructor() {
@@ -79,11 +80,12 @@ class viewHistory {
     updateHistory();
 
     let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
+    let disciplineSelector = new climbingTypeSelector();
 
     ticksContainer.appendChild(el);
     scrollContainer.append(ticksContainer);
     historyContent.appendChild(scrollContainer);
-    container.append(ticker.render(), historyContent, naviShadow);
+    container.append(ticker.render(), disciplineSelector.render(), historyContent, naviShadow);
 
     storeObserver.add({
       store: globals,

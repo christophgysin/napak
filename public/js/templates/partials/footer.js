@@ -99,7 +99,8 @@ class footer {
      document.body.classList.toggle('otc');
     }, false);
 
-    footerNav.append(changeDiscipline, changeIndoorsOutdoors, logoContainer, changeViewStatistics, moreItemsMenu);
+//    footerNav.append(changeDiscipline, changeIndoorsOutdoors, logoContainer, changeViewStatistics, moreItemsMenu);
+    footerNav.append(logoContainer, moreItemsMenu);
     footer.appendChild(footerNav);
 
     let toggleVisibility = () => {

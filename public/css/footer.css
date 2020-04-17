@@ -20,6 +20,10 @@ footer > nav a {
   white-space: nowrap;
   text-align: center;
   min-width: 50px;
+  /*
+  */
+  position: absolute;
+  right: 0;
 }
 
 footer > nav .logo-container {

@@ -1,9 +1,12 @@
 import progress from '/js/templates/partials/section_progress.js';
 import gradeWheel from '/js/templates/partials/section_grade-selector.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
+import climbingTypeSelector from '/js/templates/partials/climbing_type-selector.js';
 import { dce } from '/js/shared/helpers.js';
 import { globals } from '/js/shared/globals.js';
 import { user } from '/js/shared/user.js';
+
+
  
 class viewHome {
   constructor() {
@@ -20,7 +23,11 @@ class viewHome {
 
     let tickPage = dce({el: 'DIV', cssClass: 'page-tick'});
     
+    let disciplineSelector = new climbingTypeSelector();
+
+
     tickPage.appendChild(ticker.render());
+    tickPage.appendChild(disciplineSelector.render());
     tickPage.appendChild(progressSection.render());
     tickPage.appendChild(gradeSelector.render());
 

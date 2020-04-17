@@ -1,4 +1,4 @@
-import { dce, storeObserver } from '/js/shared/helpers.js';
+import { dce, storeObserver, svg } from '/js/shared/helpers.js';
 import { animate } from '/js/shared/animate.js';
 import { globals } from '/js/shared/globals.js';
 
@@ -14,15 +14,23 @@ class statusTicker {
     standardMessage.appendChild(standardMessageContent);
     messageContainer.appendChild(standardMessage);
   
+    messageContainer.addEventListener('click', () => {
+      document.querySelector('.in-out-menu').classList.toggle('hidden');
+    }, false)
 /* */ 
     let currentClimbingTypeTitle = () => {
       return params[`titlePrefix_${globals.currentClimbingType}`] + ((!params.hideIndoorsOutdoors) ? globals.indoorsOutdoors : '');
     }
 
-    let currentTitle = dce({el: 'DIV'});
+    let currentTitle = dce({el: 'DIV', cssClass: 'current'});
     let currentTitleContent = dce({el: 'H3', content: currentClimbingTypeTitle()});
     currentTitle.appendChild(currentTitleContent);
     messageContainer.appendChild(currentTitle);
+
+    let toggleMenu = dce({el: 'DIV', cssClass: 'toggle'});
+    let toggleIcon = dce({el: 'IMG', cssStyle: 'width: 24px; height: 24px;', attrbs: [['src', '/images/gear.svg']]});
+    toggleMenu.appendChild(toggleIcon);
+    currentTitle.appendChild(toggleMenu)
 
     storeObserver.add({
       store: globals,

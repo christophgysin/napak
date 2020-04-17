@@ -5,7 +5,7 @@ import { dce, countTotalScore, countAscentsByGrade, countTopFive, countAscents, 
 class sectionProgress {
   constructor() {
     let periodPicker =  new picker({
-      cssClass : 'horizontal-menu full-width small-legends',
+      cssClass : 'horizontal-menu full-width small-legends mb',
       options : [
         {title: `Today`, value: 'today', selected: true, legend: globals.totalAscentCount['today'], val: 'totalAscentCount.today'},
         {title: `30 days`, value:'thirtydays', legend: globals.totalAscentCount['thirtydays'], val: 'totalAscentCount.thirtydays'},

@@ -72,3 +72,17 @@
   0% {transform: translateY(-80px);}
   100% {transform: translateY(-40px);}
 }
+
+.status-ticker .status-ticker-content div.toggle {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 40px;
+  position: absolute;
+  right: 0;
+  }
+  

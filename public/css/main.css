@@ -12,8 +12,9 @@
 @import './login.css';
 @import './otc.css';
 @import './profile.css';
-@import './variables.css';
+@import './ranking.css';
 @import './status_ticker.css';
+@import './variables.css';
 
 *,
 *::before,
@@ -299,7 +300,6 @@ BODY.indoors section.grade::after {
   height: 10px;
   margin: 0 auto -10px;
   position: relative;
-  z-index: 996;
 }
 
 .grade-distribution {
@@ -649,4 +649,15 @@ BODY.indoors section.grade::after {
       padding: 25px var(--padding-base) 15px var(--padding-base);
       margin-top: 10px;
     }  
+}
+
+
+
+.in-out-menu {
+  position: absolute; 
+  width: 100%; 
+  top: 40px; 
+  z-index: 2;
+  background: var(--color-theme-color1-accent);
+  padding-bottom: var(--padding-base);
 }
