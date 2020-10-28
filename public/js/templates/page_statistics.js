@@ -40,10 +40,8 @@ class viewStatistics {
     };
 
     let tempo = new charts(chartData);
-
-    let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
-
-    container.append(nakkiPiirakka, lempo.render(), chartTitle, tempo.render(), naviShadow)
+    
+    container.append(nakkiPiirakka, lempo.render(), chartTitle, tempo.render())
     this.render = () => {
       return container
     }

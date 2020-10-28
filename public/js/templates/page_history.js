@@ -79,13 +79,12 @@ class viewHistory {
     }
     updateHistory();
 
-    let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
     let disciplineSelector = new climbingTypeSelector();
 
     ticksContainer.appendChild(el);
     scrollContainer.append(ticksContainer);
     historyContent.appendChild(scrollContainer);
-    container.append(ticker.render(), disciplineSelector.render(), historyContent, naviShadow);
+    container.append(ticker.render(), disciplineSelector.render(), historyContent);
 
     storeObserver.add({
       store: globals,

@@ -95,12 +95,7 @@
   overflow: hidden;
   position: relative;
 }
-/*
-.page-history:not(.status-ticker) *,
-.page-history:not(.navi-shadow) {
-  z-index: 1;
-}
-*/
+
 .no-history {
   text-transform: none;
   text-align: center;

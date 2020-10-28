@@ -47,6 +47,38 @@ footer > nav a span {
   font-size: 0.5em;
 }
 
+
+footer > nav a > span {
+  align-items: center;
+  background: transparent;
+  color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-size-base);
+  height: 50px;
+  justify-content: center;
+  width: 50px;  
+}
+
+/* pullup menu - removed */
+.footer-pullup-menu .menu-title {
+  position: relative;
+  padding-left: var(--padding-base);
+}
+
+.footer-pullup-menu.links-only .menu-title {
+  padding-left: 0;
+}
+
+.footer-pullup-menu img,
+footer > nav a > span img {
+  width: 25px;
+}
+
+.footer-pullup-menu img {
+  margin: 0 10px 0 0;
+}
+
 /* Pull up menu */
 .footer-pullup-menu {
   position: absolute;
@@ -66,7 +98,7 @@ footer > nav a > span {
   align-items: center;
   color: var(--color-white);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   font-size: var(--font-size-bodytext);
   justify-content: left;
   padding: 10px 20px;
@@ -91,34 +123,4 @@ footer > nav a > span {
   animation: zoomIn 300ms ease-in-out;
   transform: translate3d(-50%, -50%, 0) scale(1);
   display: block;
-}
-
-footer > nav a > span {
-  align-items: center;
-  background: transparent;
-  color: var(--color-white);
-  display: flex;
-  flex-direction: column;
-  font-size: var(--font-size-base);
-  height: 50px;
-  justify-content: center;
-  width: 50px;
-}
-
-.footer-pullup-menu .menu-title {
-  position: relative;
-  padding-left: var(--padding-base);
-}
-
-.footer-pullup-menu.links-only .menu-title {
-  padding-left: 0;
-}
-
-.footer-pullup-menu img,
-footer > nav a > span img {
-  width: 25px;
-}
-
-.footer-pullup-menu img {
-  margin: 0 10px 0 0;
 }

@@ -656,7 +656,7 @@ BODY.indoors section.grade::after {
 .in-out-menu {
   position: absolute; 
   width: 100%; 
-  top: 40px; 
+  margin-top: 40px; 
   z-index: 2;
   background: var(--color-theme-color1-accent);
   padding-bottom: var(--padding-base);

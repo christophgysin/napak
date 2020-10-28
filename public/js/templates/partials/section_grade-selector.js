@@ -37,9 +37,8 @@ class gradeWheel {
     pickerElement.appendChild(buttonsContainer);
 
     pickerElement.appendChild(datePicker.render());
-    let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
-
-    container.append(pickerElement, naviShadow);
+  
+    container.append(pickerElement);
 
     this.render = () => {
       return container;
