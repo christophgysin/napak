@@ -107,7 +107,8 @@ section {
 .page-content {
   height: 100%;
   color: var(--color-white);
-  background: var(--color-theme-color1);
+  background: var(--color-theme-color1-accent);
+  background: linear-gradient(to bottom, #000 0%, var(--color-theme-color1-accent) 40px, var(--color-theme-color1-accent) 100%);
   flex: 1;
   transition: filter 300ms ease-in-out;
   overflow: hidden;
@@ -656,8 +657,9 @@ BODY.indoors section.grade::after {
 .in-out-menu {
   position: absolute; 
   width: 100%; 
-  margin-top: 40px; 
+  top: 40px; 
   z-index: 2;
   background: var(--color-theme-color1-accent);
   padding-bottom: var(--padding-base);
+  margin-top: env(safe-area-inset-top, 0);
 }
