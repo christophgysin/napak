@@ -39,7 +39,6 @@ body {
   color: var(--color-white-dim);
   font-weight: 100;
   z-index: 1;
-  transition: background 300ms ease-in-out;
 }
 
 h2 {

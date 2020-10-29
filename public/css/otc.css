@@ -128,8 +128,12 @@ body.otc .navi-shadow {
   pointer-events: all;
 }
 
-body.otc {
+body.otc:after {
   background: rgba(0, 0, 0, 0.6);
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 
