@@ -42,3 +42,8 @@
 .grade-list-container .btn_dec {
   margin-right: 5px;
 }
+
+
+.btn:active {
+  animation : hoverfx 300ms ease-in-out
+}

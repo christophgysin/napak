@@ -69,7 +69,17 @@
   }
 
   100% {
-    filter: blur(0)
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+@keyframes hoverfx {
+  from {
+    opacity: .5;
+  }
+
+  to {
     opacity: 1;
   }
 }
