@@ -112,6 +112,8 @@ let globalObjects = {
 
   // Ticks
   ticks: [],
+  lastTick: false,
+  lastTickeRemoved: false,
   serverMessage :[] ,
   standardMessage: []
 };

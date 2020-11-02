@@ -87,3 +87,11 @@
   left: auto;
   margin-left: 5px !important;
 }
+
+.legend:not(:empty).tick-added{
+  animation: appear 300ms ease-in-out, zoomOutIn 300ms ease-in-out;
+}
+
+.legend:not(:empty).tick-removed{
+  animation: appear 300ms ease-in-out, zoomInOut 300ms ease-in-out;
+}

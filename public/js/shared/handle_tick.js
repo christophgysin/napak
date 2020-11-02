@@ -33,8 +33,10 @@ let handleTick = (add) => {
           key: 'ticks',
           keydata: ticks[ticksByGrade[indx]]
         });
-      ticks.splice(ticksByGrade[indx], 1)
+      ticks.splice(ticksByGrade[indx], 1);
+      globals.lastTickRemoved = {grade: grade, ascentType: ascentType};
     }
+    globals.lastTick = false;
   }
   else {
     let todayParsed = parseDate(globals.today);
@@ -52,6 +54,8 @@ let handleTick = (add) => {
     };
     ticks.push(newTick);
     globals.ticks = ticks;
+    globals.lastTick = newTick;
+    globals.lastTickRemoved = false;
 
 
     if ((Number(globals.totalAscentCount['today'])) % 5 === 0) {
@@ -62,7 +66,7 @@ let handleTick = (add) => {
       });
       globals.standardMessage = globals.standardMessage;
     }
-
+/*
     else {
       globals.standardMessage.unshift({
         message: `${globals.grades.font[grade]} ${ascentType}`,
@@ -70,7 +74,7 @@ let handleTick = (add) => {
       });
       globals.standardMessage = globals.standardMessage;
     }
-
+*/
     store.add({
       key: 'ticks',
       keydata: newTick

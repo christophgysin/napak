@@ -41,13 +41,28 @@ class wheel {
       });
     }
 
-    let updateAll = () => {
+    let updateAll = () => {    
+      let removeAddTickAnimation = selectDialog.querySelectorAll('.tick-added');
+      if(removeAddTickAnimation) {
+        for(let i=0, j=removeAddTickAnimation.length; i<j;i++){
+          removeAddTickAnimation[i].classList.remove('tick-added');
+        }
+      }
+
+      let removeRemoveTickAnimation = selectDialog.querySelectorAll('.tick-removed');
+      if(removeRemoveTickAnimation) {
+        for(let i=0, j=removeRemoveTickAnimation.length; i<j;i++){
+          removeRemoveTickAnimation[i].classList.remove('tick-removed');
+        }
+      }
+
       // Get ascents by grade and type and update legends accordingly
       let ascentsByGrade = countAscentsByDifficulty();
       let ascentCountPerType =  Object.keys(ascentsByGrade);
       // console.log(ascentsByGrade)
       ascentCountPerType.forEach((type) => {
         for(let i in ascentsByGrade[type]) {
+          // legend does not exist - create one
           if(selectDialog.childNodes[i].querySelector(`.legends-holder .type-${type}`)) {
             selectDialog.childNodes[i].querySelector(`.legends-holder .type-${type}`).innerHTML = (ascentsByGrade[type][i]) ? ascentsByGrade[type][i] : '';
           }
@@ -57,6 +72,20 @@ class wheel {
           }
         }
       });
+      if(globals.lastTick) {
+        let tickCount = selectDialog.childNodes[globals.lastTick.grade].querySelector(`.legends-holder .type-${globals.lastTick.ascentType}`).innerText;
+        if(Number(tickCount) > 1) {
+          selectDialog.childNodes[globals.lastTick.grade].querySelector(`.legends-holder .type-${globals.lastTick.ascentType}`).classList.add('tick-added');
+        }
+      }
+
+      if(globals.lastTickRemoved) {
+        let tickCount = selectDialog.childNodes[globals.lastTickRemoved.grade].querySelector(`.legends-holder .type-${globals.lastTickRemoved.ascentType}`).innerText;
+        if(Number(tickCount) > 0) {
+          selectDialog.childNodes[globals.lastTickRemoved.grade].querySelector(`.legends-holder .type-${globals.lastTickRemoved.ascentType}`).classList.add('tick-removed');
+        }
+      }
+
     }
 
     // Listen for ticks object to update
