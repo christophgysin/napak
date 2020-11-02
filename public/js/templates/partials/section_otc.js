@@ -77,7 +77,12 @@ class otc {
         {title: 'On', value: true},
         {title: 'Off', value: false, selected: true}]
     });
-    settingsContainer.append(vibrateTitle, vibrateOnOff.render(), locationTitle, locationOnOff.render())
+
+    let supportsVibrate = "vibrate" in navigator;
+    if(supportsVibrate) {
+      settingsContainer.append(vibrateTitle, vibrateOnOff.render());
+    }
+    settingsContainer.append(locationTitle, locationOnOff.render())
 
     // Page links
 

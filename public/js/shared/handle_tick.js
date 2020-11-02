@@ -55,9 +55,17 @@ let handleTick = (add) => {
 
 
     if ((Number(globals.totalAscentCount['today'])) % 5 === 0) {
-      let cheer = ["Gamba!", "Venga!", "Allez 💪", "Joo joo!", "Kom igen!", "🔥", "Come on!"];
+      let cheer = ["Gamba!", "Venga!", "Allez 💪", "Joo joo!", "Kom igen!", "🔥", "Come on!", "Nice"];
       globals.standardMessage.unshift({
         message: cheer[~~(Math.random() * cheer.length)],
+        timeout: 1
+      });
+      globals.standardMessage = globals.standardMessage;
+    }
+
+    else {
+      globals.standardMessage.unshift({
+        message: `${globals.grades.font[grade]} ${ascentType}`,
         timeout: 1
       });
       globals.standardMessage = globals.standardMessage;

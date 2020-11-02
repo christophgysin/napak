@@ -165,7 +165,7 @@ section.grade::after {
   background-size: cover;
   background-position: bottom right;
   background-repeat: no-repeat;
-  mix-blend-mode: screen;
+/*  mix-blend-mode: screen;*/
   filter: grayscale(1);
   z-index: 1;
   opacity: 0.1;
