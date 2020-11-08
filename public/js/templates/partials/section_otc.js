@@ -113,7 +113,7 @@ class otc {
       document.body.classList.remove('otc')
     }, false);
 
-    sideNavLinks.append(btnProfile, btnGroups, btnStatistics, btnHistory);
+    sideNavLinks.append(btnProfile, btnGroups, /*btnStatistics,*/ btnHistory);
 
     otcLinksContainer.append(logoContainer, loginInfo, settingsContainer,sideNavLinks);
 

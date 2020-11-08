@@ -69,7 +69,7 @@ class calendar {
                 let previous = month-1;
                 if( previous < 0 ) {
                     previous = 11;
-                    year-=1;
+                    year=Number(year)-1;
                 }
                 container.appendChild(this.drawCalendar(previous, year));
             }, false);
@@ -82,7 +82,7 @@ class calendar {
                 let next = month+1;
                 if( next > 11 ) {
                     next = 0;
-                    year+=1;
+                    year= Number(year)+1;
                 }
                 container.appendChild(this.drawCalendar(next, year));
             }, false);
