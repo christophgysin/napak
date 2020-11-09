@@ -21,7 +21,14 @@
 }
 
 .btn_small {
-  width: 2em;
+  width: max-content;
+  padding: 0 var(--padding-base);
+  border-radius: 100px;
+  background: transparent;
+  box-shadow: 0 0 0 1px var(--color-theme-color2);
+  color: var(--color-white);
+  font-size: var(--font-size-small);
+  text-transform: uppercase;
 }
 
 .btn svg {

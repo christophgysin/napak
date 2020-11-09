@@ -66,7 +66,7 @@ class viewHistory {
         let dateAvgGrade = averageGrade(5, false, ticks);
 
         let headerRow = dce({el: 'TR', cssClass: 'header'});
-        let headerTitle = dce({el: 'TH', content: `${handleDate({dateString : key, dateFormat : 'dd.mm.yyyy'})} - ${ticksByDateContainer[key].length} routes - Average grade: ${dateAvgGrade}`, attrbs: [['colspan', 5]]});
+        let headerTitle = dce({el: 'TH', content: `${handleDate({dateString : key, dateFormat : 'dd.mm.yyyy'})} - ${ticksByDateContainer[key].length} routes - Average grade: ${dateAvgGrade}`, attrbs: [['colspan', 3]]});
         headerRow.appendChild(headerTitle);
         el.appendChild(headerRow);
 
@@ -79,13 +79,16 @@ class viewHistory {
           gradeContainer.appendChild(grade);
           let ascentType = dce({el: 'TD', content: ticks[i].ascentType});
           let ascentPoints = dce({el: 'TD', cssClass: 'score', content: eightaNuScore(ticks[i])});
-          row.append(/*date,*/ gradeContainer, ascentType, type, indoors, ascentPoints);
+          row.append(gradeContainer, ascentType, ascentPoints);
           el.appendChild(row);
   
           let tickDetailsContainerRow = dce({el: 'TR', cssClass: 'hidden'});
-          let tickDetailsContainerCell = dce({el: 'TD', attrbs: [['colspan', 5]]});
-          let tickDetails = dce({el: 'DIV', cssClass: '', cssStyle: 'padding: 10px;', content : 'Edit actions for tick here...'});
-  
+          let tickDetailsContainerCell = dce({el: 'TD', attrbs: [['colspan', 3]]});
+          let tickDetails = dce({el: 'DIV', cssClass: '', cssStyle: 'padding: 10px 0; display: flex; justify-content: center'/*, content : 'Edit actions for tick here...'*/});
+          
+          let deleteTick = dce({el: 'A', cssClass: 'btn btn_small', content: 'Remove tick'});
+          tickDetails.appendChild(deleteTick);
+
           tickDetailsContainerCell.appendChild(tickDetails);
           tickDetailsContainerRow.appendChild(tickDetailsContainerCell);
           el.appendChild(tickDetailsContainerRow);

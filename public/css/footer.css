@@ -45,6 +45,7 @@ footer > nav a:focus {
 
 footer > nav a span {
   font-size: 0.5em;
+  display: none;
 }
 
 

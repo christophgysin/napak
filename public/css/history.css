@@ -3,8 +3,20 @@
   margin: 10px 0;
   border-spacing: 0;
   border-collapse: separate;
-  text-transform: capitalize;
   font-size: var(--font-size-base);
+}
+
+.tick-list table TD::first-letter {
+  text-transform: uppercase;
+}
+
+.tick-list table TD:nth-of-type(1) {
+  width: 1px;
+  padding-right: var(--padding-base);
+}
+
+.tick-list table TD:nth-of-type(3) {
+  text-align: right;
 }
 
 .tick-list table th {
