@@ -69,6 +69,13 @@ class picker {
 
       storeObserver.add({
         store: globals,
+        key: 'currentClimbingType', 
+        callback: updateLegends,
+        removeOnRouteChange: true
+      });
+      
+      storeObserver.add({
+        store: globals,
         key: 'ticks', 
         callback: updateLegends,
         removeOnRouteChange: true

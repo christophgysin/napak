@@ -90,12 +90,12 @@ let globalObjects = {
   currentScore: [0,0,0,0,0],
   totalScore: 0,
   averageGrade: 'N/A',
-  totalAscentCount: [{
+  totalAscentCount: {
     'today': 0,
     'alltime': 0,
     'thirtydays': 0,
     'year': 0
-  }],
+  },
   totalAscents : {
     redpoint: 0,
     flash: 0,

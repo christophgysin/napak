@@ -67,6 +67,13 @@ let napak = {
       callback: updateAll 
     });
 
+    storeObserver.add({
+      store: globals,
+      key: 'currentClimbingType', 
+      id: 'appCurrentClimbingType', 
+      callback: updateAll 
+    });
+
     // init app
     document.body.innerHTML = "";
     appContainer.append(appContentContainer, pageFooter.render(appContainer), otcMenu.render());

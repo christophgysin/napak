@@ -145,6 +145,14 @@ class sectionProgress {
       id: 'progress_update_chart--indoorsOutdoors',
       callback: updateCharts 
     });
+
+    storeObserver.add({
+      store: globals,
+      key: 'currentClimbingType', 
+      id: 'progress_update_chart--climbingStyle',
+      callback: updateCharts 
+    });
+    
     storeObserver.add({
       store: globals,
       key: 'scope', 
