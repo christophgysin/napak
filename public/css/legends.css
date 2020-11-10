@@ -80,13 +80,25 @@
   transform: translateY(-50%);
 }
 
+
 .grade-dial-container .legends-holder {
   top: 50%;
   transform: translateY(-50%);
+  display: flex;
 }
 
 .grade-dial-container .legends-holder .legend {
-  top: -0.5rem;
+  top: 0;
+  min-width: 0;
+  position: relative;
+  margin-left: 0px!important;
+  transition: margin-left 300ms ease-in-out, opacity 300ms ease-in-out, padding 300ms ease-in-out;
+  padding: 0;
+}
+
+.grade-dial-container .legends-holder .legend.legend:not(:empty) {
+  margin-left: 5px!important;
+  padding: 0 3px;
 }
 
 .horizontal-menu .legends-holder {
