@@ -35,3 +35,11 @@
   --font-size-bodytext: 1rem; /* 16px */
   }
 }
+
+@media only screen and (max-width: 320px) {
+  :root {
+    --font-size-bodytext: 1rem; /* 16px */
+    --font-size-heading-1 : 1.5rem;
+    }
+  }
+  
