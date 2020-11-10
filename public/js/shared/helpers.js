@@ -144,7 +144,7 @@ let averageGrade = (amount, scp, tickSet) => {
   let maxGrades = [];
   ticks.forEach(tick => {maxGrades.push(tick.grade)});
   if(maxGrades.length < 1) return 'N/A';
-  maxGrades = maxGrades.sort(function (a, b) { return b - a }).slice(0, 5);
+  maxGrades = maxGrades.sort(function (a, b) { return b - a }).slice(0, amount);
   maxGrades = maxGrades.reduce((a, b) => Number(a) + Number(b), 0);
   let avgr = maxGrades / amount;
 

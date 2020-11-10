@@ -27,9 +27,15 @@
   text-transform: uppercase;
   font-weight: 300;
   border-bottom: 1px solid var(--color-white-dim);
-  text-indent: 5px;
+/*  text-indent: 5px;*/
+  white-space: pre;
+  line-height: 1.25rem;
+  padding: 10px;
 }
 
+.tick-list table tr.header {
+  background: var(--color-black-alpha40);
+}
 .tick-list table .header-total th {
   border: 0;
   text-indent: 0;
@@ -38,10 +44,6 @@
 
 .tick-list table .header-total th:first-of-type {
   text-align: right;
-}
-
-.tick-list table tr.header {
-  line-height: 2em;
 }
 
 .tick-list table tr.header td {

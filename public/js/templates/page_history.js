@@ -64,9 +64,11 @@ class viewHistory {
         });
 
         let dateAvgGrade = averageGrade(5, false, ticks);
+        let sessionAverage = averageGrade(ticks.length, false, ticks);
+        console.log(ticks.length)
 
         let headerRow = dce({el: 'TR', cssClass: 'header'});
-        let headerTitle = dce({el: 'TH', content: `${handleDate({dateString : key, dateFormat : 'dd.mm.yyyy'})} - ${ticksByDateContainer[key].length} routes - Average grade: ${dateAvgGrade}`, attrbs: [['colspan', 3]]});
+        let headerTitle = dce({el: 'TH', content: `${handleDate({dateString : key, dateFormat : 'dd.mm.yyyy'})} - ${ticksByDateContainer[key].length} routes\r\nWeighted average grade: ${dateAvgGrade}\r\nSession average: ${sessionAverage}`, attrbs: [['colspan', 3]]});
         headerRow.appendChild(headerTitle);
         el.appendChild(headerRow);
 

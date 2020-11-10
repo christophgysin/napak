@@ -17,6 +17,13 @@
   top: -6px;
 }
 
+.tiny-legends .legend:not(:empty) {
+  font-size: 6px;
+  height: 8px;
+  line-height: 8px;
+  padding: 0 1px;
+}
+
 .small-legends .legend:not(:empty) {
   font-size: 8px;
   height: 10px;
@@ -94,4 +101,20 @@
 
 .legend:not(:empty).tick-removed{
   animation: appear 300ms ease-in-out, zoomInOut 300ms ease-in-out;
+}
+
+.tiny-legends .legends-holder {
+  left : 50%;
+  transform: translate3D(-50%, -50%, 0);
+  width: 100%;
+  display: inline-block;
+}
+
+.tiny-legends .legends-holder .legend {
+}
+.tiny-legends .legends-holder .legend:not(:empty) {
+  animation: appearFixX 300ms ease-in-out;
+  margin-left : 0!important;
+  left: 50%;
+  transform: translateX(-50%) scale(1);
 }

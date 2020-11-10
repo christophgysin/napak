@@ -88,11 +88,17 @@ class sectionProgress {
     let gradeDistributionContainer = dce({el: 'DIV', cssClass: 'grade-distribution hidden'});
     let gradeDistributionTitle = dce({el:'H3', content: 'Grade distribution'});
     let gradeDistributionChartContainer = dce({el: 'DIV', cssClass: 'grade-chart'});
-    let chartBarContainer = dce({el: 'DIV', cssClass : 'chart-container'});
+    let chartBarContainer = dce({el: 'DIV', cssClass : 'chart-container tiny-legends'});
     let chartFragment = document.createDocumentFragment();
     for(let i=0, j= globals.grades.font.length; i<j; i++) {
       let barContainer = dce({el: 'DIV'});
       let bar = dce({el: 'SPAN', cssClass: 'bar'})
+
+      let nakki = dce({el: 'SPAN', cssClass: 'legends-holder'});
+      let legend = dce({el: 'SPAN', cssClass: 'legend'  });
+      nakki.appendChild(legend);
+      bar.appendChild(nakki);
+
       barContainer.appendChild(bar);
       chartFragment.appendChild(barContainer)
     };
@@ -115,6 +121,7 @@ class sectionProgress {
     chartLegendContainer.appendChild(chartLegendFragment);
     gradeDistributionContainer.appendChild(chartLegendContainer);
 
+
     // update charts
     let updateCharts = () => {
       globals.totalAscentCount[globals.scope] = countAscents(globals.scope).total;
@@ -126,6 +133,7 @@ class sectionProgress {
       let ticks = countAscentsByGrade({scope: globals.scope});
       barNodes.forEach((bar, i) => {
         bar.style.height = `${ticks[i]}px`;
+        bar.querySelector('.legend').innerHTML = (ticks[i] > 0) ? ticks[i] : null;
       });
     };
 
