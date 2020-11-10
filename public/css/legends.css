@@ -96,11 +96,11 @@
 }
 
 .legend:not(:empty).tick-added{
-  animation: appear 300ms ease-in-out, zoomOutIn 300ms ease-in-out;
+  animation: appear 300ms ease-in-out, addTick 300ms ease-in-out;
 }
 
 .legend:not(:empty).tick-removed{
-  animation: appear 300ms ease-in-out, zoomInOut 300ms ease-in-out;
+  animation: appear 300ms ease-in-out, removeTick 300ms ease-in-out;
 }
 
 .tiny-legends .legends-holder {
