@@ -8,7 +8,7 @@ class climbingTypeSelector {
     let climbingTypeSelectContainer = dce({el: 'DIV', cssClass: 'climbing-type-container'});
 
     let groupClimbingTypeSelector = new picker({
-      cssClass: 'horizontal-menu full-width',
+      cssClass: 'horizontal-menu full-width small-legends',
       id: 'ascent-type-selector',
       targetObj: 'currentClimbingType',
       options: [
@@ -32,7 +32,6 @@ class climbingTypeSelector {
     });
 
     container.append(indoorsOutdoorsSelector.render());
-
 
     this.render = () => {
       return container;

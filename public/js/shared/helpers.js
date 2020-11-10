@@ -244,7 +244,7 @@ let countAscentsByDifficulty = () => {
   return ascents;
 }
 
-// Get ascents by difficulty
+// Get ascents by climbing type
 let countAscentsByType = () => {
   let types = {
     boulder: 0,
@@ -253,7 +253,7 @@ let countAscentsByType = () => {
     trad: 0
   };
 
-  let ticks = handleScopeTicks({scope: 'today', allTypes: true});
+  let ticks = handleScopeTicks({scope: 'alltime', allTypes: true});
 
   let temp = Object.keys(types);
   temp.forEach((type) => {
@@ -319,7 +319,7 @@ let handleScopeTicks = (params) => {
 
   globals.ticks.forEach((tick) => {
       if(tick.date >= fromNow && tick.date <= limitTo) {
-        if ( tick.type === globals.currentClimbingType && tick.indoorsOutdoors === globals.indoorsOutdoors ) {
+        if ( (tick.type === globals.currentClimbingType || params.allTypes )&& tick.indoorsOutdoors === globals.indoorsOutdoors ) {
          ticks.push(tick)
       }
     }

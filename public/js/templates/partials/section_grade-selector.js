@@ -10,7 +10,7 @@ class gradeWheel {
     let gradePicker = new wheel();
     let datePicker = new calendar();
     let ascentTypeSelector = new picker({
-      cssClass: 'horizontal-menu full-width',
+      cssClass: 'horizontal-menu full-width small-legends',
       id: 'ascent-type-selector',
       targetObj: 'currentAscentType',
       options: [

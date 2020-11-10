@@ -118,3 +118,7 @@
   left: 50%;
   transform: translateX(-50%) scale(1);
 }
+
+#ascent-type-selector .legends-holder .legend:not(:empty) {
+  position: absolute
+}

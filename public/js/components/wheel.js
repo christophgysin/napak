@@ -98,6 +98,13 @@ class wheel {
 
     storeObserver.add({
       store: globals,
+      key: 'currentClimbingType', 
+      id: 'wheelCurrentClimbingType',
+      callback: () => {clearLegends(), updateAll()}
+    });
+
+    storeObserver.add({
+      store: globals,
       key: 'today', 
       id: 'wheelDateChange',
       callback: () => {clearLegends(), updateAll()}

@@ -19,17 +19,18 @@ class calendar {
             dateHasTicks = [];
             let ticks = globals.ticks;
             for (let i = 0, j=ticks.length; i<j;i++) {
-                let tickDate = handleDate({dateString: ticks[i].date});
-                if(!dateHasTicks[tickDate]) {
-                    dateHasTicks[tickDate] = {count: 1};
-                }
-                else {
-                    let count= dateHasTicks[tickDate].count + 1 ;
-                    dateHasTicks[tickDate] = {'count': count};
+                if(ticks[i].indoorsOutdoors == globals.indoorsOutdoors && ticks[i].type == globals.currentClimbingType) {
+                    let tickDate = handleDate({dateString: ticks[i].date});
+                    if(!dateHasTicks[tickDate]) {
+                        dateHasTicks[tickDate] = {count: 1};
+                    }
+                    else {
+                        let count= dateHasTicks[tickDate].count + 1 ;
+                        dateHasTicks[tickDate] = {'count': count};
+                    }
                 }
             }
         }
-
 
         storeObserver.add({
             store: globals,
@@ -37,7 +38,21 @@ class calendar {
             callback: checkDateThatHasTicks,
             removeOnRouteChange: true
           });
-    
+
+        storeObserver.add({
+            store: globals,
+            key: 'currentClimbingType', 
+            callback: checkDateThatHasTicks,
+            removeOnRouteChange: true
+            });
+
+        storeObserver.add({
+            store: globals,
+            key: 'indoorsOutdoors', 
+            callback: checkDateThatHasTicks,
+            removeOnRouteChange: true
+        });
+
         currentDate.addEventListener('click', () => {
             let todayParsed = parseDate(globals.today);
             let year = todayParsed.year;
