@@ -92,10 +92,18 @@ let globalObjects = {
   averageGrade: 'N/A',
   totalAscentCount: {
     'today': 0,
-    'alltime': 0,
     'thirtydays': 0,
-    'year': 0
+    'year': 0,
+    'alltime': 0
   },
+
+  graphMultiplier: {
+    'today': 2,
+    'thirtydays': 1,
+    'year': 0.5,
+    'alltime': 0.1
+  },
+
   totalAscents : {
     redpoint: 0,
     flash: 0,

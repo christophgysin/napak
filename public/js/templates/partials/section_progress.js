@@ -1,3 +1,21 @@
+/*
+
+Observers
+
+globals
+  :totalScore
+    > updateTotalScore
+
+  :scope
+  :ticks
+  :currentClimbingType
+    > updateTotalAscentCount
+
+  :averageGrade
+  :scope
+    > updateAverageGrade
+*/
+
 import picker from '/js/components/picker.js';
 import { globals } from '/js/shared/globals.js';
 import { dce, countTotalScore, countAscentsByGrade, countTopFive, countAscents, averageGrade, storeObserver } from '/js/shared/helpers.js';
@@ -26,12 +44,6 @@ class sectionProgress {
 
     points.append(pointsTitle, pointsCount);
 
-    storeObserver.add({
-      store: globals,
-      key: 'totalScore', 
-      id: 'progressUpdateScore',
-      callback: () => {pointsCount.innerHTML = globals.totalScore;
-      }});
     // Ascents
     let ascents = dce({el: 'DIV', cssClass: 'important-ascents'});
     let ascentsTitle = dce({el: 'H3', content: 'Ascents'})
@@ -39,39 +51,12 @@ class sectionProgress {
 
     ascents.append(ascentsTitle, ascentsCount);
 
-    storeObserver.add({
-      store: globals,
-      key: 'scope', 
-      id: 'progressScopeChange',
-      callback: () => {ascentsCount.innerHTML = globals.totalAscentCount[globals.scope];}
-    });
-    storeObserver.add({
-      store: globals,
-      key: 'ticks', 
-      id: 'progressTicksUpdate',
-      callback: () => {ascentsCount.innerHTML = globals.totalAscentCount[globals.scope];}
-    });
-
     // Grade
     let grade = dce({el: 'DIV', cssClass: 'important-grade'});
     let gradeTitle = dce({el: 'H3', content: 'Avg. grade'})
     let gradeCount = dce({el: 'H2', content: globals.averageGrade})
 
     grade.append(gradeTitle, gradeCount);
-
-    storeObserver.add({
-      store: globals,
-      key: 'averageGrade', 
-      id: 'progressAverageGradeUpdate',
-      callback: () => {gradeCount.innerHTML = globals.averageGrade;}
-    });
-
-    storeObserver.add({
-      store: globals,
-      key: 'scope', 
-      id: 'progressScopeChangeAverage',
-      callback: () => {gradeCount.innerHTML = globals.averageGrade;}
-    });
 
     pointsContainer.append(points, ascents, grade);
     container.appendChild(pointsContainer);
@@ -95,7 +80,7 @@ class sectionProgress {
       let bar = dce({el: 'SPAN', cssClass: 'bar'})
 
       let nakki = dce({el: 'SPAN', cssClass: 'legends-holder'});
-      let legend = dce({el: 'SPAN', cssClass: 'legend'  });
+      let legend = dce({el: 'SPAN', cssClass: 'legend'});
       nakki.appendChild(legend);
       bar.appendChild(nakki);
 
@@ -132,7 +117,7 @@ class sectionProgress {
       let barNodes = chartBarContainer.querySelectorAll('.bar');
       let ticks = countAscentsByGrade({scope: globals.scope});
       barNodes.forEach((bar, i) => {
-        bar.style.height = `${ticks[i]}px`;
+        bar.style.height = `${ticks[i]*globals.graphMultiplier[globals.scope]}px`;
         bar.querySelector('.legend').innerHTML = (ticks[i] > 0) ? ticks[i] : null;
       });
     };
@@ -171,6 +156,63 @@ class sectionProgress {
     this.render = () => {
       return container;
     }
+
+    this.updateTotalScore = () => {
+      pointsCount.innerHTML = globals.totalScore;
+    }
+
+    this.updateTotalAscentCount = () => {
+      ascentsCount.innerHTML = globals.totalAscentCount[globals.scope]
+    }
+    
+    this.updateAverageGrade = () => {
+      gradeCount.innerHTML = globals.averageGrade;
+    }
+
+// Update total score
+    storeObserver.add({
+      store: globals,
+      key: 'totalScore', 
+      id: 'progressUpdateScore',
+      callback: this.updateTotalScore,
+      removeOnRouteChange: true
+      });
+
+    storeObserver.add({
+      store: globals,
+      key: 'scope', 
+      id: 'progressScopeChange',
+      callback: this.updateTotalAscentCount
+    });
+
+    storeObserver.add({
+      store: globals,
+      key: 'ticks', 
+      id: 'progressTicksUpdate',
+      callback: this.updateTotalAscentCount
+    });
+
+    storeObserver.add({
+      store: globals,
+      key: 'currentClimbingType', 
+      id: 'progressCurrentClimbingTypeChange',
+      callback: this.updateTotalAscentCount
+    });
+
+    storeObserver.add({
+      store: globals,
+      key: 'averageGrade', 
+      id: 'progressAverageGradeUpdate',
+      callback: this.updateAverageGrade
+    });
+
+    storeObserver.add({
+      store: globals,
+      key: 'scope', 
+      id: 'progressScopeChangeAverage',
+      callback: this.updateAverageGrade
+    });
+
   }
 }
 

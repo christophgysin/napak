@@ -1,3 +1,14 @@
+/*
+
+Observers
+
+globals
+  :currentClimbingType
+  :indoorsOutdoors
+    > updateHistory
+
+*/
+
 import { globals } from '/js/shared/globals.js';
 import { handleDate } from '/js/shared/date.js';
 import { dce, storeObserver, handleScopeTicks, eightaNuScore, averageGrade, countTopFive} from '/js/shared/helpers.js';
@@ -20,11 +31,10 @@ class viewHistory {
     let historyContent = dce({el: 'DIV', cssClass: 'history-content'});
     let scrollContainer = dce({el: 'DIV', cssClass : 'scroll-container'});
 
-    let ticksContainer = dce({el: 'DIV', cssClass: 'today tick-list'});
-    let el = dce({el: 'TABLE'});
+    let ticksContainer = dce({el: 'DIV', cssClass: 'tick-list'});
 
     let updateHistory = () => {
-      el.innerHTML = "";
+      ticksContainer.innerHTML = "";
       let ticks = handleScopeTicks({scope: 'alltime'});
 
       ticks.sort(function(a, b){
@@ -65,37 +75,30 @@ class viewHistory {
 
         let dateAvgGrade = averageGrade(5, false, ticks);
         let sessionAverage = averageGrade(ticks.length, false, ticks);
-        console.log(ticks.length)
 
-        let headerRow = dce({el: 'TR', cssClass: 'header'});
-        let headerTitle = dce({el: 'TH', content: `${handleDate({dateString : key, dateFormat : 'dd.mm.yyyy'})} - ${ticksByDateContainer[key].length} routes\r\nWeighted average grade: ${dateAvgGrade}\r\nSession average: ${sessionAverage}`, attrbs: [['colspan', 3]]});
-        headerRow.appendChild(headerTitle);
-        el.appendChild(headerRow);
+        let headerTitle = dce({el: 'DIV', cssClass: 'session-header', content: `${handleDate({dateString : key, dateFormat : 'dd.mm.yyyy'})} - ${ticksByDateContainer[key].length} routes\r\nWeighted average grade: ${dateAvgGrade}\r\nSession average: ${sessionAverage}`, attrbs: [['colspan', 3]]});
+        ticksContainer.appendChild(headerTitle);
 
         for( let i=ticks.length-1, j = 0; i>=j; i-- ) {          
-          let row = dce({el: 'TR'});
-          let indoors = dce({el: 'TD', content: ticks[i].indoorsOutdoors});
-          let type = dce({el: 'TD', content: ticks[i].type});
-          let gradeContainer = dce({el: 'TD'});
+          let row = dce({el: 'DIV', cssClass: 'session-tick-container'});
           let grade = dce({el: 'SPAN', cssClass: `grade-legend ${globals.difficulty[ticks[i].grade]}`, content: globals.grades.font[ticks[i].grade]});
-          gradeContainer.appendChild(grade);
-          let ascentType = dce({el: 'TD', content: ticks[i].ascentType});
-          let ascentPoints = dce({el: 'TD', cssClass: 'score', content: eightaNuScore(ticks[i])});
-          row.append(gradeContainer, ascentType, ascentPoints);
-          el.appendChild(row);
-  
-          let tickDetailsContainerRow = dce({el: 'TR', cssClass: 'hidden'});
-          let tickDetailsContainerCell = dce({el: 'TD', attrbs: [['colspan', 3]]});
-          let tickDetails = dce({el: 'DIV', cssClass: '', cssStyle: 'padding: 10px 0; display: flex; justify-content: center'/*, content : 'Edit actions for tick here...'*/});
-          
-          let deleteTick = dce({el: 'A', cssClass: 'btn btn_small', content: 'Remove tick'});
-          tickDetails.appendChild(deleteTick);
+          let ascentType = dce({el: 'SPAN', content: ticks[i].ascentType});
+          let ascentPoints = dce({el: 'SPAN', cssClass: 'score', content: eightaNuScore(ticks[i])});
+          let tickActionsContainer = dce({el: 'SPAN', cssClass: 'tick-actions'});
 
-          tickDetailsContainerCell.appendChild(tickDetails);
-          tickDetailsContainerRow.appendChild(tickDetailsContainerCell);
-          el.appendChild(tickDetailsContainerRow);
+          let deleteTick = dce({el: 'A', cssClass: 'btn btn_tiny', content: 'x'});
+          let editTickDetails = dce({el: 'A', cssClass: 'btn btn_tiny', content: 'Edit'});
+          tickActionsContainer.append(deleteTick, editTickDetails);
+          row.append(grade, ascentType, ascentPoints, tickActionsContainer);
+          ticksContainer.appendChild(row);
   
-          row.addEventListener('click', ()=>{tickDetailsContainerRow.classList.toggle('hidden')}, false);
+          let tickDetailsContainer = dce({el: 'DIV', cssClass: 'hidden'});
+          let tickDetails = dce({el: 'DIV', cssClass: '', cssStyle: 'padding: 10px 0; display: flex; justify-content: center', content : 'Edit actions for tick here...'});
+
+          tickDetailsContainer.appendChild(tickDetails);
+          ticksContainer.appendChild(tickDetailsContainer);
+  
+          editTickDetails.addEventListener('click', ()=>{this.toggleModal();}); //console.log(new Date().getTime()); tickDetailsContainer.classList.toggle('hidden')}, false);
         }
     }
 
@@ -104,17 +107,35 @@ class viewHistory {
         let row = dce({el: 'TR'});
         let col = dce({el: 'TD', cssClass: 'no-history', content: 'Nothing to see here. Move along'});
         row.appendChild(col);
-        el.appendChild(row);
+        ticksContainer.appendChild(row);
       }
     }
     updateHistory();
 
     let disciplineSelector = new climbingTypeSelector();
 
-    ticksContainer.appendChild(el);
+    this.modal  = dce({el: 'DIV', cssClass: 'hidden', cssStyle: 'position: fixed;   border-radius: 20px; background: #fff; min-height: 300px;z-index: 3;left: 20px;right: 20px;top: 50%;transform: translateY(-50%); padding: 20px; color: #000'});
+    let tickEditModalHeader = dce({el: 'DIV', content: `Grade: ${globals.grades.font[globals.ticks[0].grade]}`});
+    /*
+    ascentType: "redpoint"
+  date: 1583216284437
+​
+grade: 7
+​
+indoorsOutdoors: "indoors"
+​
+location: false
+​
+type: "boulder"
+​
+uuid: "ca6a2500-ea73-40b5-896d-404ba0ff88ed"
+*/
+    this.modal.appendChild(tickEditModalHeader);
+
     scrollContainer.append(ticksContainer);
     historyContent.appendChild(scrollContainer);
-    container.append(ticker.render(), disciplineSelector.render(), historyContent);
+    container.append(ticker.render(), disciplineSelector.render(), historyContent, this.modal);
+
 
     storeObserver.add({
       store: globals,
@@ -132,6 +153,10 @@ class viewHistory {
 
     this.render = () => {
       return container
+    }
+
+    this.toggleModal = () => {
+      this.modal.classList.toggle('hidden')
     }
   }
 }

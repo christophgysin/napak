@@ -1,8 +1,8 @@
 :root {
-  --color-theme-color1: rgba(70, 71, 83, 1);
-  --color-theme-color1-alpha: rgba(70, 71, 83, 0.8);
-  --color-theme-color1-accent: rgba(62, 63, 74, 1);
-  --color-theme-color1-alpha0: rgba(70, 71, 83, 0);
+  --color-theme-color1: rgba(60, 61, 73, 1);
+  --color-theme-color1-alpha: rgba(60, 61, 73, 0.8);
+  --color-theme-color1-accent: rgba(52, 53, 64, 1);
+  --color-theme-color1-alpha0: rgba(60, 61, 73, 0);
   --color-theme-color2: rgba(0, 255, 203, 1);
   --color-theme-color2-alpha: rgba(0, 255, 203, 0.5);
   --color-theme-color2-alpha0: rgba(0, 255, 203, 0);
@@ -23,6 +23,7 @@
   --font-size-heading-1: 2rem; /* 32px */
   --font-size-heading-2: 3rem; /* 48px */
   --padding-base: 20px;
+  --padding-base-half: 10px;
   --padding-base-wide: 20px 40px;
   --padding-base-wide-horizontal: 40px;
   --padding-base-negative: -20px;

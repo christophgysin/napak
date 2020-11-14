@@ -80,7 +80,7 @@
   transform: translateY(-50%);
 }
 
-
+/* Dial container specific styles */
 .grade-dial-container .legends-holder {
   top: 50%;
   transform: translateY(-50%);
@@ -101,6 +101,16 @@
   padding: 0 3px;
 }
 
+.legend.tick-added{
+  animation: appear 300ms ease-in-out, addTick 300ms ease-in-out;
+}
+
+.legend.tick-removed{
+  animation: appear 300ms ease-in-out, removeTick 300ms ease-in-out;
+}
+
+
+/* Horizontal container specific styles */
 .horizontal-menu .legends-holder {
   left: unset;
   top: 0.25rem
@@ -108,15 +118,7 @@
 
 .legends-holder .legend {
   left: auto;
-  margin-left: 5px !important;
-}
-
-.legend.tick-added{
-  animation: appear 300ms ease-in-out, addTick 300ms ease-in-out;
-}
-
-.legend.tick-removed{
-  animation: appear 300ms ease-in-out, removeTick 300ms ease-in-out;
+  margin-left: 3px !important;
 }
 
 .tiny-legends .legends-holder {

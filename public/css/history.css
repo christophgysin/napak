@@ -1,25 +1,10 @@
-.tick-list table {
+.tick-list {
   width: 100%;
   margin: 10px 0;
-  border-spacing: 0;
-  border-collapse: separate;
   font-size: var(--font-size-base);
 }
 
-.tick-list table TD::first-letter {
-  text-transform: uppercase;
-}
-
-.tick-list table TD:nth-of-type(1) {
-  width: 1px;
-  padding-right: var(--padding-base);
-}
-
-.tick-list table TD:nth-of-type(3) {
-  text-align: right;
-}
-
-.tick-list table th {
+.tick-list .session-header {
   text-align: left;
   color: inherit;
   font-family: 'IBM Plex Mono';
@@ -27,27 +12,10 @@
   text-transform: uppercase;
   font-weight: 300;
   border-bottom: 1px solid var(--color-white-dim);
-/*  text-indent: 5px;*/
   white-space: pre;
   line-height: 1.25rem;
   padding: 10px;
-}
-
-.tick-list table tr.header {
   background: var(--color-black-alpha40);
-}
-.tick-list table .header-total th {
-  border: 0;
-  text-indent: 0;
-  font-weight: 600;
-}
-
-.tick-list table .header-total th:first-of-type {
-  text-align: right;
-}
-
-.tick-list table tr.header td {
-  border-bottom: 1px solid var(--color-white-dim);
 }
 
 .grade-legend {
@@ -138,4 +106,17 @@
   filter: grayscale(1);
   z-index: 1;
   opacity: 0.1;
+}
+
+
+.session-tick-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+.tick-actions .btn {
+  display: inline-block;
+  margin-left: 4px;
+  margin-right: 1px;
 }
