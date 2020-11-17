@@ -112,7 +112,8 @@ let vibrate = (params) => {
     duration = params.duration;
   }
   if(supportsVibrate) {
-    window.navigator.vibrate(duration);
+    navigator.vibrate(0);
+    navigator.vibrate(duration);
   }
 }
 
