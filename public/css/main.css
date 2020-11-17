@@ -187,6 +187,7 @@ BODY.indoors section.grade::after {
   position: relative;
   scrollbar-width: thin;
   scrollbar-color: var(--color-theme-color1) transparent;
+  overscroll-behavior: contain;
 }
 
 .grade-dial-container {
@@ -234,6 +235,7 @@ BODY.indoors section.grade::after {
   width: 100%;
   scrollbar-width: thin;
   scrollbar-color: var(--color-theme-color1) transparent;
+  overscroll-behavior: contain;
 }
 
 .grade-dial-container::before {
