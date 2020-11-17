@@ -1,11 +1,12 @@
 import { dce } from '/js/shared/helpers.js';
 import { user } from '/js/shared/user.js';
-import { store } from '/js/shared/store.js';
 import { route } from '/js/shared/route.js';
 
 
 class viewLogin {
   constructor() {
+    const db = firebase.firestore();
+    const dbuser = firebase.auth().currentUser;
 
     let container = dce({el: 'DIV', cssClass: 'login-page'});
     let loginFormContainer = dce({el: 'SECTION', cssClass: 'login-form'});
@@ -41,6 +42,7 @@ class viewLogin {
     let doLogin = () => {
       firebase.auth().signInWithEmailAndPassword(userEmail.value, password.value)
         .then(function(result) {
+
           user.login.isLoggedIn = true;
           user.name.email = result.user.email;
           user.name.id = result.user.uid;
@@ -61,7 +63,7 @@ class viewLogin {
     } 
 
     loginForm.addEventListener('submit', (e) => {
-      event.preventDefault();
+      e.preventDefault();
       doLogin();
       return;
     }, false)

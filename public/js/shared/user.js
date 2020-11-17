@@ -27,6 +27,8 @@ let userObject = {
     id:  (userFromStorage.id) ? userFromStorage.id : false
   },
 
+  groups : (userFromStorage.groups) ? userFromStorage.groups : [],
+ 
   login : {
     isLoggedIn :  (userFromStorage.isLoggedIn) ? userFromStorage.isLoggedIn : null,
   }

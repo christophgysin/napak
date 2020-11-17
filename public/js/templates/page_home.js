@@ -48,6 +48,9 @@ class viewHome {
       if(data.ticks) {
         globals.ticks = data.ticks;
       }
+      if(data.user) {
+        user.groups = data.user.groups;
+      }
     });
 
     user.name.displayName = (firebase.auth().currentUser && firebase.auth().currentUser.displayName) ? firebase.auth().currentUser.displayName : false;
