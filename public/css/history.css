@@ -6,7 +6,7 @@
 .tick-list .session-header {
   text-align: left;
   color: inherit;
-  font-family: 'IBM Plex Mono';
+/*  font-family: 'IBM Plex Mono';*/
   font-size: 12px;
   text-transform: uppercase;
   font-weight: 300;
@@ -14,7 +14,11 @@
   white-space: pre;
   line-height: 1.25rem;
   padding: 10px;
+/*  
   background: var(--color-black-alpha40);
+*/
+  background: var(--color-theme-color1-alpha);
+  text-align: center;
 }
 
 .grade-legend {
@@ -116,8 +120,13 @@
   margin: 5px 0;
 }
 
+.session-tick SPAN {
+  text-transform: capitalize;
+}
+
 .tick-actions .btn {
   display: inline-block;
   margin-left: 4px;
   margin-right: 1px;
 }
+

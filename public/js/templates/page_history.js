@@ -76,7 +76,8 @@ class viewHistory {
         let dateAvgGrade = averageGrade(5, false, ticks);
         let sessionAverage = averageGrade(ticks.length, false, ticks);
 
-        let headerTitle = dce({el: 'DIV', cssClass: 'session-header', content: `${handleDate({dateString : key, dateFormat : 'dd.mm.yyyy'})} - ${ticksByDateContainer[key].length} routes\r\nWeighted average grade: ${dateAvgGrade}\r\nSession average: ${sessionAverage}`, attrbs: [['colspan', 3]]});
+        let headerTitle = dce({el: 'DIV', cssClass: 'session-header'});
+        headerTitle.innerHTML = `${handleDate({dateString : key, dateFormat : 'dd.mm.yyyy'})} - <b>${ticksByDateContainer[key].length} routes</b>\r\nWeighted average grade: <b>${dateAvgGrade}</b>\r\nSession average: <b>${sessionAverage}</b>`;
         ticksContainer.appendChild(headerTitle);
 
         let sessionTicks = dce({el: 'DIV', cssClass: 'session-tick-container'});
