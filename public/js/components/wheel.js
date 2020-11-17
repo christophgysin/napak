@@ -8,11 +8,13 @@ class wheel {
     let dialViewport = dce({el: 'DIV', cssClass: 'select-dialog-viewport'});
     let selectDialog = dce({el: 'DIV', cssClass: 'select-dialog', attrbs: [['data-enablescroll', 'true']] });
 
-    dialViewport.addEventListener('scroll', (y) => {
+    dialViewport.addEventListener('scroll', (e) => {
       let newVal = Math.floor(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length));
       if(newVal !== globals.currentAscentGrade) {
         globals.currentAscentGrade = newVal;
-        vibrate();
+        if (e.isTrusted) {
+          vibrate();
+        }
       }
     }, false);
 
@@ -134,6 +136,7 @@ class wheel {
           let elemSize = selectDialog.firstChild.getBoundingClientRect().height;
           let elemTopScrollPos = 50;
           dialViewport.scrollTo(0, elemSize*globals.currentAscentGrade + elemTopScrollPos);
+          setTimeout(()=>{dialViewport.blur()}, 300)
         }, 300);
         observer.disconnect();
       }
