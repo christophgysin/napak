@@ -36,12 +36,22 @@ class viewResetPassword {
       firebase.auth().sendPasswordResetEmail(emailAddress).then(function() {
         resetSuccess.innerHTML = 'Email sent. Follow the directions in the email to reset your password'
       }).catch(function(error) {
-        resetError.innerHTML = error.code + " " + error.message;
+//        resetError.innerHTML = error.code + " " + error.message;
+        resetSuccess.innerHTML = 'Email sent. Follow the directions in the email to reset your password'
       });
     } 
 
     resetForm.addEventListener('submit', (e) => {
-      event.preventDefault();
+      e.preventDefault();
+      let test = this.validateEmail(userEmail.value);
+      if(!test) {
+        resetError.innerHTML = "email address is not valid";
+        resetSuccess.innerHTML = "";
+        return;
+      }
+      else {
+        resetError.innerHTML = "";
+      }
       resetPassword();
       return;
     }, false)
@@ -54,6 +64,11 @@ class viewResetPassword {
 
     this.render = () => {
       return container
+    }
+
+    this.validateEmail = (email) => {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
     }
   }
 }

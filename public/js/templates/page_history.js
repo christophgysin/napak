@@ -79,8 +79,10 @@ class viewHistory {
         let headerTitle = dce({el: 'DIV', cssClass: 'session-header', content: `${handleDate({dateString : key, dateFormat : 'dd.mm.yyyy'})} - ${ticksByDateContainer[key].length} routes\r\nWeighted average grade: ${dateAvgGrade}\r\nSession average: ${sessionAverage}`, attrbs: [['colspan', 3]]});
         ticksContainer.appendChild(headerTitle);
 
+        let sessionTicks = dce({el: 'DIV', cssClass: 'session-tick-container'});
+
         for( let i=ticks.length-1, j = 0; i>=j; i-- ) {          
-          let row = dce({el: 'DIV', cssClass: 'session-tick-container'});
+          let row = dce({el: 'DIV', cssClass: 'session-tick'});
           let grade = dce({el: 'SPAN', cssClass: `grade-legend ${globals.difficulty[ticks[i].grade]}`, content: globals.grades.font[ticks[i].grade]});
           let ascentType = dce({el: 'SPAN', content: ticks[i].ascentType});
           let ascentPoints = dce({el: 'SPAN', cssClass: 'score', content: eightaNuScore(ticks[i])});
@@ -90,23 +92,16 @@ class viewHistory {
           let editTickDetails = dce({el: 'A', cssClass: 'btn btn_tiny', content: 'Edit'});
           tickActionsContainer.append(deleteTick, editTickDetails);
           row.append(grade, ascentType, ascentPoints, tickActionsContainer);
-          ticksContainer.appendChild(row);
-  
-          let tickDetailsContainer = dce({el: 'DIV', cssClass: 'hidden'});
-          let tickDetails = dce({el: 'DIV', cssClass: '', cssStyle: 'padding: 10px 0; display: flex; justify-content: center', content : 'Edit actions for tick here...'});
-
-          tickDetailsContainer.appendChild(tickDetails);
-          ticksContainer.appendChild(tickDetailsContainer);
+          sessionTicks.appendChild(row);
   
           editTickDetails.addEventListener('click', ()=>{this.toggleModal();}); //console.log(new Date().getTime()); tickDetailsContainer.classList.toggle('hidden')}, false);
         }
+        ticksContainer.appendChild(sessionTicks)
     }
 
 
       if(!ticks.length) {
-        let row = dce({el: 'TR'});
-        let col = dce({el: 'TD', cssClass: 'no-history', content: 'Nothing to see here. Move along'});
-        row.appendChild(col);
+        let row = dce({el: 'DIV', cssClass: 'no-history', content: 'Nothing to see here. Move along'});
         ticksContainer.appendChild(row);
       }
     }

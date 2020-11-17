@@ -1,6 +1,5 @@
 .tick-list {
   width: 100%;
-  margin: 10px 0;
   font-size: var(--font-size-base);
 }
 
@@ -72,7 +71,6 @@
 
 
 .history-content {
-  padding: 0 var(--padding-base) 0;
   overflow: hidden;
   position: relative;
 }
@@ -108,8 +106,11 @@
   opacity: 0.1;
 }
 
-
 .session-tick-container {
+  padding: 0 var(--padding-base);
+  margin-bottom: var(--padding-base);
+}
+.session-tick {
   display: flex;
   justify-content: space-between;
   margin: 5px 0;
