@@ -46,7 +46,7 @@ let globalObjects = {
   openMenus: [],
   today: today,
   realToday: today,
-  vibrate: false,
+  vibrate: true,
   location: false,
 
   grades : {

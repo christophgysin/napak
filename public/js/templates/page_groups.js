@@ -98,6 +98,7 @@ class viewGroups {
         db.collection('groups').doc(userGroups[i]).get().then( (doc) => {
           let group = {
             title: doc.data().name,
+            value: userGroups[i],
             selected: (i === 0) ? true : false
           }
           groupSelect.pushItem(group)

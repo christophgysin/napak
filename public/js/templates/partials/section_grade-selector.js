@@ -1,4 +1,4 @@
-import { dce } from '/js/shared/helpers.js';
+import { dce, vibrate } from '/js/shared/helpers.js';
 import { globals } from '/js/shared/globals.js';
 import calendar from '/js/components/calendar.js';
 import handleTick from '/js/shared/handle_tick.js';
@@ -30,8 +30,8 @@ class gradeWheel {
     let spacer = dce({ el: 'DIV', cssStyle: 'width: 20px; min-width: 20px;' });
     let buttonInc = dce({ el: 'A', cssClass: 'btn type-redpoint', content: 'Tick' });
 
-    buttonInc.addEventListener('click', () => { handleTick(true); }, false);
-    buttonDec.addEventListener('click', () => { handleTick(false); }, false);
+    buttonInc.addEventListener('click', () => { if(globals.vibrate){vibrate();} handleTick(true); }, false);
+    buttonDec.addEventListener('click', () => { if(globals.vibrate){vibrate();} handleTick(false); }, false);
 
     buttonsContainer.append(buttonDec, spacer, buttonInc);
     pickerElement.appendChild(buttonsContainer);

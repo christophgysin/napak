@@ -16,6 +16,13 @@ class statusTicker {
   
     messageContainer.addEventListener('click', () => {
       document.querySelector('.in-out-menu').classList.toggle('hidden');
+      if(document.querySelector('.in-out-menu').classList.contains('hidden')) {
+        messageContainer.classList.remove('spin')
+      }
+      else {
+        messageContainer.classList.add('spin')
+      }
+
     }, false)
 /* */ 
     let currentClimbingTypeTitle = () => {

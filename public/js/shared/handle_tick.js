@@ -2,7 +2,7 @@ import { globals } from '/js/shared/globals.js';
 import { UUID } from '/js/shared/uuid.js';
 import { store } from '/js/shared/store.js';
 import { handleDate } from '/js/shared/date.js';
-import { parseDate } from '/js/shared/helpers.js';
+import { parseDate, vibrate } from '/js/shared/helpers.js';
 /* Handle tick */
 
 let handleTick = (add) => {
@@ -66,15 +66,7 @@ let handleTick = (add) => {
       });
       globals.standardMessage = globals.standardMessage;
     }
-/*
-    else {
-      globals.standardMessage.unshift({
-        message: `${globals.grades.font[grade]} ${ascentType}`,
-        timeout: 1
-      });
-      globals.standardMessage = globals.standardMessage;
-    }
-*/
+
     store.add({
       key: 'ticks',
       keydata: newTick

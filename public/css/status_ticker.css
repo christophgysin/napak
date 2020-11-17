@@ -84,5 +84,10 @@
   line-height: 40px;
   position: absolute;
   right: 0;
+  transition: transform 300ms ease-in-out;
+  transform: rotate(0deg);
   }
   
+  .status-ticker .spin div.toggle{
+    transform: rotate(90deg);
+  }
