@@ -1,0 +1,189 @@
+.progression {
+    padding-top: 0;
+    grid-area: stats;
+    background: var(--color-theme-color1);
+  }
+
+/* Stats */
+.important-numbers {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  .important-points,
+  .important-ascents,
+  .important-grade {
+    width: 33.3%;
+  }
+  
+  .important-ascents {
+    text-align: center;
+  }
+  
+  .important-grade {
+    text-align: right;
+  }
+  
+  
+@media (orientation: landscape) and (max-width: 1023px) {
+    .progression {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto 1fr;
+    }
+    .graph-pulldown {
+      display: none;
+    }
+    .grade-distribution.hidden {
+      display: block;
+      align-self: end;
+    }
+  }
+
+  
+.stripes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    margin: 0 auto 0;
+    width: 20px;
+    height: 10px;
+}
+
+.stripes div {
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation: gravity 0.8s infinite;
+    animation-timing-function: ease-in-out;
+    background: var(--color-white-dim);
+}
+  
+.stripes div:nth-of-type(2) {
+    left: unset;
+    right: 0;
+    animation-delay: 0.15s;
+  }
+  
+.stripes div:nth-of-type(3) {
+    left: 50%;
+    animation-delay: 0.3s;
+  }
+
+/* Charts */
+.graph-pulldown {
+    text-align: center;
+    display: block;
+    width: 20px;
+    height: 10px;
+    margin: 0 auto -10px;
+    position: relative;
+  }
+  
+.grade-distribution {
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+  
+.grade-chart {
+    margin-top: 16px;
+    position: relative;
+  }
+  
+.grade-chart::before {
+    position: absolute;
+    left: -20px;
+    right: -20px;
+    height: 70px;
+    display: block;
+    content: '';
+    z-index: 0;
+    bottom: -35px;
+  }
+  
+.chart-container,
+.chart-legend {
+    display: grid;
+    grid-template-columns: repeat(24, 4.166%);
+    z-index: 1;
+    position: relative;
+    text-transform: uppercase;
+    padding-top: 10px;
+  }
+  
+.chart-legend {
+    margin-top: 5px;
+  }
+  
+.chart-container div {
+    position: relative;
+    height: 10px;
+  }
+  
+.chart-container div::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    display: block;
+  }
+  
+.chart-legend div {
+    color: var(--color-white);
+    font-family: 'IBM Plex Mono';
+    font-size: 7px;
+    text-align: center;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .bar {
+    background: var(--color-theme-color2);
+    width: 3px;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    max-height: 20px;
+    opacity: 0.8;
+    border-radius: var(--chart-bar-radius);
+    transition: height 300ms ease-in-out;
+    transform: translateX(-50%);
+    left: 50%;
+  }
+  
+  .bar {
+    background: linear-gradient(to right, #00ffcb 0%, #c806fe 100%);
+    background-size: 100vw 100vh;
+  }
+  
+  .chart-container > DIV:nth-of-type(1) .bar {background-position: calc(100% / 24 * 1)}
+  .chart-container > DIV:nth-of-type(2) .bar {background-position: calc(100% / 24 * 2)}
+  .chart-container > DIV:nth-of-type(3) .bar {background-position: calc(100% / 24 * 3)}
+  .chart-container > DIV:nth-of-type(4) .bar {background-position: calc(100% / 24 * 4)}
+  .chart-container > DIV:nth-of-type(5) .bar {background-position: calc(100% / 24 * 5)}
+  .chart-container > DIV:nth-of-type(6) .bar {background-position: calc(100% / 24 * 6)}
+  .chart-container > DIV:nth-of-type(7) .bar {background-position: calc(100% / 24 * 7)}
+  .chart-container > DIV:nth-of-type(8) .bar {background-position: calc(100% / 24 * 8)}
+  .chart-container > DIV:nth-of-type(9) .bar {background-position: calc(100% / 24 * 9)}
+  .chart-container > DIV:nth-of-type(10) .bar {background-position: calc(100% / 24 * 10)}
+  .chart-container > DIV:nth-of-type(11) .bar {background-position: calc(100% / 24 * 11)}
+  .chart-container > DIV:nth-of-type(12) .bar {background-position: calc(100% / 24 * 12)}
+  .chart-container > DIV:nth-of-type(13) .bar {background-position: calc(100% / 24 * 13)}
+  .chart-container > DIV:nth-of-type(14) .bar {background-position: calc(100% / 24 * 14)}
+  .chart-container > DIV:nth-of-type(15) .bar {background-position: calc(100% / 24 * 15)}
+  .chart-container > DIV:nth-of-type(16) .bar {background-position: calc(100% / 24 * 16)}
+  .chart-container > DIV:nth-of-type(17) .bar {background-position: calc(100% / 24 * 17)}
+  .chart-container > DIV:nth-of-type(18) .bar {background-position: calc(100% / 24 * 18)}
+  .chart-container > DIV:nth-of-type(19) .bar {background-position: calc(100% / 24 * 19)}
+  .chart-container > DIV:nth-of-type(20) .bar {background-position: calc(100% / 24 * 20)}
+  .chart-container > DIV:nth-of-type(21) .bar {background-position: calc(100% / 24 * 21)}
+  .chart-container > DIV:nth-of-type(22) .bar {background-position: calc(100% / 24 * 22)}
+  .chart-container > DIV:nth-of-type(23) .bar {background-position: calc(100% / 24 * 23)}
+  .chart-container > DIV:nth-of-type(24) .bar {background-position: calc(100% / 24 * 24)}
