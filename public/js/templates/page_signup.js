@@ -44,6 +44,7 @@ class viewSignup {
         user.name.id = msg.user.uid;
 
         store.write({
+          store: 'users',
           key: 'user',
           keydata: { ...user.name}
         });
@@ -51,7 +52,7 @@ class viewSignup {
     } 
 
     signupForm.addEventListener('submit', (e) => {
-      event.preventDefault();
+      e.preventDefault();
       doSignup();
       return;
     }, false);

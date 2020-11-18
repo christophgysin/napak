@@ -18,7 +18,7 @@ globals
 
 import picker from '/js/components/picker.js';
 import { globals } from '/js/shared/globals.js';
-import { dce, countTotalScore, countAscentsByGrade, countTopFive, countAscents, averageGrade, storeObserver } from '/js/shared/helpers.js';
+import { dce, countTotalScore, countAscentsByGrade, countTopX, countAscents, averageGrade, storeObserver } from '/js/shared/helpers.js';
 
 class sectionProgress {
   constructor() {
@@ -111,7 +111,7 @@ class sectionProgress {
     let updateCharts = () => {
       globals.totalAscentCount[globals.scope] = countAscents(globals.scope).total;
       globals.currentScore = countTotalScore();
-      globals.totalScore = countTopFive();
+      globals.totalScore = countTopX();
       globals.averageGrade = averageGrade(5);
 
       let barNodes = chartBarContainer.querySelectorAll('.bar');

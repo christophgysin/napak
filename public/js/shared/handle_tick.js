@@ -2,7 +2,7 @@ import { globals } from '/js/shared/globals.js';
 import { UUID } from '/js/shared/uuid.js';
 import { store } from '/js/shared/store.js';
 import { handleDate } from '/js/shared/date.js';
-import { parseDate, vibrate } from '/js/shared/helpers.js';
+import { parseDate, countTotalScore } from '/js/shared/helpers.js';
 /* Handle tick */
 
 let handleTick = (add) => {
@@ -30,6 +30,7 @@ let handleTick = (add) => {
     if (ticksByGrade.length) {
       let indx = ticksByGrade.length - 1;
       store.remove({
+          store: 'users',
           key: 'ticks',
           keydata: ticks[ticksByGrade[indx]]
         });
@@ -53,7 +54,6 @@ let handleTick = (add) => {
       location: false
     };
     ticks.push(newTick);
-    globals.ticks = ticks;
     globals.lastTick = newTick;
     globals.lastTickRemoved = false;
 
@@ -68,11 +68,11 @@ let handleTick = (add) => {
     }
 
     store.add({
+      store: 'users',
       key: 'ticks',
       keydata: newTick
-    });  
+    });
   }
-
   globals.ticks = ticks;
 };
 

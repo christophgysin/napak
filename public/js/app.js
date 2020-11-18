@@ -12,8 +12,9 @@ import { route } from '/js/shared/route.js';
 
 import { globals } from '/js/shared/globals.js';
 import { user } from '/js/shared/user.js';
-import { dce, storeObserver, countAscents, countTotalScore, countTopFive, averageGrade, countAscentsByType }  from '/js/shared/helpers.js';
+import { dce, storeObserver, countAscents, countTotalScore, countGroupScore, countTopX, averageGrade, countAscentsByType }  from '/js/shared/helpers.js';
 
+import { store } from '/js/shared/store.js';
 
 let napak = {
   initialize : () => {
@@ -35,7 +36,7 @@ let napak = {
     // Update all globals
     let updateAll = () => {
       globals.currentScore = countTotalScore(); // Array of top scores
-      globals.totalScore = countTopFive();  // Top score counted together
+      globals.totalScore = countTopX();  // Top score counted together
       globals.averageGrade = averageGrade(5);
       globals.totalAscentsByType = countAscentsByType(); // Total ascents by type: Boulder, Sport, Trad, Toprope
       globals.totalAscents = countAscents('today');  // Total ascents by ascent type: Redpoint, onsight, flash
@@ -51,6 +52,24 @@ let napak = {
     };
 
     updateAll();
+
+    let updateGroupScore = () => {
+      globals.totalScoreByType = countGroupScore();
+
+      store.write({
+        store: 'score',
+        key: 'current',
+        keydata: globals.totalScoreByType
+      });
+    }
+
+    storeObserver.add({
+      store: globals,
+      key: 'ticks', 
+      id: 'appGroupScore', 
+      callback: updateGroupScore 
+    });
+
 
     // Listen to tick objects change and update
     storeObserver.add({

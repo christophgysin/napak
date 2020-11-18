@@ -125,12 +125,13 @@ let triggerCustomEvent = (params) => {
   }
 }
 
-// Count top 5 score
-let countTopFive = (scp, tickSet) => {
-  if(tickSet) {
-    return countTotalScore(tickSet).reduce((a, b) => Number(a) + Number(b), 0);
+// Count top x score
+let countTopX = (prms) => {
+  let params = (prms) ? prms : {count: 5};
+  if(params.tickSet) {
+    return countTotalScore({tickSet: params.tickSet, count: (params.count) ? params.count : 5}).reduce((a, b) => Number(a) + Number(b), 0);
   }
-  return countTotalScore(scp).reduce((a, b) => Number(a) + Number(b), 0);
+  return countTotalScore().reduce((a, b) => Number(a) + Number(b), 0);
 }
 
 // Count average grade
@@ -154,15 +155,22 @@ let averageGrade = (amount, scp, tickSet) => {
 
 
 // Total score
-let countTotalScore = (scp) => {
-  let ticks = handleScopeTicks({scope: (scp) ? scp : globals.scope});
-  let score = [0,0,0,0,0];
+let countTotalScore = (prms) => {
+  let params = (prms) ? prms : {count: 5};
+  let ticks;
+  if (params.tickSet) {
+    ticks = params.tickSet;
+  }
+  else {
+    ticks = handleScopeTicks({scope: (params.scope) ? params.scope : globals.scope});
+  }
+  let score = Array((params.count) ? params.count : 5).fill(0)
 
   ticks.forEach((tick) => {
     score.push(eightaNuScore({ ascentType: tick.ascentType, grade: tick.grade, sport: tick.type }));
   })
 
-  return score.sort(function (a, b) { return b - a }).slice(0, 5);
+  return score.sort(function (a, b) { return b - a }).slice(0, params.count);
 }
 
 
@@ -283,6 +291,27 @@ let countAscentsByGrade = (params) => {
   return ascentsByGrade;
 }
 
+let countGroupScore = () => {
+  let types = {
+    boulder: 0,
+    sport: 0,
+    toprope: 0,
+    trad: 0
+  }
+
+  let ticks = handleScopeTicks({scope: 'thirtydays', allTypes: true});
+
+  let temp = Object.keys(types);
+  temp.forEach((type) => {
+    let ticksByDiscipline = ticks.filter(obj => {
+      return obj.type === type && obj.indoorsOutdoors === globals.indoorsOutdoors
+    })
+    types[type] = countTopX({count: 10, tickSet: ticksByDiscipline});;
+  });
+
+  return types;
+}
+
 // Return all ticks matching the scope
 let handleScopeTicks = (params) => {
   let fromNow;
@@ -331,7 +360,7 @@ let handleScopeTicks = (params) => {
 
 let updateScopeTicks = () => {
   globals.currentScore = countTotalScore();
-  globals.totalScore = countTopFive();
+  globals.totalScore = countTopX();
   globals.totalAscentCount['today'] = countAscents('today').total;
   globals.totalAscentCount['thirtydays'] = countAscents('thirtydays').total;
   globals.totalAscentCount['year'] = countAscents('year').total;
@@ -353,7 +382,7 @@ export {
   svg,
   vibrate,
   triggerCustomEvent,
-  countTopFive,
+  countTopX,
   averageGrade,
   eightaNuScore,
   countTotalScore,
@@ -361,6 +390,7 @@ export {
   countAscentsByDifficulty,
   countAscentsByType,
   countAscentsByGrade,
+  countGroupScore,
   handleScopeTicks,
   updateScopeTicks,
   parseDate

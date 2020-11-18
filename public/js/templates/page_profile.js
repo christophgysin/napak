@@ -1,6 +1,7 @@
 import { dce } from '/js/shared/helpers.js';
 import { user } from '/js/shared/user.js';
 import { route } from '../shared/route.js';
+import { store } from '../shared/store.js';
 
 class viewProfile {
   constructor() {
@@ -43,6 +44,12 @@ class viewProfile {
       }).then(function(msg) {
         user.name.displayName = userName.value; 
         user.name = user.name; // touch user login to update OTC element
+        store.update({
+          store: 'users',
+          key: 'user.displayName',
+          keydata:  user.name.displayName
+        });
+
         loginFormContainer.appendChild(successMessage);
       }).catch(function(error) {
         errorMessage.innerHMTL = error;
@@ -52,7 +59,7 @@ class viewProfile {
     } 
 
     userProfileForm.addEventListener('submit', (e) => {
-      event.preventDefault();
+      e.preventDefault();
       updateProfile();
       return;
     }, false);

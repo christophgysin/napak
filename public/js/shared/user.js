@@ -17,7 +17,11 @@ const handler = {
   }
 }
 
-let userFromStorage = store.read({key: 'user', onlyLS: true});
+let userFromStorage = store.read({
+  store: 'users',
+  key: 'user', 
+  onlyLS: true
+});
 
 let userObject = {
   storeObservers : [],

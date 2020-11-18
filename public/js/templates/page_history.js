@@ -11,7 +11,7 @@ globals
 
 import { globals } from '/js/shared/globals.js';
 import { handleDate } from '/js/shared/date.js';
-import { dce, storeObserver, handleScopeTicks, eightaNuScore, averageGrade, countTopFive} from '/js/shared/helpers.js';
+import { dce, storeObserver, handleScopeTicks, eightaNuScore, averageGrade, countTopX} from '/js/shared/helpers.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
 import climbingTypeSelector from '/js/templates/partials/climbing_type-selector.js';
 
@@ -112,20 +112,7 @@ class viewHistory {
 
     this.modal  = dce({el: 'DIV', cssClass: 'hidden', cssStyle: 'position: fixed;   border-radius: 20px; background: #fff; min-height: 300px;z-index: 3;left: 20px;right: 20px;top: 50%;transform: translateY(-50%); padding: 20px; color: #000'});
     let tickEditModalHeader = dce({el: 'DIV', content: `Grade: ${globals.grades.font[globals.ticks[0].grade]}`});
-    /*
-    ascentType: "redpoint"
-  date: 1583216284437
-​
-grade: 7
-​
-indoorsOutdoors: "indoors"
-​
-location: false
-​
-type: "boulder"
-​
-uuid: "ca6a2500-ea73-40b5-896d-404ba0ff88ed"
-*/
+
     this.modal.appendChild(tickEditModalHeader);
 
     scrollContainer.append(ticksContainer);

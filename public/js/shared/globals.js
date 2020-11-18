@@ -43,7 +43,6 @@ types.forEach((type) => {
 let globalObjects = {
   routes: {},
   storeObservers : [],
-  openMenus: [],
   today: today,
   realToday: today,
   vibrate: true,
@@ -81,7 +80,7 @@ let globalObjects = {
   },
 
   currentAscentType : '',
-  currentAscentGrade:6,
+  currentAscentGrade: 6,
   indoorsOutdoors : 'indoors',
   currentClimbingType : 'boulder',
 
@@ -115,6 +114,15 @@ let globalObjects = {
     toprope: 0,
     sport: 0,
     trad: 0
+  },
+
+  totalScoreByType: {
+    current: {
+      boulder: 0,
+      sport: 0,
+      lead: 0,
+      toprope: 0,
+    }
   },
 
 

@@ -1,4 +1,15 @@
-import { dce, countTopFive, averageGrade } from '/js/shared/helpers.js';
+/*
+
+Observers
+
+globals
+  :currentGroup
+    > getGroupStanding
+  :currentClimbingType
+    > updateGroupStanding
+*/
+
+import { dce, storeObserver, countTopX, averageGrade } from '/js/shared/helpers.js';
 import picker from '/js/components/picker.js';
 import dropdownMenu from '/js/components/dropdown.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
@@ -9,6 +20,9 @@ class viewGroups {
     const db = firebase.firestore();
     const dbuser = firebase.auth().currentUser;
 
+    // container for user groups
+    let groups = {}
+    let groupData;
 
     let container = dce({el: 'DIV', cssClass: 'page-groups'});
     let groupSelectContainer = dce({el: 'SECTION', cssClass: 'group-select'});
@@ -27,14 +41,47 @@ class viewGroups {
 
     let groupSelect = new dropdownMenu({
       cssClass: 'horizontal-menu full-width',
-      id: 'ascent-type-selector',
+      id: 'groupSelector',
       targetObj: 'currentGroup',
-/*      options: [
-        { title: '🍆 Sendipallit', value: 'sendipallit', selected: true },
-        { title: '🍑 bk climbers', value: 'bkclimbers' },
-        { title: '🥑 Top ropers', value: 'topropers' }]
-        */
     });
+
+    // get group standing
+    let getGroupStanding = () => {
+      let groupUsers = groups.users;
+      let paska = [];
+      for (let i=0, j=groupUsers.length; i<j;i++) {
+        db.collection('score').doc(groupUsers[i].id).get().then( (doc) => {
+          let userData = doc.data();
+          if(userData) {
+            let currentScore = userData.current;
+            groups.users[i].current = currentScore
+            paska.push({id: groupUsers[i].id, current: currentScore});
+            }
+        }).then( (doc) => {
+          groupData = paska;
+          updateGroupStanding();     
+        });
+      }
+    }
+
+
+    let updateGroupStanding = () => {
+      groupStanding.innerHTML = "";
+      for(let i = 0, j = groupData.length; i < j; i++) {
+        let score = groupData[i].current[globals.currentClimbingType];
+        let avgGrade = averageGrade(5, 'thirtydays');
+        let groupEntry = dce({el: 'LI', cssClass: 'entry-container'});
+        let entryPos = dce({el: 'SPAN', content: `${i+1}.`});
+        let entryName = dce({el: 'SPAN', content: firebase.auth().currentUser.displayName});
+        let entryPointsContainer = dce({el: 'SPAN', content: score});
+        let entryPointsDirection = dce({el: 'SPAN', cssClass : 'dir', content: ['↓', '↑', '-'][~~(3 * Math.random())]});
+        entryPointsContainer.appendChild(entryPointsDirection);
+        let entryAvgGrade = dce({el: 'SPAN', content: avgGrade});
+
+        groupEntry.append(entryPos, entryName, entryPointsContainer, entryAvgGrade);
+        groupStanding.append(groupEntry, groupEntry);
+      }
+    }
 
     groupSelectContainer.append(groupTypeSelector.render(), groupSelect.render());
 
@@ -43,7 +90,7 @@ class viewGroups {
     let groupClimbingTypeSelector = new picker({
       cssClass: 'horizontal-menu full-width',
       id: 'ascent-type-selector',
-      targetObj: 'currentAscentType',
+      targetObj: 'currentClimbingType',
       options: [
         { title: 'Boulder', value: 'boulder', selected: true },
         { title: 'Sport', value: 'sport' },
@@ -54,22 +101,6 @@ class viewGroups {
 
     let groupStanding = dce({el: 'UL', cssClass: 'group-toplist'});
 
-    // get all users in group.... somehow?
-//    for(let i = 0, j = 10; i < j; i++) {
-    for(let i = 0, j = 1; i < j; i++) {
-      let score = countTopFive('thirtydays');
-      let avgGrade = averageGrade(5, 'thirtydays');
-      let groupEntry = dce({el: 'LI', cssClass: 'entry-container'});
-      let entryPos = dce({el: 'SPAN', content: `${i+1}.`});
-      let entryName = dce({el: 'SPAN', content: firebase.auth().currentUser.displayName});
-      let entryPointsContainer = dce({el: 'SPAN', content: score});
-      let entryPointsDirection = dce({el: 'SPAN', cssClass : 'dir', content: ['↓', '↑', '-'][~~(3 * Math.random())]});
-      entryPointsContainer.appendChild(entryPointsDirection);
-      let entryAvgGrade = dce({el: 'SPAN', content: avgGrade});
-
-      groupEntry.append(entryPos, entryName, entryPointsContainer, entryAvgGrade);
-      groupStanding.append(groupEntry, groupEntry);
-    }
     rankingContainer.append(groupClimbingTypeSelector.render(), groupStanding)
 
     let createNewGroupButton = dce({el: 'a', cssClass: 'btn mt mb'});
@@ -92,21 +123,43 @@ class viewGroups {
     globals.serverMessage.push(newStatusMessage);
     globals.serverMessage = globals.serverMessage;
 
+    // Get user groups
     db.collection('users').doc(dbuser.uid).get().then( (doc) => {
-      let userGroups = doc.data().user.groups;
-      for(let i=0, j=userGroups.length; i<j; i++) {
-        db.collection('groups').doc(userGroups[i]).get().then( (doc) => {
-          let group = {
-            title: doc.data().name,
-            value: userGroups[i],
-            selected: (i === 0) ? true : false
-          }
-          groupSelect.pushItem(group)
-        });
-        
+      let userGroups = doc.data().groups;
+      if(userGroups) {
+        for(let i=0, j=userGroups.length; i<j; i++) {
+          db.collection('groups').doc(userGroups[i]).get().then( (doc) => {
+            groups = {
+              title: doc.data().name,
+              id: userGroups[i],
+              users: doc.data().users
+            }; 
+
+            let group = {
+              title: doc.data().name,
+              value: userGroups[i],
+              selected: (i === 0) ? true : false
+            }
+            groupSelect.pushItem(group);
+          });
+        }
       }
       globals.serverMessage[0].finished = true; 
       globals.serverMessage = globals.serverMessage;
+    });
+
+    storeObserver.add({
+      store: globals,
+      key: 'currentGroup', 
+      callback: getGroupStanding,
+      removeOnRouteChange: true
+    });
+
+    storeObserver.add({
+      store: globals,
+      key: 'currentClimbingType', 
+      callback: updateGroupStanding,
+      removeOnRouteChange: true
     });
 
     this.render = () => {
