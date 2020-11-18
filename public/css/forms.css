@@ -10,6 +10,8 @@ FORM input{
   padding: var(--padding-base);
   margin: 0 auto var(--padding-base);
   width: 100%;
+  user-select: auto;
+  -webkit-user-select: text;
 }
 
 FORM BUTTON{
