@@ -15,6 +15,8 @@ jobs:
         with:
           node-version: '12.x'
       - run: yarn install
+      - run: yarn install
+        working-directory: functions
       - run: yarn deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
