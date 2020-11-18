@@ -56,11 +56,12 @@ let napak = {
     let updateGroupScore = () => {
       globals.totalScoreByType = countGroupScore();
 
-      store.write({
+      store.update({
         store: 'score',
         key: 'current',
         keydata: globals.totalScoreByType
       });
+      
     }
 
     storeObserver.add({

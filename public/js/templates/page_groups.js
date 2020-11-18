@@ -54,8 +54,8 @@ class viewGroups {
           let userData = doc.data();
           if(userData) {
             let currentScore = userData.current;
-            groups.users[i].current = currentScore
-            paska.push({id: groupUsers[i].id, current: currentScore});
+            groups.users[i].current = currentScore;
+            paska.push({id: groupUsers[i].id, current: currentScore, displayName: userData.displayName});
             }
         }).then( (doc) => {
           groupData = paska;
@@ -72,8 +72,8 @@ class viewGroups {
         let avgGrade = averageGrade(5, 'thirtydays');
         let groupEntry = dce({el: 'LI', cssClass: 'entry-container'});
         let entryPos = dce({el: 'SPAN', content: `${i+1}.`});
-        let entryName = dce({el: 'SPAN', content: firebase.auth().currentUser.displayName});
-        let entryPointsContainer = dce({el: 'SPAN', content: score});
+        let entryName = dce({el: 'SPAN', content:  groupData[i].displayName});
+        let entryPointsContainer = dce({el: 'SPAN', content: (score) ? score: '-'});
         let entryPointsDirection = dce({el: 'SPAN', cssClass : 'dir', content: ['↓', '↑', '-'][~~(3 * Math.random())]});
         entryPointsContainer.appendChild(entryPointsDirection);
         let entryAvgGrade = dce({el: 'SPAN', content: avgGrade});
@@ -123,29 +123,40 @@ class viewGroups {
     globals.serverMessage.push(newStatusMessage);
     globals.serverMessage = globals.serverMessage;
 
-    // Get user groups
-    db.collection('users').doc(dbuser.uid).get().then( (doc) => {
-      let userGroups = doc.data().groups;
-      if(userGroups) {
-        for(let i=0, j=userGroups.length; i<j; i++) {
-          db.collection('groups').doc(userGroups[i]).get().then( (doc) => {
-            groups = {
-              title: doc.data().name,
-              id: userGroups[i],
-              users: doc.data().users
-            }; 
+    let updateGroupList = () => {
+      // Get user groups
+      db.collection('users').doc(dbuser.uid).get().then( (doc) => {
+        let userGroups = doc.data().groups;
+        if(userGroups) {
+          for(let i=0, j=userGroups.length; i<j; i++) {
+            db.collection('groups').doc(userGroups[i]).get().then( (doc) => {
+              groups = {
+                title: doc.data().name,
+                id: userGroups[i],
+                users: doc.data().users
+              }; 
 
-            let group = {
-              title: doc.data().name,
-              value: userGroups[i],
-              selected: (i === 0) ? true : false
-            }
-            groupSelect.pushItem(group);
-          });
+              let group = {
+                title: doc.data().name,
+                value: userGroups[i],
+                selected: (i === 0) ? true : false
+              }
+              groupSelect.pushItem(group);
+            });
+          }
         }
-      }
-      globals.serverMessage[0].finished = true; 
-      globals.serverMessage = globals.serverMessage;
+        globals.serverMessage[0].finished = true; 
+        globals.serverMessage = globals.serverMessage;
+      });
+    }
+    updateGroupList();
+
+
+    storeObserver.add({
+      store: globals,
+      key: 'groupType', 
+      callback: updateGroupList,
+      removeOnRouteChange: true
     });
 
     storeObserver.add({
@@ -154,7 +165,7 @@ class viewGroups {
       callback: getGroupStanding,
       removeOnRouteChange: true
     });
-
+    
     storeObserver.add({
       store: globals,
       key: 'currentClimbingType', 
