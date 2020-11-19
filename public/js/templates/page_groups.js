@@ -36,7 +36,8 @@ class viewGroups {
       targetObj: 'groupType',
       options: [
         { title: 'Your groups', value: 'userGroups', selected: true },
-        { title: 'Public groups', value: 'publicGroups' }]
+        { title: 'Public groups', value: 'publicGroups' }],
+      callback : () => {alert(globals.groupType)}
     });
 
     let groupSelect = new dropdownMenu({
@@ -150,14 +151,6 @@ class viewGroups {
       });
     }
     updateGroupList();
-
-
-    storeObserver.add({
-      store: globals,
-      key: 'groupType', 
-      callback: updateGroupList,
-      removeOnRouteChange: true
-    });
 
     storeObserver.add({
       store: globals,

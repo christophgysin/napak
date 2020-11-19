@@ -44,9 +44,17 @@ class viewProfile {
       }).then(function(msg) {
         user.name.displayName = userName.value; 
         user.name = user.name; // touch user login to update OTC element
+        // update user object
         store.update({
           store: 'users',
           key: 'user.displayName',
+          keydata:  user.name.displayName
+        });
+
+        // update user displayname in score listing
+        store.update({
+          store: 'score',
+          key: 'displayName',
           keydata:  user.name.displayName
         });
 

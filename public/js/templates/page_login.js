@@ -1,6 +1,7 @@
 import { dce } from '/js/shared/helpers.js';
 import { user } from '/js/shared/user.js';
 import { route } from '/js/shared/route.js';
+import { store } from '../shared/store.js';
 
 
 class viewLogin {
@@ -46,7 +47,21 @@ class viewLogin {
           user.login.isLoggedIn = true;
           user.name.email = result.user.email;
           user.name.id = result.user.uid;
+          user.name.displayName = result.user.displayName;
           user.login = user.login;
+
+// Update uer object in firebase 
+// Might be empty sometimes :|
+          store.update({
+            store: 'users',
+            key: 'user',
+            keydata:  user.name
+          });
+          store.update({
+            store: 'score',
+            key: 'displayName',
+            keydata:  user.name.displayName
+          });
         })
           // result.user.tenantId sho
         .catch(function(error) {
@@ -56,7 +71,7 @@ class viewLogin {
           if (errorCode === 'auth/wrong-password') {
             loginError.innerHTML = "Wrong password";
           } else {
-            loginError.innerHTML = errorMessage; //body.error.message.replace(/_/g, " ");
+            loginError.innerHTML = errorMessage; 
           }
           console.log(error);
           });

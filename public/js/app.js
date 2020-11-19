@@ -1,3 +1,21 @@
+/*
+
+Observers
+
+globals
+  :score
+  :ticks
+    > updateGroupScore
+    > updateAll
+  :indoorsOutdoors
+    > updateAll
+  :currentClimbingType
+    > updateAll
+  :currentClimbingType
+    > updateGroupStanding
+*/
+
+
 import viewGroups from '/js/templates/page_groups.js';
 import viewHistory from '/js/templates/page_history.js';
 import viewHome from '/js/templates/page_home.js';
@@ -53,6 +71,7 @@ let napak = {
 
     updateAll();
 
+    // update user score to firebase
     let updateGroupScore = () => {
       globals.totalScoreByType = countGroupScore();
 
@@ -64,13 +83,13 @@ let napak = {
       
     }
 
+    // listen ticks - update score to firebase
     storeObserver.add({
       store: globals,
       key: 'ticks', 
       id: 'appGroupScore', 
       callback: updateGroupScore 
     });
-
 
     // Listen to tick objects change and update
     storeObserver.add({
