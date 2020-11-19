@@ -19,15 +19,13 @@ class viewGroups {
   constructor() {
     const db = firebase.firestore();
     const dbuser = firebase.auth().currentUser;
-
-    // container for user groups
     let groups = {}
     let groupData;
 
+    // DOM
     let container = dce({el: 'DIV', cssClass: 'page-groups'});
     let groupSelectContainer = dce({el: 'SECTION', cssClass: 'group-select'});
 
-    // Status ticker
     let ticker = new statusTicker();
 
     let groupTypeSelector = new picker({
@@ -37,7 +35,30 @@ class viewGroups {
       options: [
         { title: 'Your groups', value: 'userGroups', selected: true },
         { title: 'Public groups', value: 'publicGroups' }],
-      callback : () => {alert(globals.groupType)}
+      callback : () => {
+        alert(globals.groupType)
+        groupData = null;
+        updateGroupStanding();
+
+        /*
+        */
+       db.collection("groups").where("public", "==", true)
+       .get()
+       .then(function(querySnapshot) {
+           querySnapshot.forEach(function(doc) {
+               // doc.data() is never undefined for query doc snapshots
+               console.log(doc.id, " => ", doc.data());
+           });
+       })
+       .catch(function(error) {
+           console.log("Error getting documents: ", error);
+       });
+
+
+        /*
+        */
+        
+      }
     });
 
     let groupSelect = new dropdownMenu({
@@ -45,44 +66,6 @@ class viewGroups {
       id: 'groupSelector',
       targetObj: 'currentGroup',
     });
-
-    // get group standing
-    let getGroupStanding = () => {
-      let groupUsers = groups.users;
-      console.log(groupUsers)
-      let paska = [];
-      for (let i=0, j=groupUsers.length; i<j;i++) {
-        db.collection('score').doc(groupUsers[i]).get().then( (doc) => {
-          let userData = doc.data();
-          if(userData) {
-            let currentScore = userData.current;
-            paska.push({id: groupUsers[i], current: currentScore, displayName: userData.displayName});
-            }
-        }).then( (doc) => {
-          groupData = paska;
-          updateGroupStanding();     
-        });
-      }
-    }
-
-
-    let updateGroupStanding = () => {
-      groupStanding.innerHTML = "";
-      for(let i = 0, j = groupData.length; i < j; i++) {
-        let score = groupData[i].current[globals.currentClimbingType];
-        let avgGrade = averageGrade(5, 'thirtydays');
-        let groupEntry = dce({el: 'LI', cssClass: 'entry-container'});
-        let entryPos = dce({el: 'SPAN', content: `${i+1}.`});
-        let entryName = dce({el: 'SPAN', content:  groupData[i].displayName});
-        let entryPointsContainer = dce({el: 'SPAN', content: (score) ? score: '-'});
-        let entryPointsDirection = dce({el: 'SPAN', cssClass : 'dir', content: ['↓', '↑', '-'][~~(3 * Math.random())]});
-        entryPointsContainer.appendChild(entryPointsDirection);
-        let entryAvgGrade = dce({el: 'SPAN', content: avgGrade});
-
-        groupEntry.append(entryPos, entryName, entryPointsContainer, entryAvgGrade);
-        groupStanding.append(groupEntry, groupEntry);
-      }
-    }
 
     groupSelectContainer.append(groupTypeSelector.render(), groupSelect.render());
 
@@ -110,8 +93,47 @@ class viewGroups {
     createNewGroupButton.append(plusIcon, buttonTitle);
     rankingContainer.append(createNewGroupButton);
 
-
     container.append(ticker.render(), groupSelectContainer, rankingContainer);
+
+
+
+   // get group standing
+   let getGroupStanding = () => {
+    let groupUsers = groups.users;
+    let groupStandingData = [];
+    for (let i=0, j=groupUsers.length; i<j;i++) {
+      db.collection('score').doc(groupUsers[i]).get().then( (doc) => {
+        let userData = doc.data();
+        if(userData) {
+          let currentScore = userData.current;
+          groupStandingData.push({id: groupUsers[i], current: currentScore, displayName: userData.displayName});
+          }
+      }).then( (doc) => {
+        groupData = groupStandingData;
+        updateGroupStanding();     
+      });
+    }
+  }
+
+  // upadte group standing
+  let updateGroupStanding = () => {
+    groupStanding.innerHTML = "";
+    if(!groupData) { return; }
+    for(let i = 0, j = groupData.length; i < j; i++) {
+      let score = groupData[i].current[globals.currentClimbingType];
+      let avgGrade = averageGrade(5, 'thirtydays');
+      let groupEntry = dce({el: 'LI', cssClass: 'entry-container'});
+      let entryPos = dce({el: 'SPAN', content: `${i+1}.`});
+      let entryName = dce({el: 'SPAN', content:  groupData[i].displayName});
+      let entryPointsContainer = dce({el: 'SPAN', content: (score) ? score: '-'});
+      let entryPointsDirection = dce({el: 'SPAN', cssClass : 'dir', content: ['↓', '↑', '-'][~~(3 * Math.random())]});
+      entryPointsContainer.appendChild(entryPointsDirection);
+      let entryAvgGrade = dce({el: 'SPAN', content: avgGrade});
+
+      groupEntry.append(entryPos, entryName, entryPointsContainer, entryAvgGrade);
+      groupStanding.append(groupEntry, groupEntry);
+    }
+  }
 
 // sync user groups
     let updateGroupList = () => {

@@ -111,7 +111,7 @@ class viewHistory {
     let disciplineSelector = new climbingTypeSelector();
 
     this.modal  = dce({el: 'DIV', cssClass: 'hidden', cssStyle: 'position: fixed;   border-radius: 20px; background: #fff; min-height: 300px;z-index: 3;left: 20px;right: 20px;top: 50%;transform: translateY(-50%); padding: 20px; color: #000'});
-    let tickEditModalHeader = dce({el: 'DIV', content: `Grade: ${globals.grades.font[globals.ticks[0].grade]}`});
+    let tickEditModalHeader = dce({el: 'DIV', content: `Grade: ${globals.grades.font[0]}`});
 
     this.modal.appendChild(tickEditModalHeader);
 
