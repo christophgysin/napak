@@ -49,14 +49,14 @@ class viewGroups {
     // get group standing
     let getGroupStanding = () => {
       let groupUsers = groups.users;
+      console.log(groupUsers)
       let paska = [];
       for (let i=0, j=groupUsers.length; i<j;i++) {
-        db.collection('score').doc(groupUsers[i].id).get().then( (doc) => {
+        db.collection('score').doc(groupUsers[i]).get().then( (doc) => {
           let userData = doc.data();
           if(userData) {
             let currentScore = userData.current;
-            groups.users[i].current = currentScore;
-            paska.push({id: groupUsers[i].id, current: currentScore, displayName: userData.displayName});
+            paska.push({id: groupUsers[i], current: currentScore, displayName: userData.displayName});
             }
         }).then( (doc) => {
           groupData = paska;
@@ -114,17 +114,17 @@ class viewGroups {
     container.append(ticker.render(), groupSelectContainer, rankingContainer);
 
 // sync user groups
-    let newStatusMessage = {
-      message : 'Synchronizing groups data',
-      spinner: true,
-      timeout: -1,
-      id : 'tick-sync'
-    };
-
-    globals.serverMessage.push(newStatusMessage);
-    globals.serverMessage = globals.serverMessage;
-
     let updateGroupList = () => {
+      let newStatusMessage = {
+        message : 'Synchronizing groups data',
+        spinner: true,
+        timeout: -1,
+        id : 'tick-sync'
+      };
+  
+      globals.serverMessage.push(newStatusMessage);
+      globals.serverMessage = globals.serverMessage;
+
       // Get user groups
       db.collection('users').doc(dbuser.uid).get().then( (doc) => {
         let userGroups = doc.data().groups;
@@ -151,6 +151,7 @@ class viewGroups {
       });
     }
     updateGroupList();
+
 
     storeObserver.add({
       store: globals,

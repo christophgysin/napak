@@ -79,8 +79,7 @@ let napak = {
         store: 'score',
         key: 'current',
         keydata: globals.totalScoreByType
-      });
-      
+      });      
     }
 
     // listen ticks - update score to firebase
