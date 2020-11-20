@@ -36,7 +36,6 @@ class viewGroups {
         { title: 'Your groups', value: 'userGroups', selected: true },
         { title: 'Public groups', value: 'publicGroups' }],
       callback : () => {
-        alert(globals.groupType)
         groupData = null;
         updateGroupStanding();
 
@@ -46,8 +45,14 @@ class viewGroups {
        .get()
        .then(function(querySnapshot) {
            querySnapshot.forEach(function(doc) {
-               // doc.data() is never undefined for query doc snapshots
-               console.log(doc.id, " => ", doc.data());
+              let groupdData = doc.data();
+              if(!groupdData.users || !groupdData.users.includes(dbuser.uid)) {
+                let group = {
+                  title: groupdData.name,
+                  value: groupdData.id
+                }
+              groupSelect.pushItem(group);
+              }               
            });
        })
        .catch(function(error) {

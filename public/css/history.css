@@ -120,9 +120,14 @@
   margin: 5px 0;
 }
 
-.session-tick SPAN {
+.session-tick DIV {
   text-transform: capitalize;
 }
+
+.session-tick > DIV:nth-of-type(1) {width: 15%;}
+.session-tick > DIV:nth-of-type(2) {width: 30%;}
+.session-tick > DIV:nth-of-type(3) {width: 25%;}
+.session-tick > DIV:nth-of-type(4) {width: 40%; text-align: right;}
 
 .tick-actions .btn {
   display: inline-block;

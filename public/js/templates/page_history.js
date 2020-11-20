@@ -84,15 +84,17 @@ class viewHistory {
 
         for( let i=ticks.length-1, j = 0; i>=j; i-- ) {          
           let row = dce({el: 'DIV', cssClass: 'session-tick'});
-          let grade = dce({el: 'SPAN', cssClass: `grade-legend ${globals.difficulty[ticks[i].grade]}`, content: globals.grades.font[ticks[i].grade]});
-          let ascentType = dce({el: 'SPAN', content: ticks[i].ascentType});
-          let ascentPoints = dce({el: 'SPAN', cssClass: 'score', content: eightaNuScore(ticks[i])});
-          let tickActionsContainer = dce({el: 'SPAN', cssClass: 'tick-actions'});
+          let gradeContainer = dce({el: 'DIV'});
+          let grade = dce({el: 'DIV', cssClass: `grade-legend ${globals.difficulty[ticks[i].grade]}`, content: globals.grades.font[ticks[i].grade]});
+          gradeContainer.appendChild(grade);
+          let ascentType = dce({el: 'DIV', content: ticks[i].ascentType});
+          let ascentPoints = dce({el: 'DIV', cssClass: 'score', content: eightaNuScore(ticks[i])});
+          let tickActionsContainer = dce({el: 'DIV', cssClass: 'tick-actions'});
 
           let deleteTick = dce({el: 'A', cssClass: 'btn btn_tiny', content: 'x'});
           let editTickDetails = dce({el: 'A', cssClass: 'btn btn_tiny', content: 'Edit'});
           tickActionsContainer.append(deleteTick, editTickDetails);
-          row.append(grade, ascentType, ascentPoints, tickActionsContainer);
+          row.append(gradeContainer, ascentType, ascentPoints, tickActionsContainer);
           sessionTicks.appendChild(row);
   
           editTickDetails.addEventListener('click', ()=>{this.toggleModal();}); //console.log(new Date().getTime()); tickDetailsContainer.classList.toggle('hidden')}, false);
