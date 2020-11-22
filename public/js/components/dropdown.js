@@ -3,7 +3,17 @@ import { globals } from '/js/shared/globals.js';
 
 class dropdownMenu {
   constructor(params) {
+
     this.createItems = ( items ) => {
+      dropdonwOptionsContainer.innerHTML = "";
+      if(!items.length) {
+        this.selected = false;
+        current.innerHTML = "Nothing items to show :(";
+        return;
+        }
+      if(items.length <= 1) {
+        items[0].selected = true;
+      }
       items.forEach( (item) => {
         let itemContainer = dce({el: 'A', content: item.title});
         if(item.selected) {
@@ -18,13 +28,10 @@ class dropdownMenu {
       });
     }
 
-    this.pushItem = (item) => {
-      this.createItems([item])
-    }
     this.toggle = () => {
       dropdonwOptionsContainer.classList.toggle('hidden');
     }
-    
+
     this.set = (el, data) => {
       let currentSelected = el.parentNode.querySelectorAll('.selected');
       currentSelected.forEach((el) => {el.classList.remove('selected')});
@@ -43,6 +50,7 @@ class dropdownMenu {
     let dropdonwOptionsContainer = dce({el: 'DIV', cssClass: 'dropdown-options hidden'});
 
     if(params.options) {
+      dropdownItems = [];
       this.createItems(params.options)
     }
 

@@ -13,14 +13,14 @@ import { dce, storeObserver, countTopX, averageGrade } from '/js/shared/helpers.
 import picker from '/js/components/picker.js';
 import dropdownMenu from '/js/components/dropdown.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
-import { user } from '/js/shared/user.js';
+import { store } from '../shared/store.js';
 
 class viewGroups {
   constructor() {
     const db = firebase.firestore();
     const dbuser = firebase.auth().currentUser;
-    let groups = {}
-    let groupData;
+
+    let groups = {};
 
     // DOM
     let container = dce({el: 'DIV', cssClass: 'page-groups'});
@@ -36,33 +36,9 @@ class viewGroups {
         { title: 'Your groups', value: 'userGroups', selected: true },
         { title: 'Public groups', value: 'publicGroups' }],
       callback : () => {
-        groupData = null;
-        updateGroupStanding();
-
-        /*
-        */
-       db.collection("groups").where("public", "==", true)
-       .get()
-       .then(function(querySnapshot) {
-           querySnapshot.forEach(function(doc) {
-              let groupdData = doc.data();
-              if(!groupdData.users || !groupdData.users.includes(dbuser.uid)) {
-                let group = {
-                  title: groupdData.name,
-                  value: groupdData.id
-                }
-              groupSelect.pushItem(group);
-              }               
-           });
-       })
-       .catch(function(error) {
-           console.log("Error getting documents: ", error);
-       });
-
-
-        /*
-        */
-        
+        let dropdownElements = updateItems();
+        globals.currentGroup = null;
+        groupSelect.createItems(dropdownElements);
       }
     });
 
@@ -73,7 +49,7 @@ class viewGroups {
     });
 
     groupSelectContainer.append(groupTypeSelector.render(), groupSelect.render());
-
+    
     let rankingContainer = dce({el: 'SECTION', cssClass: 'ranking scroll-container'});
 
     let groupClimbingTypeSelector = new picker({
@@ -104,7 +80,9 @@ class viewGroups {
 
    // get group standing
    let getGroupStanding = () => {
-    let groupUsers = groups.users;
+    if(!globals.currentGroup) {updateGroupStanding(); return;}
+    let groupUsers = groups[globals.groupType][globals.currentGroup].users;
+    if(!groupUsers) {updateGroupStanding(); return;}
     let groupStandingData = [];
     for (let i=0, j=groupUsers.length; i<j;i++) {
       db.collection('score').doc(groupUsers[i]).get().then( (doc) => {
@@ -114,34 +92,68 @@ class viewGroups {
           groupStandingData.push({id: groupUsers[i], current: currentScore, displayName: userData.displayName});
           }
       }).then( (doc) => {
-        groupData = groupStandingData;
+        groups[globals.groupType][globals.currentGroup].userScore = groupStandingData;
         updateGroupStanding();     
       });
     }
   }
 
-  // upadte group standing
+  let showJoinGroupOptions = () => {
+    let joinButton = dce({el: 'A', cssClass: 'btn', content:' Join this group'});
+    joinButton.addEventListener('click', () => {
+      store.add({
+        store: 'groups',
+        key: 'users',
+        collectionId: globals.currentGroup,
+        keydata: firebase.auth().currentUser.uid
+        }, () =>{
+          delete groups['publicGroups'][globals.currentGroup]['selected']
+          if(!groups['publicGroups'][globals.currentGroup]['users']) {
+            groups['publicGroups'][globals.currentGroup]['users'] = [];
+            }
+          groups['publicGroups'][globals.currentGroup]['users'].push(firebase.auth().currentUser.uid);
+          groups['userGroups'][globals.currentGroup] = groups['publicGroups'][globals.currentGroup];
+          delete groups['publicGroups'][globals.currentGroup];
+
+          let dropdownElements = updateItems();
+          groupSelect.createItems(dropdownElements);
+        });
+
+    }, false)
+    groupStanding.appendChild(joinButton)
+  }
+
+  // update group standing
   let updateGroupStanding = () => {
     groupStanding.innerHTML = "";
-    if(!groupData) { return; }
-    for(let i = 0, j = groupData.length; i < j; i++) {
-      let score = groupData[i].current[globals.currentClimbingType];
-      let avgGrade = averageGrade(5, 'thirtydays');
-      let groupEntry = dce({el: 'LI', cssClass: 'entry-container'});
-      let entryPos = dce({el: 'SPAN', content: `${i+1}.`});
-      let entryName = dce({el: 'SPAN', content:  groupData[i].displayName});
-      let entryPointsContainer = dce({el: 'SPAN', content: (score) ? score: '-'});
-      let entryPointsDirection = dce({el: 'SPAN', cssClass : 'dir', content: ['↓', '↑', '-'][~~(3 * Math.random())]});
-      entryPointsContainer.appendChild(entryPointsDirection);
-      let entryAvgGrade = dce({el: 'SPAN', content: avgGrade});
+    if(!globals.currentGroup) {return;}
+    let data = groups[globals.groupType][globals.currentGroup]['userScore'];
+    if(data) {
+      for(let i = 0, j = data.length; i < j; i++) {
+        let score = data[i].current[globals.currentClimbingType];
+        let avgGrade = averageGrade(5, 'thirtydays');
+        let groupEntry = dce({el: 'LI', cssClass: 'entry-container'});
+        let entryPos = dce({el: 'SPAN', content: `${i+1}.`});
+        let entryName = dce({el: 'SPAN', content:  data[i].displayName});
+        let entryPointsContainer = dce({el: 'SPAN', content: (score) ? score: '-'});
+        let entryPointsDirection = dce({el: 'SPAN', cssClass : 'dir', content: ['↓', '↑', '-'][~~(3 * Math.random())]});
+        entryPointsContainer.appendChild(entryPointsDirection);
+        let entryAvgGrade = dce({el: 'SPAN', content: avgGrade});
 
-      groupEntry.append(entryPos, entryName, entryPointsContainer, entryAvgGrade);
-      groupStanding.append(groupEntry, groupEntry);
+        groupEntry.append(entryPos, entryName, entryPointsContainer, entryAvgGrade);
+        groupStanding.append(groupEntry, groupEntry);
+      }
+    }
+    if(globals.groupType === 'publicGroups') {
+      showJoinGroupOptions()
     }
   }
 
-// sync user groups
-    let updateGroupList = () => {
+  // Load public groups
+  let loadUserGroups = () => {
+    db.collection("groups")
+    .get()
+    .then(function(querySnapshot) {
       let newStatusMessage = {
         message : 'Synchronizing groups data',
         spinner: true,
@@ -151,34 +163,59 @@ class viewGroups {
   
       globals.serverMessage.push(newStatusMessage);
       globals.serverMessage = globals.serverMessage;
+  
+      groups = {
+        userGroups : {},
+        publicGroups : {}
+      };
 
-      // Get user groups
-      db.collection('users').doc(dbuser.uid).get().then( (doc) => {
-        let userGroups = doc.data().groups;
-        if(userGroups) {
-          for(let i=0, j=userGroups.length; i<j; i++) {
-            db.collection('groups').doc(userGroups[i]).get().then( (doc) => {
-              groups = {
-                title: doc.data().name,
-                id: userGroups[i],
-                users: doc.data().users
-              }; 
-
-              let group = {
-                title: doc.data().name,
-                value: userGroups[i],
-                selected: (i === 0) ? true : false
-              }
-              groupSelect.pushItem(group);
-            });
+      let i=0, j = 0;
+      querySnapshot.forEach(function(doc) {
+        let groupData = doc.data();
+        // show only groups where user is not a member already
+        if(groupData.users && groupData.users.includes(dbuser.uid)) {
+          groups['userGroups'][doc.id] = {
+            title: groupData.name,
+            value: doc.id, 
+            users: groupData.users,
+            id: doc.id,
+            selected: (i == 0) ? true : false
+            };
+          i++;
           }
-        }
-        globals.serverMessage[0].finished = true; 
-        globals.serverMessage = globals.serverMessage;
-      });
-    }
-    updateGroupList();
+        if(groupData.public && (groupData.users && !groupData.users.includes(dbuser.uid))  || !groupData.users) {
+          groups['publicGroups'][doc.id] = {
+            title: groupData.name,
+            value: doc.id, 
+            users: groupData.users,
+            id: doc.id,
+            selected: (j == 0) ? true : false
+            };
+          j++;
+          }
+        });
+    })
+    .then(()=>{
+      globals.serverMessage[0].finished = true; 
+      globals.serverMessage = globals.serverMessage;
+      // create array of object to create pulldown items
+      let dropdownElements = updateItems();
+      groupSelect.createItems(dropdownElements);
+  })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+  }
 
+  loadUserGroups();
+
+  let updateItems = () => {
+    let items = [];
+    for (let key in groups[globals.groupType]) {
+      items.push(groups[globals.groupType][key])
+    }
+    return items;
+  }
 
     storeObserver.add({
       store: globals,

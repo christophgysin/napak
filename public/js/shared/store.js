@@ -17,11 +17,18 @@ const store = {
       });
   },
 
-  add: function(params){
-    const user = firebase.auth().currentUser;
-    let ref = db.collection(params.store).doc(user.uid);
+  add: function(params, callback){
+    let id = firebase.auth().currentUser.uid;if(params.collectionId) {id = params.collectionId;}
+
+    let ref = db.collection(params.store).doc(id);
     ref.update({
       [params.key]: firebase.firestore.FieldValue.arrayUnion(params.keydata),
+    })
+    .then(()=>{
+      if(callback) {callback();}
+    })
+    .catch(function(error) {
+      console.log("Error updating document: ", error);
     });
   },
 
@@ -33,15 +40,16 @@ const store = {
     });
   },
 
-  read: function(params){
+  read: function(params, callback){
     const user = firebase.auth().currentUser;
     if(!user) return false;
     db.collection(params.store).doc(user.uid).get();
   },
 
   update: function(params){
-    const user = firebase.auth().currentUser;
-    db.collection(params.store).doc(user.uid).update({
+    let id = firebase.auth().currentUser.uid;if(params.collectionId) {id = params.collectionId;}
+
+    db.collection(params.store).doc(id).update({
       [params.key]: params.keydata,
     });
 },
