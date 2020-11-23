@@ -37,6 +37,12 @@ class dropdownMenu {
     this.toggle = () => {
       if(!this.disabled) {
         dropdonwOptionsContainer.classList.toggle('hidden');
+        if(!dropdonwOptionsContainer.classList.contains('hidden')){
+          dropdownContainer.classList.add('focused')
+        }
+        else {
+          dropdownContainer.classList.remove('focused')
+        }
       }
     }
 
