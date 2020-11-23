@@ -5,7 +5,9 @@ let route = (params) => {
   if(params !== globals.route) {
     // Clear store observers marked with removeOnRouteChange
     storeObserver.clear();
-
+    // clear serverMessages;
+    globals.serverMessage = [];
+    globals.standardMessage = [];
     let trgt = new globals.routes[params];
     globals.route = params;
     document.querySelector('.page-content').innerHTML = "";

@@ -9,8 +9,14 @@ class dropdownMenu {
       if(!items.length) {
         this.selected = false;
         current.innerHTML = "No items to show :(";
+        dropdownContainer.classList.add('disabled');
+        this.disabled = true;
         return;
         }
+      else {
+        this.disabled = false;
+        dropdownContainer.classList.remove('disabled');
+      }
       if(items.length <= 1) {
         items[0].selected = true;
       }
@@ -29,7 +35,9 @@ class dropdownMenu {
     }
 
     this.toggle = () => {
-      dropdonwOptionsContainer.classList.toggle('hidden');
+      if(!this.disabled) {
+        dropdonwOptionsContainer.classList.toggle('hidden');
+      }
     }
 
     this.set = (el, data) => {
