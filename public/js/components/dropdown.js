@@ -8,7 +8,7 @@ class dropdownMenu {
       dropdonwOptionsContainer.innerHTML = "";
       if(!items.length) {
         this.selected = false;
-        current.innerHTML = "Nothing items to show :(";
+        current.innerHTML = "No items to show :(";
         return;
         }
       if(items.length <= 1) {
