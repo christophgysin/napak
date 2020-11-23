@@ -8,7 +8,7 @@ service cloud.firestore {
     }
 
     match /groups/{groupId} {
-      allow read: if request.auth != null;
+      allow read, write: if request.auth != null;
     }
     match /score/{userId} {
       allow read: if request.auth != null;
