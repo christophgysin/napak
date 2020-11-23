@@ -49,9 +49,9 @@ const store = {
   update: function(params){
     let id = firebase.auth().currentUser.uid;if(params.collectionId) {id = params.collectionId;}
 
-    db.collection(params.store).doc(id).update({
+    db.collection(params.store).doc(id).set({
       [params.key]: params.keydata,
-    });
+    }, {merge: true});
 },
 
 }
