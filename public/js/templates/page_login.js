@@ -47,7 +47,7 @@ class viewLogin {
           user.login.isLoggedIn = true;
           user.name.email = result.user.email;
           user.name.id = result.user.uid;
-          user.name.displayName = result.user.displayName;
+          user.name.displayName = (result.user.displayName) ? result.user.displayName : 'Anynymous Honnold';
           user.login = user.login;
 
 // Update uer object in firebase 

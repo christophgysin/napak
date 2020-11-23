@@ -74,7 +74,6 @@ let napak = {
     // update user score to firebase
     let updateGroupScore = () => {
       globals.totalScoreByType = countGroupScore();
-console.log(globals.totalScoreByType);
       store.update({
         store: 'score',
         key: 'current',
