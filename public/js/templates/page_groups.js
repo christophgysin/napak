@@ -29,8 +29,7 @@ class viewGroups {
     let ticker = new statusTicker();
 
     let groupTypeSelector = new picker({
-      cssClass: 'horizontal-menu centerize',
-      id: 'ascent-type-selector',
+      cssClass: 'horizontal-menu full-width',
       targetObj: 'groupType',
       options: [
         { title: 'Your groups', value: 'userGroups', selected: true },
@@ -54,7 +53,6 @@ class viewGroups {
 
     let groupClimbingTypeSelector = new picker({
       cssClass: 'horizontal-menu full-width',
-      id: 'ascent-type-selector',
       targetObj: 'currentClimbingType',
       options: [
         { title: 'Boulder', value: 'boulder', selected: true },

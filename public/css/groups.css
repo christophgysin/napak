@@ -6,10 +6,8 @@
   position: relative;
 }
 .group-select {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.ranking {
+  background: var(--color-theme-color1);
+  padding-top: 0;
 }
 
 .group-toplist {

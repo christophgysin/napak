@@ -9,7 +9,6 @@ class climbingTypeSelector {
 
     let groupClimbingTypeSelector = new picker({
       cssClass: 'horizontal-menu full-width small-legends',
-      id: 'ascent-type-selector',
       targetObj: 'currentClimbingType',
       options: [
         { title: 'Boulder', value: 'boulder', selected: true, legend: globals.totalAscentsByType['boulder'], val: 'totalAscentsByType.boulder'},

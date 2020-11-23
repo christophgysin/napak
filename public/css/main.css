@@ -327,11 +327,6 @@ BODY.indoors section.grade::after {
   grid-template-rows: 1fr auto auto;
 }
 
-#ascent-type-selector {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
 .tick-buttons-container {
   display: flex;
   justify-content: space-between;
