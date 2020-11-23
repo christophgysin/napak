@@ -9,7 +9,7 @@ class calendar {
         let daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
         let container = dce({el: 'DIV', cssClass: 'calendar-container'});
-        let currentDate = dce({el: 'h3', cssStyle: 'text-align: center; font-weight: 600', content: `${globals.today} ˅`});
+        let currentDate = dce({el: 'h3', cssStyle: 'text-align: center; font-weight: 600', content: `${globals.today} ↓`});
 
         container.appendChild(currentDate);
 

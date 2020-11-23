@@ -61,13 +61,8 @@ class sectionProgress {
     pointsContainer.append(points, ascents, grade);
     container.appendChild(pointsContainer);
 
-    let graphPullDown = document.createElement("SPAN");
-    graphPullDown.className = "graph-pulldown";
+    let graphPullDown = dce({el: 'h3', content: 'Toggle graph ↕', cssClass: 'graph-pulldown'}); //document.createElement("SPAN");
 
-    let graphIcon = dce({el: 'DIV', cssClass: 'stripes' });
-    graphIcon.append(dce({el: 'DIV'}), dce({el: 'DIV'}), dce({el: 'DIV'}))
-
-    graphPullDown.appendChild(graphIcon);
     container.appendChild(graphPullDown);
 
     let gradeDistributionContainer = dce({el: 'DIV', cssClass: 'grade-distribution hidden'});

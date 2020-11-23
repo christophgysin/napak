@@ -40,47 +40,11 @@
     }
   }
 
-  
-.stripes {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-    margin: 0 auto 0;
-    width: 20px;
-    height: 10px;
-}
-
-.stripes div {
-    width: 1px;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    animation: gravity 0.8s infinite;
-    animation-timing-function: ease-in-out;
-    background: var(--color-white-dim);
-}
-  
-.stripes div:nth-of-type(2) {
-    left: unset;
-    right: 0;
-    animation-delay: 0.15s;
-  }
-  
-.stripes div:nth-of-type(3) {
-    left: 50%;
-    animation-delay: 0.3s;
-  }
 
 /* Charts */
 .graph-pulldown {
     text-align: center;
     display: block;
-    width: 20px;
-    height: 10px;
     margin: 0 auto -10px;
     position: relative;
   }

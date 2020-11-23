@@ -9,6 +9,7 @@
   text-indent: var(--padding-base);
   border-radius: 2px;
   transition: color 300ms ease-in-out box-shadow 300ms ease-in-out;
+  font-size: var(--font-size-base);
 }
 
 .dropdown-container.focused {
