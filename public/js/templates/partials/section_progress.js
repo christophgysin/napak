@@ -61,12 +61,11 @@ class sectionProgress {
     pointsContainer.append(points, ascents, grade);
     container.appendChild(pointsContainer);
 
-    let graphPullDown = dce({el: 'h3', content: 'Toggle graph ↕', cssClass: 'graph-pulldown'}); //document.createElement("SPAN");
+    let graphPullDown = dce({el: 'h3', content: 'Grade distribution ↕', cssClass: 'graph-pulldown'}); //document.createElement("SPAN");
 
     container.appendChild(graphPullDown);
 
     let gradeDistributionContainer = dce({el: 'DIV', cssClass: 'grade-distribution hidden'});
-    let gradeDistributionTitle = dce({el:'H3', content: 'Grade distribution'});
     let gradeDistributionChartContainer = dce({el: 'DIV', cssClass: 'grade-chart'});
     let chartBarContainer = dce({el: 'DIV', cssClass : 'chart-container tiny-legends'});
     let chartFragment = document.createDocumentFragment();
@@ -90,7 +89,7 @@ class sectionProgress {
 
     chartBarContainer.appendChild(chartFragment);
     gradeDistributionChartContainer.appendChild(chartBarContainer);
-    gradeDistributionContainer.append(gradeDistributionTitle, gradeDistributionChartContainer);
+    gradeDistributionContainer.append(gradeDistributionChartContainer);
 
     let chartLegendContainer = dce({el: 'DIV', cssClass : 'chart-legend'});
     let chartLegendFragment = document.createDocumentFragment();

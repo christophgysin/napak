@@ -45,14 +45,10 @@
 .graph-pulldown {
     text-align: center;
     display: block;
-    margin: 0 auto -10px;
+    margin: 0 auto 0;
     position: relative;
   }
   
-.grade-distribution {
-    margin-top: 10px;
-    padding-top: 10px;
-  }
   
 .grade-chart {
     margin-top: 16px;
