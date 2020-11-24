@@ -126,51 +126,41 @@ let triggerCustomEvent = (params) => {
 }
 
 // Count top x score
-let countTopX = (prms) => {
-  let params = (prms) ? prms : {count: 5};
-  if(params.tickSet) {
-    return countTotalScore({tickSet: params.tickSet, count: (params.count) ? params.count : 5}).reduce((a, b) => Number(a) + Number(b), 0);
+let countTopX = ({count = 10, tickSet = false} = {}) => {
+  if(tickSet) {
+    return countTotalScore({tickSet: tickSet, count: count}).reduce((a, b) => Number(a) + Number(b), 0);
   }
-  return countTotalScore().reduce((a, b) => Number(a) + Number(b), 0);
+  return countTotalScore({count: count}).reduce((a, b) => Number(a) + Number(b), 0);
 }
 
 // Count average grade
-let averageGrade = (amount, scp, tickSet) => {
-  let ticks;
-  if(tickSet) {
-    ticks = tickSet;
-  }
-  else {
-    ticks = handleScopeTicks({scope: (scp) ? scp : globals.scope});
-  }
+//let averageGrade = (amount, scp, tickSet) => {
+  let averageGrade = ({count= 10, scope = globals.scope, tickSet = false} = {}) => {
+  let ticks = (tickSet) ? tickSet : handleScopeTicks({scope: scope});
+
+  
   let maxGrades = [];
   ticks.forEach(tick => {maxGrades.push(tick.grade)});
   if(maxGrades.length < 1) return 'N/A';
-  maxGrades = maxGrades.sort(function (a, b) { return b - a }).slice(0, amount);
+  maxGrades = maxGrades.sort(function (a, b) { return b - a }).slice(0, count);
   maxGrades = maxGrades.reduce((a, b) => Number(a) + Number(b), 0);
-  let avgr = maxGrades / amount;
+  let avgr = maxGrades / count;
 
   return globals.grades.font[Math.round(avgr)];
 }
 
 
 // Total score
-let countTotalScore = (prms) => {
-  let params = (prms) ? prms : {count: 5};
-  let ticks;
-  if (params.tickSet) {
-    ticks = params.tickSet;
-  }
-  else {
-    ticks = handleScopeTicks({scope: (params.scope) ? params.scope : globals.scope});
-  }
-  let score = Array((params.count) ? params.count : 5).fill(0)
+let countTotalScore = ({count= 10, scope = globals.scope, tickSet = false} = {}) => {
+  let ticks = (tickSet) ? tickSet : handleScopeTicks({scope: scope});
+
+  let score = Array(count).fill(0)
 
   ticks.forEach((tick) => {
     score.push(eightaNuScore({ ascentType: tick.ascentType, grade: tick.grade, sport: tick.type }));
   })
 
-  return score.sort(function (a, b) { return b - a }).slice(0, params.count);
+  return score.sort(function (a, b) { return b - a }).slice(0, count);
 }
 
 
@@ -359,7 +349,7 @@ let handleScopeTicks = (params) => {
 }
 
 let updateScopeTicks = () => {
-  globals.currentScore = countTotalScore();
+  globals.currentScore = countTotalScore({count: 10});
   globals.totalScore = countTopX();
   globals.totalAscentCount['today'] = countAscents('today').total;
   globals.totalAscentCount['thirtydays'] = countAscents('thirtydays').total;
@@ -372,7 +362,7 @@ let updateScopeTicks = () => {
   globals.ticks = getTicks;
 
   globals.totalAscentsByType = countAscentsByType();
-  globals.averageGrade = averageGrade(5);
+  globals.averageGrade = averageGrade({count:10});
 }
 
 

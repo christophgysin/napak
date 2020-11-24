@@ -62,7 +62,7 @@ class viewGroups {
       ]
     });
 
-    let groupStanding = dce({el: 'UL', cssClass: 'group-toplist'});
+    let groupStanding = dce({el: 'UL', cssClass: 'group-toplist mt'});
 
     rankingContainer.append(groupClimbingTypeSelector.render(), groupStanding)
 
@@ -127,9 +127,18 @@ class viewGroups {
     if(!globals.currentGroup) {return;}
     let data = groups[globals.groupType][globals.currentGroup]['userScore'];
     if(data) {
+        let headerContainer = dce({el: 'LI', cssClass: 'header-container'});
+        let pos = dce({el: 'h3', content: '#'});
+        let user = dce({el: 'h3', content: 'Name'});
+        let score = dce({el: 'h3', content: 'Score'});
+        let avg = dce({el: 'h3', content: 'avg'});
+
+      headerContainer.append(pos, user, score, avg);
+      groupStanding.appendChild(headerContainer);
+
       for(let i = 0, j = data.length; i < j; i++) {
         let score = data[i].current[globals.currentClimbingType];
-        let avgGrade = averageGrade(5, 'thirtydays');
+        let avgGrade = averageGrade({count:10, scope: 'thirtydays'});
         let groupEntry = dce({el: 'LI', cssClass: 'entry-container'});
         let entryPos = dce({el: 'SPAN', content: `${i+1}.`});
         let entryName = dce({el: 'SPAN', content:  data[i].displayName});

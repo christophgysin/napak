@@ -106,7 +106,7 @@ class sectionProgress {
       globals.totalAscentCount[globals.scope] = countAscents(globals.scope).total;
       globals.currentScore = countTotalScore();
       globals.totalScore = countTopX();
-      globals.averageGrade = averageGrade(5);
+      globals.averageGrade = averageGrade({count: 10});
 
       let barNodes = chartBarContainer.querySelectorAll('.bar');
       let ticks = countAscentsByGrade({scope: globals.scope});

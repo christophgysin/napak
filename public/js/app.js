@@ -53,9 +53,9 @@ let napak = {
 
     // Update all globals
     let updateAll = () => {
-      globals.currentScore = countTotalScore(); // Array of top scores
-      globals.totalScore = countTopX();  // Top score counted together
-      globals.averageGrade = averageGrade(5);
+      globals.currentScore = countTotalScore({count : 10}); // Array of top scores
+      globals.totalScore = countTopX({count: 10});  // Top score counted together
+      globals.averageGrade = averageGrade({count: 10});
       globals.totalAscentsByType = countAscentsByType(); // Total ascents by type: Boulder, Sport, Trad, Toprope
       globals.totalAscents = countAscents('today');  // Total ascents by ascent type: Redpoint, onsight, flash
 

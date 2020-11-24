@@ -11,7 +11,7 @@ globals
 
 import { globals } from '/js/shared/globals.js';
 import { handleDate } from '/js/shared/date.js';
-import { dce, storeObserver, handleScopeTicks, eightaNuScore, averageGrade, countTopX} from '/js/shared/helpers.js';
+import { dce, storeObserver, handleScopeTicks, eightaNuScore, averageGrade} from '/js/shared/helpers.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
 import climbingTypeSelector from '/js/templates/partials/climbing_type-selector.js';
 
@@ -73,8 +73,8 @@ class viewHistory {
           return 0;
         });
 
-        let dateAvgGrade = averageGrade(5, false, ticks);
-        let sessionAverage = averageGrade(ticks.length, false, ticks);
+        let dateAvgGrade = averageGrade({count: 10, tickSet: ticks});
+        let sessionAverage = averageGrade({count: ticks.length, tickSet: ticks});
 
         let headerTitle = dce({el: 'DIV', cssClass: 'session-header'});
         headerTitle.innerHTML = `${handleDate({dateString : key, dateFormat : 'dd.mm.yyyy'})} - <b>${ticksByDateContainer[key].length} routes</b>\r\nWeighted average grade: <b>${dateAvgGrade}</b>\r\nSession average: <b>${sessionAverage}</b>`;
