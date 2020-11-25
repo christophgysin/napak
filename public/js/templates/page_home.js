@@ -12,18 +12,21 @@ class viewHome {
   constructor() {
     const db = firebase.firestore();
     const dbuser = firebase.auth().currentUser;
+
+    let disciplineSelector = new climbingTypeSelector();
+
     let ticker = new statusTicker({
       titlePrefix_boulder : 'Bouldering ',
       titlePrefix_sport : 'Climbing sport ',
       titlePrefix_trad : 'Trad climbing ',
-      titlePrefix_toprope: 'Top roping '
+      titlePrefix_toprope: 'Top roping ',
+      tapAction: () => { disciplineSelector.showMenu()}
     });
     let progressSection = new progress();
     let gradeSelector = new gradeWheel();
 
     let tickPage = dce({el: 'DIV', cssClass: 'page-tick'});
     
-    let disciplineSelector = new climbingTypeSelector();
 
 
     tickPage.appendChild(ticker.render());

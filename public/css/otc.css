@@ -52,8 +52,8 @@
 }
 
 .otc-links-container .sidenav-links a.selected {
-  background: var(--color-theme-color2);
-  color: var(--color-black);
+  background: var(--color-theme-color3-alpha);
+  color: var(--color-white-dim);
 }
 
 .otc-links-container .sidenav-links a span {

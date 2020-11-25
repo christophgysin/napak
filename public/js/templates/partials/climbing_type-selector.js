@@ -35,6 +35,10 @@ class climbingTypeSelector {
     this.render = () => {
       return container;
     }
+
+    this.showMenu = () => {
+      container.classList.toggle('hidden');
+    }
   }
 }
 

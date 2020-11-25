@@ -84,36 +84,52 @@ class otc {
     }
     settingsContainer.append(locationTitle, locationOnOff.render())
 
+    let updateSelected = (el) => {
+      let btns = sideNavLinks.querySelectorAll('A');
+      btns.forEach((el)=>{el.classList.remove('selected')})
+      el.classList.add('selected')
+    }
     // Page links
-
     let sideNavLinks = dce({el: 'SECTION', cssClass: 'sidenav-links'});
 
-    let btnProfile = dce({el: 'A', content: 'Profile' })
-    let btnGroups = dce({el: 'A', content: 'Groups' })
-    let btnStatistics = dce({el: 'A', content: 'Statistics' })
-    let btnHistory = dce({el: 'A', content: 'History' })
+    let btnHome = dce({el: 'A', content: 'Home', cssClass: 'selected'});
+    let btnProfile = dce({el: 'A', content: 'Profile' });
+    let btnGroups = dce({el: 'A', content: 'Groups' });
+    let btnStatistics = dce({el: 'A', content: 'Statistics' });
+    let btnHistory = dce({el: 'A', content: 'History' });
+
+    btnHome.addEventListener('click', () => {
+      updateSelected(btnHome);
+      route('home');
+      document.body.classList.remove('otc')
+    }, false);
+
 
     btnProfile.addEventListener('click', () => {
+      updateSelected(btnProfile);
       route('profile');
       document.body.classList.remove('otc')
     }, false);
 
     btnGroups.addEventListener('click', () => {
+      updateSelected(btnGroups);
       route('groups');
       document.body.classList.remove('otc')
     }, false);
 
     btnStatistics.addEventListener('click', () => {
+      updateSelected(btnStatistics);
       route('statistics');
       document.body.classList.remove('otc')
     }, false);
 
     btnHistory.addEventListener('click', () => {
+      updateSelected(btnHistory);
       route('history');
       document.body.classList.remove('otc')
     }, false);
 
-    sideNavLinks.append(btnProfile, btnGroups, /*btnStatistics,*/ btnHistory);
+    sideNavLinks.append(btnHome, btnProfile, btnGroups, /*btnStatistics,*/ btnHistory);
 
     otcLinksContainer.append(logoContainer, loginInfo, settingsContainer,sideNavLinks);
 

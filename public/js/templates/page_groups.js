@@ -76,12 +76,6 @@ class viewGroups {
 
     rankingContainer.append(groupClimbingTypeSelector.render(), indoorsOutdoorsSelector.render(), groupStanding)
 
-    let createNewGroupButton = dce({el: 'a', cssClass: 'btn mt mb'});
-    let plusIcon = dce({el: 'IMG', source: '/images/icon_plus.svg'});
-    let buttonTitle = document.createTextNode('Create new group');
-    createNewGroupButton.append(plusIcon, buttonTitle);
-    rankingContainer.append(createNewGroupButton);
-
     container.append(ticker.render(), groupSelectContainer, rankingContainer);
 
 
