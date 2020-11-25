@@ -1,4 +1,4 @@
-import { dce } from '/js/shared/helpers.js';
+import { dce, storeObserver } from '/js/shared/helpers.js';
 import toggleSwitch from '/js/components/toggleswitch.js';
 import { user } from '/js/shared/user.js';
 import { route } from '/js/shared/route.js';
@@ -84,47 +84,37 @@ class otc {
     }
     settingsContainer.append(locationTitle, locationOnOff.render())
 
-    let updateSelected = (el) => {
-      let btns = sideNavLinks.querySelectorAll('A');
-      btns.forEach((el)=>{el.classList.remove('selected')})
-      el.classList.add('selected')
-    }
     // Page links
     let sideNavLinks = dce({el: 'SECTION', cssClass: 'sidenav-links'});
 
-    let btnHome = dce({el: 'A', content: 'Home', cssClass: 'selected'});
-    let btnProfile = dce({el: 'A', content: 'Profile' });
-    let btnGroups = dce({el: 'A', content: 'Groups' });
-    let btnStatistics = dce({el: 'A', content: 'Statistics' });
-    let btnHistory = dce({el: 'A', content: 'History' });
+    let btnHome = dce({el: 'A', content: 'Home', attrbs: [['data-route', 'home']]});
+    let btnProfile = dce({el: 'A', content: 'Profile', attrbs: [['data-route', 'profile']] });
+    let btnGroups = dce({el: 'A', content: 'Groups', attrbs: [['data-route', 'groups']] });
+    let btnStatistics = dce({el: 'A', content: 'Statistics', attrbs: [['data-route', 'statistics']] });
+    let btnHistory = dce({el: 'A', content: 'History', attrbs: [['data-route', 'history']] });
 
     btnHome.addEventListener('click', () => {
-      updateSelected(btnHome);
       route('home');
       document.body.classList.remove('otc')
     }, false);
 
 
     btnProfile.addEventListener('click', () => {
-      updateSelected(btnProfile);
       route('profile');
       document.body.classList.remove('otc')
     }, false);
 
     btnGroups.addEventListener('click', () => {
-      updateSelected(btnGroups);
       route('groups');
       document.body.classList.remove('otc')
     }, false);
 
     btnStatistics.addEventListener('click', () => {
-      updateSelected(btnStatistics);
       route('statistics');
       document.body.classList.remove('otc')
     }, false);
 
     btnHistory.addEventListener('click', () => {
-      updateSelected(btnHistory);
       route('history');
       document.body.classList.remove('otc')
     }, false);
@@ -134,6 +124,23 @@ class otc {
     otcLinksContainer.append(logoContainer, loginInfo, settingsContainer,sideNavLinks);
 
     container.append(otcLinksContainer);
+
+    this.updateSelected = () => {
+      let btns = sideNavLinks.querySelectorAll('A');
+      btns.forEach((el)=>{
+        el.classList.remove('selected');
+        if(el.getAttribute('data-route') === globals.route) {
+          el.classList.add('selected');
+        }
+      })
+    }
+
+    storeObserver.add({
+      store: globals,
+      key: 'route',
+      id: 'otcUpdateLocatiomn',
+      callback: this.updateSelected
+    });
 
     this.render = () => {
       return container
