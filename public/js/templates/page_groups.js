@@ -12,6 +12,7 @@ globals
 import { dce, storeObserver, countTopX, averageGrade } from '/js/shared/helpers.js';
 import picker from '/js/components/picker.js';
 import dropdownMenu from '/js/components/dropdown.js';
+import toggleSwitch from '/js/components/toggleswitch.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
 import { store } from '../shared/store.js';
 
@@ -62,9 +63,18 @@ class viewGroups {
       ]
     });
 
+
+    let indoorsOutdoorsSelector = new toggleSwitch({
+      cssClass  : 'horizontal-menu full-width',
+      targetObj : 'indoorsOutdoors',
+      options   : [
+        {title: 'Indoors', value: 'indoors', selected: true},
+        {title: 'Outdors', value: 'outdoors'}]
+    });
+
     let groupStanding = dce({el: 'UL', cssClass: 'group-toplist mt'});
 
-    rankingContainer.append(groupClimbingTypeSelector.render(), groupStanding)
+    rankingContainer.append(groupClimbingTypeSelector.render(), indoorsOutdoorsSelector.render(), groupStanding)
 
     let createNewGroupButton = dce({el: 'a', cssClass: 'btn mt mb'});
     let plusIcon = dce({el: 'IMG', source: '/images/icon_plus.svg'});
@@ -250,6 +260,14 @@ class viewGroups {
       callback: updateGroupStanding,
       removeOnRouteChange: true
     });
+
+    storeObserver.add({
+      store: globals,
+      key: 'indoorsOutdoors', 
+      callback: updateGroupStanding,
+      removeOnRouteChange: true
+    });
+
 
     this.render = () => {
       return container
