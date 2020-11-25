@@ -40,20 +40,20 @@
   text-align: center;
 }
 
-.otc-links-container .sidenav-links a {
+.otc-links-container .sidenav-links DIV {
   display: block;
   width: 100%;
   text-align: center;
   padding: 10px 0;
   position: relative;
   text-transform: uppercase;
-  background: var(--color-theme-color3);
-  color: var(--color-white);
+  background: var(--color-theme-color2);
+  color: var(--color-black);
 }
 
-.otc-links-container .sidenav-links a.selected {
-  background: var(--color-theme-color3-alpha);
-  color: var(--color-white-dim);
+.otc-links-container .sidenav-links DIV.selected {
+  background: transparent; var(--color-theme-color3-alpha);
+  color: var(--color-white);
 }
 
 .otc-links-container .sidenav-links a span {

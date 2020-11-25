@@ -87,11 +87,26 @@ class otc {
     // Page links
     let sideNavLinks = dce({el: 'SECTION', cssClass: 'sidenav-links'});
 
-    let btnHome = dce({el: 'A', content: 'Home', attrbs: [['data-route', 'home']]});
-    let btnProfile = dce({el: 'A', content: 'Profile', attrbs: [['data-route', 'profile']] });
-    let btnGroups = dce({el: 'A', content: 'Groups', attrbs: [['data-route', 'groups']] });
-    let btnStatistics = dce({el: 'A', content: 'Statistics', attrbs: [['data-route', 'statistics']] });
-    let btnHistory = dce({el: 'A', content: 'History', attrbs: [['data-route', 'history']] });
+    let btnHome = dce({el: 'DIV', attrbs: [['data-route', 'home']]});
+    let bthHomeText = dce({el: 'SPAN', content: 'Home'});
+    btnHome.appendChild(bthHomeText)
+
+    let btnProfile = dce({el: 'DIV', attrbs: [['data-route', 'profile']] });
+    let btnProfileText = dce({el: 'SPAN', content: 'Profile'});
+    btnProfile.appendChild(btnProfileText)
+
+    let btnGroups = dce({el: 'DIV', attrbs: [['data-route', 'groups']] });
+    let btnGroupsText = dce({el: 'SPAN', content: 'Groups'});
+    btnGroups.appendChild(btnGroupsText)
+
+    let btnStatistics = dce({el: 'DIV', attrbs: [['data-route', 'statistics']] });
+    let btnStatisticsText = dce({el: 'SPAN', content: 'Statistics'});
+    btnStatistics.appendChild(btnStatisticsText)
+
+    let btnHistory = dce({el: 'DIV', attrbs: [['data-route', 'history']] });
+    let btnHistoryText = dce({el: 'SPAN', content: 'History'});
+    btnHistory.appendChild(btnHistoryText)
+
 
     btnHome.addEventListener('click', () => {
       route('home');
@@ -126,7 +141,7 @@ class otc {
     container.append(otcLinksContainer);
 
     this.updateSelected = () => {
-      let btns = sideNavLinks.querySelectorAll('A');
+      let btns = sideNavLinks.querySelectorAll('DIV');
       btns.forEach((el)=>{
         el.classList.remove('selected');
         if(el.getAttribute('data-route') === globals.route) {
