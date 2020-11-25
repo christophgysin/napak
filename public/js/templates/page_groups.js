@@ -95,8 +95,9 @@ class viewGroups {
           }
       }).then( (doc) => {
         groups[globals.groupType][globals.currentGroup].userScore = groupStandingData;
-        // fires n times - should be called when it's ready
-        if(i === groupUsers.length-1) {updateGroupStanding();}
+        if(i === groupUsers.length-1) {
+          updateGroupStanding();
+        }
       });
     }
   }
@@ -145,8 +146,8 @@ class viewGroups {
       data.sort(function(a, b) {
         if(!a.current[globals.indoorsOutdoors]){return 1}
         if(!b.current[globals.indoorsOutdoors]){return -1}
-        var keyA = a.current[globals.indoorsOutdoors][globals.currentClimbingType],
-          keyB = b.current[globals.indoorsOutdoors][globals.currentClimbingType];
+        var keyA = a.current[globals.indoorsOutdoors][globals.currentClimbingType]['score'],
+          keyB = b.current[globals.indoorsOutdoors][globals.currentClimbingType]['score'];
 
           if (keyA < keyB) return 1;
         if (keyA > keyB) return -1;
@@ -154,8 +155,8 @@ class viewGroups {
       });
 
       for(let i = 0, j = data.length; i < j; i++) {
-        let score = (data[i].current[globals.indoorsOutdoors]) ? data[i].current[globals.indoorsOutdoors][globals.currentClimbingType] : '-';
-        let avgGrade = averageGrade({count:10, scope: 'thirtydays'});
+        let score = (data[i].current[globals.indoorsOutdoors]) ? data[i].current[globals.indoorsOutdoors][globals.currentClimbingType]['score'] : '-';
+        let avgGrade = (data[i].current[globals.indoorsOutdoors]) ? data[i].current[globals.indoorsOutdoors][globals.currentClimbingType]['average'] : '-';
         let groupEntry = dce({el: 'LI', cssClass: 'entry-container'});
         let entryPos = dce({el: 'SPAN', content: `${i+1}.`});
         let entryName = dce({el: 'SPAN', content:  data[i].displayName});

@@ -283,23 +283,31 @@ let countAscentsByGrade = (params) => {
 
 let countGroupScore = () => {
   let types = {
-    boulder: 0,
-    sport: 0,
-    toprope: 0,
-    trad: 0
+    boulder: {
+      score: 0,
+      average: 'n/a',
+      ticks: []
+    },
+    sport: {
+      score: 0,
+      average: 'n/a',
+      ticks: []
+    },
+    toprope: {
+      score: 0,
+      average: 'n/a',
+      ticks: []
+    },
+    trad: {
+      score: 0,
+      average: 'n/a',
+      ticks: []
+    }
   }
-  let indoors = {
-    boulder: 0,
-    sport: 0,
-    toprope: 0,
-    trad: 0
-  }
-  let outdoors = {
-    boulder: 0,
-    sport: 0,
-    toprope: 0,
-    trad: 0
-  }
+  let indoorsCopy = JSON.parse(JSON.stringify(types));
+  let outdoorsCopy = JSON.parse(JSON.stringify(types));
+  let indoors = indoorsCopy;
+  let outdoors = outdoorsCopy;
 
   let ticks = handleScopeTicks({scope: 'thirtydays', allTypes: true, ignoreIndoorsOutdoors: true});
 
@@ -312,8 +320,13 @@ let countGroupScore = () => {
     let ticksByDisciplineOutdoors = ticks.filter(obj => {
       return obj.type === type && obj.indoorsOutdoors === 'outdoors'
     })
-    indoors[type] = countTopX({count: 10, tickSet: ticksByDisciplineIndoors});;
-    outdoors[type] = countTopX({count: 10, tickSet: ticksByDisciplineOutdoors});;
+
+    // 
+    indoors[type]['score'] = countTopX({count: 10, tickSet: ticksByDisciplineIndoors});
+    indoors[type]['average'] = averageGrade({count: 10, tickSet: ticksByDisciplineIndoors});
+
+    outdoors[type]['score'] = countTopX({count: 10, tickSet: ticksByDisciplineOutdoors});
+    outdoors[type]['average'] = averageGrade({count: 10, tickSet: ticksByDisciplineOutdoors});
   });
 
   return {

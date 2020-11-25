@@ -52,7 +52,7 @@
 }
 
 .otc-links-container .sidenav-links DIV.selected {
-  background: transparent; var(--color-theme-color3-alpha);
+  background: transparent; 
   color: var(--color-white);
 }
 
