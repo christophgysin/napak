@@ -91,7 +91,8 @@ class viewGroups {
           }
       }).then( (doc) => {
         groups[globals.groupType][globals.currentGroup].userScore = groupStandingData;
-        updateGroupStanding();     
+        // fires n times - should be called when it's ready
+        if(i === groupUsers.length-1) {updateGroupStanding();}
       });
     }
   }
@@ -135,6 +136,16 @@ class viewGroups {
 
       headerContainer.append(pos, user, score, avg);
       groupStanding.appendChild(headerContainer);
+
+      // Sort users - highest score first
+      data.sort(function(a, b) {
+        var keyA = new Date(a.current[globals.currentClimbingType]),
+          keyB = new Date(b.current[globals.currentClimbingType]);
+
+          if (keyA < keyB) return 1;
+        if (keyA > keyB) return -1;
+        return 0;
+      });
 
       for(let i = 0, j = data.length; i < j; i++) {
         let score = data[i].current[globals.currentClimbingType];

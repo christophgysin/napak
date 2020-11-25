@@ -77,7 +77,26 @@ class viewHistory {
         let sessionAverage = averageGrade({count: ticks.length, tickSet: ticks});
 
         let headerTitle = dce({el: 'DIV', cssClass: 'session-header'});
-        headerTitle.innerHTML = `${handleDate({dateString : key, dateFormat : 'dd.mm.yyyy'})} - <b>${ticksByDateContainer[key].length} routes</b>\r\nWeighted average grade: <b>${dateAvgGrade}</b>\r\nSession average: <b>${sessionAverage}</b>`;
+        // Date and route count
+        let sessionDate = dce({el: 'DIV', cssClass: 'header-flex'});
+        let date = dce({el: 'DIV', content: handleDate({dateString : key, dateFormat : 'dd.mm.yyyy'})});
+        let routeCount = dce({el: 'DIV', content: `${ticksByDateContainer[key].length} routes`});
+        sessionDate.append(date, routeCount);
+
+        // session weighted average grade
+        let weighted = dce({el: 'DIV', cssClass: 'header-flex'});
+        let weightedTitle = dce({el: 'DIV', content: 'Weighted average grade'});
+        let weightedAverage = dce({el: 'DIV', content: dateAvgGrade});
+        weighted.append(weightedTitle, weightedAverage);
+
+        // session average grade
+        let avg = dce({el: 'DIV', cssClass: 'header-flex'});
+        let avgTitle = dce({el: 'DIV', content: 'Session average'});
+        let avgGrade = dce({el: 'DIV', content: sessionAverage});
+        avg.append(avgTitle, avgGrade);
+
+        headerTitle.append(sessionDate, weighted, avg);
+
         ticksContainer.appendChild(headerTitle);
 
         let sessionTicks = dce({el: 'DIV', cssClass: 'session-tick-container'});
