@@ -30,8 +30,6 @@ let userObject = {
     email:  (userFromStorage.email) ? userFromStorage.email : false,
     id:  (userFromStorage.id) ? userFromStorage.id : false
   },
-
-  groups : (userFromStorage.groups) ? userFromStorage.groups : [],
  
   login : {
     isLoggedIn :  (userFromStorage.isLoggedIn) ? userFromStorage.isLoggedIn : null,

@@ -135,7 +135,7 @@ let countTopX = ({count = 10, tickSet = false} = {}) => {
 
 // Count average grade
 //let averageGrade = (amount, scp, tickSet) => {
-  let averageGrade = ({count= 10, scope = globals.scope, tickSet = false} = {}) => {
+let averageGrade = ({count= 10, scope = globals.scope, tickSet = false} = {}) => {
   let ticks = (tickSet) ? tickSet : handleScopeTicks({scope: scope});
 
   
@@ -288,29 +288,49 @@ let countGroupScore = () => {
     toprope: 0,
     trad: 0
   }
+  let indoors = {
+    boulder: 0,
+    sport: 0,
+    toprope: 0,
+    trad: 0
+  }
+  let outdoors = {
+    boulder: 0,
+    sport: 0,
+    toprope: 0,
+    trad: 0
+  }
 
-  let ticks = handleScopeTicks({scope: 'thirtydays', allTypes: true});
+  let ticks = handleScopeTicks({scope: 'thirtydays', allTypes: true, ignoreIndoorsOutdoors: true});
 
   let temp = Object.keys(types);
+
   temp.forEach((type) => {
-    let ticksByDiscipline = ticks.filter(obj => {
-      return obj.type === type && obj.indoorsOutdoors === globals.indoorsOutdoors
+    let ticksByDisciplineIndoors = ticks.filter(obj => {
+      return obj.type === type && obj.indoorsOutdoors === 'indoors'
     })
-    types[type] = countTopX({count: 10, tickSet: ticksByDiscipline});;
+    let ticksByDisciplineOutdoors = ticks.filter(obj => {
+      return obj.type === type && obj.indoorsOutdoors === 'outdoors'
+    })
+    indoors[type] = countTopX({count: 10, tickSet: ticksByDisciplineIndoors});;
+    outdoors[type] = countTopX({count: 10, tickSet: ticksByDisciplineOutdoors});;
   });
 
-  return types;
+  return {
+    indoors: indoors, 
+    outdoors: outdoors
+  };
 }
 
 // Return all ticks matching the scope
-let handleScopeTicks = (params) => {
+let handleScopeTicks = ({scope = globals.scope, allTypes= false, tickSet = false, indoorsOutdoors = globals.indoorsOutdoors, ignoreIndoorsOutdoors = false} = {}) => {
   let fromNow;
   let limitTo;
   /* 
     if scope is set to Today, use globals.today which might be any date
     if scope is anything else, use globals.realToday which is allways the correct date
   */
-  let fromNowArray = (params.scope === 'today') ? globals.today.split('-') : globals.realToday.split('-');
+  let fromNowArray = (scope === 'today') ? globals.today.split('-') : globals.realToday.split('-');
   let year = Number(fromNowArray[0]);
   let month = Number(fromNowArray[1]);
   let day = Number(fromNowArray[2]);
@@ -319,15 +339,15 @@ let handleScopeTicks = (params) => {
   let limitMonth = month;
   let limitYear = year;
 
-  if(params.scope === 'thirtydays') {
+  if(scope === 'thirtydays') {
     limitMonth=month;
     month-=1;
   }
-  if(params.scope === 'year') {
+  if(scope === 'year') {
     limitYear = year;
     year-=1;
   }
-  if(params.scope === 'alltime'){
+  if(scope === 'alltime'){
     year = 2000; month = 1; day = 1;
     limitYear = 2100;
   }
@@ -339,7 +359,7 @@ let handleScopeTicks = (params) => {
 
   globals.ticks.forEach((tick) => {
       if(tick.date >= fromNow && tick.date <= limitTo) {
-        if ( (tick.type === globals.currentClimbingType || params.allTypes )&& tick.indoorsOutdoors === globals.indoorsOutdoors ) {
+        if ( (tick.type === globals.currentClimbingType || allTypes ) && tick.indoorsOutdoors === indoorsOutdoors || ignoreIndoorsOutdoors) {
          ticks.push(tick)
       }
     }

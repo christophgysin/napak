@@ -61,7 +61,7 @@ class wheel {
       // Get ascents by grade and type and update legends accordingly
       let ascentsByGrade = countAscentsByDifficulty();
       let ascentCountPerType =  Object.keys(ascentsByGrade);
-      // console.log(ascentsByGrade)
+
       ascentCountPerType.forEach((type) => {
         for(let i in ascentsByGrade[type]) {
           // legend does not exist - create one
