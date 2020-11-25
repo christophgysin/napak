@@ -1,9 +1,5 @@
 const db = firebase.firestore();
 
-db.clearPersistence().catch(error => {
-  console.error('Could not enable persistence:', error.code);
-})
-
 db.enablePersistence()
   .catch(function(err) {
     console.error('firestore persistence:', err.code);

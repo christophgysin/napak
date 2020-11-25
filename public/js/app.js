@@ -69,7 +69,7 @@ let napak = {
       else {document.body.classList.remove('indoors');}
     };
 
-    updateAll();
+//    updateAll();
 
     // update user score to firebase
     let updateGroupScore = () => {

@@ -1,5 +1,6 @@
 import { dce, countAscentsByDifficulty, vibrate, storeObserver } from '/js/shared/helpers.js';
 import { globals } from '/js/shared/globals.js';
+import { localStrg } from '/js/shared/localstorage.js';
 
 class wheel {
   constructor(params) {
@@ -12,6 +13,7 @@ class wheel {
       let newVal = Math.floor(dialViewport.scrollTop / (selectDialog.scrollHeight-200) * (globals.grades.font.length));
       if(newVal !== globals.currentAscentGrade) {
         globals.currentAscentGrade = newVal;
+        localStrg.write({key: 'wheelPos', keydata: Number(newVal)});
         if (e.isTrusted) {
           vibrate();
         }

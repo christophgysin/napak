@@ -1,5 +1,5 @@
 import { handleDate } from '/js/shared/date.js';
-import { store } from '/js/shared/store.js';
+import { localStrg } from '/js/shared/localstorage.js';
 
 //  Defaults
 const handler = {
@@ -19,7 +19,6 @@ const handler = {
   }
 }
 
-
 /*
   create container object for todays ticks;
 */
@@ -27,6 +26,8 @@ const handler = {
 let containerObj = {};
 let today = handleDate({dateString: new Date().getTime()});
 let types = ['boulder', 'sport', 'trad', 'toprope'];
+
+let wheelPosition = localStrg.read({key: 'wheelPos'});
 
 types.forEach((type) => {
   containerObj[type] = {}
@@ -80,7 +81,7 @@ let globalObjects = {
   },
 
   currentAscentType : '',
-  currentAscentGrade: 6,
+  currentAscentGrade: (wheelPosition) ? wheelPosition : 6,
   indoorsOutdoors : 'indoors',
   currentClimbingType : 'boulder',
 
