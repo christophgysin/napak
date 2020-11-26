@@ -111,7 +111,9 @@ class viewGroups {
         collectionId: globals.currentGroup,
         keydata: firebase.auth().currentUser.uid
         }, () =>{
-          delete groups['publicGroups'][globals.currentGroup]['selected']
+          let groupName = groups['publicGroups'][globals.currentGroup]['title'];
+          
+          delete groups['publicGroups'][globals.currentGroup]['selected']; // what is this?
           if(!groups['publicGroups'][globals.currentGroup]['users']) {
             groups['publicGroups'][globals.currentGroup]['users'] = [];
             }
@@ -121,6 +123,13 @@ class viewGroups {
 
           let dropdownElements = updateItems();
           groupSelect.createItems(dropdownElements);
+
+          globals.standardMessage.unshift({
+            message: `Joined ${groupName}`,
+            timeout: 2
+          });
+          globals.standardMessage = globals.standardMessage;
+    
         });
 
     }, false)
@@ -198,7 +207,7 @@ class viewGroups {
       querySnapshot.forEach(function(doc) {
         let groupData = doc.data();
         // show only groups where user is not a member already
-        if(groupData.users && groupData.users.includes(dbuser.uid)) {
+        if(groupData.users && groupData.users.length && groupData.users.includes(dbuser.uid)) {
           groups['userGroups'][doc.id] = {
             title: groupData.name,
             value: doc.id, 
