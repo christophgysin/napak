@@ -27,7 +27,7 @@ class climbingTypeSelector {
       targetObj : 'indoorsOutdoors',
       options   : [
         {title: 'Indoors', value: 'indoors', selected: true},
-        {title: 'Outdors', value: 'outdoors'}]
+        {title: 'Outdoors', value: 'outdoors'}]
     });
 
     container.append(indoorsOutdoorsSelector.render());

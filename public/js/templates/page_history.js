@@ -24,7 +24,8 @@ class viewHistory {
       titlePrefix_sport : 'Ticks archive -  Sport',
       titlePrefix_trad : 'Ticks archive - Trad',
       titlePrefix_toprope: 'Ticks archive - Top rope',
-      hideIndoorsOutdoors : true
+      hideIndoorsOutdoors : true,
+      tapAction: () => { disciplineSelector.showMenu()}
     });
 
 
@@ -123,7 +124,7 @@ class viewHistory {
 
 
       if(!ticks.length) {
-        let row = dce({el: 'DIV', cssClass: 'no-history', content: 'Nothing to see here. Move along'});
+        let row = dce({el: 'DIV', cssClass: 'no-history mt', content: 'Nothing to see here. Move along'});
         ticksContainer.appendChild(row);
       }
     }

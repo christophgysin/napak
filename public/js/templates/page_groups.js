@@ -69,7 +69,7 @@ class viewGroups {
       targetObj : 'indoorsOutdoors',
       options   : [
         {title: 'Indoors', value: 'indoors', selected: true},
-        {title: 'Outdors', value: 'outdoors'}]
+        {title: 'Outdoors', value: 'outdoors'}]
     });
 
     let groupStanding = dce({el: 'UL', cssClass: 'group-toplist mt'});
