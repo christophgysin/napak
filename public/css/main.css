@@ -194,8 +194,8 @@ BODY.indoors section.grade::after {
   display: block;
   font-family: 'Space Mono';
   font-size: 50px;
-  font-size: calc(50px + 40 * ((100vh - 480px) / 1024));
-  height: calc((50px + 40 * ((100vh - 480px) / 1024)) * 3);
+  font-size: calc(50px + 40 * ((100vh - 640px) / 1024));
+  height: calc((50px + 40 * ((100vh - 640px) / 1024)) * 3);
   margin: 10px auto 0;
   overflow: hidden;
   padding: 1em 0;
@@ -330,7 +330,7 @@ BODY.indoors section.grade::after {
 .tick-buttons-container {
   display: flex;
   justify-content: space-between;
-  margin-bottom: var(--padding-base);
+  margin: var(--padding-base) 0;
 }
 
 

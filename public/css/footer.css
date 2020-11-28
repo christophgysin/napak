@@ -5,7 +5,7 @@ footer {
 }
 
 footer > nav {
-  height: 50px;
+  height: 40px;
   padding: 0 var(--padding-base);
   font-family: 'Roboto';
   font-size: 16px;
@@ -19,9 +19,7 @@ footer > nav a {
   overflow: hidden;
   white-space: nowrap;
   text-align: center;
-  min-width: 50px;
-  /*
-  */
+  min-width: 40px;
   position: absolute;
   right: 0;
 }
@@ -32,9 +30,13 @@ footer > nav .logo-container {
   width: 100%;
 }
 
+footer > nav .logo-container  .logo {
+  height: 1.5em;
+}
+
 footer > nav a svg {
   display: block;
-  margin: 0 auto -5px;
+  margin: 10px auto -5px;
 }
 
 footer > nav a:active,
@@ -56,72 +58,11 @@ footer > nav a > span {
   display: flex;
   flex-direction: column;
   font-size: var(--font-size-base);
-  height: 50px;
+  height: 40px;
   justify-content: center;
-  width: 50px;  
+  width: 40px;  
 }
 
-/* pullup menu - removed */
-.footer-pullup-menu .menu-title {
-  position: relative;
-  padding-left: var(--padding-base);
-}
-
-.footer-pullup-menu.links-only .menu-title {
-  padding-left: 0;
-}
-
-.footer-pullup-menu img,
 footer > nav a > span img {
   width: 25px;
-}
-
-.footer-pullup-menu img {
-  margin: 0 10px 0 0;
-}
-
-/* Pull up menu */
-.footer-pullup-menu {
-  position: absolute;
-  bottom: 50px;
-  display: grid;
-  grid-auto-rows: 60px;
-  z-index: 4;
-  background: var(--color-theme-color1-accent);
-}
-
-.footer-pullup-menu.right {
-  transform: translateX(calc(-100% + 50px));
-}
-
-.footer-pullup-menu > span,
-footer > nav a > span {
-  align-items: center;
-  color: var(--color-white);
-  display: flex;
-  flex-direction: column;
-  font-size: var(--font-size-bodytext);
-  justify-content: left;
-  padding: 10px 20px;
-  position: relative;
-}
-
-.footer-pullup-menu > span.selected {
-  background: var(--color-theme-color3);
-}
-
-.footer-pullup-menu > span.selected:not(.icons) .menu-title::after {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  content: '';
-  font-size: 0;
-  background: var(--color-theme-color2);
-  box-shadow: 0 0 5px 0 var(--color-theme-color2);
-  width: 5px;
-  height: 5px;
-  border-radius: 5px;
-  animation: zoomIn 300ms ease-in-out;
-  transform: translate3d(-50%, -50%, 0) scale(1);
-  display: block;
 }
