@@ -14,6 +14,7 @@ import { handleDate } from '/js/shared/date.js';
 import { dce, storeObserver, handleScopeTicks, eightaNuScore, averageGrade} from '/js/shared/helpers.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
 import climbingTypeSelector from '/js/templates/partials/climbing_type-selector.js';
+import modalWindow from '/js/components/modal.js';
 import handleTick from '/js/shared/handle_tick.js';
 
 class viewHistory {
@@ -123,6 +124,14 @@ class viewHistory {
           });
 
           deleteTick.addEventListener('click', ()=>{
+            let modal = new modalWindow({
+              title         : 'Confirm delete tick',
+              modalContent  : dce({el: 'DIV', content: 'Yes nou? Tä? ni'})
+            });
+
+            container.appendChild(modal.render())
+            
+            return;
             handleTick({
               add: false,  
               ascentType: tick.ascentType, 
