@@ -134,19 +134,22 @@ let countTopX = ({count = 10, tickSet = false} = {}) => {
 }
 
 // Count average grade
-//let averageGrade = (amount, scp, tickSet) => {
 let averageGrade = ({count= 10, scope = globals.scope, tickSet = false} = {}) => {
-  let ticks = (tickSet) ? tickSet : handleScopeTicks({scope: scope});
+  const ticks = tickSet ? tickSet : handleScopeTicks({scope: scope});
 
-  
-  let maxGrades = [];
-  ticks.forEach(tick => {maxGrades.push(tick.grade)});
-  if(maxGrades.length < 1) return 'N/A';
-  maxGrades = maxGrades.sort(function (a, b) { return b - a }).slice(0, count);
-  maxGrades = maxGrades.reduce((a, b) => Number(a) + Number(b), 0);
-  let avgr = maxGrades / count;
+  if (ticks.length === 0)
+    return 'N/A';
 
-  return globals.grades.font[Math.round(avgr)];
+  const maxGrades = ticks
+    .map(tick => tick.grade)
+    .sort()
+    .slice(0, count)
+
+  const average = maxGrades
+    .reduce((a, b) => a + b, 0)
+    / maxGrades.length;
+
+  return globals.grades.font[Math.round(average)];
 }
 
 
