@@ -29,6 +29,7 @@
   color: var(--color-white);
   font-size: var(--font-size-small);
   text-transform: uppercase;
+  margin: 0 var(--padding-base-half);
 }
 
 .btn_tiny {

@@ -113,34 +113,29 @@ class viewHistory {
           let tickActionsContainer = dce({el: 'DIV', cssClass: 'tick-actions'});
 
           let deleteTick = dce({el: 'A', cssClass: 'btn btn_tiny', content: 'x'});
-          let editTickDetails = dce({el: 'A', cssClass: 'btn btn_tiny', content: 'Edit'});
-          tickActionsContainer.append(deleteTick, editTickDetails);
+          tickActionsContainer.appendChild(deleteTick);
+
           row.append(gradeContainer, ascentType, ascentPoints, tickActionsContainer);
+
           sessionTicks.appendChild(row);
           let tick = ticks[i];
-
-          editTickDetails.addEventListener('click', ()=>{
-            this.toggleModal();
-          });
 
           deleteTick.addEventListener('click', ()=>{
             let modal = new modalWindow({
               title         : 'Confirm delete tick',
-              modalContent  : dce({el: 'DIV', content: 'Yes nou? Tä? ni'})
+              modalContent  : dce({el: 'DIV', content: 'Delete this tick? You might lose points! 🙀'}),
+              cssClass      : 'modal-small',
+              buttons       : [
+                ['Delete', ()=>{
+                  this.deleteTick(tick); 
+                  modal.close();}], 
+                ['Cancel', () => {
+                  modal.close()}]
+                ],
+              open          : true //auto open modal
             });
 
             container.appendChild(modal.render())
-            
-            return;
-            handleTick({
-              add: false,  
-              ascentType: tick.ascentType, 
-              grade: tick.grade, 
-              indoorsOutdoors: tick.indoorsOutdoors, 
-              type: tick.type,
-              tickDate: handleDate({dateString: tick.date})
-            });
-            updateHistory();
           });
         }
         ticksContainer.appendChild(sessionTicks)
@@ -156,14 +151,9 @@ class viewHistory {
 
     let disciplineSelector = new climbingTypeSelector();
 
-    this.modal  = dce({el: 'DIV', cssClass: 'hidden', cssStyle: 'position: fixed;   border-radius: 20px; background: #fff; min-height: 300px;z-index: 3;left: 20px;right: 20px;top: 50%;transform: translateY(-50%); padding: 20px; color: #000'});
-    let tickEditModalHeader = dce({el: 'DIV', content: `Grade: ${globals.grades.font[0]}`});
-
-    this.modal.appendChild(tickEditModalHeader);
-
     scrollContainer.append(ticksContainer);
     historyContent.appendChild(scrollContainer);
-    container.append(ticker.render(), disciplineSelector.render(), historyContent, this.modal);
+    container.append(ticker.render(), disciplineSelector.render(), historyContent);
 
 
     storeObserver.add({
@@ -187,6 +177,18 @@ class viewHistory {
     this.toggleModal = () => {
       this.modal.classList.toggle('hidden')
     }
+  
+    this.deleteTick = (tick) => {
+      handleTick({
+        add: false,  
+        ascentType: tick.ascentType, 
+        grade: tick.grade, 
+        indoorsOutdoors: tick.indoorsOutdoors, 
+        type: tick.type,
+        tickDate: handleDate({dateString: tick.date})
+      });
+      updateHistory();
+    }  
   }
 }
 

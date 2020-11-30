@@ -191,8 +191,8 @@ class viewGroups {
 
           let modal = new modalWindow({
             title         : `${data[i].displayName}'s top ticks`,
-            modalContent  : modalData
-          });
+            modalContent  : modalData,
+            open          : true          });
 
           container.appendChild(modal.render())
         }, false);

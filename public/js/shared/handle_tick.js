@@ -35,6 +35,8 @@ let handleTick = ({
     }
     if (ticksByGrade.length) {
       let indx = ticksByGrade.length - 1;
+      // remove score key if exist - otherwise store remove wont hit the target
+      delete ticks[ticksByGrade[indx]].score;
       store.remove({
           store: 'users',
           key: 'ticks',
@@ -64,7 +66,7 @@ let handleTick = ({
     globals.lastTickRemoved = false;
 
 
-    if ((Number(globals.totalAscentCount['today'])) % 5 === 0) {
+    if ((Number(globals.totalAscentCount['today'])+1) % 5 === 0) {
       let cheer = ["Gamba!", "Venga!", "Allez 💪", "Joo joo!", "Kom igen!", "🔥", "Come on!", "Nice"];
       globals.standardMessage.unshift({
         message: cheer[~~(Math.random() * cheer.length)],
