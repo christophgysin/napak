@@ -151,15 +151,32 @@ let averageGrade = ({count= 10, scope = globals.scope, tickSet = false} = {}) =>
 
 
 // Total score
-let countTotalScore = ({count= 10, scope = globals.scope, tickSet = false} = {}) => {
+let countTotalScore = ({count= 10, scope = globals.scope, tickSet = false, returnTicks = false} = {}) => {
   let ticks = (tickSet) ? tickSet : handleScopeTicks({scope: scope});
+  let score = Array(count).fill(0); // this is wrong. It no adds x empty ticks (by grade of 3) to the array 
 
-  let score = Array(count).fill(0)
+  let returnTickSet = [];
 
+// return with tick data
+  if(returnTicks) {
+    ticks.forEach((tick) => {
+      let score = eightaNuScore({ ascentType: tick.ascentType, grade: tick.grade, sport: tick.type });
+      tick.score = score;
+      returnTickSet.push(tick);
+    })
+    return returnTickSet.sort(function(a, b) {
+      var keyA = a.score,
+        keyB = b.score;
+      if (keyA < keyB) return 1;
+      if (keyA > keyB) return -1;
+      return 0;
+    }).slice(0, count);
+  }
+
+// return with top score only
   ticks.forEach((tick) => {
     score.push(eightaNuScore({ ascentType: tick.ascentType, grade: tick.grade, sport: tick.type }));
   })
-
   return score.sort(function (a, b) { return b - a }).slice(0, count);
 }
 
@@ -321,12 +338,16 @@ let countGroupScore = () => {
       return obj.type === type && obj.indoorsOutdoors === 'outdoors'
     })
 
-    // 
-    indoors[type]['score'] = countTopX({count: 10, tickSet: ticksByDisciplineIndoors});
-    indoors[type]['average'] = averageGrade({count: 10, tickSet: ticksByDisciplineIndoors});
+    let indoorsTopX = countTotalScore({count: 10, tickSet: ticksByDisciplineIndoors, returnTicks: true});
+    let outdoorsTopX = countTotalScore({count: 10, tickSet: ticksByDisciplineOutdoors, returnTicks: true});
+    
+    indoors[type]['score'] = countTopX({count: 10, tickSet: indoorsTopX, returnTicks: true});
+    indoors[type]['average'] = averageGrade({count: 10, tickSet: indoorsTopX}); // double work. Get average from topX data
+    indoors[type]['ticks'] = indoorsTopX;
 
-    outdoors[type]['score'] = countTopX({count: 10, tickSet: ticksByDisciplineOutdoors});
-    outdoors[type]['average'] = averageGrade({count: 10, tickSet: ticksByDisciplineOutdoors});
+    outdoors[type]['score'] = countTopX({count: 10, tickSet: outdoorsTopX});
+    outdoors[type]['average'] = averageGrade({count: 10, tickSet: outdoorsTopX});
+    outdoors[type]['ticks'] = outdoorsTopX;
   });
 
   return {

@@ -14,6 +14,7 @@ import { handleDate } from '/js/shared/date.js';
 import { dce, storeObserver, handleScopeTicks, eightaNuScore, averageGrade} from '/js/shared/helpers.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
 import climbingTypeSelector from '/js/templates/partials/climbing_type-selector.js';
+import handleTick from '/js/shared/handle_tick.js';
 
 class viewHistory {
   constructor() {
@@ -66,9 +67,8 @@ class viewHistory {
       for( let key in ticksByDateContainer ) {
         let ticks = ticksByDateContainer[key];
         ticks.sort(function(a, b) {
-          var keyA = new Date(a.grade),
-            keyB = new Date(b.grade);
-          // Compare the 2 dates
+          var keyA = a.grade,
+            keyB = b.grade;
           if (keyA < keyB) return -1;
           if (keyA > keyB) return 1;
           return 0;
@@ -116,8 +116,23 @@ class viewHistory {
           tickActionsContainer.append(deleteTick, editTickDetails);
           row.append(gradeContainer, ascentType, ascentPoints, tickActionsContainer);
           sessionTicks.appendChild(row);
-  
-          editTickDetails.addEventListener('click', ()=>{this.toggleModal();}); //console.log(new Date().getTime()); tickDetailsContainer.classList.toggle('hidden')}, false);
+          let tick = ticks[i];
+
+          editTickDetails.addEventListener('click', ()=>{
+            this.toggleModal();
+          });
+
+          deleteTick.addEventListener('click', ()=>{
+            handleTick({
+              add: false,  
+              ascentType: tick.ascentType, 
+              grade: tick.grade, 
+              indoorsOutdoors: tick.indoorsOutdoors, 
+              type: tick.type,
+              tickDate: handleDate({dateString: tick.date})
+            });
+            updateHistory();
+          });
         }
         ticksContainer.appendChild(sessionTicks)
     }

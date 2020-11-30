@@ -29,8 +29,8 @@ class gradeWheel {
     let spacer = dce({ el: 'DIV', cssStyle: 'width: 20px; min-width: 20px;' });
     let buttonInc = dce({ el: 'A', cssClass: 'btn type-redpoint', content: 'Tick' });
 
-    buttonInc.addEventListener('click', () => { if(globals.vibrate){vibrate();} handleTick(true); }, false);
-    buttonDec.addEventListener('click', () => { if(globals.vibrate){vibrate();} handleTick(false); }, false);
+    buttonInc.addEventListener('click', () => { if(globals.vibrate){vibrate();} handleTick({add: true}); }, false);
+    buttonDec.addEventListener('click', () => { if(globals.vibrate){vibrate();} handleTick({add: false}); }, false);
 
     buttonsContainer.append(buttonDec, spacer, buttonInc);
     pickerElement.appendChild(buttonsContainer);

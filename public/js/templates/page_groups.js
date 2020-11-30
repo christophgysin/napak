@@ -11,6 +11,7 @@ globals
 
 import { dce, storeObserver, countTopX, averageGrade } from '/js/shared/helpers.js';
 import picker from '/js/components/picker.js';
+import modalWindow from '/js/components/modal.js';
 import dropdownMenu from '/js/components/dropdown.js';
 import toggleSwitch from '/js/components/toggleswitch.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
@@ -175,6 +176,27 @@ class viewGroups {
         let entryAvgGrade = dce({el: 'SPAN', content: avgGrade});
 
         groupEntry.append(entryPos, entryName, entryPointsContainer, entryAvgGrade);
+
+        groupEntry.addEventListener('click', () => {
+          let userTopTicks = data[i].current[globals.indoorsOutdoors][globals.currentClimbingType]['ticks']; 
+          let modalData = document.createDocumentFragment();
+          for(let k=0, l=userTopTicks.length; k<l;k++) {
+            let tickContainer = dce({el: 'DIV', cssClass: 'session-tick'});
+            let tickGrade = dce({el: 'DIV', cssClass: `grade-legend  ${globals.difficulty[userTopTicks[k].grade]}`, content: globals.grades.font[userTopTicks[k].grade]});
+            let tickType = dce({el: 'DIV', cssClass: '', content: userTopTicks[k].ascentType});
+            let tickScore = dce({el: 'DIV', cssClass: '', content: userTopTicks[k].score});
+            tickContainer.append(tickGrade, tickType, tickScore);
+            modalData.appendChild(tickContainer)
+          }
+          
+          let modal = new modalWindow({
+            title         : `${data[i].displayName}'s top ticks`,
+            modalContent  : modalData
+          });
+
+
+          container.appendChild(modal.render())
+        }, false);
         groupStanding.append(groupEntry, groupEntry);
       }
     }
