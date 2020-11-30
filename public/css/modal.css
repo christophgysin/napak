@@ -45,6 +45,6 @@
     display: flex;
     justify-content: center;
     margin: 0 var(--padding-base-negative) var(--padding-base-negative);
-    background: var(--color-theme-color1-accent); 
+    background: linear-gradient(to bottom, #000 0%, var(--color-theme-color1) env(safe-area-inset-top, 0), var(--color-theme-color1-accent) 100%); 
     padding: var(--padding-base-half) var(--padding-base);
 }
