@@ -137,6 +137,7 @@ section {
 }
 BODY.modal-open .page-content::before {
   opacity: 1;
+  pointer-events: all;
 }
 .page-tick {
   height: 100%;
