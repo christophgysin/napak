@@ -112,8 +112,10 @@ section {
 .page-content {
   height: 100%;
   color: var(--color-white);
-  background: var(--color-theme-color1-accent);
-  background: linear-gradient(to bottom, #000 0%, var(--color-theme-color1-accent) env(safe-area-inset-top, 0), var(--color-theme-color1-accent) 100%);
+  background: var(--color-theme-color1);
+/*
+  background: linear-gradient(to bottom, #000 0%, var(--color-theme-color1-accent) env(safe-area-inset-top, 0), var(--color-theme-color1) 100%);
+*/
   flex: 1;
   transition: filter 300ms ease-in-out;
   overflow: hidden;
