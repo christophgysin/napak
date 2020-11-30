@@ -1,6 +1,6 @@
 import { globals } from '/js/shared/globals.js';
 
-let storeObserver = { 
+let storeObserver = {
   add : ( params ) => {
     let store = params.store;
 
@@ -94,7 +94,7 @@ let svg = (params) => {
   return element;
 }
 
-// Parse date 
+// Parse date
 let parseDate = (d) => {
   let parsed = d.split("-");
   return {
@@ -156,7 +156,7 @@ let averageGrade = ({count= 10, scope = globals.scope, tickSet = false} = {}) =>
 // Total score
 let countTotalScore = ({count= 10, scope = globals.scope, tickSet = false, returnTicks = false} = {}) => {
   let ticks = (tickSet) ? tickSet : handleScopeTicks({scope: scope});
-  let score = Array(count).fill(0); // this is wrong. It no adds x empty ticks (by grade of 3) to the array 
+  let score = Array(count).fill(0); // this is wrong. It no adds x empty ticks (by grade of 3) to the array
 
   let returnTickSet = [];
 
@@ -343,7 +343,7 @@ let countGroupScore = () => {
 
     let indoorsTopX = countTotalScore({count: 10, tickSet: ticksByDisciplineIndoors, returnTicks: true});
     let outdoorsTopX = countTotalScore({count: 10, tickSet: ticksByDisciplineOutdoors, returnTicks: true});
-    
+
     indoors[type]['score'] = countTopX({count: 10, tickSet: indoorsTopX, returnTicks: true});
     indoors[type]['average'] = averageGrade({count: 10, tickSet: indoorsTopX}); // double work. Get average from topX data
     indoors[type]['ticks'] = indoorsTopX;
@@ -354,7 +354,7 @@ let countGroupScore = () => {
   });
 
   return {
-    indoors: indoors, 
+    indoors: indoors,
     outdoors: outdoors
   };
 }
@@ -363,7 +363,7 @@ let countGroupScore = () => {
 let handleScopeTicks = ({scope = globals.scope, allTypes= false, tickSet = false, indoorsOutdoors = globals.indoorsOutdoors, ignoreIndoorsOutdoors = false} = {}) => {
   let fromNow;
   let limitTo;
-  /* 
+  /*
     if scope is set to Today, use globals.today which might be any date
     if scope is anything else, use globals.realToday which is allways the correct date
   */

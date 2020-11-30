@@ -7,7 +7,7 @@ import { globals } from '/js/shared/globals.js';
 import { user } from '/js/shared/user.js';
 
 
- 
+
 class viewHome {
   constructor() {
     const db = firebase.firestore();
@@ -26,7 +26,7 @@ class viewHome {
     let gradeSelector = new gradeWheel();
 
     let tickPage = dce({el: 'DIV', cssClass: 'page-tick'});
-    
+
 
 
     tickPage.appendChild(ticker.render());
@@ -46,7 +46,7 @@ class viewHome {
 
     db.collection('users').doc(dbuser.uid).get().then( (doc) => {
       const data = doc.data();
-      globals.serverMessage[0].finished = true; 
+      globals.serverMessage[0].finished = true;
       globals.serverMessage = globals.serverMessage;
       if(data.ticks) {
         globals.ticks = data.ticks;

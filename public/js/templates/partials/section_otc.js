@@ -41,7 +41,7 @@ class otc {
         user.login = user.login;
         }, function(error) {
         // An error happened.
-      });      
+      });
     }, false)
 
     // Listen and update details when login/logout. This is retarded. Fix it at some point

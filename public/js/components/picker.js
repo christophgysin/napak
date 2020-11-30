@@ -27,7 +27,7 @@ class picker {
 
         storeObserver.add({
           store: globals,
-          key: params.options[i].hide, 
+          key: params.options[i].hide,
           callback: hideElement,
           removeOnRouteChange: true
         });
@@ -62,28 +62,28 @@ class picker {
 
       storeObserver.add({
         store: globals,
-        key: 'indoorsOutdoors', 
+        key: 'indoorsOutdoors',
         callback: updateLegends,
         removeOnRouteChange: true
       });
 
       storeObserver.add({
         store: globals,
-        key: 'currentClimbingType', 
-        callback: updateLegends,
-        removeOnRouteChange: true
-      });
-      
-      storeObserver.add({
-        store: globals,
-        key: 'ticks', 
+        key: 'currentClimbingType',
         callback: updateLegends,
         removeOnRouteChange: true
       });
 
       storeObserver.add({
         store: globals,
-        key: 'today', 
+        key: 'ticks',
+        callback: updateLegends,
+        removeOnRouteChange: true
+      });
+
+      storeObserver.add({
+        store: globals,
+        key: 'today',
         callback: updateLegends,
         removeOnRouteChange: true
       });

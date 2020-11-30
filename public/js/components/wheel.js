@@ -45,7 +45,7 @@ class wheel {
       });
     }
 
-    let updateAll = () => {    
+    let updateAll = () => {
       let removeAddTickAnimation = selectDialog.querySelectorAll('.tick-added');
       if(removeAddTickAnimation) {
         for(let i=0, j=removeAddTickAnimation.length; i<j;i++){
@@ -95,29 +95,29 @@ class wheel {
     // Listen for ticks object to update
     storeObserver.add({
       store: globals,
-      key: 'indoorsOutdoors', 
+      key: 'indoorsOutdoors',
       id: 'wheelIndoorsOutdoors',
       callback: () => {clearLegends(), updateAll()}
     });
 
     storeObserver.add({
       store: globals,
-      key: 'currentClimbingType', 
+      key: 'currentClimbingType',
       id: 'wheelCurrentClimbingType',
       callback: () => {clearLegends(), updateAll()}
     });
 
     storeObserver.add({
       store: globals,
-      key: 'today', 
+      key: 'today',
       id: 'wheelDateChange',
       callback: () => {clearLegends(), updateAll()}
     });
-    
+
 
     storeObserver.add({
       store: globals,
-      key: 'ticks', 
+      key: 'ticks',
       id: 'wheelUpdateTicks',
       callback: updateAll
     });

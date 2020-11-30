@@ -78,37 +78,37 @@ let napak = {
         store: 'score',
         key: 'current',
         keydata: globals.totalScoreByType
-      });      
+      });
     }
 
     // listen ticks - update score to firebase
     storeObserver.add({
       store: globals,
-      key: 'ticks', 
-      id: 'appGroupScore', 
-      callback: updateGroupScore 
+      key: 'ticks',
+      id: 'appGroupScore',
+      callback: updateGroupScore
     });
 
     // Listen to tick objects change and update
     storeObserver.add({
       store: globals,
-      key: 'ticks', 
-      id: 'appTicks', 
-      callback: updateAll 
+      key: 'ticks',
+      id: 'appTicks',
+      callback: updateAll
     });
 
     storeObserver.add({
       store: globals,
-      key: 'indoorsOutdoors', 
-      id: 'appIndoorsOutdoors', 
-      callback: updateAll 
+      key: 'indoorsOutdoors',
+      id: 'appIndoorsOutdoors',
+      callback: updateAll
     });
 
     storeObserver.add({
       store: globals,
-      key: 'currentClimbingType', 
-      id: 'appCurrentClimbingType', 
-      callback: updateAll 
+      key: 'currentClimbingType',
+      id: 'appCurrentClimbingType',
+      callback: updateAll
     });
 
     // init app
@@ -134,7 +134,7 @@ let napak = {
         }
       });
     }
-    
+
     user.storeObservers.push({key: 'login', callback: loginStatus})
 
     loginStatus();

@@ -40,7 +40,7 @@ class viewStatistics {
     };
 
     let tempo = new charts(chartData);
-    
+
     container.append(nakkiPiirakka, lempo.render(), chartTitle, tempo.render())
     this.render = () => {
       return container

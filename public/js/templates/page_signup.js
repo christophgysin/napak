@@ -49,7 +49,7 @@ class viewSignup {
           keydata: { ...user.name}
         });
       });
-    } 
+    }
 
     signupForm.addEventListener('submit', (e) => {
       e.preventDefault();

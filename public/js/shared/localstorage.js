@@ -1,11 +1,11 @@
 
 let localStrg = {
     supported: (() => {return 'localStorage' in window })(),
-  
+
     write: function(params){
       localStorage.setObject(params.key, params.keydata);
     },
-  
+
     read: function(params){
       if(localStorage.getObject(params.key)) {
         return localStorage.getObject(params.key);
@@ -27,5 +27,5 @@ catch(e) {
 Storage.prototype.getObject = function(key) {
     return JSON.parse(this.getItem(key));
 };
-  
+
 export { localStrg }

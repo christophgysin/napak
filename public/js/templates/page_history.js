@@ -52,8 +52,8 @@ class viewHistory {
       let currentDate = "0000-00-00";
       let ticksByDateContainer = {};
 
-  
-// Group ticks into object by date 
+
+// Group ticks into object by date
       for( let i=ticks.length-1, j = 0; i>=j; i-- ) {
         let tickDate = handleDate({dateString: ticks[i].date});
         if(tickDate !== currentDate) {
@@ -61,7 +61,7 @@ class viewHistory {
           currentDate = tickDate;
         }
         ticksByDateContainer[tickDate].push(ticks[i]);
-      } 
+      }
 
 
 // Count daily averages
@@ -103,7 +103,7 @@ class viewHistory {
 
         let sessionTicks = dce({el: 'DIV', cssClass: 'session-tick-container'});
 
-        for( let i=ticks.length-1, j = 0; i>=j; i-- ) {          
+        for( let i=ticks.length-1, j = 0; i>=j; i-- ) {
           let row = dce({el: 'DIV', cssClass: 'session-tick'});
           let gradeContainer = dce({el: 'DIV'});
           let grade = dce({el: 'DIV', cssClass: `grade-legend ${globals.difficulty[ticks[i].grade]}`, content: globals.grades.font[ticks[i].grade]});
@@ -127,8 +127,8 @@ class viewHistory {
               cssClass      : 'modal-small',
               buttons       : [
                 ['Delete', ()=>{
-                  this.deleteTick(tick); 
-                  modal.close();}], 
+                  this.deleteTick(tick);
+                  modal.close();}],
                 ['Cancel', () => {
                   modal.close()}]
                 ],
@@ -158,14 +158,14 @@ class viewHistory {
 
     storeObserver.add({
       store: globals,
-      key: 'currentClimbingType', 
+      key: 'currentClimbingType',
       callback: updateHistory,
       removeOnRouteChange: true
     });
 
     storeObserver.add({
       store: globals,
-      key: 'indoorsOutdoors', 
+      key: 'indoorsOutdoors',
       callback: updateHistory,
       removeOnRouteChange: true
     });
@@ -177,18 +177,18 @@ class viewHistory {
     this.toggleModal = () => {
       this.modal.classList.toggle('hidden')
     }
-  
+
     this.deleteTick = (tick) => {
       handleTick({
-        add: false,  
-        ascentType: tick.ascentType, 
-        grade: tick.grade, 
-        indoorsOutdoors: tick.indoorsOutdoors, 
+        add: false,
+        ascentType: tick.ascentType,
+        grade: tick.grade,
+        indoorsOutdoors: tick.indoorsOutdoors,
         type: tick.type,
         tickDate: handleDate({dateString: tick.date})
       });
       updateHistory();
-    }  
+    }
   }
 }
 

@@ -6,10 +6,10 @@ import { parseDate } from '/js/shared/helpers.js';
 /* Handle tick */
 
 let handleTick = ({
-    add = true, 
-    grade = globals.currentAscentGrade, 
-    ascentType = globals.currentAscentType, 
-    ticks = globals.ticks, 
+    add = true,
+    grade = globals.currentAscentGrade,
+    ascentType = globals.currentAscentType,
+    ticks = globals.ticks,
     tickDate = globals.today,
     indoorsOutdoors = globals.indoorsOutdoors,
     type = globals.currentClimbingType

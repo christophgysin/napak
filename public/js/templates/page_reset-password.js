@@ -39,7 +39,7 @@ class viewResetPassword {
 //        resetError.innerHTML = error.code + " " + error.message;
         resetSuccess.innerHTML = 'Email sent. Follow the directions in the email to reset your password'
       });
-    } 
+    }
 
     resetForm.addEventListener('submit', (e) => {
       e.preventDefault();

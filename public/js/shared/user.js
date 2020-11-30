@@ -19,7 +19,7 @@ const handler = {
 
 let userFromStorage = store.read({
   store: 'users',
-  key: 'user', 
+  key: 'user',
   onlyLS: true
 });
 
@@ -30,7 +30,7 @@ let userObject = {
     email:  (userFromStorage.email) ? userFromStorage.email : false,
     id:  (userFromStorage.id) ? userFromStorage.id : false
   },
- 
+
   login : {
     isLoggedIn :  (userFromStorage.isLoggedIn) ? userFromStorage.isLoggedIn : null,
   }

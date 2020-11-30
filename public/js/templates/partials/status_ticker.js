@@ -13,14 +13,14 @@ class statusTicker {
     let standardMessageContent = dce({el: 'H3', content: ''});
     standardMessage.appendChild(standardMessageContent);
     messageContainer.appendChild(standardMessage);
-  
+
     messageContainer.addEventListener('click', () => {
       if(params && params.tapAction) {
         params.tapAction();
       }
       messageContainer.classList.toggle('spin')
     }, false)
-/* */ 
+/* */
     let currentClimbingTypeTitle = () => {
       if(params) {
         return params[`titlePrefix_${globals.currentClimbingType}`] + ((!params.hideIndoorsOutdoors) ? globals.indoorsOutdoors : '');
@@ -78,7 +78,7 @@ class statusTicker {
           messageContainer.timeout = setTimeout(function(){
             animate.watch({
               el: messageContainer,
-              execute: () => { 
+              execute: () => {
                 globals.standardMessage.splice(globals.standardMessage.length-1,1);
                 globals.standardMessage = globals.standardMessage;
                },
@@ -101,7 +101,7 @@ class statusTicker {
           messageContainer.timeout = setTimeout(function(){
             animate.watch({
               el: messageContainer,
-              execute: () => { 
+              execute: () => {
                 globals.serverMessage.splice(globals.serverMessage.length-1,1);
                 globals.serverMessage = globals.serverMessage;
                },
@@ -113,7 +113,7 @@ class statusTicker {
         }
       }
     }.bind(this);
-    
+
     storeObserver.add({
       store: globals,
       key: 'serverMessage',

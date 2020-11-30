@@ -54,7 +54,7 @@ class footer {
         }
       });
     };
-    
+
     user.storeObservers.push({key: 'login', callback: toggleVisibility});
 
     toggleVisibility();

@@ -36,7 +36,7 @@ class gradeWheel {
     pickerElement.appendChild(buttonsContainer);
 
     pickerElement.appendChild(datePicker.render());
-  
+
     container.append(pickerElement);
 
     this.render = () => {

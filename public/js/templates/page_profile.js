@@ -42,7 +42,7 @@ class viewProfile {
       dbUser.updateProfile({
         displayName: userName.value
       }).then(function(msg) {
-        user.name.displayName = userName.value; 
+        user.name.displayName = userName.value;
         user.name = user.name; // touch user login to update OTC element
         // update user object
         store.update({
@@ -63,15 +63,15 @@ class viewProfile {
         errorMessage.innerHMTL = error;
         loginFormContainer.appendChild(errorMessage);
       });
-      
-    } 
+
+    }
 
     userProfileForm.addEventListener('submit', (e) => {
       e.preventDefault();
       updateProfile();
       return;
     }, false);
-    
+
     this.render = () => {
       return container
     }

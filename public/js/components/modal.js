@@ -24,7 +24,7 @@ class modalWindow {
     }
     else {
       let closeModal = dce({el: 'DIV', cssClass: 'btn btn_small', content: 'Close'});
-      closeModal.addEventListener('click', () => { 
+      closeModal.addEventListener('click', () => {
         document.body.classList.remove('modal-open');
         modal.parentNode.removeChild(modal)
       });

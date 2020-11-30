@@ -50,7 +50,7 @@ class viewLogin {
           user.name.displayName = (result.user.displayName) ? result.user.displayName : 'Anynymous Honnold';
           user.login = user.login;
 
-// Update uer object in firebase 
+// Update uer object in firebase
 // Might be empty sometimes :|
           store.update({
             store: 'users',
@@ -71,11 +71,11 @@ class viewLogin {
           if (errorCode === 'auth/wrong-password') {
             loginError.innerHTML = "Wrong password";
           } else {
-            loginError.innerHTML = errorMessage; 
+            loginError.innerHTML = errorMessage;
           }
           console.log(error);
           });
-    } 
+    }
 
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();

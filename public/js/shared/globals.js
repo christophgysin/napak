@@ -9,7 +9,7 @@ const handler = {
 
   set: (obj, prop, value) => {
     obj[prop] = value;
-    
+
     for(let i=0, j = globals.storeObservers.length; i<j; i++) {
       if(globals[globals.storeObservers[i].key] === obj[prop]) {
         globals.storeObservers[i].callback();

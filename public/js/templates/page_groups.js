@@ -50,7 +50,7 @@ class viewGroups {
     });
 
     groupSelectContainer.append(groupTypeSelector.render(), groupSelect.render());
-    
+
     let rankingContainer = dce({el: 'SECTION', cssClass: 'ranking scroll-container'});
 
     let groupClimbingTypeSelector = new picker({
@@ -113,7 +113,7 @@ class viewGroups {
         keydata: firebase.auth().currentUser.uid
         }, () =>{
           let groupName = groups['publicGroups'][globals.currentGroup]['title'];
-          
+
           delete groups['publicGroups'][globals.currentGroup]['selected']; // what is this?
           if(!groups['publicGroups'][globals.currentGroup]['users']) {
             groups['publicGroups'][globals.currentGroup]['users'] = [];
@@ -130,7 +130,7 @@ class viewGroups {
             timeout: 2
           });
           globals.standardMessage = globals.standardMessage;
-    
+
         });
 
     }, false)
@@ -178,7 +178,7 @@ class viewGroups {
         groupEntry.append(entryPos, entryName, entryPointsContainer, entryAvgGrade);
 
         groupEntry.addEventListener('click', () => {
-          let userTopTicks = data[i].current[globals.indoorsOutdoors][globals.currentClimbingType]['ticks']; 
+          let userTopTicks = data[i].current[globals.indoorsOutdoors][globals.currentClimbingType]['ticks'];
           let modalData = document.createDocumentFragment();
           for(let k=0, l=userTopTicks.length; k<l;k++) {
             let tickContainer = dce({el: 'DIV', cssClass: 'session-tick'});
@@ -215,10 +215,10 @@ class viewGroups {
         timeout: -1,
         id : 'tick-sync'
       };
-  
+
       globals.serverMessage.push(newStatusMessage);
       globals.serverMessage = globals.serverMessage;
-  
+
       groups = {
         userGroups : {},
         publicGroups : {}
@@ -231,7 +231,7 @@ class viewGroups {
         if(groupData.users && groupData.users.length && groupData.users.includes(dbuser.uid)) {
           groups['userGroups'][doc.id] = {
             title: groupData.name,
-            value: doc.id, 
+            value: doc.id,
             users: groupData.users,
             id: doc.id,
             selected: (i == 0) ? true : false
@@ -241,7 +241,7 @@ class viewGroups {
         if(groupData.public && (groupData.users && !groupData.users.includes(dbuser.uid))  || !groupData.users) {
           groups['publicGroups'][doc.id] = {
             title: groupData.name,
-            value: doc.id, 
+            value: doc.id,
             users: groupData.users,
             id: doc.id,
             selected: (j == 0) ? true : false
@@ -251,7 +251,7 @@ class viewGroups {
         });
     })
     .then(()=>{
-      globals.serverMessage[0].finished = true; 
+      globals.serverMessage[0].finished = true;
       globals.serverMessage = globals.serverMessage;
       // create array of object to create pulldown items
       let dropdownElements = updateItems();
@@ -274,21 +274,21 @@ class viewGroups {
 
     storeObserver.add({
       store: globals,
-      key: 'currentGroup', 
+      key: 'currentGroup',
       callback: getGroupStanding,
       removeOnRouteChange: true
     });
-    
+
     storeObserver.add({
       store: globals,
-      key: 'currentClimbingType', 
+      key: 'currentClimbingType',
       callback: updateGroupStanding,
       removeOnRouteChange: true
     });
 
     storeObserver.add({
       store: globals,
-      key: 'indoorsOutdoors', 
+      key: 'indoorsOutdoors',
       callback: updateGroupStanding,
       removeOnRouteChange: true
     });

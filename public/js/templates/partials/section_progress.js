@@ -120,29 +120,29 @@ class sectionProgress {
 
     storeObserver.add({
       store: globals,
-      key: 'indoorsOutdoors', 
+      key: 'indoorsOutdoors',
       id: 'progress_update_chart--indoorsOutdoors',
-      callback: updateCharts 
+      callback: updateCharts
     });
 
     storeObserver.add({
       store: globals,
-      key: 'currentClimbingType', 
+      key: 'currentClimbingType',
       id: 'progress_update_chart--climbingStyle',
-      callback: updateCharts 
+      callback: updateCharts
     });
-    
+
     storeObserver.add({
       store: globals,
-      key: 'scope', 
+      key: 'scope',
       id: 'progress_update_chart--scope',
-      callback: updateCharts 
+      callback: updateCharts
     });
     storeObserver.add({
       store: globals,
-      key: 'ticks', 
+      key: 'ticks',
       id: 'progress_update_chart--ticks',
-      callback: updateCharts 
+      callback: updateCharts
     });
 
     updateCharts();
@@ -158,7 +158,7 @@ class sectionProgress {
     this.updateTotalAscentCount = () => {
       ascentsCount.innerHTML = globals.totalAscentCount[globals.scope]
     }
-    
+
     this.updateAverageGrade = () => {
       gradeCount.innerHTML = globals.averageGrade;
     }
@@ -166,7 +166,7 @@ class sectionProgress {
 // Update total score
     storeObserver.add({
       store: globals,
-      key: 'totalScore', 
+      key: 'totalScore',
       id: 'progressUpdateScore',
       callback: this.updateTotalScore,
       removeOnRouteChange: true
@@ -174,35 +174,35 @@ class sectionProgress {
 
     storeObserver.add({
       store: globals,
-      key: 'scope', 
+      key: 'scope',
       id: 'progressScopeChange',
       callback: this.updateTotalAscentCount
     });
 
     storeObserver.add({
       store: globals,
-      key: 'ticks', 
+      key: 'ticks',
       id: 'progressTicksUpdate',
       callback: this.updateTotalAscentCount
     });
 
     storeObserver.add({
       store: globals,
-      key: 'currentClimbingType', 
+      key: 'currentClimbingType',
       id: 'progressCurrentClimbingTypeChange',
       callback: this.updateTotalAscentCount
     });
 
     storeObserver.add({
       store: globals,
-      key: 'averageGrade', 
+      key: 'averageGrade',
       id: 'progressAverageGradeUpdate',
       callback: this.updateAverageGrade
     });
 
     storeObserver.add({
       store: globals,
-      key: 'scope', 
+      key: 'scope',
       id: 'progressScopeChangeAverage',
       callback: this.updateAverageGrade
     });

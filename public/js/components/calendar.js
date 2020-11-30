@@ -14,7 +14,7 @@ class calendar {
         container.appendChild(currentDate);
 
         let dateHasTicks = [];
-        
+
         let checkDateThatHasTicks = () => {
             dateHasTicks = [];
             let ticks = globals.ticks;
@@ -34,21 +34,21 @@ class calendar {
 
         storeObserver.add({
             store: globals,
-            key: 'ticks', 
+            key: 'ticks',
             callback: checkDateThatHasTicks,
             removeOnRouteChange: true
           });
 
         storeObserver.add({
             store: globals,
-            key: 'currentClimbingType', 
+            key: 'currentClimbingType',
             callback: checkDateThatHasTicks,
             removeOnRouteChange: true
             });
 
         storeObserver.add({
             store: globals,
-            key: 'indoorsOutdoors', 
+            key: 'indoorsOutdoors',
             callback: checkDateThatHasTicks,
             removeOnRouteChange: true
         });
@@ -101,26 +101,26 @@ class calendar {
                 }
                 container.appendChild(this.drawCalendar(next, year));
             }, false);
-    
+
             selectMonth.append(prevMonth, currentMonth, nextMonth);
             calendarContainer.appendChild(selectMonth);
 
             // Days
             let weekDaysHolder = dce({el: 'DIV', cssClass: 'weekdays'});
-			for(let i=0; i<=6; i++){
-				let weekDay = dce({el: 'DIV', cssClass: 'days', content: weekdays[i]});
-				weekDaysHolder.appendChild(weekDay);
-				};
+            for(let i=0; i<=6; i++){
+                let weekDay = dce({el: 'DIV', cssClass: 'days', content: weekdays[i]});
+                weekDaysHolder.appendChild(weekDay);
+                };
 
-			calendarContainer.appendChild(weekDaysHolder);
+            calendarContainer.appendChild(weekDaysHolder);
 
-			let dateCounter = 0;
+            let dateCounter = 0;
 
             let firstDayOfThisMonth = new Date(year, month, 1);
-			let starDay = (firstDayOfThisMonth.getDay() == 0) ? -5 : 2;
+            let starDay = (firstDayOfThisMonth.getDay() == 0) ? -5 : 2;
 
             let dateContainer = dce({el: 'DIV', cssClass: 'date-container'});
-			for (let i=starDay; i <= daysInMonth[month]+firstDayOfThisMonth.getDay(); i++){
+            for (let i=starDay; i <= daysInMonth[month]+firstDayOfThisMonth.getDay(); i++){
                 let count = i-firstDayOfThisMonth.getDay();
 
                 let thisDate = todayForReal.getDate();
@@ -129,29 +129,29 @@ class calendar {
                 let todayParsed = parseDate(globals.today);
 
                 let dateCell = dce({el: 'DIV', cssClass : 'date'});
-					
-				if(count >= 1 && count <=31){
+
+                if(count >= 1 && count <=31){
                     dateCell.appendChild(document.createTextNode(count));
                     // Weekends
-					if (dateCounter >= 5) { 
-                        dateCell.classList.add('weekend'); 
+                    if (dateCounter >= 5) {
+                        dateCell.classList.add('weekend');
                         }
 
                     // Today
-                    if (count == thisDate && 
-                        month == thisMonth && 
+                    if (count == thisDate &&
+                        month == thisMonth &&
                         year == thisYear) {
                         dateCell.classList.add('today');
                         }
-                    
+
                     // Future
                     if ((
-                            count > thisDate && 
-                            month >= thisMonth && 
+                            count > thisDate &&
+                            month >= thisMonth &&
                             year >= thisYear
-                        ) || 
-                        ( 
-                            month > thisMonth && 
+                        ) ||
+                        (
+                            month > thisMonth &&
                             year >= thisYear
                         )
                         ) {
@@ -161,7 +161,7 @@ class calendar {
                     if (count == todayParsed.date && month == todayParsed.month-1 && year == todayParsed.year) {
                         dateCell.classList.add('selected');
                         }
-                    
+
                     // Date has ticks
                     let parsedDate = `${year}-${String(month+1).padStart(2, 0)}-${String(count).padStart(2, 0)}`;
                     if(dateHasTicks[parsedDate]) {
@@ -185,8 +185,8 @@ class calendar {
 
                 }, false);
                 dateContainer.appendChild(dateCell);
-				dateCounter++;
-				if(dateCounter > 6) dateCounter=0
+                dateCounter++;
+                if(dateCounter > 6) dateCounter=0
                 }
             calendarContainer.appendChild(dateContainer)
             return calendarContainer;
