@@ -16,6 +16,6 @@
     "firebase-tools": "^8.16.2"
   },
   "dependencies": {
-    "firebase": "^8.0.2"
+    "firebase": "^8.1.1"
   }
 }
