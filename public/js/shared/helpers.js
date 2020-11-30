@@ -143,7 +143,7 @@ let averageGrade = ({count= 10, scope = globals.scope, tickSet = false} = {}) =>
   const maxGrades = ticks
     .map(tick => tick.grade)
     .sort()
-    .slice(0, count)
+    .slice(-count)
 
   const average = maxGrades
     .reduce((a, b) => a + b, 0)
