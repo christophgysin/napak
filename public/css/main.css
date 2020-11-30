@@ -121,6 +121,23 @@ section {
   padding-top: env(safe-area-inset-top, 0);
 }
 
+.page-content::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-black);
+  z-index: 3;
+  opacity :0;
+  pointer-events: none;
+  transition: all 300ms ease-in-out;
+}
+BODY.modal-open .page-content::before {
+  opacity: 1;
+}
 .page-tick {
   height: 100%;
   display: grid;

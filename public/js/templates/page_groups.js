@@ -188,12 +188,11 @@ class viewGroups {
             tickContainer.append(tickGrade, tickType, tickScore);
             modalData.appendChild(tickContainer)
           }
-          
+
           let modal = new modalWindow({
             title         : `${data[i].displayName}'s top ticks`,
             modalContent  : modalData
           });
-
 
           container.appendChild(modal.render())
         }, false);

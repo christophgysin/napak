@@ -95,10 +95,6 @@ class otc {
     let btnProfileText = dce({el: 'SPAN', content: 'Profile'});
     btnProfile.appendChild(btnProfileText)
 
-    let btnGroups = dce({el: 'DIV', attrbs: [['data-route', 'groups']] });
-    let btnGroupsText = dce({el: 'SPAN', content: 'Groups'});
-    btnGroups.appendChild(btnGroupsText)
-
     let btnStatistics = dce({el: 'DIV', attrbs: [['data-route', 'statistics']] });
     let btnStatisticsText = dce({el: 'SPAN', content: 'Statistics'});
     btnStatistics.appendChild(btnStatisticsText)
@@ -106,6 +102,10 @@ class otc {
     let btnHistory = dce({el: 'DIV', attrbs: [['data-route', 'history']] });
     let btnHistoryText = dce({el: 'SPAN', content: 'History'});
     btnHistory.appendChild(btnHistoryText)
+
+    let btnGroups = dce({el: 'DIV', attrbs: [['data-route', 'groups']] });
+    let btnGroupsText = dce({el: 'SPAN', content: 'Groups'});
+    btnGroups.appendChild(btnGroupsText)
 
 
     btnHome.addEventListener('click', () => {
@@ -134,7 +134,7 @@ class otc {
       document.body.classList.remove('otc')
     }, false);
 
-    sideNavLinks.append(btnHome, btnProfile, btnGroups, /*btnStatistics,*/ btnHistory);
+    sideNavLinks.append(btnHome, btnProfile, /*btnStatistics,*/ btnHistory, btnGroups);
 
     otcLinksContainer.append(logoContainer, loginInfo, settingsContainer,sideNavLinks);
 
