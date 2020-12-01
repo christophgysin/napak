@@ -190,7 +190,7 @@ class viewGroups {
         groupEntry.append(entryPos, entryName, entryPointsContainer, entryAvgGrade);
 
         groupEntry.addEventListener('click', () => {
-          let userTopTicks = data[i].current[globals.indoorsOutdoors][globals.currentClimbingType]['ticks'];
+          let userTopTicks = (data[i].current && data[i].current[globals.indoorsOutdoors]) ? data[i].current[globals.indoorsOutdoors][globals.currentClimbingType]['ticks'] : {};
           let modalData = document.createDocumentFragment();
           for(let k=0, l=userTopTicks.length; k<l;k++) {
             let tickContainer = dce({el: 'DIV', cssClass: 'session-tick'});
