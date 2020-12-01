@@ -104,35 +104,24 @@ class viewGroups {
   }
 
   let showJoinGroupOptions = () => {
-    let joinButton = dce({el: 'A', cssClass: 'btn', content:' Join this group'});
+    let joinButton = dce({el: 'A', cssClass: 'btn mt', content:' Join this group'});
     joinButton.addEventListener('click', () => {
-      store.add({
-        store: 'groups',
-        key: 'users',
-        collectionId: globals.currentGroup,
-        keydata: firebase.auth().currentUser.uid
-        }, () =>{
-          let groupName = groups['publicGroups'][globals.currentGroup]['title'];
 
-          delete groups['publicGroups'][globals.currentGroup]['selected']; // what is this?
-          if(!groups['publicGroups'][globals.currentGroup]['users']) {
-            groups['publicGroups'][globals.currentGroup]['users'] = [];
-            }
-          groups['publicGroups'][globals.currentGroup]['users'].push(firebase.auth().currentUser.uid);
-          groups['userGroups'][globals.currentGroup] = groups['publicGroups'][globals.currentGroup];
-          delete groups['publicGroups'][globals.currentGroup];
+      let modal = new modalWindow({
+        title         : 'Confirm join group',
+        modalContent  : dce({el: 'DIV', content: 'Join and start competing!'}),
+        cssClass      : 'modal-small',
+        buttons       : [
+          ['Join', ()=>{
+            this.joinGroup();
+            modal.close();}],
+          ['Cancel', () => {
+            modal.close()}]
+          ],
+        open          : true //auto open modal
+      });
 
-          let dropdownElements = updateItems();
-          groupSelect.createItems(dropdownElements);
-
-          globals.standardMessage.unshift({
-            message: `Joined ${groupName}`,
-            timeout: 2
-          });
-          globals.standardMessage = globals.standardMessage;
-
-        });
-
+      container.appendChild(modal.render())
     }, false)
     groupStanding.appendChild(joinButton)
   }
@@ -198,6 +187,9 @@ class viewGroups {
         }, false);
         groupStanding.append(groupEntry, groupEntry);
       }
+    }
+    else {
+      groupStanding.appendChild(dce({el: 'P', content: 'No users in this group yet'}));
     }
     if(globals.groupType === 'publicGroups') {
       showJoinGroupOptions()
@@ -296,6 +288,35 @@ class viewGroups {
 
     this.render = () => {
       return container
+    }
+
+    this.joinGroup = () => {
+      store.add({
+        store: 'groups',
+        key: 'users',
+        collectionId: globals.currentGroup,
+        keydata: firebase.auth().currentUser.uid
+        }, () =>{
+          let groupName = groups['publicGroups'][globals.currentGroup]['title'];
+
+          delete groups['publicGroups'][globals.currentGroup]['selected']; // what is this?
+          if(!groups['publicGroups'][globals.currentGroup]['users']) {
+            groups['publicGroups'][globals.currentGroup]['users'] = [];
+            }
+          groups['publicGroups'][globals.currentGroup]['users'].push(firebase.auth().currentUser.uid);
+          groups['userGroups'][globals.currentGroup] = groups['publicGroups'][globals.currentGroup];
+          delete groups['publicGroups'][globals.currentGroup];
+
+          let dropdownElements = updateItems();
+          groupSelect.createItems(dropdownElements);
+
+          globals.standardMessage.unshift({
+            message: `Joined ${groupName}`,
+            timeout: 2
+          });
+          globals.standardMessage = globals.standardMessage;
+        });
+
     }
   }
 }
