@@ -31,6 +31,13 @@
   --base-btn-border-radius: 2px;
 }
 
+@media (orientation: portrait) {
+  :root {
+    --font-size-bodytext: 1.234rem; /* 20px - 1rem = 16px */
+    }
+  }
+  
+
 @media (orientation: landscape) {
 :root {
   --font-size-bodytext: 1rem; /* 16px */

@@ -2,6 +2,9 @@ import { dce, storeObserver } from '/js/shared/helpers.js';
 import toggleSwitch from '/js/components/toggleswitch.js';
 import { user } from '/js/shared/user.js';
 import { route } from '/js/shared/route.js';
+import { globals } from '/js/shared/globals.js';
+import { localStrg } from '/js/shared/localstorage.js';
+
 
 class otc {
   constructor() {
@@ -65,10 +68,16 @@ class otc {
       cssClass  : 'horizontal-menu full-width',
       targetObj : 'vibrate',
       options   : [
-        {title: 'On', value: true, selected: true},
-        {title: 'Off', value: false}]
+        {title: 'On', value: true, selected: (globals.vibrate) ? true : false},
+        {title: 'Off', value: false, selected: (!globals.vibrate) ? true : false}]
     });
+    let supportsVibrate = "vibrate" in navigator;
+    if(supportsVibrate) {
+      settingsContainer.append(vibrateTitle, vibrateOnOff.render());
+    }
 
+
+// not in use yet
     let locationTitle = dce({el: 'H3', content: 'LOCATION TRACKING'});
     let locationOnOff = new toggleSwitch({
       cssClass  : 'horizontal-menu full-width',
@@ -77,12 +86,8 @@ class otc {
         {title: 'On', value: true},
         {title: 'Off', value: false, selected: true}]
     });
+//    settingsContainer.append(locationTitle, locationOnOff.render())
 
-    let supportsVibrate = "vibrate" in navigator;
-    if(supportsVibrate) {
-      settingsContainer.append(vibrateTitle, vibrateOnOff.render());
-    }
-    settingsContainer.append(locationTitle, locationOnOff.render())
 
     // Page links
     let sideNavLinks = dce({el: 'SECTION', cssClass: 'sidenav-links'});
@@ -152,8 +157,17 @@ class otc {
 
     storeObserver.add({
       store: globals,
+      key : 'vibrate',
+      id  : 'settingsVibrate',
+      callback: () => {
+        localStrg.write({key: 'useVibrate', keydata: globals.vibrate});
+      }
+    });
+    
+    storeObserver.add({
+      store: globals,
       key: 'route',
-      id: 'otcUpdateLocatiomn',
+      id: 'otcUpdateLocation',
       callback: this.updateSelected
     });
 

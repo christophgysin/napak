@@ -126,6 +126,29 @@ class viewGroups {
     groupStanding.appendChild(joinButton)
   }
 
+  let showLeaveGroupOptions = () => {
+    let leaveButton = dce({el: 'A', cssClass: 'btn mt', content:' Leave this group'});
+    leaveButton.addEventListener('click', () => {
+
+      let modal = new modalWindow({
+        title         : 'Confirm join group',
+        modalContent  : dce({el: 'DIV', content: 'Really want to leave this group? You shall be missed 😿'}),
+        cssClass      : 'modal-small',
+        buttons       : [
+          ['Leave', ()=>{
+            this.leaveGroup();
+            modal.close();}],
+          ['Cancel', () => {
+            modal.close()}]
+          ],
+        open          : true //auto open modal
+      });
+
+      container.appendChild(modal.render())
+    }, false)
+    groupStanding.appendChild(leaveButton)
+  }
+
   // update group standing
   let updateGroupStanding = () => {
     groupStanding.innerHTML = "";
@@ -190,6 +213,9 @@ class viewGroups {
     }
     else {
       groupStanding.appendChild(dce({el: 'P', content: 'No users in this group yet'}));
+    }
+    if(globals.groupType === 'userGroups') {
+      showLeaveGroupOptions()
     }
     if(globals.groupType === 'publicGroups') {
       showJoinGroupOptions()

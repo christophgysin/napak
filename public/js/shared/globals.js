@@ -28,6 +28,7 @@ let today = handleDate({dateString: new Date().getTime()});
 let types = ['boulder', 'sport', 'trad', 'toprope'];
 
 let wheelPosition = localStrg.read({key: 'wheelPos'});
+let useVibrate = localStrg.read({key: 'useVibrate'});
 
 types.forEach((type) => {
   containerObj[type] = {}
@@ -46,7 +47,7 @@ let globalObjects = {
   storeObservers : [],
   today: today,
   realToday: today,
-  vibrate: true,
+  vibrate: (useVibrate) ? useVibrate : false,
   location: false,
 
   grades : {
