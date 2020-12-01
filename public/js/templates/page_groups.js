@@ -163,11 +163,11 @@ class viewGroups {
 
       headerContainer.append(pos, user, score, avg);
       groupStanding.appendChild(headerContainer);
-
+      
       // Sort users - highest score first
       data.sort(function(a, b) {
-        if(!a.current[globals.indoorsOutdoors]){return 1}
-        if(!b.current[globals.indoorsOutdoors]){return -1}
+        if(!a.current || !a.current[globals.indoorsOutdoors]){return 1}
+        if(!b.current || !b.current[globals.indoorsOutdoors]){return -1}
         var keyA = a.current[globals.indoorsOutdoors][globals.currentClimbingType]['score'],
           keyB = b.current[globals.indoorsOutdoors][globals.currentClimbingType]['score'];
 
@@ -177,8 +177,8 @@ class viewGroups {
       });
 
       for(let i = 0, j = data.length; i < j; i++) {
-        let score = (data[i].current[globals.indoorsOutdoors]) ? data[i].current[globals.indoorsOutdoors][globals.currentClimbingType]['score'] : '-';
-        let avgGrade = (data[i].current[globals.indoorsOutdoors]) ? data[i].current[globals.indoorsOutdoors][globals.currentClimbingType]['average'] : '-';
+        let score = (data[i].current && data[i].current[globals.indoorsOutdoors]) ? data[i].current[globals.indoorsOutdoors][globals.currentClimbingType]['score'] : '-';
+        let avgGrade = (data[i].current && data[i].current[globals.indoorsOutdoors]) ? data[i].current[globals.indoorsOutdoors][globals.currentClimbingType]['average'] : '-';
         let groupEntry = dce({el: 'LI', cssClass: 'entry-container'});
         let entryPos = dce({el: 'SPAN', content: `${i+1}.`});
         let entryName = dce({el: 'SPAN', content:  data[i].displayName});

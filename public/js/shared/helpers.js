@@ -332,7 +332,6 @@ let countGroupScore = () => {
   let ticks = handleScopeTicks({scope: 'thirtydays', allTypes: true, ignoreIndoorsOutdoors: true});
 
   let temp = Object.keys(types);
-
   temp.forEach((type) => {
     let ticksByDisciplineIndoors = ticks.filter(obj => {
       return obj.type === type && obj.indoorsOutdoors === 'indoors'
