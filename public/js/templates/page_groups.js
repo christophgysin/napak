@@ -131,7 +131,7 @@ class viewGroups {
     leaveButton.addEventListener('click', () => {
 
       let modal = new modalWindow({
-        title         : 'Confirm join group',
+        title         : 'Confirm leave group',
         modalContent  : dce({el: 'DIV', content: 'Really want to leave this group? You shall be missed 😿'}),
         cssClass      : 'modal-small',
         buttons       : [

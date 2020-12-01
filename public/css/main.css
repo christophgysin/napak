@@ -59,17 +59,9 @@ h3,
 label {
   color: inherit;
   font-family: 'IBM Plex Mono';
-  font-size: 12px;
+  font-size: var(--font-size-medium);
   text-transform: uppercase;
   margin: 0;
-  font-weight: 100;
-}
-
-h4 {
-  color: var(--color-white);
-  font-family: 'IBM Plex Mono';
-  font-size: 16px;
-  margin: 0 0 10px;
   font-weight: 100;
 }
 
