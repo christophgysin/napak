@@ -128,6 +128,7 @@ let napak = {
     let loginStatus = () => {
       firebase.auth().onAuthStateChanged(function(fbUser) {
         let el =  document.body.querySelector('.splash');
+        if(el) {
         el.style['animation'] = "fadeout 300ms ease-in-out";
 
         animate.watch({
@@ -137,7 +138,7 @@ let napak = {
            },
           unwatch: true
           });
-
+        }
 
         if (fbUser) {
           const db = firebase.firestore();

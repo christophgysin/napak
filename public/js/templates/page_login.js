@@ -56,8 +56,8 @@ class viewLogin {
           } else {
             loginError.innerHTML = errorMessage;
           }
-          console.log(error);
-          });
+//          console.log(error);
+        });
     }
 
     loginForm.addEventListener('submit', (e) => {
