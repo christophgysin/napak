@@ -15,7 +15,6 @@ globals
     > updateGroupStanding
 */
 
-
 import viewGroups from '/js/templates/page_groups.js';
 import viewHistory from '/js/templates/page_history.js';
 import viewHome from '/js/templates/page_home.js';
@@ -33,6 +32,7 @@ import { user } from '/js/shared/user.js';
 import { dce, storeObserver, countAscents, countTotalScore, countGroupScore, countTopX, averageGrade, countAscentsByType }  from '/js/shared/helpers.js';
 
 import { store } from '/js/shared/store.js';
+import { animate } from '/js/shared/animate.js';
 
 let napak = {
   initialize : () => {
@@ -112,7 +112,7 @@ let napak = {
     });
 
     // init app
-    document.body.innerHTML = "";
+//    document.body.innerHTML = "";
     appContainer.append(appContentContainer, pageFooter.render(appContainer), otcMenu.render());
 
     let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
@@ -127,6 +127,18 @@ let napak = {
 
     let loginStatus = () => {
       firebase.auth().onAuthStateChanged(function(fbUser) {
+        let el =  document.body.querySelector('.splash');
+        el.style['animation'] = "fadeout 300ms ease-in-out";
+
+        animate.watch({
+          el: el,
+          execute: () => {
+            el.parentNode.removeChild(el)
+           },
+          unwatch: true
+          });
+
+
         if (fbUser) {
           const db = firebase.firestore();
           const dbuser = firebase.auth().currentUser;
@@ -143,7 +155,6 @@ let napak = {
     
           }).catch((err)=>{console.log(err)})
 
-          
           route('home');
         } else {
           route('login');
