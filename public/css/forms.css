@@ -14,6 +14,7 @@ FORM input{
   outline: none;
   font-size: var(--font-size-base);
   transition: box-shadow 300ms ease-in-out
+  -webkit-appearance: none;
 }
 
 FORM input:focus{
@@ -34,4 +35,5 @@ FORM BUTTON{
     transition: all 300ms ease-in-out;  
     width: 100%;
     -webkit-tap-highlight-color: var(--color-theme-color2);
+    -webkit-appearance: none;
 }
