@@ -105,10 +105,13 @@ section {
 .page-content {
   height: 100%;
   color: var(--color-white);
-  background: var(--color-theme-color1);
-/*
-  background: linear-gradient(to bottom, #000 0%, var(--color-theme-color1-accent) env(safe-area-inset-top, 0), var(--color-theme-color1) 100%);
-*/
+/*  background: var(--color-theme-color1);*/
+
+  background: linear-gradient(to bottom,
+   #000 0%, 
+   var(--color-theme-color1-accent) env(safe-area-inset-top, 0), 
+   var(--color-theme-color1) env(safe-area-inset-top, 0), 
+   var(--color-theme-color1) 100%);
   flex: 1;
   transition: filter 300ms ease-in-out;
   overflow: hidden;
@@ -142,6 +145,7 @@ BODY.modal-open .page-content::before {
     "header"
    "stats"
    "tick";
+   position: relative;
 }
 
 .page-settings {
@@ -459,7 +463,6 @@ BODY.indoors section.grade::after {
   z-index: 2;
   background: var(--color-theme-color1-accent);
   padding-bottom: var(--padding-base);
-  margin-top: env(safe-area-inset-top, 0);
   box-shadow: 0 10px 10px var(--color-black-alpha);
 }
 
