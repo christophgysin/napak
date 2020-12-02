@@ -36,6 +36,7 @@
   justify-content: center;
   align-items: center;
   font-size: var(--font-size-small);
+  max-width: 6ch;
 }
 
 .grade-legend.gray {

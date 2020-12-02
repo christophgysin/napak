@@ -348,7 +348,7 @@ BODY.indoors section.grade::after {
 
 
 .hidden {
-  display: none;
+  display: none!important;
 }
 
 /* page title */
@@ -450,9 +450,8 @@ BODY.indoors section.grade::after {
     }  
 }
 
-
-
-.in-out-menu {
+.in-out-menu,
+.ticker-menu {
   position: absolute; 
   width: 100%; 
   top: 40px; 
@@ -460,4 +459,11 @@ BODY.indoors section.grade::after {
   background: var(--color-theme-color1-accent);
   padding-bottom: var(--padding-base);
   margin-top: env(safe-area-inset-top, 0);
+  box-shadow: 0 10px 10px var(--color-black-alpha);
+}
+
+.ticker-menu {
+  display: flex;
+  justify-content: center;
+  padding: var(--padding-base-half) 0 var(--padding-base);
 }

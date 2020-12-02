@@ -15,6 +15,7 @@ import modalWindow from '/js/components/modal.js';
 import dropdownMenu from '/js/components/dropdown.js';
 import toggleSwitch from '/js/components/toggleswitch.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
+import groupOptions from '/js/templates/partials/group_options.js';
 import { store } from '../shared/store.js';
 
 class viewGroups {
@@ -23,12 +24,16 @@ class viewGroups {
     const dbuser = firebase.auth().currentUser;
 
     let groups = {};
+    let options = new groupOptions();
 
     // DOM
     let container = dce({el: 'DIV', cssClass: 'page-groups'});
     let groupSelectContainer = dce({el: 'SECTION', cssClass: 'group-select'});
 
-    let ticker = new statusTicker();
+    let ticker = new statusTicker({
+      titlePrefix : 'Groups',
+      tapAction: () => { options.showMenu() }
+    });
 
     let groupTypeSelector = new picker({
       cssClass: 'horizontal-menu full-width',
@@ -77,7 +82,7 @@ class viewGroups {
 
     rankingContainer.append(groupClimbingTypeSelector.render(), indoorsOutdoorsSelector.render(), groupStanding)
 
-    container.append(ticker.render(), groupSelectContainer, rankingContainer);
+    container.append(ticker.render(), options.render(), groupSelectContainer, rankingContainer);
 
 
 
@@ -212,7 +217,7 @@ class viewGroups {
       }
     }
     else {
-      groupStanding.appendChild(dce({el: 'P', content: 'No users in this group yet'}));
+      groupStanding.appendChild(dce({el: 'P', cssStyle: 'text-align: center;', content: 'No users in this group yet'}));
     }
     if(globals.groupType === 'userGroups') {
       showLeaveGroupOptions()

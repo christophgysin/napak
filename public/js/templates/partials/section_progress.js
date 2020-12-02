@@ -47,7 +47,7 @@ class sectionProgress {
     // Ascents
     let ascents = dce({el: 'DIV', cssClass: 'important-ascents'});
     let ascentsTitle = dce({el: 'H3', content: 'Ascents'})
-    let ascentsCount = dce({el: 'H2', content: globals.totalAscentCount[globals.scope]});
+    let ascentsCount = dce({el: 'H2', content: globals.totalAscentCount[globals.scope].toString()});
 
     ascents.append(ascentsTitle, ascentsCount);
 

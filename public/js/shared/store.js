@@ -38,12 +38,26 @@ const store = {
 
   read: function(params, callback){
     const user = firebase.auth().currentUser;
-    if(!user) return false;
-    db.collection(params.store).doc(user.uid).get();
+    let ref = db.collection(params.store).doc(user.uid);
+
+    ref.get().then((doc)=> {
+      if (doc.exists) {
+        console.log(doc.data())
+        return doc.data();
+      }
+      else {
+        return {};
+      }
+    }).catch(function(error) {
+    console.log("Error getting document:", error);
+    });
   },
 
   update: function(params){
-    let id = firebase.auth().currentUser.uid;if(params.collectionId) {id = params.collectionId;}
+    let id = firebase.auth().currentUser.uid;
+    if(params.collectionId) {
+      id = params.collectionId;
+    }
 
     db.collection(params.store).doc(id).set({
       [params.key]: params.keydata,

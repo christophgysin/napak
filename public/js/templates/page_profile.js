@@ -18,7 +18,7 @@ class viewProfile {
 
     let userProfileForm = dce({el: 'FORM', attrbs: [['name', 'napak-profile']]});
     let userNameTitle = dce({el: 'H3', cssClass: 'mb', content: 'User name: '});
-    let userName = dce({el: 'INPUT', attrbs: [['placeholder', 'user name'], ['name', 'username'], ['value', firebase.auth().currentUser.displayName]]});
+    let userName = dce({el: 'INPUT', attrbs: [['placeholder', 'user name'], ['name', 'username'], ['value', user.name.displayName]]});
     let updateProfileButton = dce({el: 'BUTTON', cssClass: 'mb', content: 'Update'});
 
     let errorMessage = dce({el: 'DIV', cssClass : 'error'});
@@ -47,8 +47,8 @@ class viewProfile {
         // update user object
         store.update({
           store: 'users',
-          key: 'user.displayName',
-          keydata:  user.name.displayName
+          key: 'user',
+          keydata:  user.name
         });
 
         // update user displayname in score listing

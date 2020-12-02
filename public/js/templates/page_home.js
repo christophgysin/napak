@@ -29,10 +29,7 @@ class viewHome {
 
 
 
-    tickPage.appendChild(ticker.render());
-    tickPage.appendChild(disciplineSelector.render());
-    tickPage.appendChild(progressSection.render());
-    tickPage.appendChild(gradeSelector.render());
+    tickPage.append(ticker.render(), disciplineSelector.render(), progressSection.render(), gradeSelector.render());
 
     let newStatusMessage = {
       message : 'Synchronizing ticks',
@@ -52,9 +49,6 @@ class viewHome {
         globals.ticks = data.ticks;
       }
     });
-
-    user.name.displayName = (firebase.auth().currentUser && firebase.auth().currentUser.displayName) ? firebase.auth().currentUser.displayName : false;
-    user.name = user.name;
 
 
     this.render = () => {

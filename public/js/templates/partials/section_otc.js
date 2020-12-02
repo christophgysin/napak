@@ -20,7 +20,7 @@ class otc {
 
     let loginInfo = dce({el: 'DIV', cssClass: 'login-info'});
 
-    let userName = (firebase.auth().currentUser && firebase.auth().currentUser.displayName) ? firebase.auth().currentUser.displayName : false;
+    let userName = user.name.displayName;
     let loginInfoTitle = dce({el: 'H3', cssClass: 'mt mb username', content: `Logged in as ${userName} 😻`});
     let logoutButton = dce({el: 'A', cssClass: 'btn login-link', content: 'Logout'});
     loginInfo.appendChild(loginInfoTitle)
@@ -49,7 +49,7 @@ class otc {
 
     // Listen and update details when login/logout. This is retarded. Fix it at some point
     let loginStatus = () => {
-      let userName = (firebase.auth().currentUser && firebase.auth().currentUser.displayName) ? firebase.auth().currentUser.displayName : false;
+      let userName = user.name.displayName;
       loginInfo.querySelector('H3.username').innerHTML = `Logged in as ${userName} 😻`;
       if(!userName) {
         updateProfile.classList.remove('hidden');
@@ -58,8 +58,21 @@ class otc {
         updateProfile.classList.add('hidden');
       }
     }
-    user.storeObservers.push({key: 'login', callback: loginStatus});
-    user.storeObservers.push({key: 'name', callback: loginStatus});
+
+    
+    storeObserver.add({
+      store: user,
+      key : 'login',
+      id  : 'userLogin',
+      callback: () => {loginStatus()}
+    });
+    
+    storeObserver.add({
+      store: user,
+      key : 'name',
+      id  : 'userNameChange',
+      callback: () => {loginStatus()}
+    });
 
     let settingsContainer = dce({el: 'DIV', cssClass: 'settings'});
 

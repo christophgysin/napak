@@ -126,8 +126,24 @@ let napak = {
     document.body.appendChild(gridContainer);
 
     let loginStatus = () => {
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
+      firebase.auth().onAuthStateChanged(function(fbUser) {
+        if (fbUser) {
+          const db = firebase.firestore();
+          const dbuser = firebase.auth().currentUser;
+          
+          db.collection('users').doc(dbuser.uid).get().then( (doc) => {
+            const data = doc.data();
+            user.name = data.user;
+
+            store.update({
+              store: 'score',
+              key: 'displayName',
+              keydata:  user.name.displayName
+            });
+    
+          }).catch((err)=>{console.log(err)})
+
+          
           route('home');
         } else {
           route('login');
@@ -135,7 +151,20 @@ let napak = {
       });
     }
 
-    user.storeObservers.push({key: 'login', callback: loginStatus})
+
+    storeObserver.add({
+      store: user,
+      key: 'login',
+      id: 'userLogin',
+      callback: loginStatus
+    });
+
+    storeObserver.add({
+      store: globals,
+      key: 'currentClimbingType',
+      id: 'appCurrentClimbingType',
+      callback: updateAll
+    });
 
     loginStatus();
   }

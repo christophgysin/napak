@@ -43,25 +43,8 @@ class viewLogin {
     let doLogin = () => {
       firebase.auth().signInWithEmailAndPassword(userEmail.value, password.value)
         .then(function(result) {
-
           user.login.isLoggedIn = true;
-          user.name.email = result.user.email;
-          user.name.id = result.user.uid;
-          user.name.displayName = (result.user.displayName) ? result.user.displayName : 'Anynymous Honnold';
           user.login = user.login;
-
-// Update uer object in firebase
-// Might be empty sometimes :|
-          store.update({
-            store: 'users',
-            key: 'user',
-            keydata:  user.name
-          });
-          store.update({
-            store: 'score',
-            key: 'displayName',
-            keydata:  user.name.displayName
-          });
         })
           // result.user.tenantId sho
         .catch(function(error) {

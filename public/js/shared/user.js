@@ -17,22 +17,16 @@ const handler = {
   }
 }
 
-let userFromStorage = store.read({
-  store: 'users',
-  key: 'user',
-  onlyLS: true
-});
-
 let userObject = {
   storeObservers : [],
   name : {
-    displayName:  (userFromStorage.userName) ? userFromStorage.userName : false,
-    email:  (userFromStorage.email) ? userFromStorage.email : false,
-    id:  (userFromStorage.id) ? userFromStorage.id : false
+    displayName: null,
+    email:  null,
+    id:  null
   },
 
   login : {
-    isLoggedIn :  (userFromStorage.isLoggedIn) ? userFromStorage.isLoggedIn : null,
+    isLoggedIn :  null,
   }
 };
 

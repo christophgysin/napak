@@ -22,10 +22,13 @@ class statusTicker {
     }, false)
 /* */
     let currentClimbingTypeTitle = () => {
-      if(params) {
+      if(params[`titlePrefix_${globals.currentClimbingType}`]) {
         return params[`titlePrefix_${globals.currentClimbingType}`] + ((!params.hideIndoorsOutdoors) ? globals.indoorsOutdoors : '');
       }
-      return 'Groups'
+      if(params.titlePrefix) {
+        return params.titlePrefix;
+      }
+      return '-'
     }
 
     let currentTitle = dce({el: 'DIV', cssClass: 'current'});
