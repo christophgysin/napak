@@ -43,7 +43,13 @@ class viewSignup {
         user.name.email = msg.user.email;
         user.name.id = msg.user.uid;
         // Randomize user name
-        let anon = ["Ondra", "Nalle", "Megos", "Klingler", "Kruder", "Narasaki", "Garnbret", "Noguchi"];
+        let anon = ["Ondra", "Nalle", "Megos", "Klingler", 
+                    "Kruder", "Narasaki", "Garnbret", "Noguchi", 
+                    "Rubtsov", "Woods", "Webb", "Hill", 
+                    "Mori", "Honnold", "Hayes", "Güllich", 
+                    "Godoffe", "Albert", "Gresham", "Whittaker", 
+                    "Macleod", "Moon", "Caldwell", "Coxsey", 
+                    "Findley", "Sharma"];
     
         user.name.displayName = `Anonymous ${anon[~~(Math.random() * anon.length)]}`;
         store.write({

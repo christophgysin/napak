@@ -1,13 +1,3 @@
-.tick-list {
-  width: 100%;
-  font-size: var(--font-size-base);
-}
-
-.tick-list .session-header {
-  padding: 10px;
-  background: var(--color-theme-color1-accent);
-}
-
 .header-flex {
   display: flex;
   text-transform: uppercase;
@@ -80,6 +70,22 @@
   grid-template-areas: "header" "History";
 }
 
+.page-history::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: '';
+  background-image: url('/images/bgr_history.jpg');
+  pointer-events: none;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  filter: grayscale(1);
+  opacity: 0.1;
+}
 
 .history-content {
   overflow: hidden;
@@ -99,29 +105,23 @@
 }
 
 
-/*
-.page-history .history-content::after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  content: '';
-  background-image: url('/images/bgr_history.jpg');
-  pointer-events: none;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  mix-blend-mode: screen;
-  filter: grayscale(1);
-  z-index: 1;
-  opacity: 0.1;
-}
-*/
 .session-tick-container {
-  padding: 0 var(--padding-base);
-  margin-bottom: var(--padding-base);
+  border-radius: 4px; 
+  background: linear-gradient(to bottom, var(--color-theme-color1) 0%, var(--color-theme-color1-accent) 100%); 
+  padding: 0 var(--padding-base) var(--padding-base-half);
+  color: var(--color-white);
+  overflow: hidden;
+  margin: var(--padding-base);
+  font-size: var(--font-size-base)  
 }
+
+.session-header {
+  padding: var(--padding-base-half);
+  background: var(--color-theme-color1-accent);
+  margin: 0 var(--padding-base-negative) var(--padding-base-half);
+}
+
+
 .session-tick {
   display: flex;
   justify-content: space-between;

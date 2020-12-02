@@ -40,6 +40,7 @@ let handleTick = ({
       store.remove({
           store: 'users',
           key: 'ticks',
+          collectionId: firebase.auth().currentUser.uid,
           keydata: ticks[ticksByGrade[indx]]
         });
       ticks.splice(ticksByGrade[indx], 1);
@@ -67,7 +68,7 @@ let handleTick = ({
 
 
     if ((Number(globals.totalAscentCount['today'])+1) % 5 === 0) {
-      let cheer = ["Gamba!", "Venga!", "Allez 💪", "Joo joo!", "Kom igen!", "🔥", "Come on!", "Nice"];
+      let cheer = ["Gamba!", "Venga!", "Allez 💪", "Joo joo!", "Kom igen!", "🔥", "Come on!", "Nice", "Smearing is caring"];
       globals.standardMessage.unshift({
         message: cheer[~~(Math.random() * cheer.length)],
         timeout: 1

@@ -287,6 +287,7 @@ class viewGroups {
 
   loadUserGroups();
 
+
   let updateItems = () => {
     let items = [];
     for (let key in groups[globals.groupType]) {
@@ -321,6 +322,23 @@ class viewGroups {
       return container
     }
 
+    this.leaveGroup = () => {
+      store.remove({
+        store: 'groups',
+        key: 'users',
+        collectionId: globals.currentGroup,
+        keydata: firebase.auth().currentUser.uid
+        }, () =>{
+          let groupName = groups['userGroups'][globals.currentGroup]['title'];
+          globals.standardMessage.unshift({
+            message: `Left ${groupName}`,
+            timeout: 2
+          });
+          globals.standardMessage = globals.standardMessage;
+
+        })
+    }
+
     this.joinGroup = () => {
       store.add({
         store: 'groups',
@@ -347,7 +365,6 @@ class viewGroups {
           });
           globals.standardMessage = globals.standardMessage;
         });
-
     }
   }
 }

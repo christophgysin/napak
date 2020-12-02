@@ -14,7 +14,10 @@ const store = {
   },
 
   add: function(params, callback){
-    let id = firebase.auth().currentUser.uid;if(params.collectionId) {id = params.collectionId;}
+    let id = firebase.auth().currentUser.uid;
+    if(params.collectionId) {
+      id = params.collectionId;
+    }
 
     let ref = db.collection(params.store).doc(id);
     ref.update({
@@ -28,6 +31,19 @@ const store = {
     });
   },
 
+
+  remove: function(params, callback){
+    let ref = db.collection(params.store).doc(params.collectionId);
+    ref.update({
+      [params.key]: firebase.firestore.FieldValue.arrayRemove(params.keydata),
+    })
+    .then(()=>{
+      if(callback) {callback();}
+    })
+    .catch(function(error) {});
+  },
+
+/*
   remove: function(params){
     const user = firebase.auth().currentUser;
     let ref = db.collection(params.store).doc(user.uid);
@@ -35,7 +51,7 @@ const store = {
       [params.key]: firebase.firestore.FieldValue.arrayRemove(params.keydata),
     });
   },
-
+*/
   read: function(params, callback){
     const user = firebase.auth().currentUser;
     let ref = db.collection(params.store).doc(user.uid);

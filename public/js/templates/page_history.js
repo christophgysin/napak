@@ -34,10 +34,8 @@ class viewHistory {
     let historyContent = dce({el: 'DIV', cssClass: 'history-content'});
     let scrollContainer = dce({el: 'DIV', cssClass : 'scroll-container'});
 
-    let ticksContainer = dce({el: 'DIV', cssClass: 'tick-list'});
-
     let updateHistory = () => {
-      ticksContainer.innerHTML = "";
+      scrollContainer.innerHTML = "";
       let ticks = handleScopeTicks({scope: 'alltime'});
 
       ticks.sort(function(a, b){
@@ -78,6 +76,8 @@ class viewHistory {
         let dateAvgGrade = averageGrade({count: 10, tickSet: ticks});
         let sessionAverage = averageGrade({count: ticks.length, tickSet: ticks});
 
+        let sessionContainer = dce({el: 'DIV', cssClass: 'session-container'});
+
         let headerTitle = dce({el: 'DIV', cssClass: 'session-header'});
         // Date and route count
         let sessionDate = dce({el: 'DIV', cssClass: 'header-flex'});
@@ -99,9 +99,8 @@ class viewHistory {
 
         headerTitle.append(sessionDate, weighted, avg);
 
-        ticksContainer.appendChild(headerTitle);
-
         let sessionTicks = dce({el: 'DIV', cssClass: 'session-tick-container'});
+        sessionTicks.appendChild(headerTitle);
 
         for( let i=ticks.length-1, j = 0; i>=j; i-- ) {
           let row = dce({el: 'DIV', cssClass: 'session-tick'});
@@ -138,20 +137,19 @@ class viewHistory {
             container.appendChild(modal.render())
           });
         }
-        ticksContainer.appendChild(sessionTicks)
+      scrollContainer.appendChild(sessionTicks)
     }
 
 
       if(!ticks.length) {
         let row = dce({el: 'DIV', cssClass: 'no-history mt', content: 'Nothing to see here. Move along'});
-        ticksContainer.appendChild(row);
+        scrollContainer.appendChild(row);
       }
     }
     updateHistory();
 
     let disciplineSelector = new climbingTypeSelector();
 
-    scrollContainer.append(ticksContainer);
     historyContent.appendChild(scrollContainer);
     container.append(ticker.render(), disciplineSelector.render(), historyContent);
 
