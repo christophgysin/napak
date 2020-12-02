@@ -14,7 +14,7 @@ class otc {
 
     let logoContainer = dce({el: 'DIV', cssClass: 'logo-container'});
     let logoImg = dce({el: 'IMG', source: '/images/napak_vector.svg', cssClass: 'logo'});
-    let version = dce({el: 'SPAN', content: ' 0.x'});
+    let version = dce({el: 'SPAN', content: ' 0.1'});
 
     logoContainer.append(logoImg, version);
 

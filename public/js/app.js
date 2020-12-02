@@ -129,16 +129,13 @@ let napak = {
       firebase.auth().onAuthStateChanged(function(fbUser) {
         let el =  document.body.querySelector('.splash');
         if(el) {
-        el.style['animation'] = "fadeout 300ms ease-in-out";
-
-        animate.watch({
-          el: el,
-          execute: () => {
-            el.parentNode.removeChild(el)
-           },
-          unwatch: true
-          });
-        }
+          el.style['animation'] = "fadeout 1000ms ease-in-out";
+          animate.watch({
+            el: el,
+            execute: () => {el.parentNode.removeChild(el)},
+            unwatch: true
+            });
+          }
 
         if (fbUser) {
           const db = firebase.firestore();
