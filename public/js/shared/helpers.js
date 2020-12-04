@@ -134,7 +134,7 @@ let countTopX = ({count = 10, tickSet = false} = {}) => {
 }
 
 // Count average grade
-let averageGrade = ({count= 10, scope = globals.scope, tickSet = false} = {}) => {
+let averageGrade = ({count = 10, scope = globals.scope, tickSet = false} = {}) => {
   const ticks = tickSet ? tickSet : handleScopeTicks({scope: scope});
 
   if (ticks.length === 0)
@@ -142,8 +142,8 @@ let averageGrade = ({count= 10, scope = globals.scope, tickSet = false} = {}) =>
 
   const maxGrades = ticks
     .map(tick => tick.grade)
-    .sort()
-    .slice(-count)
+    .sort((a, b) => a-b)
+    .slice(-count);
 
   const average = maxGrades
     .reduce((a, b) => a + b, 0)

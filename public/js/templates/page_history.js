@@ -76,8 +76,6 @@ class viewHistory {
         let dateAvgGrade = averageGrade({count: 10, tickSet: ticks});
         let sessionAverage = averageGrade({count: ticks.length, tickSet: ticks});
 
-        let sessionContainer = dce({el: 'DIV', cssClass: 'session-container'});
-
         let headerTitle = dce({el: 'DIV', cssClass: 'session-header'});
         // Date and route count
         let sessionDate = dce({el: 'DIV', cssClass: 'header-flex'});

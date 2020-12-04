@@ -14,9 +14,7 @@ class wheel {
       if(newVal !== globals.currentAscentGrade) {
         globals.currentAscentGrade = newVal;
         localStrg.write({key: 'wheelPos', keydata: Number(newVal)});
-        if (e.isTrusted) {
-          vibrate();
-        }
+        if( globals.vibrate ){ vibrate(); }
       }
     }, false);
 
