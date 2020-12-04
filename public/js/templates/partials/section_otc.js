@@ -64,15 +64,17 @@ class otc {
       store: user,
       key : 'login',
       id  : 'userLogin',
-      callback: () => {loginStatus()}
+      callback: () => {loginStatus()},
+      removeOnRouteChange: false
     });
     
     storeObserver.add({
       store: user,
       key : 'name',
       id  : 'userNameChange',
-      callback: () => {loginStatus()}
-    });
+      callback: () => {loginStatus()},
+      removeOnRouteChange: false
+   });
 
     let settingsContainer = dce({el: 'DIV', cssClass: 'settings'});
 
@@ -174,14 +176,18 @@ class otc {
       id  : 'settingsVibrate',
       callback: () => {
         localStrg.write({key: 'useVibrate', keydata: globals.vibrate});
-      }
+      },
+      removeOnRouteChange: false
+
     });
     
     storeObserver.add({
       store: globals,
       key: 'route',
       id: 'otcUpdateLocation',
-      callback: this.updateSelected
+      callback: this.updateSelected,
+      removeOnRouteChange: false
+
     });
 
     this.render = () => {

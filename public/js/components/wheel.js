@@ -95,21 +95,24 @@ class wheel {
       store: globals,
       key: 'indoorsOutdoors',
       id: 'wheelIndoorsOutdoors',
-      callback: () => {clearLegends(), updateAll()}
+      callback: () => {clearLegends(), updateAll()},
+      removeOnRouteChange: true
     });
 
     storeObserver.add({
       store: globals,
       key: 'currentClimbingType',
       id: 'wheelCurrentClimbingType',
-      callback: () => {clearLegends(), updateAll()}
+      callback: () => {clearLegends(), updateAll()},
+      removeOnRouteChange: true
     });
 
     storeObserver.add({
       store: globals,
       key: 'today',
       id: 'wheelDateChange',
-      callback: () => {clearLegends(), updateAll()}
+      callback: () => {clearLegends(), updateAll()},
+      removeOnRouteChange: true
     });
 
 
@@ -117,7 +120,8 @@ class wheel {
       store: globals,
       key: 'ticks',
       id: 'wheelUpdateTicks',
-      callback: updateAll
+      callback: updateAll,
+      removeOnRouteChange: true
     });
 
     selectDialog.appendChild(gradeFragment);

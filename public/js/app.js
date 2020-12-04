@@ -77,7 +77,8 @@ let napak = {
       store.update({
         store: 'score',
         key: 'current',
-        keydata: globals.totalScoreByType
+        keydata: globals.totalScoreByType,
+        removeOnRouteChange: false
       });
     }
 
@@ -86,7 +87,8 @@ let napak = {
       store: globals,
       key: 'ticks',
       id: 'appGroupScore',
-      callback: updateGroupScore
+      callback: updateGroupScore,
+      removeOnRouteChange: false
     });
 
     // Listen to tick objects change and update
@@ -94,21 +96,24 @@ let napak = {
       store: globals,
       key: 'ticks',
       id: 'appTicks',
-      callback: updateAll
+      callback: updateAll,
+      removeOnRouteChange: false
     });
 
     storeObserver.add({
       store: globals,
       key: 'indoorsOutdoors',
       id: 'appIndoorsOutdoors',
-      callback: updateAll
+      callback: updateAll,
+      removeOnRouteChange: false
     });
 
     storeObserver.add({
       store: globals,
       key: 'currentClimbingType',
       id: 'appCurrentClimbingType',
-      callback: updateAll
+      callback: updateAll,
+      removeOnRouteChange: false
     });
 
     // init app
@@ -165,14 +170,8 @@ let napak = {
       store: user,
       key: 'login',
       id: 'userLogin',
-      callback: loginStatus
-    });
-
-    storeObserver.add({
-      store: globals,
-      key: 'currentClimbingType',
-      id: 'appCurrentClimbingType',
-      callback: updateAll
+      callback: loginStatus,
+      removeOnRouteChange: false
     });
 
     loginStatus();

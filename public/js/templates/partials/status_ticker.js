@@ -47,7 +47,8 @@ class statusTicker {
       id: 'homepageCurrentClimbingType',
       callback: () => {
         currentTitleContent.innerHTML = currentClimbingTypeTitle();
-      }
+      },
+      removeOnRouteChange: true
     });
 
     storeObserver.add({
@@ -56,7 +57,8 @@ class statusTicker {
       id: 'homepageIndoorsOutdoors',
       callback: () => {
         currentTitleContent.innerHTML = currentClimbingTypeTitle();
-      }
+      },
+      removeOnRouteChange: true
     });
 
 

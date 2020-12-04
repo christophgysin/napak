@@ -122,27 +122,32 @@ class sectionProgress {
       store: globals,
       key: 'indoorsOutdoors',
       id: 'progress_update_chart--indoorsOutdoors',
-      callback: updateCharts
+      callback: updateCharts,
+      removeOnRouteChange: true
+
     });
 
     storeObserver.add({
       store: globals,
       key: 'currentClimbingType',
       id: 'progress_update_chart--climbingStyle',
-      callback: updateCharts
+      callback: updateCharts,
+      removeOnRouteChange: true
     });
 
     storeObserver.add({
       store: globals,
       key: 'scope',
       id: 'progress_update_chart--scope',
-      callback: updateCharts
+      callback: updateCharts,
+      removeOnRouteChange: true
     });
     storeObserver.add({
       store: globals,
       key: 'ticks',
       id: 'progress_update_chart--ticks',
-      callback: updateCharts
+      callback: updateCharts,
+      removeOnRouteChange: true
     });
 
     updateCharts();
@@ -176,35 +181,40 @@ class sectionProgress {
       store: globals,
       key: 'scope',
       id: 'progressScopeChange',
-      callback: this.updateTotalAscentCount
+      callback: this.updateTotalAscentCount,
+      removeOnRouteChange: true
     });
 
     storeObserver.add({
       store: globals,
       key: 'ticks',
       id: 'progressTicksUpdate',
-      callback: this.updateTotalAscentCount
+      callback: this.updateTotalAscentCount,
+      removeOnRouteChange: true
     });
 
     storeObserver.add({
       store: globals,
       key: 'currentClimbingType',
       id: 'progressCurrentClimbingTypeChange',
-      callback: this.updateTotalAscentCount
+      callback: this.updateTotalAscentCount,
+      removeOnRouteChange: true
     });
 
     storeObserver.add({
       store: globals,
       key: 'averageGrade',
       id: 'progressAverageGradeUpdate',
-      callback: this.updateAverageGrade
+      callback: this.updateAverageGrade,
+      removeOnRouteChange: true
     });
 
     storeObserver.add({
       store: globals,
       key: 'scope',
       id: 'progressScopeChangeAverage',
-      callback: this.updateAverageGrade
+      callback: this.updateAverageGrade,
+      removeOnRouteChange: true
     });
 
   }
