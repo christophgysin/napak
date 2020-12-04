@@ -44,6 +44,7 @@
 .modal-window .modal-content {
     overflow: auto;
     padding: var(--padding-base);
+    line-height: 1.5em;
 }
 
 .modal-window .modal-options {

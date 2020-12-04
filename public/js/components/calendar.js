@@ -36,6 +36,7 @@ class calendar {
             store: globals,
             key: 'ticks',
             callback: checkDateThatHasTicks,
+            id: 'calendarTicks',
             removeOnRouteChange: true
           });
 
@@ -43,6 +44,7 @@ class calendar {
             store: globals,
             key: 'currentClimbingType',
             callback: checkDateThatHasTicks,
+            id: 'calendarClimbingType',
             removeOnRouteChange: true
             });
 
@@ -50,6 +52,7 @@ class calendar {
             store: globals,
             key: 'indoorsOutdoors',
             callback: checkDateThatHasTicks,
+            id: 'calendarIndoorsOutdoors',
             removeOnRouteChange: true
         });
 

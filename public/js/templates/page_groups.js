@@ -24,7 +24,13 @@ class viewGroups {
     const dbuser = firebase.auth().currentUser;
 
     let groups = {};
-    let options = new groupOptions();
+    let options = new groupOptions({
+      options : [[
+        'Edit group',
+        () => {
+          console.log('meh')
+        }]]
+    });
 
     // DOM
     let container = dce({el: 'DIV', cssClass: 'page-groups'});
@@ -338,9 +344,6 @@ class viewGroups {
     });
 
 
-    this.render = () => {
-      return container
-    }
 
     this.leaveGroup = () => {
       store.remove({
@@ -358,6 +361,8 @@ class viewGroups {
 
         })
     }
+
+
 
     this.joinGroup = () => {
       store.add({
@@ -386,6 +391,30 @@ class viewGroups {
           globals.standardMessage = globals.standardMessage;
         });
     }
+
+
+    this.createNewGroup = () => {
+      let modal = new modalWindow({
+        title         : 'Create new modal',
+        modalContent  : dce({el: 'DIV', content: 'Join and start competing!'}),
+        cssClass      : 'modal-small',
+        buttons       : [
+          ['Join', ()=>{
+            this.joinGroup();
+            modal.close();}],
+          ['Cancel', () => {
+            modal.close()}]
+          ],
+        open          : true //auto open modal
+      });
+
+      container.appendChild(modal.render())
+    }
+
+    this.render = () => {
+      return container
+    }
+
   }
 }
 

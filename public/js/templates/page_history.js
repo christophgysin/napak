@@ -65,6 +65,7 @@ class viewHistory {
 // Count daily averages
       for( let key in ticksByDateContainer ) {
         let ticks = ticksByDateContainer[key];
+        
         ticks.sort(function(a, b) {
           var keyA = a.grade,
             keyB = b.grade;
@@ -154,6 +155,7 @@ class viewHistory {
 
     storeObserver.add({
       store: globals,
+      id: 'historyClimbingType',
       key: 'currentClimbingType',
       callback: updateHistory,
       removeOnRouteChange: true
@@ -161,6 +163,7 @@ class viewHistory {
 
     storeObserver.add({
       store: globals,
+      id: 'historyIndoorsOutdoors',
       key: 'indoorsOutdoors',
       callback: updateHistory,
       removeOnRouteChange: true

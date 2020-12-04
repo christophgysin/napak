@@ -29,7 +29,8 @@ class picker {
           store: globals,
           key: params.options[i].hide,
           callback: hideElement,
-          removeOnRouteChange: true
+          removeOnRouteChange: true,
+          id: 'pickerHideEl'
         });
 
         hideElement();
@@ -63,6 +64,7 @@ class picker {
       storeObserver.add({
         store: globals,
         key: 'indoorsOutdoors',
+        id: 'pickerIndoorsOutdoors',
         callback: updateLegends,
         removeOnRouteChange: true
       });
@@ -70,6 +72,7 @@ class picker {
       storeObserver.add({
         store: globals,
         key: 'currentClimbingType',
+        id: 'pickerClimbingType',
         callback: updateLegends,
         removeOnRouteChange: true
       });
@@ -77,6 +80,7 @@ class picker {
       storeObserver.add({
         store: globals,
         key: 'ticks',
+        id: 'pickerTicks',
         callback: updateLegends,
         removeOnRouteChange: true
       });
@@ -84,6 +88,7 @@ class picker {
       storeObserver.add({
         store: globals,
         key: 'today',
+        id: 'pickerToday',
         callback: updateLegends,
         removeOnRouteChange: true
       });

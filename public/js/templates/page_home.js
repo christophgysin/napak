@@ -4,7 +4,6 @@ import statusTicker from '/js/templates/partials/status_ticker.js';
 import climbingTypeSelector from '/js/templates/partials/climbing_type-selector.js';
 import { dce } from '/js/shared/helpers.js';
 import { globals } from '/js/shared/globals.js';
-import { user } from '/js/shared/user.js';
 
 
 

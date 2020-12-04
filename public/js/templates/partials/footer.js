@@ -1,6 +1,5 @@
-import { globals } from '/js/shared/globals.js';
 import { user } from '/js/shared/user.js';
-import { dce } from '/js/shared/helpers.js';
+import { dce, storeObserver } from '/js/shared/helpers.js';
 
 import { route } from '/js/shared/route.js';
 
@@ -55,7 +54,14 @@ class footer {
       });
     };
 
-    user.storeObservers.push({key: 'login', callback: toggleVisibility});
+
+    storeObserver.add({
+      store: user,
+      key: 'login',
+      callback: toggleVisibility,
+      id: 'footerVisibility',
+      removeOnRouteChange: true
+      });
 
     toggleVisibility();
 
