@@ -17,7 +17,7 @@ class modalWindow {
 
     if(params.buttons) {
       params.buttons.forEach(el => {
-        let btn = dce({el: 'DIV', cssClass: 'btn btn_small', content: el[0]});
+        let btn = dce({el: 'DIV', cssClass: `btn btn_small ${el[2] ? el[2] : ''}`, content: el[0]});
         btn.addEventListener('click', el[1]);
         modalOptionsContainer.appendChild(btn)
       });

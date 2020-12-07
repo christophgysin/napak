@@ -1,4 +1,4 @@
-import { dce, storeObserver, svg } from '/js/shared/helpers.js';
+import { dce, storeObserver } from '/js/shared/helpers.js';
 import { animate } from '/js/shared/animate.js';
 import { globals } from '/js/shared/globals.js';
 

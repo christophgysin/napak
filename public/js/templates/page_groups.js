@@ -9,14 +9,14 @@ globals
     > updateGroupStanding
 */
 
-import { dce, storeObserver, countTopX, averageGrade } from '/js/shared/helpers.js';
+import { dce, storeObserver } from '/js/shared/helpers.js';
 import picker from '/js/components/picker.js';
 import modalWindow from '/js/components/modal.js';
 import dropdownMenu from '/js/components/dropdown.js';
 import toggleSwitch from '/js/components/toggleswitch.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
 import groupOptions from '/js/templates/partials/group_options.js';
-import { store } from '../shared/store.js';
+import { store } from '/js/shared/store.js';
 
 class viewGroups {
   constructor() {
@@ -25,11 +25,10 @@ class viewGroups {
 
     let groups = {};
     let options = new groupOptions({
-      options : [[
-        'Edit group',
-        () => {
-          console.log('meh')
-        }]]
+      options : [
+        ['Edit group', () => { console.log('meh')}],
+        ['Create new group', () => {this.createNewGroup()}]
+      ]
     });
 
     // DOM
@@ -394,16 +393,67 @@ class viewGroups {
 
 
     this.createNewGroup = () => {
+      let newGroupFormContainer = dce({el: 'FORM', cssClass: ''});
+// Group name
+      let groupNameTitle = dce({el: 'H3', cssClass: 'mb', content: 'Group name '});
+      let groupName = dce({el: 'INPUT', cssClass:'', attrbs: [['placeholder', 'Group name']] });
+      newGroupFormContainer.append(groupNameTitle, groupName);
+
+      let isPublic = true;
+      let groupPublicityTitle = dce({el: 'H3', cssClass: 'mb', content: 'Public'});
+      let groupPublicity = new toggleSwitch({
+        cssClass  : 'horizontal-menu full-width',
+        targetObj : isPublic,
+        targetStore: false,
+        options   : [
+          {title: 'Yes', value: true, selected: true},
+          {title: 'No', value: false}],
+        callback : (trgt) => {
+          isPublic = trgt; 
+          if(isPublic) {
+            passCodeContainer.classList.add('hidden');
+          }
+          else {
+            passCodeContainer.classList.remove('hidden');            
+          }
+        }
+      });
+
+
+      newGroupFormContainer.append(groupPublicityTitle, groupPublicity.render());
+
+      let passCodeContainer = dce({el: 'DIV', cssClass: 'hidden'});
+      let passcodeTitle = dce({el: 'H3', cssClass: 'mb', content: 'Passcode (6-10 characters) '});
+      let passcode = dce({el: 'INPUT', cssClass:'', attrbs: [['placeholder', 'Passcode'], ['required', 'required'], ['minlength', 6], ['maxlength', 10]] });
+      passCodeContainer.append(passcodeTitle, passcode);
+      newGroupFormContainer.appendChild(passCodeContainer);
+
+      const addGroupToStore = (mother) => {
+        console.log(mother)
+        
+        console.log(groupName);
+
+        db.collection("groups").add({
+          name: groupName.value,
+          owner: dbuser.uid,
+          public: isPublic,
+          passphrase: passcode.value,
+          users: [dbuser.uid]
+      })
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
+      }
+
       let modal = new modalWindow({
-        title         : 'Create new modal',
-        modalContent  : dce({el: 'DIV', content: 'Join and start competing!'}),
-        cssClass      : 'modal-small',
+        title         : 'Create new group',
+        modalContent  : newGroupFormContainer,
         buttons       : [
-          ['Join', ()=>{
-            this.joinGroup();
-            modal.close();}],
-          ['Cancel', () => {
-            modal.close()}]
+          ['Create', () => { addGroupToStore(this); modal.close(); }, 'preferred'],
+          ['Cancel', () => { modal.close(); }],
           ],
         open          : true //auto open modal
       });

@@ -32,6 +32,11 @@
   margin: 0 var(--padding-base-half);
 }
 
+.btn_small.preferred {
+  background: var(--color-theme-color2);
+  color: var(--color-black)
+}
+
 .btn_tiny {
   width: max-content;
   padding: 0 var(--padding-base-half);

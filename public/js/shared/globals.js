@@ -101,7 +101,7 @@ let globalObjects = {
   graphMultiplier: {
     'today': 2,
     'thirtydays': 1,
-    'year': 0.5,
+    'year': 0.25,
     'alltime': 0.1
   },
 

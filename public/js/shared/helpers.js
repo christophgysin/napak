@@ -1,21 +1,19 @@
 import { globals } from '/js/shared/globals.js';
 
 let storeObserver = {
-  add : ( params ) => {
-    let store = params.store;
-
+  add : ( { store = globals, id = null, key = null, callback = null, removeOnRouteChange = false} = {} ) => {
     // remove existing observer if it has some ID
     store.storeObservers.forEach((o, count) => {
-      if(params.id && o.id === params.id) {
+      if(id && o.id === id) {
         store.storeObservers.splice(count, 1)
       }
     });
 
     store.storeObservers.push({
-      key: params.key,
-      id: params.id,
-      callback: params.callback,
-      removeOnRouteChange: params.removeOnRouteChange
+      key: key,
+      id: id,
+      callback: callback,
+      removeOnRouteChange: removeOnRouteChange
     });
   },
 
@@ -38,33 +36,31 @@ let storeObserver = {
 };
 
 // Create DOM element
-let dce = (params) => {
-  let element = document.createElement(params.el);
+let dce = ( {el = 'DIV', cssClass = null, cssStyle = null, source = null, id = null, content = null, attrbs = [] } = {} ) => {
+  let element = document.createElement(el);
 
-  if (params.cssClass) {
-    element.className = params.cssClass;
+  if (cssClass) {
+    element.className = cssClass;
   }
 
-  if (params.source) {
-    element.setAttribute('src', params.source);
+  if (source) {
+    element.setAttribute('src', source);
   }
 
-  if (params.cssStyle) {
-    element.setAttribute('style', params.cssStyle);
+  if (cssStyle) {
+    element.setAttribute('style', cssStyle);
   }
 
-  if (params.id) {
-    element.setAttribute('id', params.id);
+  if (id) {
+    element.setAttribute('id', id);
   }
 
-  if (params.content) {
-    element.appendChild(document.createTextNode(params.content));
+  if (content) {
+    element.appendChild(document.createTextNode(content));
   }
 
-  if (params.attrbs) {
-    for (let i = 0, j = params.attrbs.length; i < j; i++) {
-      element.setAttribute(params.attrbs[i][0], params.attrbs[i][1]);
-    }
+  for (let i = 0, j = attrbs.length; i < j; i++) {
+    element.setAttribute(attrbs[i][0], attrbs[i][1]);
   }
   return element;
 }
@@ -105,28 +101,17 @@ let parseDate = (d) => {
 }
 
 // vibrate
-let vibrate = (params) => {
+let vibrate = ( { duration = [10, 0] } = {} ) => {
   let supportsVibrate = "vibrate" in navigator;
-  let duration = [10, 0];
-  if ( params && params.duration ) {
-    duration = params.duration;
-  }
-  if(supportsVibrate) {
+
+  if( supportsVibrate ) {
     navigator.vibrate(0);
     navigator.vibrate(duration);
   }
 }
 
-// Custom events
-let triggerCustomEvent = (params) => {
-  let vent = new CustomEvent(params.vent, params.data);
-  if (params.dispatch) {
-    document.dispatchEvent(vent);
-  }
-}
-
 // Count top x score
-let countTopX = ({count = 10, tickSet = false} = {}) => {
+let countTopX = ( { count = 10, tickSet = false } = {} ) => {
   if(tickSet) {
     return countTotalScore({tickSet: tickSet, count: count}).reduce((a, b) => Number(a) + Number(b), 0);
   }
@@ -134,7 +119,7 @@ let countTopX = ({count = 10, tickSet = false} = {}) => {
 }
 
 // Count average grade
-let averageGrade = ({count = 10, scope = globals.scope, tickSet = false} = {}) => {
+let averageGrade = ( { count = 10, scope = globals.scope, tickSet = false } = {} ) => {
   const ticks = tickSet ? tickSet : handleScopeTicks({scope: scope});
 
   if (ticks.length === 0)
@@ -154,7 +139,7 @@ let averageGrade = ({count = 10, scope = globals.scope, tickSet = false} = {}) =
 
 
 // Total score
-let countTotalScore = ({count= 10, scope = globals.scope, tickSet = false, returnTicks = false} = {}) => {
+let countTotalScore = ( { count= 10, scope = globals.scope, tickSet = false, returnTicks = false } = {} ) => {
   let ticks = (tickSet) ? tickSet : handleScopeTicks({scope: scope});
   let score = Array(count).fill(0); // this is wrong. It no adds x empty ticks (by grade of 3) to the array
 
@@ -427,7 +412,6 @@ export {
   dce,
   svg,
   vibrate,
-  triggerCustomEvent,
   countTopX,
   averageGrade,
   eightaNuScore,

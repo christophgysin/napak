@@ -111,7 +111,7 @@ class sectionProgress {
       let barNodes = chartBarContainer.querySelectorAll('.bar');
       let ticks = countAscentsByGrade({scope: globals.scope});
       barNodes.forEach((bar, i) => {
-        bar.style.height = `${ticks[i]*globals.graphMultiplier[globals.scope]}px`;
+        bar.style.height = `${(ticks[i]*globals.graphMultiplier[globals.scope])}px`;
         bar.querySelector('.legend').innerHTML = (ticks[i] > 0) ? ticks[i] : null;
       });
     };
