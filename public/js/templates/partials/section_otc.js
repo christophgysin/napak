@@ -78,30 +78,34 @@ class otc {
 
     let settingsContainer = dce({el: 'DIV', cssClass: 'settings'});
 
-    let vibrateTitle = dce({el: 'H3', content: 'VIBRATE WHEN TICKING'});
+    let vibrateContainer = dce({el: 'DIV', cssClass: 'mb'});
+    let vibrateTitle = dce({el: 'H3', content: 'Haptics'});
     let vibrateOnOff = new toggleSwitch({
       cssClass  : 'horizontal-menu full-width',
       targetObj : 'vibrate',
       options   : [
-        {title: 'On', value: true, selected: (globals.vibrate) ? true : false},
-        {title: 'Off', value: false, selected: (!globals.vibrate) ? true : false}]
+        {title: 'On', value: true, selected: (globals.vibrate) ? true : false },
+        {title: 'Off', value: false, selected: (!globals.vibrate) ? true : false }]
     });
     let supportsVibrate = "vibrate" in navigator;
     if(supportsVibrate) {
-      settingsContainer.append(vibrateTitle, vibrateOnOff.render());
+      vibrateContainer.append(vibrateTitle, vibrateOnOff.render());
+      settingsContainer.appendChild(vibrateContainer);
     }
 
 
 // not in use yet
-    let locationTitle = dce({el: 'H3', content: 'LOCATION TRACKING'});
+    let locationContainer = dce({el: 'DIV', cssClass: 'mt'});
+    let locationTitle = dce({el: 'H3', cssClass: 'mt', content: 'LOCATION TRACKING'});
     let locationOnOff = new toggleSwitch({
       cssClass  : 'horizontal-menu full-width',
-      targetObj : 'location',
+      targetObj : 'gpsTracking',
       options   : [
-        {title: 'On', value: true},
-        {title: 'Off', value: false, selected: true}]
+        {title: 'On', value: true, selected: (globals.gpsTracking) ? true : false},
+        {title: 'Off', value: false, selected: (globals.gpsTracking) ? true : false}]
     });
-//    settingsContainer.append(locationTitle, locationOnOff.render())
+    locationContainer.append(locationTitle, locationOnOff.render());
+    settingsContainer.appendChild(locationContainer);
 
 
     // Page links
@@ -178,8 +182,19 @@ class otc {
         localStrg.write({key: 'useVibrate', keydata: globals.vibrate});
       },
       removeOnRouteChange: false
+    });
+
+    storeObserver.add({
+      store: globals,
+      key : 'gpsTracking',
+      id  : 'settingsGPS',
+      callback: () => {
+        localStrg.write({key: 'useGPS', keydata: globals.gpsTracking});
+      },
+      removeOnRouteChange: false
 
     });
+
     
     storeObserver.add({
       store: globals,

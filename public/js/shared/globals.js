@@ -19,6 +19,12 @@ const handler = {
   }
 }
 
+// get settings fron local storage
+let wheelPosition = localStrg.read({key: 'wheelPos'});
+let useVibrate = localStrg.read({key: 'useVibrate'});
+let useGPS = localStrg.read({key: 'useGPS'});
+
+
 /*
   create container object for todays ticks;
 */
@@ -26,9 +32,6 @@ const handler = {
 let containerObj = {};
 let today = handleDate({dateString: new Date().getTime()});
 let types = ['boulder', 'sport', 'trad', 'toprope'];
-
-let wheelPosition = localStrg.read({key: 'wheelPos'});
-let useVibrate = localStrg.read({key: 'useVibrate'});
 
 types.forEach((type) => {
   containerObj[type] = {}
@@ -133,7 +136,12 @@ let globalObjects = {
   lastTick: false,
   lastTickeRemoved: false,
   serverMessage :[] ,
-  standardMessage: []
+  standardMessage: [],
+
+  // GPS
+  gpsTracking: (useGPS) ? useGPS : false,
+  gpsLocation: null,
+  gpsLocationWatch: null
 };
 
 

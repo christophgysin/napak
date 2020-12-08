@@ -34,6 +34,8 @@ import { dce, storeObserver, countAscents, countTotalScore, countGroupScore, cou
 import { store } from '/js/shared/store.js';
 import { animate } from '/js/shared/animate.js';
 
+import geoLocation from '/js/shared/geolocation.js';
+
 let napak = {
   initialize : () => {
     globals.routes.groups = viewGroups;
@@ -116,8 +118,10 @@ let napak = {
       removeOnRouteChange: false
     });
 
+
+    const trackMe = new geoLocation();
+
     // init app
-//    document.body.innerHTML = "";
     appContainer.append(appContentContainer, pageFooter.render(appContainer), otcMenu.render());
 
     let naviShadow = dce({el: 'DIV', cssClass: 'navi-shadow'});
@@ -154,14 +158,16 @@ let napak = {
               store: 'score',
               key: 'displayName',
               keydata:  user.name.displayName
-            });
-    
-          }).catch((err)=>{console.log(err)})
+              });
+            }).catch((err)=>{console.log(err)})
 
-          route('home');
-        } else {
-          route('login');
-        }
+            // route uset to home after login
+            route('home');
+            // and enable geolocation
+            new geoLocation();
+          } else {
+            route('login');
+          }
       });
     }
 

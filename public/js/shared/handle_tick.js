@@ -60,7 +60,7 @@ let handleTick = ({
       ascentType: ascentType,
       date: tickDate,
       uuid: UUID(),
-      location: false
+      location: globals.gpsLocation
     };
     ticks.push(newTick);
     globals.lastTick = newTick;
