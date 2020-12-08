@@ -1,6 +1,7 @@
 import { globals } from '/js/shared/globals.js';
 import { storeObserver }  from '/js/shared/helpers.js';
 
+
 class geoLocation {
     constructor() {
         // geolocation options
@@ -12,12 +13,21 @@ class geoLocation {
 
         this.enableTracking = () => {
             if ( globals.gpsTracking ) {
+                let newStatusMessage = {
+                    message : 'Found you',
+                    timeout: 1,
+                    id : 'GPSLocation'
+                  };
+            
+                globals.standardMessage.push(newStatusMessage);
+                globals.standardMessage = globals.standardMessage;
                 globals.gpsLocationWatch = navigator.geolocation.watchPosition(this.geolocSuccess, this.geolocError, options);
             }
             else {
                 navigator.geolocation.clearWatch(globals.gpsLocationWatch);
                 globals.gpsLocationWatch = null;
                 globals.gpsLocation = null;
+                
                 }
         }
 
@@ -33,6 +43,7 @@ class geoLocation {
 
         this.geolocError = (err) => {
             console.warn('ERROR(' + err.code + '): ' + err.message);
+            globals.gpsTracking = false;
         }
 
         storeObserver.add({

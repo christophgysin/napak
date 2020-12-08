@@ -1,4 +1,4 @@
-import { dce } from '/js/shared/helpers.js';
+import { dce, storeObserver } from '/js/shared/helpers.js';
 import { globals } from '/js/shared/globals.js';
 
 class toggleSwitch {
@@ -22,7 +22,9 @@ class toggleSwitch {
         switchEl.classList.add('switched-off')
     };
 
-    let toggle = () => {
+    switchElement.append(firstOption, switchEl, secondOption);
+    
+    this.toggle = () => {
       switchStatus = !switchStatus;
       switchEl.classList.toggle('switched-off');
       if(targetStore) {
@@ -36,15 +38,18 @@ class toggleSwitch {
         callback(targetObj);
       }
     }
-    switchEl.addEventListener('click', toggle, false);
-    firstOption.addEventListener('click', toggle, false);
-    secondOption.addEventListener('click', toggle, false);
 
-    switchElement.append(firstOption, switchEl, secondOption);
+    switchEl.addEventListener('click', this.toggle, false);
+    firstOption.addEventListener('click', this.toggle, false);
+    secondOption.addEventListener('click', this.toggle, false);
 
+    
     this.render = () => {
       return switchElement;
     }
+
+
+
   }
 }
 

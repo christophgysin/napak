@@ -119,9 +119,18 @@ class viewHistory {
           let tick = ticks[i];
 
           deleteTick.addEventListener('click', ()=>{
+            let confirmationMessage = dce({el: 'DIV'});
+            let tickGrade = dce({el: 'SPAN', cssStyle: 'margin-right: var(--padding-base-half)', cssClass: `grade-legend ${globals.difficulty[tick.grade]}`, content: globals.grades.font[tick.grade]});
+            let tickDetails = dce({el: 'P', cssStyle: 'display: flex;'});
+            tickDetails.append(tickGrade, document.createTextNode(` ${tick.ascentType[0].toUpperCase()}${tick.ascentType.slice(1)}, ${tick.score}p`));
+            let confirm  = dce({el: 'P', content: 'Delete this tick? You might lose points! 🙀'});
+            confirmationMessage.append(tickDetails, confirm);
+
+            let tickInfo = tick; 
+            console.log(tickInfo)
             let modal = new modalWindow({
               title         : 'Confirm delete tick',
-              modalContent  : dce({el: 'DIV', content: 'Delete this tick? You might lose points! 🙀'}),
+              modalContent  : confirmationMessage,
               cssClass      : 'modal-small',
               buttons       : [
                 ['Delete', ()=>{
