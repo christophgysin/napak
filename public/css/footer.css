@@ -66,3 +66,30 @@ footer > nav a > span {
 footer > nav a > span img {
   width: 25px;
 }
+/*
+
+footer .gps {
+  position: relative;
+}
+footer .gps::before {
+  content: "";
+  box-shadow: 0 0 0 1px var(--color-theme-color2-alpha);
+  width: 20px;
+  height: 20px;
+  border-radius: 20px 20px 20px 0;
+  transform: rotate(-45deg) translateY(10px) translateX(-10px);
+  display: block;
+  transform-origin: left
+}
+
+footer .gps::after {
+  content: "";
+  box-shadow: 0 0 0 1px var(--color-theme-color2-alpha);
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  transform: translateY(-8px) translateX(2px);
+  display: block;
+  transform-origin: left
+}
+*/

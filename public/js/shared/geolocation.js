@@ -8,30 +8,20 @@ class geoLocation {
         const options = {
             enableHighAccuracy: true,
             timeout: 60000,
-            maximumAge: 0
+            maximumAge: 60000
             };
 
         this.enableTracking = () => {
             if ( globals.gpsTracking ) {
-                let newStatusMessage = {
-                    message : 'Found you',
-                    timeout: 1,
-                    id : 'GPSLocation'
-                  };
-            
-                globals.standardMessage.push(newStatusMessage);
-                globals.standardMessage = globals.standardMessage;
-                globals.gpsLocationWatch = navigator.geolocation.watchPosition(this.geolocSuccess, this.geolocError, options);
+                navigator.geolocation.getCurrentPosition(function () {}, function () {}, {});
+                globals.gpsLocationWatch = navigator.geolocation.watchPosition(this.geolocSuccess, this.geolocError, options);            
             }
             else {
                 navigator.geolocation.clearWatch(globals.gpsLocationWatch);
                 globals.gpsLocationWatch = null;
                 globals.gpsLocation = null;
-                
                 }
         }
-
-        this.handleLocationError = (browserHasGeolocation, infoWindow, pos) => {}
 
         this.geolocSuccess = (position) => {
             let lat = Math.floor(position.coords.latitude*1000+0.5)/1000;
@@ -42,8 +32,20 @@ class geoLocation {
         }
 
         this.geolocError = (err) => {
+            let newStatusMessage = {
+                message : 'Could not locate you 😿',
+                timeout: 3,
+                id : 'GPSLocationError'
+              };
+
+            globals.standardMessage.push(newStatusMessage);
+            globals.standardMessage = globals.standardMessage;
+
+            // user denied 
+            if(err.code === 1) {
+                globals.gpsTracking = false;
+            }
             console.warn('ERROR(' + err.code + '): ' + err.message);
-            globals.gpsTracking = false;
         }
 
         storeObserver.add({

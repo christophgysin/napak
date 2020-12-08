@@ -16,24 +16,10 @@ class footer {
     logoContainer.appendChild(logoImg);
     logoContainer.addEventListener('click', () => {route('home')}, false);
 
-    // statstics
-    let changeViewStatistics = dce({el: 'a', attrbs: [["label", "history"]]});
-    let changeViewStatisticsContainer = dce({el: 'SPAN'});
-    let linkStatisticsPageIcon = dce({el: 'IMG', source: 'images/stats.svg'})
-    let linkStatisticsPageTitle = dce({el: 'SPAN', content: 'history'});
-    changeViewStatisticsContainer.append(linkStatisticsPageIcon, linkStatisticsPageTitle);
-    changeViewStatistics.append(changeViewStatisticsContainer);
-    changeViewStatistics.addEventListener('click', () => {route('history')}, false);
-
-    let routeLinks = function (type) {
-      route(type)
-    };
-
-    let moreItemsMenu = dce({el: 'a', attrbs: [["label", "more options"]]});
-    let moreItemsMenuContainer = dce({el: 'SPAN'});
-    let moreItemsMenuIcon = dce({el: 'IMG', source: 'images/more.svg'})
+    let moreItemsMenu = dce({el: 'a'});
+    let moreItemsMenuContainer = dce({el: 'SPAN', content: "→"});
     let moreItemsMenuTitle = dce({el: 'SPAN', content:'More'});
-    moreItemsMenuContainer.append(moreItemsMenuIcon, moreItemsMenuTitle);
+    moreItemsMenuContainer.appendChild(moreItemsMenuTitle);
     moreItemsMenu.append(moreItemsMenuContainer);
 
 
