@@ -66,8 +66,8 @@ footer > nav a > span {
 footer > nav a > span img {
   width: 25px;
 }
-/*
 
+/*
 footer .gps {
   position: relative;
 }
@@ -93,3 +93,18 @@ footer .gps::after {
   transform-origin: left
 }
 */
+
+footer .gps {
+  clip-path: polygon(50% 12.5%, 25% 87.5%, 50% 62.5%,75% 87.5%);
+  background: var(--color-theme-color2);
+  width: 20px;
+  height: 20px;
+  transform: rotate(45deg);
+  display: block;
+}
+
+footer .gps-container {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+}
