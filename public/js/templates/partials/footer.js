@@ -22,7 +22,7 @@ class footer {
 
       else {
         Object.keys(globals.gpsLocation).forEach(key => {
-            docFrag.appendChild(dce({el: 'DIV', content: `${key.toUpperCase()} ${globals.gpsLocation[key]}`}))
+            docFrag.appendChild(dce({el: 'DIV', cssStyle: 'text-transform: capitalize', content: `${key}:  ${globals.gpsLocation[key]}`}))
           });
         }
       let modal = new modalWindow({

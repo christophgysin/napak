@@ -24,11 +24,16 @@ class geoLocation {
         }
 
         this.geolocSuccess = (position) => {
-            let lat = Math.floor(position.coords.latitude*1000+0.5)/1000;
-            let lon = Math.floor(position.coords.longitude*1000+0.5)/1000;
-            globals.gpsLocation = {lat: lat, lon:lon}
-
-            console.log(globals.gpsLocation)
+            let loc = {
+                accuracy: position.coords.accuracy,
+                altitude: position.coords.altitude,
+                altitudeAccuracy: position.coords.altitudeAccuracy,
+                heading: position.coords.heading,
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+                speed: position.coords.speed,
+            };
+            globals.gpsLocation = loc;
         }
 
         this.geolocError = (err) => {
