@@ -16,12 +16,16 @@ class footer {
 
     gpsContainer.addEventListener('click', () => {
       let docFrag = document.createDocumentFragment();
+      if ( !globals.gpsLocation ) {
+        docFrag.appendChild(dce({el: 'P', content: 'Could not locate you 😿'}));
+      }
 
-      Object.keys(globals.gpsLocation).forEach(key => {
-          docFrag.appendChild(dce({el: 'DIV', content: `${key.toUpperCase()} ${globals.gpsLocation[key]}`}))
-        });
-
-        let modal = new modalWindow({
+      else {
+        Object.keys(globals.gpsLocation).forEach(key => {
+            docFrag.appendChild(dce({el: 'DIV', content: `${key.toUpperCase()} ${globals.gpsLocation[key]}`}))
+          });
+        }
+      let modal = new modalWindow({
         title         : 'GPS location',
         modalContent  : docFrag,
         cssClass      : 'modal-small',
