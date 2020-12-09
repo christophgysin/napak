@@ -177,6 +177,10 @@ let napak = {
 
     appContentContainer.addEventListener('touchstart', handleTouchStart, true);
     appContentContainer.addEventListener('touchend', handleTouchEnd, true);
+
+    naviShadow.addEventListener('touchstart', handleTouchStart, true);
+    naviShadow.addEventListener('touchend', handleTouchEnd, true);
+    
     function handleTouchStart(e) {
       startX = e.changedTouches[0].screenX;
       startY = e.changedTouches[0].screenY;
@@ -189,11 +193,10 @@ let napak = {
       const ratioY = Math.abs(diffY / diffX);
       const absDiff = Math.abs(ratioX > ratioY ? diffX : diffY);
 
-      // Ignore small movements.
       if (absDiff < 30) {return;}
 
       if (ratioX > ratioY) {
-        if (diffX >= 0) {}  // right
+        if (diffX >= 0) {document.body.classList.remove('otc')}  // right
         else {document.body.classList.add('otc')} // left
       } else {
         if (diffY >= 0) {} // down
