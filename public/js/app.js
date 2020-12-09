@@ -171,6 +171,36 @@ let napak = {
       });
     }
 
+/* Swipe to open otc menu -> */
+    let startX = 0;
+    let startY = 0;
+
+    appContentContainer.addEventListener('touchstart', handleTouchStart, true);
+    appContentContainer.addEventListener('touchend', handleTouchEnd, true);
+    function handleTouchStart(e) {
+      startX = e.changedTouches[0].screenX;
+      startY = e.changedTouches[0].screenY;
+    }
+
+    function handleTouchEnd(e) {
+      const diffX = e.changedTouches[0].screenX - startX;
+      const diffY = e.changedTouches[0].screenY - startY;
+      const ratioX = Math.abs(diffX / diffY);
+      const ratioY = Math.abs(diffY / diffX);
+      const absDiff = Math.abs(ratioX > ratioY ? diffX : diffY);
+
+      // Ignore small movements.
+      if (absDiff < 30) {return;}
+
+      if (ratioX > ratioY) {
+        if (diffX >= 0) {}  // right
+        else {document.body.classList.add('otc')} // left
+      } else {
+        if (diffY >= 0) {} // down
+        else {} // up
+      }
+    }
+/* <- Swipe to open otc menu  */
 
     storeObserver.add({
       store: user,
