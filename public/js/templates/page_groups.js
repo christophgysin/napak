@@ -9,7 +9,7 @@ globals
     > updateGroupStanding
 */
 
-import { dce, storeObserver } from '/js/shared/helpers.js';
+import { dce, storeObserver, UUID, countTotalScore, averageGrade} from '/js/shared/helpers.js';
 import picker from '/js/components/picker.js';
 import modalWindow from '/js/components/modal.js';
 import dropdownMenu from '/js/components/dropdown.js';
@@ -130,9 +130,21 @@ class viewGroups {
       let joinButton = dce({el: 'A', cssClass: 'btn mt', content:' Join this group'});
       joinButton.addEventListener('click', () => {
 
+        let modalContent = document.createDocumentFragment();
+        let joinMessage = dce({el: 'P', cssStyle: 'margin-top: 0', content: `Join ${groups[globals.groupType][globals.currentGroup].title}?`});
+        modalContent.appendChild(joinMessage);
+
+        if(!groups[globals.groupType][globals.currentGroup].public) {
+          let passCodeForm = dce({el: 'FORM'});
+          let passCodeInfo = dce({el: 'P', cssStyle: 'margin-top: 0', content: 'This is private group. You need a secret key to join'})
+          let passCode = dce({el: 'INPUT', cssClass:'', attrbs: [['placeholder', 'Secret']] });
+          passCodeForm.append(passCodeInfo, passCode);
+          modalContent.appendChild(passCodeForm);
+          }
+
         let modal = new modalWindow({
           title         : 'Confirm join group',
-          modalContent  : dce({el: 'DIV', content: 'Join and start competing!'}),
+          modalContent  : modalContent,
           cssClass      : 'modal-small',
           buttons       : [
             ['Join', ()=>{
@@ -188,6 +200,31 @@ class viewGroups {
 
         headerContainer.append(pos, user, score, avg);
         groupStanding.appendChild(headerContainer);
+
+      /* remove ticks that are more thatn 30 days old */
+        let today = new Date().getTime();
+        for(let i = 0, j = data.length; i<j; i++ ) {
+          if(!data[i].current) data[i].current = {
+            indoors  : {boulder: {ticks:[{}]}, sport: {ticks:[{}]}, toprope: {ticks:[{}]}, trad: {ticks:[{}]}},
+            outdoors :  {boulder: {ticks:[{}]}, sport: {ticks:[{}]}, toprope: {ticks:[{}]}, trad: {ticks:[{}]}}
+          }
+
+          if(data[i].current[globals.indoorsOutdoors][globals.currentClimbingType].ticks) {
+            let ticks = data[i].current[globals.indoorsOutdoors][globals.currentClimbingType].ticks;
+            ticks = ticks.filter(obj => {
+              return (today - obj.date) / (1000 * 3600 * 24) <= 30
+            })
+          data[i].current[globals.indoorsOutdoors][globals.currentClimbingType].ticks = ticks;
+
+        /* Count score */
+          let score = countTotalScore({count: ticks.length, tickSet: ticks, returnTicks:false}).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+          data[i].current[globals.indoorsOutdoors][globals.currentClimbingType]['score'] = score;
+
+        /* Count average grade */
+        data[i].current[globals.indoorsOutdoors][globals.currentClimbingType]['average'] = averageGrade({count: ticks.length, tickSet: ticks});
+          }
+        }
+
         
         // Sort users - highest score first
         data.sort(function(a, b) {
@@ -218,12 +255,15 @@ class viewGroups {
             let userTopTicks = (data[i].current && data[i].current[globals.indoorsOutdoors]) ? data[i].current[globals.indoorsOutdoors][globals.currentClimbingType]['ticks'] : {};
             let modalData = document.createDocumentFragment();
             for(let k=0, l=userTopTicks.length; k<l;k++) {
-              let tickContainer = dce({el: 'DIV', cssClass: 'session-tick'});
-              let tickGrade = dce({el: 'DIV', cssClass: `grade-legend  ${globals.difficulty[userTopTicks[k].grade]}`, content: globals.grades.font[userTopTicks[k].grade]});
-              let tickType = dce({el: 'DIV', cssClass: '', content: userTopTicks[k].ascentType});
-              let tickScore = dce({el: 'DIV', cssClass: '', content: userTopTicks[k].score});
-              tickContainer.append(tickGrade, tickType, tickScore);
-              modalData.appendChild(tickContainer)
+              // Only show ticks if they are less than 31 days old
+              if((new Date().getTime() - userTopTicks[k].date) / (1000 * 3600 * 24) <= 30) {
+                let tickContainer = dce({el: 'DIV', cssClass: 'session-tick'});
+                let tickGrade = dce({el: 'DIV', cssClass: `grade-legend  ${globals.difficulty[userTopTicks[k].grade]}`, content: globals.grades.font[userTopTicks[k].grade]});
+                let tickType = dce({el: 'DIV', cssClass: '', content: userTopTicks[k].ascentType});
+                let tickScore = dce({el: 'DIV', cssClass: '', content: userTopTicks[k].score});
+                tickContainer.append(tickGrade, tickType, tickScore);
+                modalData.appendChild(tickContainer);
+              }
             }
 
             let modal = new modalWindow({
@@ -258,7 +298,7 @@ class viewGroups {
           message : 'Synchronizing groups data',
           spinner: true,
           timeout: -1,
-          id : 'tick-sync'
+          id : 'group-sync'
         };
 
         globals.serverMessage.push(newStatusMessage);
@@ -284,14 +324,16 @@ class viewGroups {
               };
             i++;
             }
-          // public groups where user is not a member
-          if(groupData.public && (groupData.users && !groupData.users.includes(dbuser.uid))  || !groupData.users) {
+          // All other groups
+          else {
             groups['publicGroups'][doc.id] = {
               title: groupData.name,
               value: doc.id,
               users: groupData.users,
               id: doc.id,
-              selected: (j == 0) ? true : false
+              selected: (j == 0) ? true : false,
+              public: groupData.public,
+              locked: (groupData.public) ? false : true
               };
             j++;
             }
@@ -424,7 +466,7 @@ class viewGroups {
 
       let passCodeContainer = dce({el: 'DIV', cssClass: 'hidden'});
       let passcodeTitle = dce({el: 'H3', cssClass: 'mb', content: 'Passcode (6-10 characters) '});
-      let passcode = dce({el: 'INPUT', cssClass:'', attrbs: [['placeholder', 'Passcode'], ['required', 'required'], ['minlength', 6], ['maxlength', 10]] });
+      let passcode = dce({el: 'INPUT', cssClass:'', attrbs: [['placeholder', 'Passcode'], ['disabled', 'disable'], ['value', UUID()]] });
       passCodeContainer.append(passcodeTitle, passcode);
       newGroupFormContainer.appendChild(passCodeContainer);
 

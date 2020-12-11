@@ -31,6 +31,8 @@ class calendar {
                 }
             }
         }
+        // need to call it ones here since tick sync was moved away from home page 
+        checkDateThatHasTicks()
 
         storeObserver.add({
             store: globals,

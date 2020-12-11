@@ -328,12 +328,7 @@ let countGroupScore = () => {
     let indoorsTopX = countTotalScore({count: 10, tickSet: ticksByDisciplineIndoors, returnTicks: true});
     let outdoorsTopX = countTotalScore({count: 10, tickSet: ticksByDisciplineOutdoors, returnTicks: true});
 
-    indoors[type]['score'] = countTopX({count: 10, tickSet: indoorsTopX, returnTicks: true});
-    indoors[type]['average'] = averageGrade({count: 10, tickSet: indoorsTopX}); // double work. Get average from topX data
     indoors[type]['ticks'] = indoorsTopX;
-
-    outdoors[type]['score'] = countTopX({count: 10, tickSet: outdoorsTopX});
-    outdoors[type]['average'] = averageGrade({count: 10, tickSet: outdoorsTopX});
     outdoors[type]['ticks'] = outdoorsTopX;
   });
 
@@ -406,6 +401,12 @@ let updateScopeTicks = () => {
   globals.averageGrade = averageGrade({count:10});
 }
 
+/* Handle dates */
+let UUID = () => {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
+};
 
 export {
   storeObserver,
@@ -423,5 +424,6 @@ export {
   countGroupScore,
   handleScopeTicks,
   updateScopeTicks,
-  parseDate
+  parseDate,
+  UUID
 }

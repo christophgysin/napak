@@ -94,6 +94,17 @@ footer .gps::after {
 }
 */
 
+footer .gps-container {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  height: 40px;
+  width: 40px;
+  align-items: center;
+}
+
 footer .gps {
   clip-path: polygon(50% 12.5%, 25% 87.5%, 50% 62.5%,75% 87.5%);
   background: var(--color-theme-color2);
@@ -101,10 +112,4 @@ footer .gps {
   height: 20px;
   transform: rotate(45deg);
   display: block;
-}
-
-footer .gps-container {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: center;
 }

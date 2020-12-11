@@ -105,7 +105,6 @@
   }
   
   .bar {
-    background: var(--color-theme-color2);
     width: 3px;
     display: block;
     position: absolute;
@@ -116,11 +115,9 @@
     transition: height 300ms ease-in-out;
     transform: translateX(-50%);
     left: 50%;
-  }
-  
-  .bar {
     background: linear-gradient(to right, #00ffcb 0%, #c806fe 100%);
     background-size: 100vw 100vh;
+    will-change: height;
   }
   
   .chart-container > DIV:nth-of-type(1) .bar {background-position: calc(100% / 24 * 1)}

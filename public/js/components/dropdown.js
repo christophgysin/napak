@@ -21,7 +21,12 @@ class dropdownMenu {
         items[0].selected = true;
       }
       items.forEach( (item) => {
-        let itemContainer = dce({el: 'A', content: item.title});
+        let itemContainer = dce({el: 'A'});
+        if(item.locked) {
+          itemContainer.appendChild(dce({el: 'SPAN', content: '🔐'}))
+        }
+        itemContainer.appendChild(document.createTextNode(item.title));
+        
         if(item.selected) {
           itemContainer.classList.add('selected');
           this.selected = item;

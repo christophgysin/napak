@@ -2,12 +2,19 @@ import { dce } from '/js/shared/helpers.js';
 import { user } from '/js/shared/user.js';
 import { route } from '../shared/route.js';
 import { store } from '../shared/store.js';
+import statusTicker from '/js/templates/partials/status_ticker.js';
 
 class viewProfile {
   constructor() {
 
-    document.body.classList.remove('otc');
     let container = dce({el: 'DIV', cssClass: 'page-profile'});
+
+    let ticker = new statusTicker({
+      titlePrefix : 'Profile',
+      tapAction: () => { }
+    });
+
+    
     let loginFormContainer = dce({el: 'SECTION', cssClass: 'login-form'});
 
     let logoContainer = dce({el: 'DIV', cssClass: 'logo-container'});
@@ -34,7 +41,7 @@ class viewProfile {
 
     loginFormContainer.append(logoContainer, userProfileForm);
 
-    container.append(loginFormContainer);
+    container.append(ticker.render(), loginFormContainer);
 
     let updateProfile = () => {
       let dbUser = firebase.auth().currentUser;

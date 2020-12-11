@@ -26,7 +26,6 @@ var cacheFiles = [
   '/js/shared/route.js',
   '/js/shared/store.js',
   '/js/shared/user.js',
-  '/js/shared/uuid.js',
   '/js/templates/partials/footer.js',
   '/js/templates/partials/section_grade-selector.js',
   '/js/templates/partials/section_otc.js',

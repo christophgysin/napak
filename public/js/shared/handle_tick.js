@@ -1,8 +1,7 @@
 import { globals } from '/js/shared/globals.js';
-import { UUID } from '/js/shared/uuid.js';
 import { store } from '/js/shared/store.js';
 import { handleDate } from '/js/shared/date.js';
-import { parseDate } from '/js/shared/helpers.js';
+import { parseDate, UUID } from '/js/shared/helpers.js';
 /* Handle tick */
 
 let handleTick = ({

@@ -134,8 +134,10 @@ let napak = {
     gridContainer.appendChild(appContainer);
     document.body.appendChild(gridContainer);
 
+    // check user login status
     let loginStatus = () => {
       firebase.auth().onAuthStateChanged(function(fbUser) {
+        // hide splash screen
         let el =  document.body.querySelector('.splash');
         if(el) {
           el.style['animation'] = "fadeout 1000ms ease-in-out";
@@ -146,6 +148,7 @@ let napak = {
             });
           }
 
+        // user is logged in
         if (fbUser) {
           const db = firebase.firestore();
           const dbuser = firebase.auth().currentUser;
@@ -154,6 +157,10 @@ let napak = {
             const data = doc.data();
             user.name = data.user;
 
+            // enable geolocation (if set on)
+            new geoLocation();
+
+            // update user name to highscore store (is this needed)
             store.update({
               store: 'score',
               key: 'displayName',
@@ -161,10 +168,32 @@ let napak = {
               });
             }).catch((err)=>{console.log(err)})
 
+            // Get user ticks
+            db.collection('users').doc(dbuser.uid).get().then( (doc) => {
+              // show status ticker for tick sync
+              let newStatusMessage = {
+                message : 'Synchronizing ticks',
+                spinner: true,
+                timeout: -1,
+                id : 'tick-sync'
+              };
+          
+              globals.serverMessage.push(newStatusMessage);
+              globals.serverMessage = globals.serverMessage;
+  
+              const data = doc.data();
+              if(data.ticks) {
+                globals.ticks = data.ticks;
+              }
             // route uset to home after login
-            route('home');
-            // and enable geolocation
-            new geoLocation();
+            }).then( () => {
+              // user is logged in, route 
+              let routePath = window.location.pathname.slice(1);
+              route((routePath !== "" && routePath !== 'login') ? routePath : 'home');
+              // ticks are synced - removed ticker
+              globals.serverMessage[0].finished = true;
+              globals.serverMessage = globals.serverMessage;
+          });
           } else {
             route('login');
           }
@@ -187,6 +216,10 @@ let napak = {
     }
 
     function handleTouchEnd(e) {
+      // prevent opening OTC menu when modal is open
+      if(document.body.classList.contains('modal-open')){
+        return;
+      }
       const diffX = e.changedTouches[0].screenX - startX;
       const diffY = e.changedTouches[0].screenY - startY;
       const ratioX = Math.abs(diffX / diffY);
@@ -204,7 +237,7 @@ let napak = {
       }
     }
 /* <- Swipe to open otc menu  */
-
+/*
     storeObserver.add({
       store: user,
       key: 'login',
@@ -212,6 +245,7 @@ let napak = {
       callback: loginStatus,
       removeOnRouteChange: false
     });
+*/
 
     loginStatus();
   }

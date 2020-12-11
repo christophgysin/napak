@@ -79,7 +79,7 @@ class otc {
     let settingsContainer = dce({el: 'DIV', cssClass: 'settings'});
 
     let vibrateContainer = dce({el: 'DIV', cssClass: 'mb'});
-    let vibrateTitle = dce({el: 'H3', content: 'Haptics'});
+    let vibrateTitle = dce({el: 'H3', content: 'Haptics', cssClass: 'mb'});
     let vibrateOnOff = new toggleSwitch({
       cssClass  : 'horizontal-menu full-width',
       targetObj : 'vibrate',
@@ -96,7 +96,7 @@ class otc {
 
 // not in use yet
     let locationContainer = dce({el: 'DIV', cssClass: 'mt'});
-    let locationTitle = dce({el: 'H3', cssClass: 'mt', content: 'LOCATION TRACKING'});
+    let locationTitle = dce({el: 'H3', cssClass: 'mt mb', content: 'LOCATION TRACKING'});
     let locationOnOff = new toggleSwitch({
       cssClass  : 'horizontal-menu full-width',
       targetObj : 'gpsTracking',
