@@ -3,10 +3,6 @@ import { storeObserver } from '/js/shared/helpers.js';
 
 let route = (params) => {
 
-  window.addEventListener('popstate', (evt) => {
-    console.log('meh')
-  }, false);
-
   if(params !== globals.route) {
     // Clear store observers marked with removeOnRouteChange
     storeObserver.clear();
@@ -16,7 +12,6 @@ let route = (params) => {
     document.querySelector('.page-content').appendChild(trgt.render());
 
     history.pushState( {}, globals.route, globals.route );
-
   }
 };
 

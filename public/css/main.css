@@ -393,6 +393,11 @@ BODY.indoors section.grade::after {
   margin: 1em;
 }
 
+.spinner.spinner-white {
+  border: 1px solid var(--color-white);
+  border-top-color: transparent;
+}
+
 .text-link {
   color: var(--color-theme-color2);
 }

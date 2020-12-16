@@ -247,6 +247,13 @@ let napak = {
     });
 */
 
+// handle pop state events
+  window.addEventListener('popstate', (evt) => {
+    let parseURL =  window.location.pathname.slice(1);
+    route(parseURL)
+  }, false);
+
+
     loginStatus();
   }
 }

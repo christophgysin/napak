@@ -139,7 +139,7 @@ let averageGrade = ( { count = 10, scope = globals.scope, tickSet = false } = {}
 
 
 // Total score
-let countTotalScore = ( { count= 10, scope = globals.scope, tickSet = false, returnTicks = false } = {} ) => {
+let countTotalScore = ( { count = 10, scope = globals.scope, tickSet = false, returnTicks = false } = {} ) => {
   let ticks = (tickSet) ? tickSet : handleScopeTicks({scope: scope});
   let score = Array(count).fill(0); // this is wrong. It no adds x empty ticks (by grade of 3) to the array
 
