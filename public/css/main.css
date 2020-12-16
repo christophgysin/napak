@@ -45,6 +45,7 @@ body {
   font-weight: 100;
   z-index: 1;
   font-size: var(--font-size-base);
+  -webkit-text-size-adjust: none;
 }
 
 h2 {
