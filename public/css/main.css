@@ -128,7 +128,7 @@ section {
   right: 0;
   bottom: 0;
   background: var(--color-black);
-  z-index: 3;
+  z-index: 999;
   opacity :0;
   pointer-events: none;
   transition: all 300ms ease-in-out;

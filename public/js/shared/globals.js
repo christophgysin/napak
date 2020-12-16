@@ -46,6 +46,8 @@ types.forEach((type) => {
 */
 
 let globalObjects = {
+  version: 'v0.1b',
+
   routes: {},
   storeObservers : [],
   today: today,

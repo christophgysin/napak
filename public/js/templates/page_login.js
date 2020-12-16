@@ -1,7 +1,7 @@
 import { dce } from '/js/shared/helpers.js';
 import { user } from '/js/shared/user.js';
 import { route } from '/js/shared/route.js';
-import { store } from '../shared/store.js';
+import { globals } from '/js/shared/globals.js';
 
 
 class viewLogin {
@@ -14,7 +14,7 @@ class viewLogin {
 
     let logoContainer = dce({el: 'DIV', cssClass: 'logo-container'});
     let logo = dce({el: 'IMG', source: '/images/napak_vector.svg', cssClass:'logo'});
-    let version = dce({el: 'SPAN', content: '  0.x'})
+    let version = dce({el: 'SPAN', content: ` ${globals.version}`})
 
     logoContainer.append(logo, version);
 

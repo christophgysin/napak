@@ -4,6 +4,7 @@ import { user } from '/js/shared/user.js';
 import { route } from '/js/shared/route.js';
 import { globals } from '/js/shared/globals.js';
 import { localStrg } from '/js/shared/localstorage.js';
+import modalWindow from '/js/components/modal.js';
 
 
 class otc {
@@ -14,9 +15,28 @@ class otc {
 
     let logoContainer = dce({el: 'DIV', cssClass: 'logo-container'});
     let logoImg = dce({el: 'IMG', source: '/images/napak_vector.svg', cssClass: 'logo'});
-    let version = dce({el: 'SPAN', content: ' 0.1'});
+    let version = dce({el: 'SPAN', content: ` ${globals.version}`});
+    let about = dce({el: 'P', content: 'About'});
 
-    logoContainer.append(logoImg, version);
+    about.addEventListener('click', () => {
+      let modalContent = dce({el: 'P'});
+      modalContent.appendChild(dce({el: 'H3', content : 'New in this version'}));
+      let nakki = dce({el: 'UL'});
+
+      nakki.appendChild(dce({el: 'LI', content : '- Added back functionality for Android users'}));
+      nakki.appendChild(dce({el: 'LI', content : '- Groups are still under development'}));
+
+      modalContent.appendChild(nakki);
+      
+      let modal = new modalWindow({
+        title         : `About Napak ${globals.version}`,
+        modalContent  : modalContent,
+        open          : true          });
+  
+      document.body.appendChild(modal.render())  
+    }, false);
+
+    logoContainer.append(logoImg, version, about);
 
     let loginInfo = dce({el: 'DIV', cssClass: 'login-info'});
 
