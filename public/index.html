@@ -10,22 +10,46 @@
 	<meta name="msapplication-TileColor" content="#3e3f4a">
 	<meta name="theme-color" content="#3e3f4a">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-	<meta description="Napak.rocks" />
+	<meta name="description" content="Napak" />
 
   <script src="/__/firebase/8.1.1/firebase-app.js"></script>
   <script src="/__/firebase/8.1.1/firebase-auth.js"></script>
   <script src="/__/firebase/8.1.1/firebase-firestore.js"></script>
   <script src="/__/firebase/init.js"></script>
   <script src="https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.js"></script>
-  <link rel="stylesheet" href="css/main.css" />
-  <link rel="manifest" href="/manifest.json">
 
-  <script src="js/app.js" type="module"></script>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="manifest" href="/manifest.json">
+  
+  <link rel="apple-touch-icon" href="/images/icons-192.png">
+
+  <script src="/js/app.js" type="module"></script>
 </head>
 <body>
 
 <div class="splash" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: #fff; z-index: 999">
   <img src="/images/napak_vector_black.svg" style="width: 25%; position: absolute; top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0); opacity: 1" alt="" />
 </div>
+
+<noscript>
+  Napak is single page app and needs javascript to be enabled
+</noscript>
+
+<script>
+/*
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+*/
+</script>
+
 </body>
 </html>

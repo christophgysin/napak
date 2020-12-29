@@ -27,7 +27,7 @@ class viewResetPassword {
     goBack.appendChild(goBackLink);
 
     goBackLink.addEventListener('click', ()=>{
-      route('login');
+      route({page: 'login'});
     }, false)
 
 

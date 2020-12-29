@@ -341,7 +341,7 @@ let countGroupScore = () => {
 // Return all ticks matching the scope
 let handleScopeTicks = ({scope = globals.scope, allTypes= false, tickSet = false, indoorsOutdoors = globals.indoorsOutdoors, ignoreIndoorsOutdoors = false} = {}) => {
   let fromNow;
-  let limitTo;
+  let limitTo; // = new Date().getTime();
   /*
     if scope is set to Today, use globals.today which might be any date
     if scope is anything else, use globals.realToday which is allways the correct date
@@ -350,26 +350,22 @@ let handleScopeTicks = ({scope = globals.scope, allTypes= false, tickSet = false
   let year = Number(fromNowArray[0]);
   let month = Number(fromNowArray[1]);
   let day = Number(fromNowArray[2]);
+  
+  limitTo = new Date(year, month-1, day, 23, 59, 59).getTime();
+  fromNow = new Date(year, month-1, day, 0, 0, 1).getTime()
 
-  let limitDay = day;
-  let limitMonth = month;
-  let limitYear = year;
-
+  if(scope === 'today') {
+    fromNow = new Date(year, month-1, day, 0, 0, 1).getTime();
+  }
   if(scope === 'thirtydays') {
-    limitMonth=month;
-    month-=1;
+    fromNow = limitTo - ((24*60*60*1000) * 30);
   }
   if(scope === 'year') {
-    limitYear = year;
-    year-=1;
+    fromNow = limitTo - ((24*60*60*1000) * 365); 
   }
   if(scope === 'alltime'){
-    year = 2000; month = 1; day = 1;
-    limitYear = 2100;
+    fromNow = new Date(2000, 1,1).getTime()
   }
-
-  fromNow = new Date(year, month-1, day).getTime();
-  limitTo = new Date(limitYear, limitMonth-1 , limitDay, 23,59).getTime();
 
   let ticks = [];
 
@@ -401,12 +397,44 @@ let updateScopeTicks = () => {
   globals.averageGrade = averageGrade({count:10});
 }
 
-/* Handle dates */
+/* UUID */
 let UUID = () => {
   return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
     (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
   );
 };
+
+
+
+/* Handle dates */
+let handleDate = (params) => {
+  let {
+    dateString,
+    dateFormat = 'yyyy-mm-dd',
+  } = params;
+
+  if (!dateString) { return; }
+
+  let date = new Date(dateString);
+
+  let json = {
+    yyyy: date.getFullYear(),
+    mm: String(date.getMonth() + 1).padStart(2, 0),
+    dd: String(date.getDate()).padStart(2, 0),
+    HH: String(date.getHours()).padStart(2, 0),
+    MM: String(date.getMinutes()).padStart(2, 0),
+    SS: String(date.getSeconds()).padStart(2, 0),
+    MS: String(date.getMilliseconds()).padStart(3, 0),
+  };
+
+  Object.entries(json).forEach(([key, value]) => {
+    let patt = new RegExp(key, 'gm');
+    dateFormat = dateFormat.replace(patt, value);
+  });
+
+  return dateFormat;
+};
+
 
 export {
   storeObserver,
@@ -425,5 +453,6 @@ export {
   handleScopeTicks,
   updateScopeTicks,
   parseDate,
-  UUID
+  UUID,
+  handleDate
 }

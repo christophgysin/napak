@@ -17,6 +17,7 @@ import toggleSwitch from '/js/components/toggleswitch.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
 import groupOptions from '/js/templates/partials/group_options.js';
 import groupStanding from '/js/templates/partials/group_standing.js';
+import cryptPwd from '/js/shared/crypto.js';
 
 class viewGroups {
   constructor() {
@@ -26,7 +27,7 @@ class viewGroups {
     let groups = {};
     let options = new groupOptions({
       options : [
-        ['Edit group', () => { console.log('meh')}],
+//        ['Edit group', () => { console.log('meh')}],
         ['Create new group', () => {this.createNewGroup()}]
       ]
     });
@@ -86,7 +87,7 @@ class viewGroups {
         {title: 'Outdoors', value: 'outdoors'}]
     });
 
-    let groupStandingContainer = new groupStanding() //dce({el: 'UL', cssClass: 'group-toplist mt'});
+    let groupStandingContainer = new groupStanding();
 
     rankingContainer.append(groupClimbingTypeSelector.render(), indoorsOutdoorsSelector.render(), groupStandingContainer.render())
 
@@ -102,7 +103,7 @@ class viewGroups {
       }
 
       let groupUsers = groups[globals.groupType][globals.currentGroup].users;
-      if(!groupUsers) {
+      if(!groupUsers || !groupUsers.length) {
         updateGroupStanding(); 
         return;
       }
@@ -261,29 +262,46 @@ class viewGroups {
       newGroupFormContainer.append(groupPublicityTitle, groupPublicity.render());
 
       let passCodeContainer = dce({el: 'DIV', cssClass: 'hidden'});
-      let passcodeTitle = dce({el: 'H3', cssClass: 'mb', content: 'Passcode (6-10 characters) '});
-      let passcode = dce({el: 'INPUT', cssClass:'', attrbs: [['placeholder', 'Passcode'], ['disabled', 'disable'], ['value', UUID()]] });
-      passCodeContainer.append(passcodeTitle, passcode);
+      let passcode = dce({el: 'INPUT', cssClass:'', attrbs: [['placeholder', 'Passcode'], ['hidden', true], ['disabled', 'disabled'],['value', UUID()]] });
+      let passwordTitle = dce({el: 'H3', cssClass: 'mb', content: 'Password'});
+      let password = dce({el: 'INPUT', cssClass:'', attrbs: [['placeholder', 'Password']] });
+
+      passCodeContainer.append(passcode, passwordTitle, password);
       newGroupFormContainer.appendChild(passCodeContainer);
 
       const addGroupToStore = (mother) => {
-        console.log(mother)
-        
-        console.log(groupName);
+        let secret = ''; 
 
-        db.collection("groups").add({
-          name: groupName.value,
-          owner: dbuser.uid,
-          public: isPublic,
-          passphrase: passcode.value,
-          users: [dbuser.uid]
-      })
-      .then(function(docRef) {
-          console.log("Document written with ID: ", docRef.id);
-      })
-      .catch(function(error) {
-          console.error("Error adding document: ", error);
-      });
+        let addGroupToDatabase = () => {
+          db.collection("groups")
+            .add({
+              name: groupName.value,
+              owner: dbuser.uid,
+              public: isPublic,
+              secret: secret,
+              users: [dbuser.uid]
+          })
+          .then(function(docRef) {
+              console.log("Document written with ID: ", docRef.id);
+          })
+          .catch(function(error) {
+              console.error("Error adding document: ", error);
+          });
+        }
+
+        if( !isPublic ) {
+          let crypter = new cryptPwd();
+          crypter.encrypt({data: passcode.value, password: password.value}).then((data)=>{
+            secret = data;
+            addGroupToDatabase()
+          });
+       }
+       else {
+        addGroupToDatabase()
+       }
+/*
+
+*/
       }
 
       let modal = new modalWindow({

@@ -10,8 +10,7 @@ globals
 */
 
 import { globals } from '/js/shared/globals.js';
-import { handleDate } from '/js/shared/date.js';
-import { dce, storeObserver, handleScopeTicks, eightaNuScore, averageGrade} from '/js/shared/helpers.js';
+import { dce, storeObserver, handleScopeTicks, eightaNuScore, averageGrade, handleDate } from '/js/shared/helpers.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
 import climbingTypeSelector from '/js/templates/partials/climbing_type-selector.js';
 import modalWindow from '/js/components/modal.js';
@@ -135,7 +134,8 @@ class viewHistory {
               buttons       : [
                 ['Delete', ()=>{
                   this.deleteTick(tick);
-                  modal.close();}],
+                  modal.close();},
+                'preferred'],
                 ['Cancel', () => {
                   modal.close()}]
                 ],

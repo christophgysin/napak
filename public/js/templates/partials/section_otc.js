@@ -23,11 +23,11 @@ class otc {
       modalContent.appendChild(dce({el: 'H3', content : 'New in this version'}));
       let nakki = dce({el: 'UL'});
 
-      nakki.appendChild(dce({el: 'LI', content : '- Added back functionality for Android users'}));
-      nakki.appendChild(dce({el: 'LI', content : '- Groups are still under development'}));
+      nakki.appendChild(dce({el: 'LI', content : '- Password protected groups'}));
+      nakki.appendChild(dce({el: 'LI', content : '- Updated scope handling'}));
 
       modalContent.appendChild(nakki);
-      
+
       let modal = new modalWindow({
         title         : `About Napak ${globals.version}`,
         modalContent  : modalContent,
@@ -48,7 +48,7 @@ class otc {
     let updateProfile = dce({el: 'h3', cssClass: 'hidden', content: 'What kind of user name is that? '});
     let updateProfileLink = dce({el: 'A', cssClass: 'text-link', content: 'Update your profile'});
     updateProfileLink.addEventListener('click', ()=>{
-      route('profile');
+      route({page: 'profile'});
     }, false);
 
     if(!userName) {updateProfile.classList.remove('hidden'); }
@@ -153,28 +153,28 @@ class otc {
 
 
     btnHome.addEventListener('click', () => {
-      route('home');
+      route({page: 'home'});
       document.body.classList.remove('otc')
     }, false);
 
 
     btnProfile.addEventListener('click', () => {
-      route('profile');
+      route({page: 'profile'});
       document.body.classList.remove('otc')
     }, false);
 
     btnGroups.addEventListener('click', () => {
-      route('groups');
+      route({page: 'groups'});
       document.body.classList.remove('otc')
     }, false);
 
     btnStatistics.addEventListener('click', () => {
-      route('statistics');
+      route({page: 'statistics'});
       document.body.classList.remove('otc')
     }, false);
 
     btnHistory.addEventListener('click', () => {
-      route('history');
+      route({page: 'history'});
       document.body.classList.remove('otc')
     }, false);
 

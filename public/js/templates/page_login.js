@@ -28,7 +28,7 @@ class viewLogin {
     let createAccountLink = dce({el: 'A', cssClass: 'text-link', content: 'Create one!'});
     noAccount.appendChild(createAccountLink);
     createAccountLink.addEventListener('click', ()=>{
-      route('signup');
+      route({page: 'signup'});
     }, false)
 
     let forgotPasswordContainer = dce({el: 'DIV', cssClass: 'mt mb'});
@@ -36,7 +36,7 @@ class viewLogin {
     forgotPasswordContainer.appendChild(forgotPasswordLink);
 
     forgotPasswordLink.addEventListener('click', ()=>{
-      route('resetPassword');
+      route({page: 'resetPassword'});
     }, false)
 
 
@@ -46,17 +46,8 @@ class viewLogin {
           user.login.isLoggedIn = true;
           user.login = user.login;
         })
-          // result.user.tenantId sho
         .catch(function(error) {
-        // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          if (errorCode === 'auth/wrong-password') {
-            loginError.innerHTML = "Wrong password";
-          } else {
-            loginError.innerHTML = errorMessage;
-          }
-//          console.log(error);
+          loginError.innerHTML = "Incorrect username or password";
         });
     }
 

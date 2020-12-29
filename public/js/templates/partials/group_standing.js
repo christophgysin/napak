@@ -68,8 +68,9 @@ class groupStanding {
           let entryPos = dce({el: 'SPAN', content: `${i+1}.`});
           let entryName = dce({el: 'SPAN', content:  data[i].displayName});
           let entryPointsContainer = dce({el: 'SPAN', content: (score) ? score: '-'});
-          let entryPointsDirection = dce({el: 'SPAN', cssClass : 'dir', content: ['↓', '↑', '-'][~~(3 * Math.random())]});
+/*          let entryPointsDirection = dce({el: 'SPAN', cssClass : 'dir', content: ['↓', '↑', '-'][~~(3 * Math.random())]});
           entryPointsContainer.appendChild(entryPointsDirection);
+*/
           let entryAvgGrade = dce({el: 'SPAN', content: avgGrade});
 
           groupEntry.append(entryPos, entryName, entryPointsContainer, entryAvgGrade);

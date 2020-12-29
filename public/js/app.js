@@ -27,9 +27,10 @@ import footer from '/js/templates/partials/footer.js';
 import otc from '/js/templates/partials/section_otc.js';
 import { route } from '/js/shared/route.js';
 
+import { dce, storeObserver, countAscents, countTotalScore, countGroupScore, countTopX, averageGrade, countAscentsByType }  from '/js/shared/helpers.js';
+
 import { globals } from '/js/shared/globals.js';
 import { user } from '/js/shared/user.js';
-import { dce, storeObserver, countAscents, countTotalScore, countGroupScore, countTopX, averageGrade, countAscentsByType }  from '/js/shared/helpers.js';
 
 import { store } from '/js/shared/store.js';
 import { animate } from '/js/shared/animate.js';
@@ -189,13 +190,13 @@ let napak = {
             }).then( () => {
               // user is logged in, route 
               let routePath = window.location.pathname.slice(1);
-              route((routePath !== "" && routePath !== 'login') ? routePath : 'home');
+              route({page: (routePath !== "" && routePath !== 'login') ? routePath : 'home'});
               // ticks are synced - removed ticker
               globals.serverMessage[0].finished = true;
               globals.serverMessage = globals.serverMessage;
           });
           } else {
-            route('login');
+            route({page: 'login'});
           }
       });
     }
@@ -204,11 +205,11 @@ let napak = {
     let startX = 0;
     let startY = 0;
 
-    appContentContainer.addEventListener('touchstart', handleTouchStart, true);
-    appContentContainer.addEventListener('touchend', handleTouchEnd, true);
+    appContentContainer.addEventListener('touchstart', handleTouchStart, false);
+    appContentContainer.addEventListener('touchend', handleTouchEnd, false);
 
-    naviShadow.addEventListener('touchstart', handleTouchStart, true);
-    naviShadow.addEventListener('touchend', handleTouchEnd, true);
+    naviShadow.addEventListener('touchstart', handleTouchStart, false);
+    naviShadow.addEventListener('touchend', handleTouchEnd, false);
     
     function handleTouchStart(e) {
       startX = e.changedTouches[0].screenX;
@@ -250,7 +251,12 @@ let napak = {
 // handle pop state events
   window.addEventListener('popstate', (evt) => {
     let parseURL =  window.location.pathname.slice(1);
-    route(parseURL)
+    let params = new Array();
+		let routeParams = parseURL.split("/");
+		for(let i=1; i < routeParams.length; i++){
+			params.push(routeParams[i]);
+      };
+    route({page: parseURL, params: params})
   }, false);
 
 

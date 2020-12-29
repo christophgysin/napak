@@ -28,11 +28,6 @@
 .login-page section,
 .signup-page section {
   padding: var(--padding-base-wide);
-  /*
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  */
 }
 
 .login-page H1,
@@ -49,10 +44,14 @@
   position: absolute;
 }
 
-
+.login-error:not(:empty),
 .api-message-error:not(:empty) {
   margin: 0 0 var(--padding-base);
-  color: var(--color-redpoint)
+  color: var(--color-white);
+  border: 1px dashed var(--color-white-dim);
+  padding: var(--padding-base-half);
+  background: var(--color-black-alpha40);
+  border-radius: 5px;
 }
 
 .api-message-success:not(:empty) {

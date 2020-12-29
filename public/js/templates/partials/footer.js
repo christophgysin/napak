@@ -39,7 +39,7 @@ class footer {
     let logoImg = dce({el: 'IMG', source: '/images/napak_vector.svg', cssClass: 'logo'});
 
     logoContainer.appendChild(logoImg);
-    logoContainer.addEventListener('click', () => {route('home')}, false);
+    logoContainer.addEventListener('click', () => {route({page: 'home'})}, false);
 
     let moreItemsMenu = dce({el: 'a'});
     let moreItemsMenuContainer = dce({el: 'SPAN', content: "→"});

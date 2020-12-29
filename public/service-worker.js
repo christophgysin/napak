@@ -1,47 +1,58 @@
 
 // Set a name for the current cache
-var cacheName = 'v1'; 
+var cacheName = 'v1.2'; 
+
 
 // Default files to always cache
 var cacheFiles = [
   '/',
-  '/__/firebase/7.7.0/firebase-app.js',
-  '/__/firebase/7.7.0/firebase-auth.js',
-  '/__/firebase/7.7.0/firebase-firestore.js',
-  '/__/firebase/init.js',
+  '/__/firebase/8.1.1/firebase-app.js',
+  '/__/firebase/8.1.1/firebase-auth.js',
+  '/__/firebase/8.1.1/firebase-firestore.js',
+  '/__/firebase/init.js',  
   '/index.html',
   '/js/',
+  '/js/app.js',
+  '/js/components/calendar.js',
   '/js/components/charts.js',
   '/js/components/dropdown.js',
+  '/js/components/modal.js',
   '/js/components/picker.js',
-  '/js/components/pulldown.js',
   '/js/components/toggleswitch.js',
   '/js/components/wheel.js',
   '/js/shared/animate.js',
-  '/js/shared/auth.js',
-  '/js/shared/date.js',
+  '/js/shared/crypto.js',
+  '/js/shared/geolocation.js',
   '/js/shared/globals.js',
   '/js/shared/handle_tick.js',
   '/js/shared/helpers.js',
+  '/js/shared/localstorage.js',
   '/js/shared/route.js',
   '/js/shared/store.js',
   '/js/shared/user.js',
+  '/js/templates/partials/climbing_type-selector.js',
   '/js/templates/partials/footer.js',
+  '/js/templates/partials/group_join.js',
+  '/js/templates/partials/group_options.js',
+  '/js/templates/partials/group_part.js',
+  '/js/templates/partials/group_standing.js', 
   '/js/templates/partials/section_grade-selector.js',
   '/js/templates/partials/section_otc.js',
   '/js/templates/partials/section_progress.js',
   '/js/templates/partials/status_ticker.js',
   '/js/templates/page_groups.js',
-  '/js/templates/page_home.js',
   '/js/templates/page_history.js',
+  '/js/templates/page_home.js',
   '/js/templates/page_login.js',
-  '/js/templates/page_settings.js',
+  '/js/templates/page_profile.js',
+  '/js/templates/page_reset-password.js',
   '/js/templates/page_signup.js',
   '/js/templates/page_statistics.js',
-  '/js/app.js',
   /* CSS */
   '/css/animations.css',
   '/css/buttons.css',
+  '/css/calendar.css',
+  '/css/dropdown.css',
   '/css/fonts.css',
   '/css/footer.css',
   '/css/groups.css',
@@ -50,22 +61,29 @@ var cacheFiles = [
   '/css/legends.css',
   '/css/login.css',
   '/css/main.css',
+  '/css/modal.css',
   '/css/otc.css',
+  '/css/profile.css',
+  '/css/progress.css',
   '/css/status_ticker.css',
-  '/css/variables.css'
-
+  '/css/toggle.css',
+  '/css/variables.css',
+  /* IMAGES */
+  '/images/bgr_history.jpg',
+  '/images/bgr_indoors.jpg',
+  '/images/bgr_outdoors.jpg',
+  '/images/gear.svg',
+  '/images/napak_vector_black.svg',
+  '/images/napak_vector.svg'
 ]
 
 
 self.addEventListener('install', function(e) {
     console.log('[ServiceWorker] Installed');
-
     // e.waitUntil Delays the event until the Promise is resolved
     e.waitUntil(
-
     	// Open the cache
 	    caches.open(cacheName).then(function(cache) {
-
 	    	// Add all the default files to the cache
 			console.log('[ServiceWorker] Caching cacheFiles');
 			return cache.addAll(cacheFiles);
@@ -74,79 +92,16 @@ self.addEventListener('install', function(e) {
 });
 
 
-self.addEventListener('activate', function(e) {
-    console.log('[ServiceWorker] Activated');
-
-    e.waitUntil(
-
-    	// Get all the cache keys (cacheName)
-		caches.keys().then(function(cacheNames) {
-			return Promise.all(cacheNames.map(function(thisCacheName) {
-
-				// If a cached item is saved under a previous cacheName
-				if (thisCacheName !== cacheName) {
-
-					// Delete that cached file
-					console.log('[ServiceWorker] Removing Cached Files from Cache - ', thisCacheName);
-					return caches.delete(thisCacheName);
-				}
-			}));
-		})
-	); // end e.waitUntil
-
+self.addEventListener('activate', event => {
+  event.waitUntil(self.clients.claim());
 });
 
-
-self.addEventListener('fetch', function(e) {
-	console.log('[ServiceWorker] Fetch', e.request.url);
-
-	// e.respondWidth Responds to the fetch event
-	e.respondWith(
-
-		// Check in cache for the request being made
-		caches.match(e.request)
-
-
-			.then(function(response) {
-
-				// If the request is in the cache
-				if ( response ) {
-					console.log("[ServiceWorker] Found in Cache", e.request.url, response);
-					// Return the cached version
-					return response;
-				}
-
-				// If the request is NOT in the cache, fetch and cache
-
-				var requestClone = e.request.clone();
-				fetch(requestClone)
-					.then(function(response) {
-
-						if ( !response ) {
-							console.log("[ServiceWorker] No response from fetch ")
-							return response;
-						}
-
-						var responseClone = response.clone();
-
-						//  Open the cache
-						caches.open(cacheName).then(function(cache) {
-
-							// Put the fetched response in the cache
-							cache.put(e.request, responseClone);
-							console.log('[ServiceWorker] New Data Cached', e.request.url);
-
-							// Return the response
-							return response;
-			
-				        }); // end caches.open
-
-					})
-					.catch(function(err) {
-						console.log('[ServiceWorker] Error Fetching & Caching New Data', err);
-					});
-
-
-			}) // end caches.match(e.request)
-	); // end e.respondWith
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.open(cacheName)
+      .then(cache => cache.match(event.request, {ignoreSearch: true}))
+      .then(response => {
+      return response || fetch(event.request);
+    })
+  );
 });

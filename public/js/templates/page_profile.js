@@ -32,7 +32,7 @@ class viewProfile {
     let successMessage = dce({el: 'DIV', cssClass : 'success', content: 'Profile updated. Take me '});
     let successMessageLink = dce({el: 'A', cssClass : 'text-link', content: 'back to the wall'});
     successMessageLink.addEventListener('click', () => {
-      route('home');
+      route({page: 'home'});
     }, false);
 
     successMessage.appendChild(successMessageLink);

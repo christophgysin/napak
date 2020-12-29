@@ -15,7 +15,8 @@ class groupPart {
         buttons       : [
           ['Leave', ()=>{
             this.leaveGroup();
-            modal.close();}],
+            modal.close();},
+          'preferred'],
           ['Cancel', () => {
             modal.close()}]
           ],

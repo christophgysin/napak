@@ -1,6 +1,5 @@
-import { dce, parseDate, storeObserver   } from '/js/shared/helpers.js';
+import { dce, parseDate, storeObserver, handleDate } from '/js/shared/helpers.js';
 import { globals } from '/js/shared/globals.js';
-import { handleDate } from '/js/shared/date.js';
 
 class calendar {
     constructor(params) {
