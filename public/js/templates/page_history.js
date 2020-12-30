@@ -126,7 +126,6 @@ class viewHistory {
             confirmationMessage.append(tickDetails, confirm);
 
             let tickInfo = tick; 
-            console.log(tickInfo)
             let modal = new modalWindow({
               title         : 'Confirm delete tick',
               modalContent  : confirmationMessage,

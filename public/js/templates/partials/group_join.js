@@ -6,7 +6,7 @@ import cryptPwd from '/js/shared/crypto.js';
 import modalWindow from '/js/components/modal.js';
 
 class groupJoin {
-  constructor(group) {
+  constructor( { group = { }, groups = {} } = {} ) {
     const db = firebase.firestore();
     const dbuser = firebase.auth().currentUser;
 
@@ -54,6 +54,16 @@ class groupJoin {
           collectionId: globals.currentGroup,
           keydata: dbuser.uid
           }, () =>{
+            group.users.push(dbuser.uid);
+            group.selected = false;
+            // move group back to public groups
+            groups.userGroups[`${group.value}`] = JSON.parse(JSON.stringify(group));
+
+            // ... and delete from user groups
+            delete groups.publicGroups[group.value];
+
+            groups.updateGroups();
+
             globals.standardMessage.unshift({
               message: `Joined ${group.title}`,
               timeout: 2

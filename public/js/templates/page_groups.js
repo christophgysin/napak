@@ -9,7 +9,7 @@ globals
     > updateGroupStanding
 */
 
-import { dce, storeObserver, UUID, countTotalScore, averageGrade} from '/js/shared/helpers.js';
+import { dce, storeObserver, UUID } from '/js/shared/helpers.js';
 import picker from '/js/components/picker.js';
 import modalWindow from '/js/components/modal.js';
 import dropdownMenu from '/js/components/dropdown.js';
@@ -24,7 +24,11 @@ class viewGroups {
     const db = firebase.firestore();
     const dbuser = firebase.auth().currentUser;
 
-    let groups = {};
+    let groups = {
+      publicGroups : {},
+      userGroups : {}
+    };
+
     let options = new groupOptions({
       options : [
 //        ['Edit group', () => { console.log('meh')}],
@@ -87,7 +91,7 @@ class viewGroups {
         {title: 'Outdoors', value: 'outdoors'}]
     });
 
-    let groupStandingContainer = new groupStanding();
+    let groupStandingContainer = new groupStanding({mother: this});
 
     rankingContainer.append(groupClimbingTypeSelector.render(), indoorsOutdoorsSelector.render(), groupStandingContainer.render())
 
@@ -150,12 +154,6 @@ class viewGroups {
         globals.serverMessage.push(newStatusMessage);
         globals.serverMessage = globals.serverMessage;
 
-        // groups container
-        groups = {
-          userGroups : {},
-          publicGroups : {}
-        };
-
         let i=0, j = 0;
         querySnapshot.forEach(function(doc) {
           let groupData = doc.data();
@@ -164,8 +162,10 @@ class viewGroups {
             groups['userGroups'][doc.id] = {
               title: groupData.name,
               value: doc.id,
-              users: groupData.users,
+              users: (groupData.users) ? groupData.users : [],
               id: doc.id,
+              public: groupData.public,
+              locked: (groupData.public) ? false : true,
               selected: (i == 0) ? true : false
               };
             i++;
@@ -175,7 +175,7 @@ class viewGroups {
             groups['publicGroups'][doc.id] = {
               title: groupData.name,
               value: doc.id,
-              users: groupData.users,
+              users: (groupData.users) ? groupData.users : [],
               id: doc.id,
               selected: (j == 0) ? true : false,
               public: groupData.public,
@@ -191,13 +191,19 @@ class viewGroups {
         // create array of object to create pulldown items
         let dropdownElements = updateItems();
         groupSelect.createItems(dropdownElements);
+
+        groups.updateGroups = () => {
+          let dropdownElements = updateItems();
+          groupSelect.createItems(dropdownElements);
+        }
+        
+        this.groups = groups;    
     })
       .catch(function(error) {
           console.log("Error getting documents: ", error);
       });
     }
-
-
+    
     loadUserGroups();
 
 // Update dropdown items
@@ -299,9 +305,6 @@ class viewGroups {
        else {
         addGroupToDatabase()
        }
-/*
-
-*/
       }
 
       let modal = new modalWindow({

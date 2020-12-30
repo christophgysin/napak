@@ -5,7 +5,8 @@ import groupPart from '/js/templates/partials/group_part.js';
 import modalWindow from '/js/components/modal.js';
 
 class groupStanding {
-  constructor() {
+  constructor( { mother = false } = { } ) {
+
     let container = dce({el: 'DIV'});
     let loadContainer = dce({el: 'DIV', cssStyle: 'display: flex; justify-content: center; align-items: center;', content: 'Loading group data'})
     let blink = dce({el: 'SPAN', cssClass: 'spinner spin360 spinner-white'});
@@ -104,12 +105,13 @@ class groupStanding {
         container.appendChild(dce({el: 'P', cssStyle: 'text-align: center;', content: 'No users in this group yet'}));
       }
       if(globals.groupType === 'userGroups') {
-        container.appendChild(new groupPart(group).render());
+//        console.log(params.mother.groups) update this after leave / part
+        container.appendChild(new groupPart({group: group, groups: mother.groups}).render());
       }
 
       if(globals.groupType === 'publicGroups') {
-        //!groups[globals.groupType][globals.currentGroup].public
-        container.appendChild(new groupJoin(group).render());
+//        console.log(params.mother.groups)
+        container.appendChild(new groupJoin({group: group, groups: mother.groups}).render());
       }
     }
 

@@ -3,8 +3,7 @@ import { store } from '/js/shared/store.js';
 import modalWindow from '/js/components/modal.js';
 
 class groupPart {
-  constructor(group) {
-
+  constructor( { group = { }, groups = {} } = {} ) {    
     let leaveButton = dce({el: 'A', cssClass: 'btn mt', content:' Leave this group'});
     leaveButton.addEventListener('click', () => {
 
@@ -33,6 +32,23 @@ class groupPart {
         collectionId: globals.currentGroup,
         keydata: firebase.auth().currentUser.uid
         }, () =>{
+          group.selected = false;
+          // remove user id from user list
+          let uid = group.users.indexOf(firebase.auth().currentUser.uid);
+          group.users.splice(uid, 1);
+
+          // remove user score 
+          group.userScore = group.userScore.filter(function( obj ) {
+            return obj.id !== firebase.auth().currentUser.uid;
+          });
+
+          // move group back to public groups
+          groups.publicGroups[`${group.value}`] = JSON.parse(JSON.stringify(group));
+          // ... and delete from user groups
+          delete groups.userGroups[group.value]
+          
+          groups.updateGroups();
+
           globals.standardMessage.unshift({
             message: `Left ${group.title}`,
             timeout: 2
