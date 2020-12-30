@@ -16,7 +16,12 @@ class groupStanding {
     this.update = ( { data = [], group = false } = {} ) => {
       container.innerHTML = "";
 
-      if(data.length) {
+      let showRanking = true; 
+      if(!group.public && group.users.indexOf(firebase.auth().currentUser.uid) === -1) {
+        container.appendChild(dce({el: 'P', cssStyle: 'text-align: center;', content: 'This is very, very secretive group 🙀'}));
+        showRanking = false;
+      }
+      if(data.length && showRanking) {
           let headerContainer = dce({el: 'LI', cssClass: 'header-container'});
           let pos = dce({el: 'h3', content: '#'});
           let user = dce({el: 'h3', content: 'Name'});
@@ -102,7 +107,9 @@ class groupStanding {
         }
       }
       else {
-        container.appendChild(dce({el: 'P', cssStyle: 'text-align: center;', content: 'No users in this group yet'}));
+        if(showRanking) {
+          container.appendChild(dce({el: 'P', cssStyle: 'text-align: center;', content: 'No users in this group yet'}));
+        }
       }
       if(globals.groupType === 'userGroups') {
 //        console.log(params.mother.groups) update this after leave / part

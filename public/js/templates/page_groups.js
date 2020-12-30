@@ -49,8 +49,8 @@ class viewGroups {
       cssClass: 'horizontal-menu full-width',
       targetObj: 'groupType',
       options: [
-        { title: 'Your groups', value: 'userGroups', selected: true },
-        { title: 'Public groups', value: 'publicGroups' }],
+        { title: 'My groups', value: 'userGroups', selected: true },
+        { title: 'All groups', value: 'publicGroups' }],
       callback : () => {
         let dropdownElements = updateItems();
         globals.currentGroup = null; // maybe take this away from global ... 
