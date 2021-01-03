@@ -75,10 +75,10 @@ class viewGroups {
       cssClass: 'horizontal-menu full-width',
       targetObj: 'currentClimbingType',
       options: [
-        { title: 'Boulder', value: 'boulder', selected: true },
-        { title: 'Sport', value: 'sport' },
-        { title: 'Top rope', value: 'toprope' },
-        { title: 'Trad', value: 'trad' },
+        { title: 'Boulder', value: 'boulder', selected: (globals.currentClimbingType === 'boulder') ? true: false},
+        { title: 'Sport', value: 'sport', selected: (globals.currentClimbingType === 'sport') ? true: false},
+        { title: 'Top rope', value: 'toprope', selected: (globals.currentClimbingType === 'toprope') ? true: false},
+        { title: 'Trad', value: 'trad', selected: (globals.currentClimbingType === 'trad') ? true: false},
       ]
     });
 
@@ -87,8 +87,9 @@ class viewGroups {
       cssClass  : 'horizontal-menu full-width',
       targetObj : 'indoorsOutdoors',
       options   : [
-        {title: 'Indoors', value: 'indoors', selected: true},
-        {title: 'Outdoors', value: 'outdoors'}]
+        {title: 'Indoors', value: 'indoors', selected: (globals.indoorsOutdoors === 'indoors') ? true: false},
+        {title: 'Outdoors', value: 'outdoors', selected: (globals.indoorsOutdoors === 'outdoors') ? true: false}
+      ]
     });
 
     let groupStandingContainer = new groupStanding({mother: this});
@@ -240,8 +241,8 @@ class viewGroups {
     this.createNewGroup = () => {
       let newGroupFormContainer = dce({el: 'FORM', cssClass: ''});
 // Group name
-      let groupNameTitle = dce({el: 'H3', cssClass: 'mb', content: 'Group name '});
-      let groupName = dce({el: 'INPUT', cssClass:'', attrbs: [['placeholder', 'Group name']] });
+      let groupNameTitle = dce({el: 'H3', cssClass: 'mb', content: 'Group name (min 3 letters)'});
+      let groupName = dce({el: 'INPUT', cssClass:'', attrbs: [['placeholder', 'Group name'], ['minlength', 3], ['required', 'required']] });
       newGroupFormContainer.append(groupNameTitle, groupName);
 
       let isPublic = true;
@@ -257,9 +258,11 @@ class viewGroups {
           isPublic = trgt; 
           if(isPublic) {
             passCodeContainer.classList.add('hidden');
+            password.removeAttribute('required');
           }
           else {
             passCodeContainer.classList.remove('hidden');            
+            password.setAttribute('required', '');
           }
         }
       });
@@ -269,29 +272,38 @@ class viewGroups {
 
       let passCodeContainer = dce({el: 'DIV', cssClass: 'hidden'});
       let passcode = dce({el: 'INPUT', cssClass:'', attrbs: [['placeholder', 'Passcode'], ['hidden', true], ['disabled', 'disabled'],['value', UUID()]] });
-      let passwordTitle = dce({el: 'H3', cssClass: 'mb', content: 'Password'});
-      let password = dce({el: 'INPUT', cssClass:'', attrbs: [['placeholder', 'Password']] });
+      let passwordTitle = dce({el: 'H3', cssClass: 'mb', content: 'Password (min 5 letters)'});
+      let password = dce({el: 'INPUT', cssClass:'', attrbs: [['placeholder', 'Password'], ['minlength', 5]] });
 
       passCodeContainer.append(passcode, passwordTitle, password);
       newGroupFormContainer.appendChild(passCodeContainer);
 
       const addGroupToStore = (mother) => {
+        let isValid = newGroupFormContainer.checkValidity();
+        if(!isValid) {
+          return;
+        }
         let secret = ''; 
 
         let addGroupToDatabase = () => {
+          let group = {
+            name: groupName.value,
+            owner: dbuser.uid,
+            public: isPublic,
+            secret: secret,
+            users: [dbuser.uid]
+          };
+          
           db.collection("groups")
-            .add({
-              name: groupName.value,
-              owner: dbuser.uid,
-              public: isPublic,
-              secret: secret,
-              users: [dbuser.uid]
-          })
+          .add(group)
           .then(function(docRef) {
-              console.log("Document written with ID: ", docRef.id);
+            group.title = group.name;
+            group.value = docRef.id;
+            group.id = docRef.id;
+            groups.userGroups[`${docRef.id}`] = JSON.parse(JSON.stringify(group));
+            groups.updateGroups();
           })
           .catch(function(error) {
-              console.error("Error adding document: ", error);
           });
         }
 
@@ -305,13 +317,21 @@ class viewGroups {
        else {
         addGroupToDatabase()
        }
+       modal.close();
+
+       globals.standardMessage.unshift({
+        message: `Created new group ${groupName.value}`,
+        timeout: 2
+      });
+      globals.standardMessage = globals.standardMessage;
+
       }
 
       let modal = new modalWindow({
         title         : 'Create new group',
         modalContent  : newGroupFormContainer,
         buttons       : [
-          ['Create', () => { addGroupToStore(this); modal.close(); }, 'preferred'],
+          ['Create', () => { addGroupToStore(this); }, 'preferred'],
           ['Cancel', () => { modal.close(); }],
           ],
         open          : true //auto open modal

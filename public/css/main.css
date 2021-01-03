@@ -371,12 +371,20 @@ BODY.indoors section.grade::after {
 }
 
 .mb {
-  margin-bottom: 10px !important;
+  margin-bottom: var(--padding-base-half) !important;
+}
+.mb .mb_tall{
+  margin-bottom: var(--padding-base) !important;
 }
 
 .mt {
-  margin-top: 10px !important;
+  margin-top: var(--padding-base-half) !important;
 }
+
+.mt .mt_tall {
+  margin-top: var(--padding-basehalf) !important;
+}
+
 
 .blink {
   text-decoration: blink;

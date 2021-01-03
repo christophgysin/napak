@@ -1,6 +1,7 @@
 import { dce } from '/js/shared/helpers.js';
 import picker from '/js/components/picker.js';
 import toggleSwitch from '/js/components/toggleswitch.js';
+import { globals } from '/js/shared/globals.js';
 
 class climbingTypeSelector {
   constructor(params) {
@@ -11,10 +12,10 @@ class climbingTypeSelector {
       cssClass: 'horizontal-menu full-width small-legends',
       targetObj: 'currentClimbingType',
       options: [
-        { title: 'Boulder', value: 'boulder', selected: true, legend: globals.totalAscentsByType['boulder'], val: 'totalAscentsByType.boulder'},
-        { title: 'Sport', value: 'sport', legend: globals.totalAscentsByType['sport'], val: 'totalAscentsByType.sport' },
-        { title: 'Top rope', value: 'toprope', legend: globals.totalAscentsByType['toprope'], val: 'totalAscentsByType.toprope' },
-        { title: 'Trad', value: 'trad', legend: globals.totalAscentsByType['trad'], val: 'totalAscentsByType.trad' },
+        { title: 'Boulder', value: 'boulder', selected: (globals.currentClimbingType === 'boulder') ? true: false, legend: globals.totalAscentsByType['boulder'], val: 'totalAscentsByType.boulder'},
+        { title: 'Sport', value: 'sport', selected: (globals.currentClimbingType === 'sport') ? true: false, legend: globals.totalAscentsByType['sport'], val: 'totalAscentsByType.sport' },
+        { title: 'Top rope', value: 'toprope', selected: (globals.currentClimbingType === 'toprope') ? true: false, legend: globals.totalAscentsByType['toprope'], val: 'totalAscentsByType.toprope' },
+        { title: 'Trad', value: 'trad', selected: (globals.currentClimbingType === 'trad') ? true: false, legend: globals.totalAscentsByType['trad'], val: 'totalAscentsByType.trad' },
       ]
     });
 
@@ -26,8 +27,8 @@ class climbingTypeSelector {
       cssClass  : 'horizontal-menu full-width',
       targetObj : 'indoorsOutdoors',
       options   : [
-        {title: 'Indoors', value: 'indoors', selected: true},
-        {title: 'Outdoors', value: 'outdoors'}]
+        {title: 'Indoors', value: 'indoors', selected: (globals.indoorsOutdoors === 'indoors') ? true: false},
+        {title: 'Outdoors', value: 'outdoors', selected: (globals.indoorsOutdoors === 'outdoors') ? true: false}]
     });
 
     container.append(indoorsOutdoorsSelector.render());

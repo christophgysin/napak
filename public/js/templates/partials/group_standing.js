@@ -22,7 +22,7 @@ class groupStanding {
         showRanking = false;
       }
       if(data.length && showRanking) {
-          let headerContainer = dce({el: 'LI', cssClass: 'header-container'});
+          let headerContainer = dce({el: 'DIV', cssClass: 'header-container'});
           let pos = dce({el: 'h3', content: '#'});
           let user = dce({el: 'h3', content: 'Name'});
           let score = dce({el: 'h3', content: 'Score'});
@@ -70,7 +70,7 @@ class groupStanding {
         for(let i = 0, j = data.length; i < j; i++) {
           let score = (data[i].current && data[i].current[globals.indoorsOutdoors]) ? data[i].current[globals.indoorsOutdoors][globals.currentClimbingType]['score'] : '-';
           let avgGrade = (data[i].current && data[i].current[globals.indoorsOutdoors]) ? data[i].current[globals.indoorsOutdoors][globals.currentClimbingType]['average'] : '-';
-          let groupEntry = dce({el: 'LI', cssClass: 'entry-container'});
+          let groupEntry = dce({el: 'DIV', cssClass: 'entry-container'});
           let entryPos = dce({el: 'SPAN', content: `${i+1}.`});
           let entryName = dce({el: 'SPAN', content:  data[i].displayName});
           let entryPointsContainer = dce({el: 'SPAN', content: (score) ? score: '-'});
