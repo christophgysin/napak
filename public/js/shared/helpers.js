@@ -325,8 +325,8 @@ let countGroupScore = () => {
       return obj.type === type && obj.indoorsOutdoors === 'outdoors'
     })
 
-    let indoorsTopX = countTotalScore({count: 10, tickSet: ticksByDisciplineIndoors, returnTicks: true});
-    let outdoorsTopX = countTotalScore({count: 10, tickSet: ticksByDisciplineOutdoors, returnTicks: true});
+    let indoorsTopX = countTotalScore({count: 20, tickSet: ticksByDisciplineIndoors, returnTicks: true});
+    let outdoorsTopX = countTotalScore({count: 20, tickSet: ticksByDisciplineOutdoors, returnTicks: true});
 
     indoors[type]['ticks'] = indoorsTopX;
     outdoors[type]['ticks'] = outdoorsTopX;
