@@ -1,15 +1,15 @@
 
 // Set a name for the current cache
-var cacheName = 'v1.2'; 
+var cacheName = 'v1.2';
 
 
 // Default files to always cache
 var cacheFiles = [
   '/',
-  '/__/firebase/8.1.1/firebase-app.js',
-  '/__/firebase/8.1.1/firebase-auth.js',
-  '/__/firebase/8.1.1/firebase-firestore.js',
-  '/__/firebase/init.js',  
+  '/__/firebase/8.2.1/firebase-app.js',
+  '/__/firebase/8.2.1/firebase-auth.js',
+  '/__/firebase/8.2.1/firebase-firestore.js',
+  '/__/firebase/init.js',
   '/index.html',
   '/js/',
   '/js/app.js',
@@ -35,7 +35,7 @@ var cacheFiles = [
   '/js/templates/partials/group_join.js',
   '/js/templates/partials/group_options.js',
   '/js/templates/partials/group_part.js',
-  '/js/templates/partials/group_standing.js', 
+  '/js/templates/partials/group_standing.js',
   '/js/templates/partials/section_grade-selector.js',
   '/js/templates/partials/section_otc.js',
   '/js/templates/partials/section_progress.js',
