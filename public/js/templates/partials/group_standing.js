@@ -44,6 +44,7 @@ class groupStanding {
             ticks = ticks.filter(obj => {
               return (today - obj.date) / (1000 * 3600 * 24) <= 30
             })
+          // Show only 10 ticks
           ticks = ticks.slice(0,10)
           data[i].current[globals.indoorsOutdoors][globals.currentClimbingType].ticks = ticks;
 

@@ -57,6 +57,8 @@ class viewSignup {
           key: 'user',
           keydata: { ...user.name}
         });
+
+      route({page:'home'});
       });
     }
 
