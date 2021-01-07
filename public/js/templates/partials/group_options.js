@@ -7,7 +7,10 @@ class groupOptions {
 
     for ( let i=0, j= options.length; i<j; i++ ) {
       let newBtn = dce({el: 'DIV', cssClass: 'btn btn_small', content: `${options[i][0]}`});
-      newBtn.addEventListener('click', () => {options[i][1]()});
+      newBtn.addEventListener('click', () => {
+        options[i][1]();
+        container.classList.add('hidden');
+      });
       container.appendChild(newBtn);
     }
 

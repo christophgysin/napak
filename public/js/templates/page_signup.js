@@ -16,11 +16,44 @@ class viewSignup {
 
     logoContainer.append(logo, version);
 
+    let showPwd = false;
+
     let newAccount = dce({el: 'h3', cssClass: 'mb', content: 'Create new account'});
     let signupForm = dce({el: 'FORM', attrbs: [['name', 'napak-login']]});
     let userEmail = dce({el: 'INPUT', attrbs: [['placeholder', 'email'], ['name', 'email']]});
+
+    let passwordContainer = dce({el: 'DIV', cssStyle: 'position: relative;'});
     let password = dce({el: 'INPUT', attrbs: [['placeholder', 'Password'], ['type', 'password'], ['name', 'pass']]});
-    let passwordAgain = dce({el: 'INPUT', attrbs: [['placeholder', 'Password again'], ['type', 'password'], ['name', 'passagain']]});
+    let togglePasswordVisibility = dce({el: 'A', cssClass: 'btn btn_tiny', cssStyle: 'position: absolute; right: 1rem; top: 1.25rem; transform: translateY(-50%)', content : 'abc'});
+    passwordContainer.append(password, togglePasswordVisibility);
+
+    togglePasswordVisibility.addEventListener('click', () => {
+      if(password.getAttribute('type') === 'password') {
+        password.setAttribute('type', 'text');
+        togglePasswordVisibility.innerHTML = '• • •';
+      }
+      else {
+        password.setAttribute('type', 'password');
+        togglePasswordVisibility.innerHTML = 'abc';
+      }
+    }, false);
+
+    let passwordAgainContainer = dce({el: 'DIV', cssStyle: 'position: relative;'});
+    let passwordAgain = dce({el: 'INPUT', attrbs: [['placeholder', 'Password'], ['type', 'password'], ['name', 'pass']]});
+    let togglePasswordAgainVisibility = dce({el: 'A', cssClass: 'btn btn_tiny', cssStyle: 'position: absolute; right: 1rem; top: 1.25rem; transform: translateY(-50%)', content : 'abc'});
+    passwordAgainContainer.append(passwordAgain, togglePasswordAgainVisibility);
+
+    togglePasswordAgainVisibility.addEventListener('click', () => {
+      if(passwordAgain.getAttribute('type') === 'password') {
+        passwordAgain.setAttribute('type', 'text');
+        togglePasswordAgainVisibility.innerHTML = '• • •';
+      }
+      else {
+        passwordAgain.setAttribute('type', 'password');
+        togglePasswordAgainVisibility.innerHTML = 'abc';
+      }
+    }, false);
+
     let signupError = dce({el: 'DIV', cssClass : 'api-message-error'});
     let signupButton = dce({el: 'BUTTON', cssClass: '', content: 'Create account'});
     let goBack = dce({el: 'DIV', cssClass: 'mb mt', content: 'Go back to '});
@@ -68,7 +101,7 @@ class viewSignup {
       return;
     }, false);
 
-    signupForm.append(userEmail, password, passwordAgain, signupError, signupButton);
+    signupForm.append(userEmail, passwordContainer, passwordAgainContainer, signupError, signupButton);
 
     signupFormContainer.append(logoContainer, newAccount, signupForm, goBack);
 

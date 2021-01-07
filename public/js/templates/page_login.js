@@ -21,7 +21,23 @@ class viewLogin {
     let loginTitle = dce({el: 'h3', cssClass: 'mb', content: 'Login'});
     let loginForm = dce({el: 'FORM', attrbs: [['name', 'napak-login']]});
     let userEmail = dce({el: 'INPUT', attrbs: [['placeholder', 'email'], ['name', 'email']]});
+
+    let passwordContainer = dce({el: 'DIV', cssStyle: 'position: relative;'});
     let password = dce({el: 'INPUT', attrbs: [['placeholder', 'Password'], ['type', 'password'], ['name', 'pass']]});
+    let togglePasswordVisibility = dce({el: 'A', cssClass: 'btn btn_tiny', cssStyle: 'position: absolute; right: 1rem; top: 1.25rem; transform: translateY(-50%)', content : 'abc'});
+    passwordContainer.append(password, togglePasswordVisibility);
+
+    togglePasswordVisibility.addEventListener('click', () => {
+      if(password.getAttribute('type') === 'password') {
+        password.setAttribute('type', 'text');
+        togglePasswordVisibility.innerHTML = '• • •';
+      }
+      else {
+        password.setAttribute('type', 'password');
+        togglePasswordVisibility.innerHTML = 'abc';
+      }
+    }, false);
+
     let loginError = dce({el: 'DIV', cssClass : 'login-error'});
     let loginButton = dce({el: 'BUTTON', cssClass: 'mb', content: 'Login'});
     let noAccount = dce({el: 'DIV', cssClass: '', content: 'No account? '});
@@ -58,7 +74,7 @@ class viewLogin {
     }, false)
 
 
-    loginForm.append(userEmail, password, loginError, loginButton)
+    loginForm.append(userEmail, passwordContainer, loginError, loginButton)
     loginFormContainer.append(logoContainer, loginTitle, loginForm, noAccount, forgotPasswordContainer);
 
     container.append(loginFormContainer);
