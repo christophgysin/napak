@@ -38,7 +38,7 @@
 }
 
 .btn_tiny {
-  width: max-content;
+  width: auto;
   padding: 0 var(--padding-base-half);
   border-radius: 100px;
   background: transparent;
@@ -47,6 +47,8 @@
   font-size: var(--font-size-small);
   text-transform: uppercase;
   line-height: 1rem;
+  white-space: nowrap;
+  display: inline-block;
 }
 
 .btn svg {
