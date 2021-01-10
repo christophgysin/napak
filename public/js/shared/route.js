@@ -10,6 +10,9 @@ let route = ( { page = 'login', params = [] } = {} ) => {
     };
 
   if(page !== globals.route) {
+
+    // remove modal shadow
+    document.body.classList.remove('modal-open');
     // Clear store observers marked with removeOnRouteChange
     storeObserver.clear();
     let trgt = new globals.routes[page];
