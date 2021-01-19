@@ -16,7 +16,10 @@ class otc {
     let logoContainer = dce({el: 'DIV', cssClass: 'logo-container'});
     let logoImg = dce({el: 'IMG', source: '/images/napak_vector.svg', cssClass: 'logo'});
     let version = dce({el: 'SPAN', content: ` ${globals.version}`});
-    let about = dce({el: 'P', content: 'About'});
+    let actions = dce({el: 'DIV', cssClass: 'mt', cssStyle: 'display: flex; justify-content: center'});
+
+    let about = dce({el: 'DIV', cssClass: 'btn btn_small', content: 'About'});
+    let shareNapak = dce({el: 'DIV', cssClass: 'btn btn_small', content: 'Share Napak'});
 
     about.addEventListener('click', () => {
       let modalContent = dce({el: 'P'});
@@ -36,7 +39,19 @@ class otc {
       document.body.appendChild(modal.render())  
     }, false);
 
-    logoContainer.append(logoImg, version, about);
+
+    shareNapak.addEventListener('click', () => {
+      navigator.share({
+        title: 'Napak',
+        text: 'Quickest way to track your climbs anywhere with multiple disciplines supported. Indoors and outdoors.',
+        url: 'https://app.napak.fi',
+      })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error));
+    }, false);
+
+    actions.append(about, (navigator.share) ? shareNapak : '');
+    logoContainer.append(logoImg, version, actions);
 
     let loginInfo = dce({el: 'DIV', cssClass: 'login-info'});
 
