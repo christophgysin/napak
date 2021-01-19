@@ -11,6 +11,7 @@
   border-radius: var(--base-btn-border-radius);
   position: relative;
   transition: all 300ms ease-in-out;
+  text-transform: uppercase;
 }
 
 .btn_white {

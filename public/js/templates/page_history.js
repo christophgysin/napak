@@ -10,7 +10,7 @@ globals
 */
 
 import { globals } from '/js/shared/globals.js';
-import { dce, storeObserver, handleScopeTicks, eightaNuScore, averageGrade, handleDate } from '/js/shared/helpers.js';
+import { dce, storeObserver, handleScopeTicks, eightaNuScore, averageGrade, countTopX, handleDate } from '/js/shared/helpers.js';
 import statusTicker from '/js/templates/partials/status_ticker.js';
 import climbingTypeSelector from '/js/templates/partials/climbing_type-selector.js';
 import modalWindow from '/js/components/modal.js';
@@ -75,6 +75,7 @@ class viewHistory {
 
         let dateAvgGrade = averageGrade({count: 10, tickSet: ticks});
         let sessionAverage = averageGrade({count: ticks.length, tickSet: ticks});
+        let sessionScoreCombined = countTopX({count: 10, tickSet: ticks});
 
         let headerTitle = dce({el: 'DIV', cssClass: 'session-header'});
         // Date and route count
@@ -82,6 +83,12 @@ class viewHistory {
         let date = dce({el: 'DIV', content: handleDate({dateString : key, dateFormat : 'dd.mm.yyyy'})});
         let routeCount = dce({el: 'DIV', content: `${ticksByDateContainer[key].length} routes`});
         sessionDate.append(date, routeCount);
+
+        // session weighted average grade
+        let sessionScoreContainer = dce({el: 'DIV', cssClass: 'header-flex'});
+        let sessionScoreTitle = dce({el: 'DIV', content: 'Session score'});
+        let sessionScore = dce({el: 'DIV', content: sessionScoreCombined});
+        sessionScoreContainer.append(sessionScoreTitle, sessionScore);
 
         // session weighted average grade
         let weighted = dce({el: 'DIV', cssClass: 'header-flex'});
@@ -95,7 +102,7 @@ class viewHistory {
         let avgGrade = dce({el: 'DIV', content: sessionAverage});
         avg.append(avgTitle, avgGrade);
 
-        headerTitle.append(sessionDate, weighted, avg);
+        headerTitle.append(sessionDate, sessionScoreContainer, weighted, avg);
 
         let sessionTicks = dce({el: 'DIV', cssClass: 'session-tick-container'});
         sessionTicks.appendChild(headerTitle);

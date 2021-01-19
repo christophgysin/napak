@@ -238,12 +238,15 @@ let napak = {
       }
     }
 /* <- Swipe to open otc menu  */
+
+
 /*
+// Why did I remove this?
     storeObserver.add({
       store: user,
       key: 'login',
       id: 'userLogin',
-      callback: loginStatus,
+      callback: ()=>{loginStatus(); console.log('meh')},
       removeOnRouteChange: false
     });
 */
@@ -260,7 +263,7 @@ let napak = {
   }, false);
 
 
-    loginStatus();
+  loginStatus();
   }
 }
 
