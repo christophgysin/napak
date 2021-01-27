@@ -4,7 +4,7 @@ import modalWindow from '/js/components/modal.js';
 
 class groupPart {
   constructor( { group = { }, groups = {} } = {} ) {    
-    let leaveButton = dce({el: 'A', cssClass: 'btn btn_small mt mt_tall', cssStyle: 'margin: 0 auto 0', content:' Leave this group'});
+    let leaveButton = dce({el: 'A', cssClass: 'btn btn_small mt mb mt_tall', cssStyle: 'margin: 0 auto 0', content:' Leave this group'});
     leaveButton.addEventListener('click', () => {
 
       let modal = new modalWindow({
