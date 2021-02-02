@@ -35,11 +35,26 @@ class footer {
       footer.parentNode.appendChild(modal.render())      
     }, false);
 
-    let logoContainer = dce({el: 'DIV', cssClass: 'logo-container'});
-    let logoImg = dce({el: 'IMG', source: '/images/napak_vector.svg', cssClass: 'logo'});
 
-    logoContainer.appendChild(logoImg);
-    logoContainer.addEventListener('click', () => {route({page: 'home'})}, false);
+    let navContainer = dce({el: 'DIV', cssClass: 'nav-bottom-links'});
+
+    let linkHomeContainer = dce({el: 'DIV', cssClass: 'link-container'});
+    let linkHomeImage = dce({el: 'IMG', source : '/images/icon_tick.svg'});
+    linkHomeContainer.append(linkHomeImage, document.createTextNode('Tick'));
+    linkHomeContainer.addEventListener('click', () => {route({page: 'home'})}, false);
+
+    let linkHistoryContainer = dce({el: 'DIV', cssClass: 'link-container'});
+    let linkHistoryImage = dce({el: 'IMG', source : '/images/icon_history.svg'});
+    linkHistoryContainer.append(linkHistoryImage, document.createTextNode('History'));
+    linkHistoryContainer.addEventListener('click', () => {route({page: 'history'})}, false);
+
+    let linkGroupsContainer = dce({el: 'DIV', cssClass: 'link-container'});
+    let linkGroupsImage = dce({el: 'IMG', source : '/images/icon_groups.svg'});
+    linkGroupsContainer.append(linkGroupsImage, document.createTextNode('Groups'));
+    linkGroupsContainer.addEventListener('click', () => {route({page: 'groups'})}, false);
+
+    navContainer.append(linkHomeContainer, linkHistoryContainer, linkGroupsContainer);
+
 
     let moreItemsMenu = dce({el: 'a'});
     let moreItemsMenuContainer = dce({el: 'SPAN', content: "→"});
@@ -52,7 +67,7 @@ class footer {
      document.body.classList.toggle('otc');
     }, false);
 
-    footerNav.append(gpsContainer, logoContainer, moreItemsMenu);
+    footerNav.append(gpsContainer, navContainer, moreItemsMenu);
     footer.appendChild(footerNav);
 
     let toggleVisibility = () => {
