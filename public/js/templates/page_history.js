@@ -36,8 +36,7 @@ class viewHistory {
     let updateHistory = () => {
       scrollContainer.innerHTML = "";
       let ticks = handleScopeTicks({scope: 'alltime'});
-      // why sort here?
-/*
+
       ticks.sort(function(a, b){
         var keyA = a.date,
             keyB = b.date;
@@ -46,7 +45,7 @@ class viewHistory {
         if(keyA > keyB) return 1;
         return 0;
       });
-*/
+
       let currentDate = "0000-00-00";
       let ticksByDateContainer = {};
 
