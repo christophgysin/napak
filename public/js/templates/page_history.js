@@ -36,7 +36,8 @@ class viewHistory {
     let updateHistory = () => {
       scrollContainer.innerHTML = "";
       let ticks = handleScopeTicks({scope: 'alltime'});
-
+      // why sort here?
+/*
       ticks.sort(function(a, b){
         var keyA = a.date,
             keyB = b.date;
@@ -45,7 +46,7 @@ class viewHistory {
         if(keyA > keyB) return 1;
         return 0;
       });
-
+*/
       let currentDate = "0000-00-00";
       let ticksByDateContainer = {};
 
@@ -63,8 +64,10 @@ class viewHistory {
 
 // Count daily averages
       for( let key in ticksByDateContainer ) {
-        let ticks = ticksByDateContainer[key];
-        
+        let ticks = ticksByDateContainer[key].reverse(); // reverse array to get last one on top
+
+        // Use this for sorting
+        /*
         ticks.sort(function(a, b) {
           var keyA = a.grade,
             keyB = b.grade;
@@ -72,7 +75,7 @@ class viewHistory {
           if (keyA > keyB) return 1;
           return 0;
         });
-
+*/
         let dateAvgGrade = averageGrade({count: 10, tickSet: ticks});
         let sessionAverage = averageGrade({count: ticks.length, tickSet: ticks});
         let sessionScoreCombined = countTopX({count: 10, tickSet: ticks});
