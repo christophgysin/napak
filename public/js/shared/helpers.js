@@ -233,7 +233,7 @@ let countAscentsByDifficulty = () => {
 // get ticks only for selected day
   let limitTo = parseDate(globals.today);
 
-  let onlyThisDay = new Date(limitTo.year, limitTo.month-1, limitTo.date, 23, 59);
+  let onlyThisDay = new Date(limitTo.year, limitTo.month-1, limitTo.date+1, 0, 0);
 
   let ticks = handleScopeTicks({scope: 'today', limit: onlyThisDay});
   ticks.forEach((tick) => {
@@ -355,7 +355,7 @@ let handleScopeTicks = ({scope = globals.scope, allTypes= false, tickSet = false
   fromNow = new Date(year, month-1, day, 0, 0, 1).getTime()
 
   if(scope === 'today') {
-    fromNow = new Date(year, month-1, day, 0, 0, 1).getTime();
+    fromNow = new Date(year, month-1, day, 0, 0, 0).getTime();
   }
   if(scope === 'thirtydays') {
     fromNow = limitTo - ((24*60*60*1000) * 30);
