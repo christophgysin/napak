@@ -21,6 +21,7 @@ import viewHome from '/js/templates/page_home.js';
 import viewLogin from '/js/templates/page_login.js';
 import viewProfile from '/js/templates/page_profile.js';
 import viewSignup from '/js/templates/page_signup.js';
+import viewAchievements from '/js/templates/page_achievements.js';
 import viewStatistics from '/js/templates/page_statistics.js';
 import viewResetPassword from '/js/templates/page_reset-password.js';
 import footer from '/js/templates/partials/footer.js';
@@ -47,6 +48,7 @@ let napak = {
     globals.routes.signup = viewSignup;
     globals.routes.statistics = viewStatistics;
     globals.routes.resetPassword = viewResetPassword;
+    globals.routes.achievements = viewAchievements;
 
     let gridContainer = dce({el: 'DIV', cssClass: 'grid-container'});
     let appContainer = dce({el: 'DIV', cssClass : 'app'});

@@ -7,7 +7,7 @@ import statusTicker from '/js/templates/partials/status_ticker.js';
 class viewProfile {
   constructor() {
 
-    let container = dce({el: 'DIV', cssClass: 'page-profile'});
+    let container = dce({el: 'DIV', cssClass: 'page-achievements'});
 
     let ticker = new statusTicker({
       titlePrefix : 'Profile',

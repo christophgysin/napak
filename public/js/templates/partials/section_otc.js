@@ -158,6 +158,11 @@ class otc {
     let btnStatisticsText = dce({el: 'SPAN', content: 'Statistics'});
     btnStatistics.appendChild(btnStatisticsText)
 
+    let btnAchievements = dce({el: 'DIV', attrbs: [['data-route', 'achievements']] });
+    let btnAchievementsText = dce({el: 'SPAN', content: 'Achievements'});
+    btnAchievements.appendChild(btnAchievementsText)
+
+
     let btnHistory = dce({el: 'DIV', attrbs: [['data-route', 'history']] });
     let btnHistoryText = dce({el: 'SPAN', content: 'History'});
     btnHistory.appendChild(btnHistoryText)
@@ -183,6 +188,11 @@ class otc {
       document.body.classList.remove('otc')
     }, false);
 
+    btnAchievements.addEventListener('click', () => {
+      route({page: 'achievements'});
+      document.body.classList.remove('otc')
+    }, false);
+
     btnStatistics.addEventListener('click', () => {
       route({page: 'statistics'});
       document.body.classList.remove('otc')
@@ -193,7 +203,7 @@ class otc {
       document.body.classList.remove('otc')
     }, false);
 
-    sideNavLinks.append(btnHome, btnProfile, /*btnStatistics,*/ btnHistory, btnGroups);
+    sideNavLinks.append(btnHome, btnProfile, /*btnStatistics, btnAchievements, */ btnHistory, btnGroups);
 
     otcLinksContainer.append(logoContainer, loginInfo, settingsContainer,sideNavLinks);
 

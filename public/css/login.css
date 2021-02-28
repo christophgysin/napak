@@ -48,10 +48,20 @@
 .api-message-error:not(:empty) {
   margin: 0 0 var(--padding-base);
   color: var(--color-white);
-  border: 1px dashed var(--color-white-dim);
-  padding: var(--padding-base-half);
-  background: var(--color-black-alpha40);
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+.api-message-error:not(:empty):before,
+.login-error:not(:empty):before {
+  display: block;
+  content: "";
+  background: url(/images/icon_alert.svg);
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
 }
 
 .api-message-success:not(:empty) {
